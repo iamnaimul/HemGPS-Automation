@@ -1,0 +1,3967 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>শিক্ষার্থীর ফলাফল তৈরি — হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+    <style>
+      :root {
+        --paper: #ffffff;
+        --paper-2: #fafafa;
+        --paper-3: #f5f6f8;
+        --page-bg: #eef1f5;
+        --ink: #1f2937;
+        --ink-2: #374151;
+        --ink-3: #6b7280;
+        --ink-4: #9ca3af;
+        --line: #d1d5db;
+        --line-2: #9ca3af;
+        --edu-bg: #eef2ff;
+        --edu-bg-2: #e0e7ff;
+        --edu-bd: #c7d2fe;
+        --edu-txt: #3730a3;
+        --mrk-bg: #fffbeb;
+        --mrk-bg-2: #fef3c7;
+        --mrk-bd: #fde68a;
+        --mrk-txt: #78350f;
+        --res-bg: #ecfdf5;
+        --res-bg-2: #d1fae5;
+        --res-bd: #a7f3d0;
+        --res-txt: #065f46;
+        --danger: #b91c1c;
+        --danger-soft: #fef2f2;
+        --success: #047857;
+        --warn: #b45309;
+        --total-bg: #ecfdf5;
+        --total-txt: #065f46;
+        --avg-bg: #eff6ff;
+        --avg-txt: #1e40af;
+        --grade-bg: #fffbeb;
+        --grade-txt: #78350f;
+        --ach-bg: #f5f3ff;
+        --ach-txt: #5b21b6;
+        --rank-bg: #fff1f2;
+        --rank-txt: #9f1239;
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --shadow-md: 0 2px 8px rgba(15, 23, 42, 0.06);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1);
+        --radius-lg: 14px;
+
+        --card: var(--paper);
+        --surface: var(--paper-3);
+        --text: var(--ink);
+        --text-soft: var(--ink-2);
+        --muted: var(--ink-3);
+        --border: var(--line);
+        --border-strong: var(--line-2);
+        --primary: #1e40af;
+        --primary-hover: #1d4ed8;
+        --primary-soft: #eff6ff;
+        --primary-soft-2: #dbeafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(30, 64, 175, 0.16);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--page-bg);
+        color: var(--ink);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font-family: var(--font-body);
+        font-size: inherit;
+        outline: none;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        background: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-head);
+        font-weight: 900;
+        letter-spacing: 0.15px;
+      }
+      :where(a, button, input, select, [tabindex]):focus-visible {
+        outline: 3px solid rgba(30, 64, 175, 0.38);
+        outline-offset: 2px;
+      }
+
+      .top-bar {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        padding: 16px 26px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        box-shadow: var(--shadow-md);
+      }
+      .top-bar .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+      }
+      .top-bar .brand-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        flex-shrink: 0;
+      }
+      .top-bar h1 {
+        font-size: clamp(15px, 1.4vw, 18px);
+        font-weight: 900;
+        line-height: 1.25;
+      }
+      .top-bar p {
+        font-size: clamp(11.5px, 1vw, 12.5px);
+        opacity: 0.9;
+      }
+      .top-bar-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.18s ease;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.28);
+      }
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30, 64, 175, 0.36);
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .btn-ghost:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--ink-2);
+        border: 1.5px solid var(--line);
+      }
+      .btn-outline:hover:not(:disabled) {
+        border-color: #1e40af;
+        color: #1e40af;
+        transform: translateY(-1px);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .btn .badge-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 19px;
+        height: 19px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: #f59e0b;
+        color: #fff;
+        font-family: var(--font-head);
+        font-size: 10.5px;
+        font-weight: 900;
+        line-height: 1;
+        box-shadow: 0 2px 6px rgba(245, 158, 11, 0.45);
+      }
+
+      .setup-wrap {
+        max-width: 780px;
+        margin: 40px auto;
+        padding: 0 18px;
+        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .setup-card {
+        background: var(--paper);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        position: relative;
+      }
+      .setup-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1e3a8a, #1d4ed8);
+      }
+      .setup-head {
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, #f8fafc, #eff6ff);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .setup-head .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        box-shadow: 0 10px 22px -6px rgba(30, 64, 175, 0.5);
+        flex-shrink: 0;
+      }
+      .setup-head h2 {
+        font-size: 19px;
+        font-weight: 900;
+        margin-bottom: 3px;
+        color: var(--ink);
+      }
+      .setup-head p {
+        font-size: 12.5px;
+        color: var(--ink-3);
+      }
+      .setup-body {
+        padding: 24px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .setup-section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .setup-section-title {
+        font-family: var(--font-head);
+        font-size: 12px;
+        font-weight: 900;
+        color: #1e40af;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 9px;
+        border-bottom: 1.5px solid var(--line);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--ink-2);
+      }
+      .field select,
+      .field input {
+        padding: 11px 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        font-size: 14px;
+        background: #fff;
+        color: var(--ink);
+        width: 100%;
+        transition: 0.15s;
+        font-weight: 500;
+      }
+      .field select:hover,
+      .field input:hover {
+        border-color: var(--line-2);
+      }
+      .field select:focus,
+      .field input:focus {
+        border-color: #1e40af;
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.11);
+      }
+      .setup-foot {
+        padding: 18px 26px 22px;
+        background: var(--paper-2);
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .setup-status {
+        font-size: 13px;
+        color: var(--ink-2);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        font-weight: 600;
+      }
+      .setup-status .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.16);
+      }
+      .setup-status.warn {
+        color: var(--warn);
+      }
+      .setup-status.warn .dot {
+        background: var(--warn);
+        box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.16);
+      }
+      .setup-status strong {
+        color: #1e40af;
+        font-weight: 800;
+      }
+
+      #resultView {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+        background: var(--paper);
+      }
+      #resultView.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .result-toolbar {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        padding: 14px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-md);
+      }
+      .result-toolbar .info h3 {
+        font-size: 16.5px;
+        font-weight: 900;
+      }
+      .result-toolbar .info p {
+        font-size: 12px;
+        opacity: 0.78;
+        margin-top: 2px;
+      }
+      .result-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .result-actions button {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 9px 15px;
+        border-radius: 9px;
+        font-size: 12.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.15s;
+      }
+      .result-actions button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+      .result-actions .btn-solid {
+        background: #fff;
+        color: #0f172a;
+        border-color: #fff;
+      }
+      .result-actions .btn-solid:hover {
+        background: #f1f5f9;
+      }
+      .result-actions .btn-save-solid {
+        background: #047857;
+        color: #fff;
+        border-color: #047857;
+        box-shadow: 0 4px 12px rgba(4, 120, 87, 0.35);
+      }
+      .result-actions .btn-save-solid:hover {
+        background: #065f46;
+        border-color: #065f46;
+      }
+      .result-actions .btn-danger-solid {
+        background: #b91c1c;
+        border-color: #b91c1c;
+      }
+      .result-actions .btn-danger-solid:hover {
+        background: #991b1b;
+      }
+
+      .result-body {
+        flex: 1;
+        overflow: auto;
+        background: var(--paper-3);
+        min-height: 0;
+        padding: 20px;
+      }
+
+      .table-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: var(--shadow-md);
+      }
+
+      .result-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12.5px;
+        font-variant-numeric: tabular-nums;
+        background: var(--paper);
+      }
+      .result-table thead th {
+        position: sticky;
+        background: var(--paper-2);
+        color: var(--ink);
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 11px;
+        padding: 9px 6px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1.25;
+        border: 1px solid var(--line);
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .result-table thead tr:nth-child(1) th {
+        top: 0;
+      }
+      .result-table thead tr:nth-child(2) th {
+        top: var(--h1, 34px);
+      }
+      .result-table thead tr:nth-child(3) th {
+        top: var(--h2, 62px);
+      }
+      .result-table thead .group-head {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 12px;
+        padding: 10px 8px;
+        letter-spacing: 0.4px;
+        border: 1px solid var(--line);
+        border-radius: 0;
+      }
+      .result-table thead .group-education {
+        background: linear-gradient(135deg, var(--edu-bg), var(--edu-bg-2));
+        color: var(--edu-txt);
+        border-color: var(--edu-bd);
+      }
+      .result-table thead .group-marks {
+        background: linear-gradient(135deg, var(--mrk-bg), var(--mrk-bg-2));
+        color: var(--mrk-txt);
+        border-color: var(--mrk-bd);
+      }
+      .result-table thead .group-result {
+        background: linear-gradient(135deg, var(--res-bg), var(--res-bg-2));
+        color: var(--res-txt);
+        border-color: var(--res-bd);
+      }
+      .result-table thead th.subject-head {
+        background: #fffbeb;
+        color: var(--mrk-txt);
+        font-size: 11px;
+        padding: 8px 5px;
+      }
+      .result-table thead th.subject-head small {
+        display: block;
+        font-size: 9.5px;
+        font-weight: 600;
+        color: #a16207;
+        margin-top: 2px;
+      }
+      .result-table thead th.result-head {
+        background: #ecfdf5;
+        color: var(--res-txt);
+      }
+      .result-table thead th.sub-head {
+        background: #fef9e7;
+        font-size: 10px;
+        font-weight: 800;
+        color: #92400e;
+        padding: 6px 4px;
+        border-bottom: 1px solid var(--mrk-bd);
+      }
+      .result-table thead th.col-rol {
+        border-left: 1px solid var(--edu-bd);
+      }
+      .result-table thead th.col-class {
+        border-right: 1px solid var(--edu-bd);
+      }
+      .result-table tbody td {
+        padding: 7px 5px;
+        text-align: center;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 12.5px;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .result-table tbody tr:nth-child(even) td {
+        background: #fbfcfd;
+      }
+      .result-table tbody tr:hover td {
+        background: #f1f5f9;
+      }
+      .result-table tbody td.col-rol {
+        font-weight: 700;
+        color: var(--ink-2);
+        border-left: 1px solid var(--edu-bd);
+      }
+      .result-table tbody td.col-name {
+        text-align: left;
+        padding-left: 12px;
+        font-weight: 600;
+        min-width: 160px;
+      }
+      .result-table tbody td.col-class {
+        font-size: 11px;
+        color: var(--ink-2);
+        border-right: 1px solid var(--edu-bd);
+      }
+      .result-table tbody td.col-marks-start {
+        border-left: 1px solid var(--mrk-bd);
+      }
+      .result-table tbody td.total-cell {
+        border-left: 1px solid var(--res-bd);
+      }
+      .result-table tbody td.rank-cell {
+        border-right: 1px solid var(--res-bd);
+      }
+      .result-table .sum-cell {
+        font-weight: 700;
+        background: #f8fafc !important;
+        color: var(--ink-2) !important;
+      }
+      .result-table .total-cell {
+        font-weight: 900;
+        background: var(--total-bg) !important;
+        color: var(--total-txt) !important;
+      }
+      .result-table .avg-cell {
+        font-weight: 900;
+        background: var(--avg-bg) !important;
+        color: var(--avg-txt) !important;
+      }
+      .result-table .grade-cell {
+        font-family: var(--font-head);
+        font-weight: 900;
+        background: var(--grade-bg) !important;
+        color: var(--grade-txt) !important;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+      }
+      .result-table .achieve-cell {
+        font-weight: 700;
+        background: var(--ach-bg) !important;
+        color: var(--ach-txt) !important;
+        font-size: 10.5px;
+        line-height: 1.25;
+        padding: 7px 4px;
+        white-space: normal;
+      }
+      .result-table .rank-cell {
+        font-family: var(--font-head);
+        font-weight: 900;
+        background: var(--rank-bg) !important;
+        color: var(--rank-txt) !important;
+        font-size: 13px;
+      }
+      .result-table input.mark-input {
+        width: 56px;
+        padding: 6px 4px;
+        border: 1.5px solid var(--line);
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 700;
+        text-align: center;
+        background: #fff;
+        color: var(--ink);
+        transition: 0.12s;
+        font-variant-numeric: tabular-nums;
+      }
+      .result-table input.mark-input:hover {
+        border-color: var(--line-2);
+        background: #fbfcfe;
+      }
+      .result-table input.mark-input:focus {
+        border-color: #1e40af;
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.14);
+        background: #fff;
+      }
+      .result-table input.mark-input.invalid {
+        background: var(--danger-soft);
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .result-table input.mark-input::placeholder {
+        color: #cbd5e1;
+        font-weight: 500;
+      }
+      .result-table input.mark-input.filled {
+        background: #ecfdf5;
+        border-color: #6ee7b7;
+        color: #065f46;
+      }
+      .result-table input.mark-input.filled.warn-mark {
+        background: #fff7ed;
+        border-color: #fdba74;
+        color: #9a3412;
+      }
+
+      .result-foot {
+        padding: 13px 22px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: var(--ink-3);
+        flex-shrink: 0;
+      }
+      .result-foot strong {
+        color: var(--ink);
+        font-weight: 800;
+      }
+      .result-foot kbd {
+        background: #e2e8f0;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+        color: var(--ink-2);
+        font-weight: 700;
+      }
+
+      .empty-wrap {
+        max-width: 520px;
+        margin: 60px auto;
+        padding: 0 18px;
+      }
+      .empty-card {
+        background: var(--paper);
+        padding: 50px 32px;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+      }
+      .empty-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #b45309, #b91c1c);
+      }
+      .empty-card svg {
+        color: var(--ink-4);
+        margin-bottom: 18px;
+      }
+      .empty-card h3 {
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .empty-card p {
+        font-size: 13.5px;
+        color: var(--ink-3);
+        line-height: 1.75;
+      }
+      .empty-card p strong {
+        color: var(--ink-2);
+        font-weight: 800;
+      }
+      .empty-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 2000;
+        max-width: 360px;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        display: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        border-left: 4px solid #1e40af;
+      }
+      .toast.show {
+        display: block;
+        animation: toastIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .toast.err {
+        border-left-color: var(--danger);
+      }
+      .toast.ok {
+        border-left-color: var(--success);
+      }
+      @keyframes toastIn {
+        from {
+          transform: translateY(16px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+        padding: 18px;
+      }
+      .modal-overlay.show {
+        display: flex;
+        animation: fadeIn 0.18s ease;
+      }
+      .modal {
+        background: #fff;
+        width: 100%;
+        max-width: 660px;
+        max-height: 86vh;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .modal.sm {
+        max-width: 470px;
+      }
+      .modal-head {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, #f8fafc, #eff6ff);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .modal-head h3 {
+        font-size: 16px;
+        font-weight: 900;
+      }
+      .modal-head p {
+        font-size: 12px;
+        color: var(--ink-3);
+        margin-top: 2px;
+      }
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink-3);
+        background: #fff;
+        border: 1px solid var(--line);
+        transition: 0.15s;
+        font-size: 15px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .modal-close:hover {
+        background: var(--danger-soft);
+        color: var(--danger);
+        border-color: var(--danger);
+      }
+      .modal-tools {
+        padding: 12px 20px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper-2);
+      }
+      .modal-tools .btn {
+        padding: 8px 14px;
+        font-size: 12.5px;
+      }
+      .modal-body {
+        padding: 14px 20px 20px;
+        overflow: auto;
+        flex: 1;
+        min-height: 0;
+      }
+      .modal-foot {
+        padding: 14px 20px;
+        border-top: 1px solid var(--line);
+        background: var(--paper-2);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .saved-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        margin-bottom: 10px;
+        transition: 0.15s;
+      }
+      .saved-item:hover {
+        border-color: #93c5fd;
+        box-shadow: 0 4px 14px rgba(30, 64, 175, 0.09);
+      }
+      .si-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .si-title {
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 900;
+        margin-bottom: 5px;
+        overflow-wrap: anywhere;
+        line-height: 1.35;
+      }
+      .si-meta {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+        align-items: center;
+      }
+      .chip {
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--edu-bg);
+        color: var(--edu-txt);
+        border: 1px solid var(--edu-bd);
+        font-size: 10.5px;
+        font-weight: 700;
+      }
+      .si-count {
+        font-size: 11.5px;
+        color: var(--ink-3);
+        font-weight: 700;
+      }
+      .si-sub {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .badge {
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 10.5px;
+        font-weight: 800;
+        border: 1px solid;
+      }
+      .badge-ok {
+        background: var(--res-bg);
+        color: var(--res-txt);
+        border-color: var(--res-bd);
+      }
+      .badge-warn {
+        background: var(--mrk-bg);
+        color: var(--mrk-txt);
+        border-color: var(--mrk-bd);
+      }
+      .si-date {
+        font-size: 11px;
+        color: var(--ink-4);
+      }
+      .si-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+      .mini-btn {
+        padding: 6px 11px;
+        border-radius: 8px;
+        font-size: 11.5px;
+        font-weight: 700;
+        border: 1.5px solid var(--line);
+        background: #fff;
+        color: var(--ink-2);
+        transition: 0.15s;
+        white-space: nowrap;
+      }
+      .mini-btn:hover {
+        border-color: #1e40af;
+        color: #1e40af;
+        background: #f8fafc;
+      }
+      .mini-btn.primary {
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 3px 9px rgba(30, 64, 175, 0.28);
+      }
+      .mini-btn.primary:hover {
+        color: #fff;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      }
+      .mini-btn.danger:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+        background: var(--danger-soft);
+      }
+      .saved-empty {
+        text-align: center;
+        padding: 44px 16px;
+        color: var(--ink-3);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .saved-empty strong {
+        display: block;
+        font-family: var(--font-head);
+        font-size: 15px;
+        color: var(--ink-2);
+        margin-bottom: 6px;
+      }
+      .save-hint {
+        font-size: 12.5px;
+        color: var(--ink-3);
+        padding: 10px 12px;
+        border-radius: 9px;
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        line-height: 1.6;
+      }
+      .save-hint.ok {
+        color: var(--res-txt);
+        background: var(--res-bg);
+        border-color: var(--res-bd);
+        font-weight: 700;
+      }
+      .save-hint.warn {
+        color: var(--mrk-txt);
+        background: var(--mrk-bg);
+        border-color: var(--mrk-bd);
+        font-weight: 700;
+      }
+
+      @media print {
+        .top-bar,
+        .setup-wrap,
+        .result-toolbar,
+        .result-actions,
+        .result-foot,
+        .toast,
+        .modal-overlay {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        .result-body {
+          padding: 0 !important;
+          background: #fff !important;
+        }
+      }
+      @media (max-width: 900px) {
+        .setup-wrap {
+          margin: 20px auto;
+        }
+        .result-toolbar {
+          padding: 12px 16px;
+        }
+        .result-body {
+          padding: 12px;
+        }
+        .result-table tbody td,
+        .result-table thead th {
+          padding: 6px 5px;
+          font-size: 11px;
+        }
+        .result-table input.mark-input {
+          width: 46px;
+          font-size: 11px;
+        }
+        .result-table tbody td.col-name {
+          min-width: 120px;
+        }
+      }
+      @media (max-width: 640px) {
+        .top-bar {
+          padding: 12px 16px;
+        }
+        .top-bar h1 {
+          font-size: 15px;
+        }
+        .setup-wrap {
+          padding: 0 10px;
+          margin: 14px auto;
+        }
+        .setup-body {
+          padding: 16px;
+          gap: 14px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .setup-foot {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .setup-foot .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .result-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+        }
+        .result-actions button {
+          flex: 1;
+          justify-content: center;
+        }
+        .result-body {
+          padding: 8px;
+        }
+        .result-table tbody td,
+        .result-table thead th {
+          padding: 5px 4px;
+          font-size: 10.5px;
+        }
+        .result-table input.mark-input {
+          width: 42px;
+          font-size: 10.5px;
+        }
+        .saved-item {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .si-actions {
+          justify-content: flex-end;
+        }
+        .modal-tools .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      @supports (padding: env(safe-area-inset-top)) {
+        .top-bar {
+          padding-top: max(16px, env(safe-area-inset-top, 0px));
+          padding-left: max(26px, env(safe-area-inset-left, 0px));
+          padding-right: max(26px, env(safe-area-inset-right, 0px));
+        }
+        .result-toolbar {
+          padding-top: max(14px, env(safe-area-inset-top, 0px));
+          padding-left: max(22px, env(safe-area-inset-left, 0px));
+          padding-right: max(22px, env(safe-area-inset-right, 0px));
+        }
+        .result-foot {
+          padding-bottom: max(13px, env(safe-area-inset-bottom, 0px));
+        }
+        .toast {
+          bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .mini-btn,
+        .modal-close {
+          min-height: 40px;
+        }
+        .top-bar-actions .btn,
+        .result-actions button,
+        .modal-tools .btn,
+        .modal-foot .btn {
+          min-height: 44px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]):not(.mark-input),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>শিক্ষার্থীর ফলাফল তৈরি</h1>
+          <p>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</p>
+        </div>
+      </div>
+      <div class="top-bar-actions">
+        <input
+          type="file"
+          id="importFileInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="resultImportInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="restoreFileInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <button class="btn btn-ghost" onclick="openSavedResults()">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          সংরক্ষিত ফলাফল
+          <span class="badge-count" id="savedBadge" style="display: none"
+            >০</span
+          >
+        </button>
+        <button
+          class="btn btn-ghost"
+          onclick="UnifiedBackup.backup()"
+          title="সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          সব ডেটা ব্যাকআপ
+        </button>
+        <button
+          class="btn btn-ghost"
+          onclick="document.getElementById('restoreFileInput').click()"
+          title="সব ডেটা রিস্টোর"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          সব ডেটা রিস্টোর
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-wrap" id="setupWrap">
+      <div class="setup-card">
+        <div class="setup-head">
+          <div class="icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h2>ফলাফল তৈরি</h2>
+            <p>শ্রেণি, শিক্ষাবর্ষ ও পরীক্ষার তথ্য দিন</p>
+          </div>
+        </div>
+        <div class="setup-body">
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              শিক্ষার্থী নির্বাচন
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label
+                  >শ্রেণি <span style="color: var(--danger)">*</span></label
+                >
+                <select id="classSelect"></select>
+              </div>
+              <div class="field">
+                <label>শিক্ষাবর্ষ (ঐচ্ছিক)</label>
+                <select id="yearSelect">
+                  <option value="">-- সব শিক্ষাবর্ষ --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 11l3 3L22 4"></path>
+                <path
+                  d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                ></path>
+              </svg>
+              পরীক্ষার নাম <span style="color: var(--danger)">*</span>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>পরীক্ষা নির্বাচন</label>
+                <select id="examSelect" onchange="onExamSelectChange()">
+                  <option value="">-- নির্বাচন করুন --</option>
+                  <option value="প্রথম প্রান্তিক মূল্যায়ন">
+                    প্রথম প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="দ্বিতীয় প্রান্তিক মূল্যায়ন">
+                    দ্বিতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="তৃতীয় প্রান্তিক মূল্যায়ন">
+                    তৃতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="__custom__">অন্যান্য (নিজে লিখুন)...</option>
+                </select>
+              </div>
+              <div class="field" id="customExamField" style="display: none">
+                <label>পরীক্ষার নাম লিখুন</label>
+                <input
+                  type="text"
+                  id="customExamName"
+                  placeholder="যেমন: বিশেষ মূল্যায়ন"
+                  maxlength="80"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="setup-foot">
+          <div class="setup-status" id="setupStatus">
+            <span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>
+          </div>
+          <button
+            class="btn btn-primary"
+            id="generateBtn"
+            onclick="startResultGeneration()"
+            disabled
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              ></path>
+            </svg>
+            তালিকা তৈরি করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-wrap" id="emptyWrap" style="display: none">
+      <div class="empty-card">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h3>শিক্ষার্থীর তথ্য পাওয়া যায়নি</h3>
+        <p>
+          এই ব্রাউজারে কোনো ডেটা নেই। আপনি চাইলে
+          <strong>JSON Backup</strong> ফাইল লোড করে কাজ শুরু করতে পারেন।
+        </p>
+        <div class="empty-actions">
+          <button
+            class="btn btn-primary"
+            onclick="document.getElementById('importFileInput').click()"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            JSON ব্যাকআপ লোড করুন
+          </button>
+          <button class="btn btn-outline" onclick="retryLoad()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            আবার চেষ্টা করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultView">
+      <div class="result-toolbar">
+        <div class="info">
+          <h3 id="rtTitle">ফলাফল</h3>
+          <p id="rtSub">—</p>
+        </div>
+        <div class="result-actions">
+          <button class="btn-save-solid" onclick="openSaveDialog()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+              ></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            সংরক্ষণ
+          </button>
+          <button onclick="openPrintView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              ></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            প্রিন্ট (Ctrl+P)
+          </button>
+          <button class="btn-danger-solid" onclick="closeResultView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            বন্ধ করুন
+          </button>
+        </div>
+      </div>
+      <div class="result-body" id="resultBody"></div>
+      <div class="result-foot">
+        <div>মোট শিক্ষার্থী: <strong id="rtCount">০</strong></div>
+        <div class="hint">
+          <kbd>Enter</kbd> চাপলে পরের ঘরে যাবে • <kbd>Ctrl+S</kbd> সংরক্ষণ •
+          <kbd>Esc</kbd> টেবিল বন্ধ
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="savedModal">
+      <div class="modal">
+        <div class="modal-head">
+          <div>
+            <h3>সংরক্ষিত ফলাফল</h3>
+            <p id="savedCount">—</p>
+          </div>
+          <button
+            class="modal-close"
+            type="button"
+            title="বন্ধ করুন"
+            onclick="closeModal('savedModal')"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-tools">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="exportAllSaved()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            সব ব্যাকআপ (JSON)
+          </button>
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="document.getElementById('resultImportInput').click()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            ব্যাকআপ আমদানি
+          </button>
+        </div>
+        <div class="modal-body" id="savedList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="saveDialog">
+      <div class="modal sm">
+        <div class="modal-head">
+          <div>
+            <h3>ফলাফল সংরক্ষণ</h3>
+            <p>নম্বরগুলো এই ব্রাউজারে সংরক্ষিত থাকবে</p>
+          </div>
+          <button
+            class="modal-close"
+            type="button"
+            title="বন্ধ করুন"
+            onclick="closeModal('saveDialog')"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="field" style="margin-bottom: 12px">
+            <label>সংরক্ষণের নাম</label>
+            <input
+              type="text"
+              id="saveNameInput"
+              maxlength="120"
+              placeholder="যেমন: প্রথম প্রান্তিক — ১ম"
+            />
+          </div>
+          <div class="save-hint" id="saveHint">—</div>
+        </div>
+        <div class="modal-foot">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="closeModal('saveDialog')"
+          >
+            বাতিল
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="confirmSaveResult()"
+          >
+            সংরক্ষণ করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      (function () {
+        "use strict";
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {},
+            any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+        var modal = null,
+          pending = null;
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled /><div><div class="ub-title">' +
+                esc(s.label) +
+                '</div><div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option><option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '"><input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked /><div><div class="ub-title">' +
+              esc(s.label) +
+              '</div><div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>' +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button><button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+        window.UnifiedBackup = {
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <script>
+      "use strict";
+
+      const SCHOOL_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+      const PRINT_STUDENTS_PER_PAGE = 22;
+      const STUDENT_KEYS = [
+        "hemnagar_students_v20",
+        "hemnagar_students_v19",
+        "hemnagar_students_v18",
+        "hemnagar_students_v17",
+        "hemnagar_students_v16",
+        "hemnagar_students_v15",
+        "hemnagar_students_v14",
+      ];
+      const SNAPSHOT_KEY = "hemnagar_result_snapshot";
+      const RESULTS_STORE_KEY = "hemnagar_results_store_v1";
+      const RESULT_BACKUP_TYPE = "hemnagar-results-backup";
+      const RESULT_BACKUP_VERSION = 1;
+      const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+
+      const GRADE_1_2 = [
+        { min: 80, grade: "A+", ach: "অতি উত্তম" },
+        { min: 60, grade: "B", ach: "উত্তম" },
+        { min: 40, grade: "C", ach: "সন্তোষজনক" },
+        { min: 0, grade: "D", ach: "সহায়তা প্রয়োজন" },
+      ];
+      const GRADE_3_5 = [
+        { min: 80, grade: "A", ach: "অতি উত্তম" },
+        { min: 60, grade: "B", ach: "উত্তম" },
+        { min: 40, grade: "C", ach: "সন্তোষজনক" },
+        { min: 0, grade: "D", ach: "সহায়তা প্রয়োজন" },
+      ];
+
+      const CONFIG = {
+        "১ম (প্রথম)": {
+          subjects: [
+            { n: "বাংলা", f: 50, s: 50 },
+            { n: "গণিত", f: 50, s: 50 },
+            { n: "ইংরেজি", f: 50, s: 50 },
+            { n: "বিজ্ঞান", f: 50, s: 0 },
+            { n: "ধর্ম", f: 50, s: 0 },
+            { n: "সা.মা.সা.শি.", f: 50, s: 0 },
+            { n: "শিল্পকলা", f: 50, s: 0 },
+          ],
+          grades: GRADE_1_2,
+          div: 5,
+        },
+        "২য় (দ্বিতীয়)": {
+          subjects: [
+            { n: "বাংলা", f: 50, s: 50 },
+            { n: "গণিত", f: 50, s: 50 },
+            { n: "ইংরেজি", f: 50, s: 50 },
+            { n: "বিজ্ঞান", f: 50, s: 0 },
+            { n: "ধর্ম", f: 50, s: 0 },
+            { n: "সা.মা.সা.শি.", f: 50, s: 0 },
+            { n: "শিল্পকলা", f: 50, s: 0 },
+          ],
+          grades: GRADE_1_2,
+          div: 5,
+        },
+        "৩য় (তৃতীয়)": {
+          subjects: [
+            { n: "বাংলা", f: 30, s: 70 },
+            { n: "গণিত", f: 30, s: 70 },
+            { n: "ইংরেজি", f: 30, s: 70 },
+            { n: "বা.বি", f: 30, s: 70 },
+            { n: "বিজ্ঞান", f: 30, s: 70 },
+            { n: "ধর্মশিক্ষা", f: 30, s: 70 },
+            { n: "সা.ও.মা.স্বা.শি.", f: 50, s: 0 },
+            { n: "শিল্পকলা", f: 50, s: 0 },
+          ],
+          grades: GRADE_3_5,
+          div: 7,
+        },
+        "৪র্থ (চতুর্থ)": {
+          subjects: [
+            { n: "বাংলা", f: 30, s: 70 },
+            { n: "গণিত", f: 30, s: 70 },
+            { n: "ইংরেজি", f: 30, s: 70 },
+            { n: "বা.বি", f: 30, s: 70 },
+            { n: "বিজ্ঞান", f: 30, s: 70 },
+            { n: "ধর্মশিক্ষা", f: 30, s: 70 },
+            { n: "সা.ও.মা.স্বা.শি.", f: 50, s: 0 },
+            { n: "শিল্পকলা", f: 50, s: 0 },
+          ],
+          grades: GRADE_3_5,
+          div: 7,
+        },
+        "৫ম (পঞ্চম)": {
+          subjects: [
+            { n: "বাংলা", f: 30, s: 70 },
+            { n: "গণিত", f: 30, s: 70 },
+            { n: "ইংরেজি", f: 30, s: 70 },
+            { n: "বা.বি", f: 30, s: 70 },
+            { n: "বিজ্ঞান", f: 30, s: 70 },
+            { n: "ধর্মশিক্ষা", f: 30, s: 70 },
+            { n: "সা.ও.মা.স্বা.শি.", f: 50, s: 0 },
+            { n: "শিল্পকলা", f: 50, s: 0 },
+          ],
+          grades: GRADE_3_5,
+          div: 7,
+        },
+      };
+
+      let allStudents = [];
+      let ctx = null;
+      const $ = (id) => document.getElementById(id);
+
+      function toEn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[০-৯]/g, (m) => BN_DIGITS.indexOf(m));
+      }
+      function toBn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
+      }
+      function pureNumeric(str) {
+        const cleaned = toEn(str).replace(/[^0-9.]/g, "");
+        const firstDot = cleaned.indexOf(".");
+        if (firstDot === -1) return cleaned;
+        return (
+          cleaned.slice(0, firstDot + 1) +
+          cleaned.slice(firstDot + 1).replace(/\./g, "")
+        );
+      }
+      function esc(t) {
+        return String(t == null ? "" : t)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function toast(msg, type) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.className = "toast show " + (type || "");
+        clearTimeout(t._tm);
+        t._tm = setTimeout(() => {
+          t.className = "toast";
+        }, 2800);
+      }
+      function debounce(fn, delay) {
+        let t;
+        return function (...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), delay);
+        };
+      }
+      function tryLoadFromSnapshot() {
+        try {
+          const raw = localStorage.getItem(SNAPSHOT_KEY);
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (obj && Array.isArray(obj.students) && obj.students.length)
+            return obj.students;
+        } catch (e) {}
+        return null;
+      }
+      function tryLoadFromMainKeys() {
+        for (const k of STUDENT_KEYS) {
+          try {
+            const raw = localStorage.getItem(k);
+            if (!raw) continue;
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr) && arr.length) return arr;
+          } catch (e) {}
+        }
+        return null;
+      }
+      function loadStudents() {
+        return tryLoadFromMainKeys() || tryLoadFromSnapshot() || [];
+      }
+
+      function refreshSetup() {
+        const classSel = $("classSelect");
+        const oldCls = classSel.value;
+        classSel.innerHTML =
+          '<option value="">-- শ্রেণি নির্বাচন করুন --</option>';
+        Object.keys(CONFIG).forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          classSel.appendChild(o);
+        });
+        if ([...classSel.options].some((o) => o.value === oldCls))
+          classSel.value = oldCls;
+        const years = [
+          ...new Set(allStudents.map((s) => s.academicYear).filter(Boolean)),
+        ];
+        years.sort((a, b) => String(b).localeCompare(String(a), "bn"));
+        const yearSel = $("yearSelect");
+        const oldYear = yearSel.value;
+        yearSel.innerHTML = '<option value="">-- সব শিক্ষাবর্ষ --</option>';
+        years.forEach((y) => {
+          const o = document.createElement("option");
+          o.value = y;
+          o.textContent = y;
+          yearSel.appendChild(o);
+        });
+        if ([...yearSel.options].some((o) => o.value === oldYear))
+          yearSel.value = oldYear;
+        updateStatus();
+      }
+      function initSetup() {
+        allStudents = loadStudents();
+        $("classSelect").addEventListener("change", updateStatus);
+        $("yearSelect").addEventListener("change", updateStatus);
+        $("customExamName").addEventListener("input", updateStatus);
+        const imp = $("importFileInput");
+        if (imp && !imp._bound) {
+          imp.addEventListener("change", handleImportFile);
+          imp._bound = true;
+        }
+        if (!window._storageBound) {
+          window.addEventListener("storage", function (e) {
+            if (!e.key) return;
+            const relevant =
+              e.key === SNAPSHOT_KEY ||
+              STUDENT_KEYS.indexOf(e.key) !== -1 ||
+              e.key === RESULTS_STORE_KEY;
+            if (!relevant) return;
+            if (e.key === RESULTS_STORE_KEY) {
+              updateSavedBadge();
+              if ($("savedModal").classList.contains("show")) renderSavedList();
+              return;
+            }
+            const fresh = loadStudents();
+            if (
+              fresh.length &&
+              JSON.stringify(fresh) !== JSON.stringify(allStudents)
+            ) {
+              allStudents = fresh;
+              if (ctx) return;
+              $("emptyWrap").style.display = "none";
+              $("setupWrap").style.display = "block";
+              refreshSetup();
+              toast("ডেটা আপডেট হয়েছে — " + toBn(fresh.length) + " জন", "ok");
+            }
+          });
+          window._storageBound = true;
+        }
+        if (allStudents.length === 0) {
+          $("setupWrap").style.display = "none";
+          $("emptyWrap").style.display = "block";
+          return;
+        }
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+      }
+      function handleImportFile(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          try {
+            const data = JSON.parse(ev.target.result);
+            let arr = null;
+            if (Array.isArray(data)) arr = data;
+            else if (data && Array.isArray(data.students)) arr = data.students;
+            const valid = (arr || []).filter(
+              (s) => s && typeof s === "object" && (s.nameBn || s.roll),
+            );
+            if (valid.length === 0)
+              throw new Error("ফাইলে কোনো বৈধ শিক্ষার্থীর তথ্য নেই");
+            try {
+              localStorage.setItem(
+                SNAPSHOT_KEY,
+                JSON.stringify({
+                  timestamp: new Date().toISOString(),
+                  totalRecords: valid.length,
+                  students: valid,
+                  source: "imported",
+                }),
+              );
+            } catch (_) {}
+            allStudents = valid;
+            $("emptyWrap").style.display = "none";
+            $("setupWrap").style.display = "block";
+            refreshSetup();
+            toast("লোড হয়েছে: " + toBn(valid.length) + " জন শিক্ষার্থী", "ok");
+          } catch (err) {
+            toast("ফাইল পড়তে সমস্যা: " + err.message, "err");
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+      }
+      function retryLoad() {
+        const arr = loadStudents();
+        if (!arr.length) {
+          toast("এখনো কোনো ডেটা পাওয়া যায়নি — JSON ব্যাকআপ লোড করুন", "err");
+          return;
+        }
+        allStudents = arr;
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+        toast("ডেটা লোড হয়েছে — " + toBn(arr.length) + " জন", "ok");
+      }
+      function onExamSelectChange() {
+        const v = $("examSelect").value;
+        $("customExamField").style.display =
+          v === "__custom__" ? "flex" : "none";
+        if (v === "__custom__")
+          setTimeout(() => $("customExamName").focus(), 60);
+        updateStatus();
+      }
+      function getExamName() {
+        const v = $("examSelect").value;
+        if (v === "__custom__") return $("customExamName").value.trim();
+        return v;
+      }
+      function updateStatus() {
+        const cls = $("classSelect").value;
+        const exam = getExamName();
+        const status = $("setupStatus");
+        const btn = $("generateBtn");
+        if (!cls) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        if (!exam) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>পরীক্ষার নাম নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        const year = $("yearSelect").value;
+        const count = allStudents.filter(
+          (s) => s.class === cls && (!year || s.academicYear === year),
+        ).length;
+        if (count === 0) {
+          status.className = "setup-status warn";
+          status.innerHTML =
+            '<span class="dot"></span><span>এই শ্রেণিতে কোনো শিক্ষার্থী নেই</span>';
+          btn.disabled = true;
+          return;
+        }
+        status.className = "setup-status";
+        status.innerHTML =
+          '<span class="dot"></span><span>মোট <strong>' +
+          toBn(count) +
+          "</strong> জন শিক্ষার্থী প্রস্তুত</span>";
+        btn.disabled = false;
+      }
+      function startResultGeneration(record) {
+        const cls = $("classSelect").value;
+        const year = $("yearSelect").value;
+        const exam = getExamName();
+        if (!cls || !exam) return;
+        const cfg = CONFIG[cls];
+        if (!cfg) {
+          toast("শ্রেণির কনফিগারেশন পাওয়া যায়নি", "err");
+          return;
+        }
+        const classStudents = allStudents
+          .filter((s) => {
+            if (s.class !== cls) return false;
+            if (year && s.academicYear !== year) return false;
+            return true;
+          })
+          .sort((a, b) => {
+            const ra = parseInt(toEn(a.roll)) || 0;
+            const rb = parseInt(toEn(b.roll)) || 0;
+            if (ra !== rb) return ra - rb;
+            return String(a.nameBn || "").localeCompare(
+              String(b.nameBn || ""),
+              "bn",
+            );
+          });
+        if (classStudents.length === 0) {
+          toast("কোনো শিক্ষার্থী নেই", "err");
+          return;
+        }
+        ctx = {
+          cls,
+          year,
+          exam,
+          cfg,
+          subjects: cfg.subjects,
+          students: classStudents,
+        };
+        renderTable();
+        if (record && Array.isArray(record.students)) {
+          const n = applySavedRecord(record);
+          saveDraft();
+          toast(
+            "পুনরুদ্ধার হয়েছে — " + toBn(n) + " জন শিক্ষার্থীর নম্বর",
+            "ok",
+          );
+        } else if (restoreDraft()) {
+          toast("আগের অসম্পূর্ণ নম্বর পুনরুদ্ধার হয়েছে", "ok");
+        }
+        $("rtTitle").textContent = "ফলাফল — " + exam;
+        const subs = [];
+        subs.push(cls);
+        if (year) subs.push("শিক্ষাবর্ষ: " + year);
+        $("rtSub").textContent = subs.join(" • ");
+        $("rtCount").textContent = toBn(classStudents.length);
+        $("setupWrap").style.display = "none";
+        $("resultView").classList.add("active");
+        syncStickyHeads();
+      }
+      function closeResultView(skipConfirm = false) {
+        if (!skipConfirm && !confirm("ফলাফল বন্ধ করবেন?")) return;
+        saveDraft();
+        $("resultView").classList.remove("active");
+        $("setupWrap").style.display = "block";
+        ctx = null;
+        refreshSetup();
+      }
+      function renderTable() {
+        const body = $("resultBody");
+        const subs = ctx.subjects;
+        let subjCols = 0;
+        subs.forEach((s) => {
+          subjCols += s.s > 0 ? 3 : 2;
+        });
+        let hGroup = "<tr>";
+        hGroup +=
+          '<th colspan="3" class="group-head group-education">শিক্ষাগত তথ্য</th>';
+        hGroup +=
+          '<th colspan="' +
+          subjCols +
+          '" class="group-head group-marks">বিষয়ভিত্তিক নম্বর</th>';
+        hGroup += '<th colspan="5" class="group-head group-result">ফলাফল</th>';
+        hGroup += "</tr>";
+        let h1 = "<tr>";
+        h1 += '<th class="col-rol" rowspan="2">রোল</th>';
+        h1 += '<th class="col-name" rowspan="2">নাম</th>';
+        h1 += '<th class="col-class" rowspan="2">শ্রেণি</th>';
+        subs.forEach((s) => {
+          const total = s.f + s.s;
+          const cols = s.s > 0 ? 3 : 2;
+          h1 +=
+            '<th colspan="' +
+            cols +
+            '" class="subject-head">' +
+            esc(s.n) +
+            "<small>(" +
+            toBn(total) +
+            ")</small></th>";
+        });
+        h1 += '<th rowspan="2" class="result-head">সর্বমোট</th>';
+        h1 += '<th rowspan="2" class="result-head">গড়</th>';
+        h1 += '<th rowspan="2" class="result-head">গ্রেড</th>';
+        h1 += '<th rowspan="2" class="result-head">শিখন অর্জন</th>';
+        h1 +=
+          '<th rowspan="2" class="result-head" title="সব বিষয়ের নম্বর সম্পূর্ণ হলে সর্বমোট নম্বরের ভিত্তিতে অবস্থান নির্ধারিত হয়">অবস্থান</th>';
+        h1 += "</tr>";
+        let h2 = "<tr>";
+        subs.forEach((s) => {
+          if (s.s > 0)
+            h2 +=
+              '<th class="sub-head">ধারাবাহিক</th><th class="sub-head">সামষ্টিক</th><th class="sub-head">মোট</th>';
+          else
+            h2 +=
+              '<th class="sub-head">ধারাবাহিক</th><th class="sub-head">মোট</th>';
+        });
+        h2 += "</tr>";
+        const rows = ctx.students
+          .map((st, ri) => {
+            let r = "<tr>";
+            r += '<td class="col-rol">' + esc(toBn(st.roll || "")) + "</td>";
+            r +=
+              '<td class="col-name" title="' +
+              esc(st.nameBn || "") +
+              '">' +
+              esc(st.nameBn || "") +
+              "</td>";
+            r += '<td class="col-class">' + esc(st.class || "") + "</td>";
+            subs.forEach((s, si) => {
+              const isFirst = si === 0;
+              const extraCls = isFirst ? "col-marks-start" : "";
+              r +=
+                '<td class="' +
+                extraCls +
+                '"><input type="text" inputmode="decimal" class="mark-input" maxlength="6" placeholder="' +
+                toBn(s.f) +
+                '" data-r="' +
+                ri +
+                '" data-si="' +
+                si +
+                '" data-t="f" data-max="' +
+                s.f +
+                '"></td>';
+              if (s.s > 0)
+                r +=
+                  '<td><input type="text" inputmode="decimal" class="mark-input" maxlength="6" placeholder="' +
+                  toBn(s.s) +
+                  '" data-r="' +
+                  ri +
+                  '" data-si="' +
+                  si +
+                  '" data-t="s" data-max="' +
+                  s.s +
+                  '"></td>';
+              r += '<td class="sum-cell" data-s="' + ri + "-" + si + '">—</td>';
+            });
+            r += '<td class="total-cell" data-tot="' + ri + '">—</td>';
+            r += '<td class="avg-cell" data-avg="' + ri + '">—</td>';
+            r += '<td class="grade-cell" data-grade="' + ri + '">—</td>';
+            r += '<td class="achieve-cell" data-ach="' + ri + '">—</td>';
+            r += '<td class="rank-cell" data-rank="' + ri + '">—</td>';
+            r += "</tr>";
+            return r;
+          })
+          .join("");
+        body.innerHTML =
+          '<div class="table-card"><table class="result-table"><thead>' +
+          hGroup +
+          h1 +
+          h2 +
+          "</thead><tbody>" +
+          rows +
+          "</tbody></table></div>";
+        if (!body._bound) {
+          body.addEventListener("input", handleInput);
+          body.addEventListener("keydown", handleKeydown);
+          body.addEventListener("blur", handleBlur, true);
+          body._bound = true;
+        }
+      }
+      function syncStickyHeads() {
+        const table = document.querySelector("#resultBody .result-table");
+        if (!table) return;
+        const trs = table.querySelectorAll("thead tr");
+        if (trs.length < 2) return;
+        const h1 = trs[0].offsetHeight;
+        table.style.setProperty("--h1", h1 + "px");
+        table.style.setProperty("--h2", h1 + trs[1].offsetHeight + "px");
+      }
+      function getDraftKey() {
+        if (!ctx) return null;
+        return (
+          "hemnagar_result_draft:" +
+          [ctx.cls, ctx.year || "all", ctx.exam].join("|")
+        );
+      }
+      function saveDraft() {
+        if (!ctx) return;
+        const inputs = [...$("resultBody").querySelectorAll(".mark-input")];
+        const marks = inputs.map((inp) => ({
+          r: inp.dataset.r,
+          k: studentKey(
+            ctx.students[inp.dataset.r].roll,
+            ctx.students[inp.dataset.r].nameBn,
+          ),
+          si: inp.dataset.si,
+          t: inp.dataset.t,
+          value: inp.dataset.eng || "",
+        }));
+        try {
+          localStorage.setItem(
+            getDraftKey(),
+            JSON.stringify({ savedAt: new Date().toISOString(), marks }),
+          );
+        } catch (_) {}
+      }
+      const saveDraftDebounced = debounce(saveDraft, 500);
+      function restoreDraft() {
+        const key = getDraftKey();
+        if (!key) return false;
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) return false;
+          const data = JSON.parse(raw);
+          if (!data || !Array.isArray(data.marks)) return false;
+          const idxByKey = new Map(
+            ctx.students.map((st, i) => [studentKey(st.roll, st.nameBn), i]),
+          );
+          const rowOf = (m) =>
+            m.k === undefined
+              ? Number(m.r)
+              : idxByKey.has(m.k)
+                ? idxByKey.get(m.k)
+                : -1;
+          let restored = 0;
+          data.marks.forEach((m) => {
+            const selector =
+              '.mark-input[data-r="' +
+              CSS.escape(String(rowOf(m))) +
+              '"][data-si="' +
+              CSS.escape(String(m.si)) +
+              '"][data-t="' +
+              CSS.escape(String(m.t)) +
+              '"]';
+            const inp = $("resultBody").querySelector(selector);
+            if (!inp || m.value === "") return;
+            inp.value = toBn(m.value);
+            inp.dataset.eng = m.value;
+            const max = parseFloat(inp.dataset.max);
+            const v = Number(m.value);
+            if (Number.isFinite(v) && v >= 0 && v <= max) {
+              inp.classList.add("filled");
+              inp.classList.remove("invalid");
+              const pct = (v / max) * 100;
+              if (pct < 33 && pct > 0) inp.classList.add("warn-mark");
+              restored++;
+            }
+          });
+          ctx.students.forEach((_, ri) => recalcRow(ri));
+          return restored > 0;
+        } catch (_) {
+          return false;
+        }
+      }
+      function handleInput(e) {
+        const inp = e.target;
+        if (!inp.classList.contains("mark-input")) return;
+        const raw = inp.value;
+        const cleaned = raw.replace(/[^0-9০-৯.]/g, "");
+        const bangla = toBn(pureNumeric(cleaned));
+        if (bangla !== raw) {
+          const pos = inp.selectionStart || 0;
+          let keptBefore = 0;
+          for (let i = 0; i < pos && i < raw.length; i++) {
+            if (/[0-9০-৯.]/.test(raw[i])) keptBefore++;
+          }
+          inp.value = bangla;
+          try {
+            inp.setSelectionRange(keptBefore, keptBefore);
+          } catch (_) {}
+        }
+        const eng = pureNumeric(inp.value);
+        inp.dataset.eng = eng;
+        const max = parseFloat(inp.dataset.max);
+        const v = eng === "" ? null : parseFloat(eng);
+        if (v !== null && (isNaN(v) || v < 0 || v > max)) {
+          inp.classList.add("invalid");
+          inp.classList.remove("filled", "warn-mark");
+        } else if (v !== null) {
+          inp.classList.remove("invalid");
+          inp.classList.add("filled");
+          const pct = (v / max) * 100;
+          if (pct < 33 && pct > 0) inp.classList.add("warn-mark");
+          else inp.classList.remove("warn-mark");
+        } else {
+          inp.classList.remove("invalid", "filled", "warn-mark");
+        }
+        recalcRow(parseInt(inp.dataset.r));
+        saveDraftDebounced();
+      }
+      function handleKeydown(e) {
+        const inp = e.target;
+        if (!inp.classList.contains("mark-input")) return;
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const allInputs = [
+            ...$("resultBody").querySelectorAll(".mark-input"),
+          ];
+          const idx = allInputs.indexOf(inp);
+          const next = allInputs[idx + 1];
+          if (next) {
+            next.focus();
+            next.select();
+          }
+        }
+        if (e.key === "Escape") inp.blur();
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          const tr = inp.closest("tr");
+          const sib =
+            e.key === "ArrowDown"
+              ? tr.nextElementSibling
+              : tr.previousElementSibling;
+          if (!sib) return;
+          const col = [...tr.querySelectorAll(".mark-input")].indexOf(inp);
+          const target = sib.querySelectorAll(".mark-input")[col];
+          if (target) {
+            e.preventDefault();
+            target.focus();
+            target.select();
+          }
+        }
+      }
+      function handleBlur(e) {
+        const inp = e.target;
+        if (!inp || !inp.classList || !inp.classList.contains("mark-input"))
+          return;
+        const eng = inp.dataset.eng || "";
+        if (eng === "") inp.classList.remove("invalid", "filled", "warn-mark");
+        saveDraft();
+      }
+      function readMark(input, max) {
+        if (!input) return { state: "blank", value: 0 };
+        const eng = input.dataset.eng;
+        if (eng === undefined || eng === null || eng === "")
+          return { state: "blank", value: 0 };
+        const value = Number(eng);
+        if (!Number.isFinite(value) || value < 0 || value > max)
+          return { state: "invalid", value: 0 };
+        return { state: "valid", value: value };
+      }
+      function readRow(ri) {
+        if (!ctx) return null;
+        const tbody = $("resultBody").querySelector("tbody");
+        const row = tbody && tbody.children[ri];
+        if (!row) return null;
+        const subs = ctx.subjects;
+        const subjTotals = [],
+          subjHasAny = [];
+        let obtained = 0,
+          hasAny = false,
+          hasInvalid = false,
+          complete = true;
+        subs.forEach((s, si) => {
+          const needSec = s.s > 0;
+          const fIn = row.querySelector(
+            'input[data-r="' + ri + '"][data-si="' + si + '"][data-t="f"]',
+          );
+          const sIn = needSec
+            ? row.querySelector(
+                'input[data-r="' + ri + '"][data-si="' + si + '"][data-t="s"]',
+              )
+            : null;
+          const f = readMark(fIn, s.f);
+          const sm = needSec
+            ? readMark(sIn, s.s)
+            : { state: "blank", value: 0 };
+          const subjAny =
+            f.state !== "blank" || (needSec && sm.state !== "blank");
+          if (subjAny) hasAny = true;
+          if (f.state === "invalid" || (needSec && sm.state === "invalid"))
+            hasInvalid = true;
+          const subjComplete =
+            f.state === "valid" && (!needSec || sm.state === "valid");
+          if (subjComplete) {
+            const t = f.value + (needSec ? sm.value : 0);
+            subjTotals.push(t);
+            obtained += t;
+          } else {
+            subjTotals.push(null);
+            complete = false;
+          }
+          subjHasAny.push(subjAny);
+        });
+        if (!hasAny || hasInvalid) complete = false;
+        return {
+          ri,
+          row,
+          subjTotals,
+          subjHasAny,
+          obtained,
+          hasAny,
+          hasInvalid,
+          complete,
+        };
+      }
+      function recalcRow(ri) {
+        if (!ctx) return;
+        const data = readRow(ri);
+        if (!data) return;
+        const row = data.row;
+        const subs = ctx.subjects;
+        subs.forEach((s, si) => {
+          const cell = row.querySelector('[data-s="' + ri + "-" + si + '"]');
+          if (!cell) return;
+          const t = data.subjTotals[si];
+          if (t !== null) cell.textContent = toBn(t);
+          else if (data.subjHasAny[si]) cell.textContent = "⚠";
+          else cell.textContent = "—";
+        });
+        const totEl = row.querySelector('[data-tot="' + ri + '"]');
+        const avgEl = row.querySelector('[data-avg="' + ri + '"]');
+        const gradeEl = row.querySelector('[data-grade="' + ri + '"]');
+        const achEl = row.querySelector('[data-ach="' + ri + '"]');
+        if (!data.hasAny) {
+          totEl.textContent = "—";
+          avgEl.textContent = "—";
+          gradeEl.textContent = "—";
+          achEl.textContent = "—";
+          computeRanks();
+          return;
+        }
+        if (data.hasInvalid) {
+          totEl.textContent = "⚠";
+          avgEl.textContent = "—";
+          gradeEl.textContent = "—";
+          achEl.textContent = "নম্বর সংশোধন করুন";
+          computeRanks();
+          return;
+        }
+        if (!data.complete) {
+          totEl.textContent = "—";
+          avgEl.textContent = "—";
+          gradeEl.textContent = "—";
+          achEl.textContent = "অসম্পূর্ণ";
+          computeRanks();
+          return;
+        }
+        totEl.textContent = toBn(data.obtained);
+        const avg = data.obtained / ctx.cfg.div;
+        avgEl.textContent = toBn(avg.toFixed(2));
+        let gr = "—",
+          ach = "—";
+        for (const g of ctx.cfg.grades) {
+          if (avg >= g.min) {
+            gr = g.grade;
+            ach = g.ach;
+            break;
+          }
+        }
+        gradeEl.textContent = gr;
+        achEl.textContent = ach;
+        computeRanks();
+      }
+      function computeRanks() {
+        if (!ctx) return;
+        const tbody = $("resultBody").querySelector("tbody");
+        if (!tbody) return;
+        const subs = ctx.subjects;
+        const rowCount = tbody.children.length;
+        const info = [];
+        for (let ri = 0; ri < rowCount; ri++) {
+          const d = readRow(ri);
+          if (d) info.push(d);
+        }
+        const completed = info.filter((d) => d.complete);
+        const sorted = [...completed].sort((a, b) => {
+          if (b.obtained !== a.obtained) return b.obtained - a.obtained;
+          for (let i = 0; i < subs.length; i++) {
+            const av = a.subjTotals[i],
+              bv = b.subjTotals[i];
+            const an = av == null ? -1 : av,
+              bn2 = bv == null ? -1 : bv;
+            if (bn2 !== an) return bn2 - an;
+          }
+          return 0;
+        });
+        const rankMap = new Map();
+        let prevKey = null,
+          prevRank = 0;
+        sorted.forEach((item, idx) => {
+          const key =
+            item.obtained +
+            "|" +
+            item.subjTotals.map((v) => (v == null ? "-" : v)).join(",");
+          let r;
+          if (key === prevKey) r = prevRank;
+          else {
+            r = idx + 1;
+            prevRank = r;
+            prevKey = key;
+          }
+          rankMap.set(item.ri, r);
+        });
+        info.forEach((item) => {
+          const cell = item.row.querySelector('[data-rank="' + item.ri + '"]');
+          if (!cell) return;
+          if (item.complete && rankMap.has(item.ri))
+            cell.textContent = toBn(rankMap.get(item.ri));
+          else cell.textContent = "—";
+        });
+      }
+      function readStore() {
+        try {
+          const raw = localStorage.getItem(RESULTS_STORE_KEY);
+          if (!raw) return [];
+          const arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) {
+          return [];
+        }
+      }
+      function writeStore(list) {
+        try {
+          localStorage.setItem(RESULTS_STORE_KEY, JSON.stringify(list));
+          return true;
+        } catch (e) {
+          toast("সংরক্ষণ ব্যর্থ — স্টোরেজ পূর্ণ হতে পারে", "err");
+          return false;
+        }
+      }
+      function makeId() {
+        return (
+          "res_" +
+          Date.now().toString(36) +
+          "_" +
+          Math.random().toString(36).slice(2, 8)
+        );
+      }
+      function studentKey(roll, name) {
+        return String(roll || "").trim() + "|" + String(name || "").trim();
+      }
+      function dateStamp() {
+        const d = new Date();
+        return (
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0")
+        );
+      }
+      function formatDateBn(iso) {
+        try {
+          const d = new Date(iso);
+          if (isNaN(d.getTime())) return "";
+          const dd = String(d.getDate()).padStart(2, "0");
+          const mm = String(d.getMonth() + 1).padStart(2, "0");
+          const yyyy = d.getFullYear();
+          let h = d.getHours();
+          const ampm = h < 12 ? "পূর্বাহ্ণ" : "অপরাহ্ণ";
+          h = h % 12 || 12;
+          const mi = String(d.getMinutes()).padStart(2, "0");
+          return (
+            toBn(dd + "/" + mm + "/" + yyyy + " " + h + ":" + mi) + " " + ampm
+          );
+        } catch (e) {
+          return "";
+        }
+      }
+      function safeFilePart(s) {
+        return (
+          String(s || "")
+            .replace(/[^\u0980-\u09FFa-zA-Z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "")
+            .slice(0, 40) || "result"
+        );
+      }
+      function openModal(id) {
+        const el = $(id);
+        if (el) el.classList.add("show");
+      }
+      function closeModal(id) {
+        const el = $(id);
+        if (el) el.classList.remove("show");
+      }
+      function updateSavedBadge() {
+        const n = readStore().length;
+        const b = $("savedBadge");
+        if (b) {
+          b.textContent = toBn(n);
+          b.style.display = n ? "inline-flex" : "none";
+        }
+        const c = $("savedCount");
+        if (c)
+          c.textContent = n
+            ? toBn(n) + " টি ফলাফল সংরক্ষিত আছে"
+            : "এখনো কোনো ফলাফল সংরক্ষণ করা হয়নি";
+      }
+      function computeStats() {
+        if (!ctx) return { total: 0, filled: 0, complete: 0 };
+        const tbody = $("resultBody").querySelector("tbody");
+        if (!tbody) return { total: 0, filled: 0, complete: 0 };
+        const total = tbody.children.length;
+        let filled = 0,
+          complete = 0;
+        for (let ri = 0; ri < total; ri++) {
+          const d = readRow(ri);
+          if (!d) continue;
+          if (d.hasAny) filled++;
+          if (d.complete) complete++;
+        }
+        return { total, filled, complete };
+      }
+      function collectMarks() {
+        if (!ctx) return null;
+        const tbody = $("resultBody").querySelector("tbody");
+        if (!tbody) return null;
+        const out = [];
+        Array.from(tbody.children).forEach((row, ri) => {
+          const st = ctx.students[ri] || {};
+          const marks = {};
+          row.querySelectorAll("input.mark-input").forEach((inp) => {
+            const eng = inp.dataset.eng;
+            if (eng !== undefined && eng !== null && eng !== "")
+              marks[inp.dataset.si + ":" + inp.dataset.t] = eng;
+          });
+          out.push({
+            roll: String(st.roll || ""),
+            name: String(st.nameBn || ""),
+            marks,
+          });
+        });
+        return out;
+      }
+      function openSaveDialog() {
+        if (!ctx) {
+          toast("প্রথমে ফলাফল তৈরি করুন", "err");
+          return;
+        }
+        const stats = computeStats();
+        if (stats.total === 0) {
+          toast("সংরক্ষণ করার মতো কোনো সারি নেই", "err");
+          return;
+        }
+        const auto =
+          ctx.exam + " — " + ctx.cls + (ctx.year ? " (" + ctx.year + ")" : "");
+        $("saveNameInput").value = auto;
+        const hint = $("saveHint");
+        const done = stats.complete === stats.total;
+        hint.className = "save-hint " + (done ? "ok" : "warn");
+        hint.innerHTML = done
+          ? "✔ সব " +
+            toBn(stats.total) +
+            " জন শিক্ষার্থীর ফলাফল সম্পূর্ণ — <strong>সম্পূর্ণ</strong> হিসেবে সংরক্ষিত হবে।"
+          : "⚠ " +
+            toBn(stats.filled) +
+            " / " +
+            toBn(stats.total) +
+            " জনের নম্বর দেওয়া হয়েছে — <strong>অসম্পূর্ণ</strong> হিসেবে সংরক্ষিত হবে। পরে আবার খুলে সম্পূর্ণ করা যাবে।";
+        openModal("saveDialog");
+        setTimeout(() => {
+          const i = $("saveNameInput");
+          i.focus();
+          i.select();
+        }, 80);
+      }
+      function confirmSaveResult() {
+        if (!ctx) {
+          toast("প্রথমে ফলাফল তৈরি করুন", "err");
+          return;
+        }
+        const stats = computeStats();
+        const name =
+          ($("saveNameInput").value || "").trim() ||
+          ctx.exam + " — " + ctx.cls + (ctx.year ? " (" + ctx.year + ")" : "");
+        const students = collectMarks();
+        if (!students) return;
+        const list = readStore();
+        const now = new Date().toISOString();
+        const status =
+          stats.total > 0 && stats.complete === stats.total
+            ? "completed"
+            : "draft";
+        const existingIdx = list.findIndex(
+          (r) =>
+            r.cls === ctx.cls &&
+            (r.year || "") === (ctx.year || "") &&
+            r.exam === ctx.exam,
+        );
+        let rec;
+        if (existingIdx >= 0) {
+          if (
+            !confirm(
+              "এই শ্রেণি, শিক্ষাবর্ষ ও পরীক্ষার একটি সংরক্ষণ আগে থেকেই আছে।\n\nআগেরটির উপর হালনাগাদ করবেন?",
+            )
+          )
+            return;
+          rec = list.splice(existingIdx, 1)[0];
+          rec.name = name;
+          rec.status = status;
+          rec.total = stats.total;
+          rec.filled = stats.filled;
+          rec.complete = stats.complete;
+          rec.subjects = ctx.subjects.map((s) => ({ n: s.n, f: s.f, s: s.s }));
+          rec.students = students;
+          rec.updatedAt = now;
+        } else {
+          rec = {
+            id: makeId(),
+            name,
+            cls: ctx.cls,
+            year: ctx.year || "",
+            exam: ctx.exam,
+            status,
+            total: stats.total,
+            filled: stats.filled,
+            complete: stats.complete,
+            subjects: ctx.subjects.map((s) => ({ n: s.n, f: s.f, s: s.s })),
+            students,
+            createdAt: now,
+            updatedAt: now,
+            app: "hemnagar-result",
+          };
+        }
+        list.unshift(rec);
+        if (writeStore(list)) {
+          closeModal("saveDialog");
+          updateSavedBadge();
+          toast(
+            status === "completed"
+              ? "সম্পূর্ণ ফলাফল সংরক্ষিত হয়েছে"
+              : "অসম্পূর্ণ ফলাফল সংরক্ষিত হয়েছে — পরে চালিয়ে যেতে পারবেন",
+            "ok",
+          );
+        }
+      }
+      function openSavedResults() {
+        renderSavedList();
+        updateSavedBadge();
+        openModal("savedModal");
+      }
+      function renderSavedList() {
+        const wrap = $("savedList");
+        if (!wrap) return;
+        const list = readStore();
+        if (!list.length) {
+          wrap.innerHTML =
+            '<div class="saved-empty"><strong>কোনো সংরক্ষিত ফলাফল নেই</strong>ফলাফল তৈরির পর <b>সংরক্ষণ</b> বাটনে চাপ দিলে এখানে জমা হবে।<br>আগের ব্যাকআপ ফাইল থাকলে <b>ব্যাকআপ আমদানি</b> করুন।</div>';
+          return;
+        }
+        wrap.innerHTML = list
+          .map((rec) => {
+            const done = rec.status === "completed";
+            const total = Number(rec.total) || (rec.students || []).length;
+            return (
+              '<div class="saved-item" data-id="' +
+              esc(rec.id) +
+              '">' +
+              '<div class="si-main"><div class="si-title">' +
+              esc(rec.name || rec.exam || "ফলাফল") +
+              "</div>" +
+              '<div class="si-meta"><span class="chip">' +
+              esc(rec.cls || "") +
+              "</span>" +
+              (rec.year
+                ? '<span class="chip">' + esc(rec.year) + "</span>"
+                : "") +
+              '<span class="chip">' +
+              esc(rec.exam || "") +
+              "</span>" +
+              '<span class="si-count">' +
+              toBn(total) +
+              " জন</span></div>" +
+              '<div class="si-sub"><span class="badge ' +
+              (done ? "badge-ok" : "badge-warn") +
+              '">' +
+              (done ? "সম্পূর্ণ" : "অসম্পূর্ণ") +
+              "</span>" +
+              '<span class="si-date">' +
+              formatDateBn(rec.updatedAt || rec.createdAt) +
+              "</span></div></div>" +
+              '<div class="si-actions">' +
+              '<button type="button" class="mini-btn primary" data-act="load">খুলুন</button>' +
+              '<button type="button" class="mini-btn" data-act="export">JSON</button>' +
+              '<button type="button" class="mini-btn danger" data-act="delete">মুছুন</button>' +
+              "</div></div>"
+            );
+          })
+          .join("");
+      }
+      function initSavedResults() {
+        const listEl = $("savedList");
+        if (listEl && !listEl._bound) {
+          listEl.addEventListener("click", (e) => {
+            const btn = e.target.closest
+              ? e.target.closest("button[data-act]")
+              : null;
+            if (!btn) return;
+            const item = btn.closest(".saved-item");
+            if (!item) return;
+            const id = item.dataset.id;
+            const act = btn.dataset.act;
+            if (act === "load") loadSavedResult(id);
+            else if (act === "export") exportSavedResult(id);
+            else if (act === "delete") deleteSavedResult(id);
+          });
+          listEl._bound = true;
+        }
+        const imp = $("resultImportInput");
+        if (imp && !imp._bound) {
+          imp.addEventListener("change", handleResultImport);
+          imp._bound = true;
+        }
+        ["savedModal", "saveDialog"].forEach((id) => {
+          const el = $(id);
+          if (el && !el._bound) {
+            el.addEventListener("mousedown", (ev) => {
+              if (ev.target === el) closeModal(id);
+            });
+            el._bound = true;
+          }
+        });
+        updateSavedBadge();
+      }
+      function loadSavedResult(id) {
+        const rec = readStore().find((r) => r.id === id);
+        if (!rec) {
+          toast("সংরক্ষিত ফলাফল পাওয়া যায়নি", "err");
+          return;
+        }
+        if (!CONFIG[rec.cls]) {
+          toast("শ্রেণির কনফিগারেশন পাওয়া যায়নি: " + rec.cls, "err");
+          return;
+        }
+        closeModal("savedModal");
+        const classSel = $("classSelect");
+        if (![...classSel.options].some((o) => o.value === rec.cls)) {
+          toast("শ্রেণি তালিকায় পাওয়া যায়নি", "err");
+          return;
+        }
+        classSel.value = rec.cls;
+        const yearSel = $("yearSelect");
+        if (rec.year) {
+          if (![...yearSel.options].some((o) => o.value === rec.year)) {
+            const o = document.createElement("option");
+            o.value = rec.year;
+            o.textContent = rec.year;
+            yearSel.appendChild(o);
+          }
+          yearSel.value = rec.year;
+        } else yearSel.value = "";
+        const examSel = $("examSelect");
+        const isPreset = [...examSel.options].some((o) => o.value === rec.exam);
+        if (isPreset) {
+          examSel.value = rec.exam;
+          $("customExamField").style.display = "none";
+        } else {
+          examSel.value = "__custom__";
+          $("customExamField").style.display = "flex";
+          $("customExamName").value = rec.exam || "";
+        }
+        updateStatus();
+        if ($("generateBtn").disabled) {
+          toast(
+            "এই শ্রেণি/শিক্ষাবর্ষে কোনো শিক্ষার্থী নেই — আগে শিক্ষার্থীর ডেটা লোড করুন",
+            "err",
+          );
+          return;
+        }
+        startResultGeneration(rec);
+      }
+      function applySavedRecord(rec) {
+        if (!ctx || !rec || !Array.isArray(rec.students)) return 0;
+        const tbody = $("resultBody").querySelector("tbody");
+        if (!tbody) return 0;
+        const rows = Array.from(tbody.children);
+        const byKey = new Map();
+        rec.students.forEach((s) => {
+          byKey.set(studentKey(s.roll, s.name), s);
+        });
+        let touchedRows = 0;
+        rows.forEach((row, ri) => {
+          const st = ctx.students[ri];
+          if (!st) return;
+          let src = byKey.get(studentKey(st.roll, st.nameBn));
+          if (!src) {
+            const roll = String(st.roll || "").trim();
+            const same = rec.students.filter(
+              (x) => String(x.roll).trim() === roll,
+            );
+            if (same.length === 1) src = same[0];
+          }
+          if (!src || !src.marks || typeof src.marks !== "object") return;
+          let rowTouched = false;
+          Object.keys(src.marks).forEach((k) => {
+            const parts = String(k).split(":");
+            if (parts.length !== 2) return;
+            const si = parts[0],
+              t = parts[1];
+            const inp = row.querySelector(
+              '.mark-input[data-si="' + si + '"][data-t="' + t + '"]',
+            );
+            if (!inp) return;
+            const val = String(src.marks[k]).replace(/[^0-9.]/g, "");
+            if (val === "") return;
+            const max = parseFloat(inp.dataset.max);
+            const num = Number(val);
+            if (!Number.isFinite(num) || num < 0 || num > max) return;
+            inp.value = toBn(val);
+            inp.dataset.eng = val;
+            inp.classList.add("filled");
+            inp.classList.remove("invalid");
+            const pct = (num / max) * 100;
+            if (pct < 33 && pct > 0) inp.classList.add("warn-mark");
+            else inp.classList.remove("warn-mark");
+            rowTouched = true;
+          });
+          if (rowTouched) touchedRows++;
+          recalcRow(ri);
+        });
+        return touchedRows;
+      }
+      function deleteSavedResult(id) {
+        const list = readStore();
+        const rec = list.find((r) => r.id === id);
+        if (!rec) return;
+        if (!confirm('"' + (rec.name || rec.exam) + '" মুছে ফেলবেন?')) return;
+        if (writeStore(list.filter((r) => r.id !== id))) {
+          updateSavedBadge();
+          renderSavedList();
+          toast("মুছে ফেলা হয়েছে", "ok");
+        }
+      }
+      function downloadJson(obj, filename) {
+        const blob = new Blob([JSON.stringify(obj, null, 2)], {
+          type: "application/json;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+      }
+      function exportSavedResult(id) {
+        const rec = readStore().find((r) => r.id === id);
+        if (!rec) {
+          toast("ফলাফল পাওয়া যায়নি", "err");
+          return;
+        }
+        downloadJson(
+          {
+            app: "hemnagar-result",
+            type: RESULT_BACKUP_TYPE,
+            version: RESULT_BACKUP_VERSION,
+            school: SCHOOL_NAME,
+            exportedAt: new Date().toISOString(),
+            results: [rec],
+          },
+          "result_" +
+            safeFilePart(rec.cls) +
+            "_" +
+            safeFilePart(rec.exam) +
+            "_" +
+            dateStamp() +
+            ".json",
+        );
+        toast("JSON ফাইল ডাউনলোড হয়েছে", "ok");
+      }
+      function exportAllSaved() {
+        const list = readStore();
+        if (!list.length) {
+          toast("সংরক্ষিত কোনো ফলাফল নেই", "err");
+          return;
+        }
+        downloadJson(
+          {
+            app: "hemnagar-result",
+            type: RESULT_BACKUP_TYPE,
+            version: RESULT_BACKUP_VERSION,
+            school: SCHOOL_NAME,
+            exportedAt: new Date().toISOString(),
+            count: list.length,
+            results: list,
+          },
+          "hemnagar_results_backup_" + dateStamp() + ".json",
+        );
+        toast(toBn(list.length) + " টি ফলাফল ব্যাকআপ হয়েছে", "ok");
+      }
+      function normalizeImport(data) {
+        let arr = [];
+        if (Array.isArray(data)) arr = data;
+        else if (data && Array.isArray(data.results)) arr = data.results;
+        else if (data && data.cls && Array.isArray(data.students)) arr = [data];
+        const now = new Date().toISOString();
+        const out = [];
+        arr.forEach((r) => {
+          if (!r || typeof r !== "object") return;
+          if (!r.cls || !Array.isArray(r.students)) return;
+          const students = r.students
+            .filter((s) => s && typeof s === "object")
+            .map((s) => ({
+              roll: String(s.roll == null ? "" : s.roll),
+              name: String(s.name == null ? "" : s.name),
+              marks: s.marks && typeof s.marks === "object" ? s.marks : {},
+            }));
+          if (!students.length) return;
+          out.push({
+            id:
+              typeof r.id === "string" && r.id.trim() ? r.id.trim() : makeId(),
+            name: String(r.name || (r.exam || "ফলাফল") + " — " + r.cls).slice(
+              0,
+              120,
+            ),
+            cls: String(r.cls),
+            year: String(r.year || ""),
+            exam: String(r.exam || ""),
+            status: r.status === "completed" ? "completed" : "draft",
+            total: Number(r.total) || students.length,
+            filled: Number(r.filled) || 0,
+            complete: Number(r.complete) || 0,
+            subjects: Array.isArray(r.subjects) ? r.subjects : [],
+            students,
+            createdAt: r.createdAt || now,
+            updatedAt: r.updatedAt || now,
+            app: "hemnagar-result",
+          });
+        });
+        return out;
+      }
+      function handleResultImport(e) {
+        const file = e.target.files && e.target.files[0];
+        e.target.value = "";
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          try {
+            const data = JSON.parse(ev.target.result);
+            const incoming = normalizeImport(data);
+            if (!incoming.length)
+              throw new Error("ফাইলে কোনো বৈধ সংরক্ষিত ফলাফল নেই");
+            const list = readStore();
+            let added = 0,
+              updated = 0;
+            incoming.forEach((rec) => {
+              const idx = list.findIndex((r) => r.id === rec.id);
+              if (idx >= 0) {
+                list[idx] = rec;
+                updated++;
+              } else {
+                list.unshift(rec);
+                added++;
+              }
+            });
+            if (writeStore(list)) {
+              updateSavedBadge();
+              renderSavedList();
+              openModal("savedModal");
+              toast(
+                "আমদানি সম্পন্ন — নতুন " +
+                  toBn(added) +
+                  ", হালনাগাদ " +
+                  toBn(updated),
+                "ok",
+              );
+            }
+          } catch (err) {
+            toast("ফাইল পড়তে সমস্যা: " + err.message, "err");
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      const PRINT_STYLES = `
+        @page { size: legal landscape; margin: 8mm 6mm 10mm 6mm; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; background: #fff; color: #000; font-family: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 8pt; line-height: 1.15; }
+        .print-document { width: 100%; }
+        .print-page { position: relative; width: 100%; min-height: 0; overflow: visible; padding: 0 0 8mm 0; break-inside: avoid; page-break-inside: avoid; }
+        .print-page + .print-page { break-before: page; page-break-before: always; }
+        .print-head { text-align: center; padding: 0 0 4px 0; margin: 0 0 4px 0; width: 100%; }
+        .print-head .school { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 13pt; font-weight: 900; line-height: 1.1; margin-bottom: 1px; }
+        .print-head .exam { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 9.5pt; font-weight: 900; line-height: 1.1; margin-bottom: 2px; }
+        .print-head .meta { font-size: 7.5pt; font-weight: 600; line-height: 1.1; }
+        table.result-table { border-collapse: collapse; width: 100%; table-layout: auto; font-family: inherit; font-size: 7.5pt; color: #000; background: #fff; margin: 0; border: 1px solid #000; }
+        table.result-table th, table.result-table td { border: 1px solid #000; padding: 2.5px 3px; text-align: center; vertical-align: middle; color: #000; line-height: 1.1; background: #fff; }
+        table.result-table thead { display: table-header-group; }
+        table.result-table thead .group-head { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 8.5pt; font-weight: 900; padding: 4px 5px; letter-spacing: 0.2px; color: #000; border: 1px solid #000; }
+        table.result-table thead .group-education { background: #f2f2f2 !important; }
+        table.result-table thead .group-marks { background: #e0e0e0 !important; }
+        table.result-table thead .group-result { background: #d0d0d0 !important; }
+        table.result-table thead th.col-rol, table.result-table thead th.col-name, table.result-table thead th.col-class { background: #f8f8f8 !important; color: #000 !important; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-weight: 900; font-size: 7.5pt; padding: 4px 3px; border: 1px solid #000; }
+        table.result-table thead th.col-name { min-width: 30mm; }
+        table.result-table thead th.subject-head { background: #f8f8f8 !important; color: #000 !important; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 7.2pt; font-weight: 900; padding: 3px 2px; border: 1px solid #000; }
+        table.result-table thead th.subject-head small { display: block; font-size: 6.3pt; font-weight: 700; color: #000; }
+        table.result-table thead th.result-head { background: #f8f8f8 !important; color: #000 !important; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 7.5pt; font-weight: 900; padding: 4px 3px; border: 1px solid #000; }
+        table.result-table thead th.sub-head { background: #f8f8f8 !important; color: #000 !important; font-size: 6.5pt; font-weight: 800; padding: 2px 2px; border: 1px solid #000; }
+        table.result-table tbody tr { height: 6.1mm; break-inside: avoid; page-break-inside: avoid; }
+        table.result-table tbody td { font-size: 7.4pt; padding: 2.2px 3px; border: 1px solid #000; background: #fff; color: #000; white-space: nowrap; }
+        table.result-table tbody tr:nth-child(even) td { background: #fafafa !important; }
+        table.result-table tbody td.col-rol { font-weight: 700; color: #000; min-width: 8mm; }
+        table.result-table tbody td.col-name { text-align: left; padding-left: 5px; padding-right: 5px; font-weight: 600; min-width: 30mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        table.result-table tbody td.col-class { font-size: 7pt; color: #000; min-width: 13mm; }
+        table.result-table .sum-cell { background: #f0f0f0 !important; color: #000 !important; font-weight: 700; }
+        table.result-table .total-cell { background: #e6e6e6 !important; color: #000 !important; font-weight: 900; font-size: 7.8pt; }
+        table.result-table .avg-cell { background: #ededed !important; color: #000 !important; font-weight: 900; font-size: 7.8pt; }
+        table.result-table .grade-cell { background: #f0f0f0 !important; color: #000 !important; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-weight: 900; font-size: 8.5pt; }
+        table.result-table .achieve-cell { background: #ececec !important; color: #000 !important; font-weight: 700; font-size: 6.7pt; line-height: 1.05; padding: 2px 2px; white-space: normal; max-width: 21mm; }
+        table.result-table .rank-cell { background: #e0e0e0 !important; color: #000 !important; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-weight: 900; font-size: 8pt; }
+        table.result-table input.mark-input { border: none !important; background: transparent !important; width: 100% !important; padding: 0 !important; margin: 0 !important; text-align: center; font-family: inherit; font-size: inherit; font-weight: 700; color: #000; -webkit-appearance: none; appearance: none; }
+        .signature-block { display: flex !important; justify-content: space-between; gap: 35mm; margin-top: 15mm; padding: 0 25mm; width: 100%; break-inside: avoid; page-break-inside: avoid; }
+        .sig-item { flex: 1; text-align: center; max-width: 65mm; }
+        .sig-dots { border-top: 1px dotted #000 !important; margin-bottom: 2px; }
+        .sig-text { font-size: 7.5pt; font-weight: 700; color: #000; }
+        .page-footer { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 7.5pt; font-weight: 900; color: #000; }
+        @media screen { body { background: #eef2f7; padding: 20px; } .print-document { max-width: 1900px; margin: 0 auto; } .print-page { height: auto; min-height: 0; max-height: none; overflow: visible; background: #fff; margin: 0 auto 20px; padding: 24px 28px 38px; border: 1px solid #cbd5e1; box-shadow: 0 6px 22px rgba(15, 23, 42, 0.1); } .page-footer { position: absolute; bottom: 14px; } }
+        .action-bar { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 8px; }
+        .action-bar button { font-family: inherit; font-size: 13px; font-weight: 700; padding: 11px 18px; border: 0; border-radius: 9px; cursor: pointer; background: #1e40af; color: #fff; box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35); }
+        .action-bar button.secondary { background: #fff; color: #334155; border: 1.5px solid #e2e8f0; }
+        .print-controls { position: fixed; left: 20px; bottom: 20px; z-index: 100; display: flex; align-items: center; gap: 8px; padding: 7px 12px; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 9px; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12); font-family: inherit; font-size: 12.5px; font-weight: 700; color: #334155; user-select: none; }
+        .print-controls .pc-btn { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #cbd5e1; border-radius: 8px; background: #f8fafc; color: #1e293b; font-family: inherit; font-size: 16px; font-weight: 900; line-height: 1; cursor: pointer; }
+        .print-controls .pc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .print-controls .pc-val { min-width: 34px; text-align: center; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 15px; font-weight: 900; color: #1e40af; }
+        @media print { html, body { width: 100%; height: auto; } body { padding: 0 !important; } .print-document { width: 100%; margin: 0; } .print-page { width: 100%; height: auto; min-height: 0; max-height: none; margin: 0; padding: 0 0 8mm 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; break-inside: avoid; page-break-inside: avoid; } .action-bar, .print-controls { display: none !important; } }
+      `;
+      function openPrintView() {
+        if (!ctx) {
+          toast("প্রথমে ফলাফল তৈরি করুন", "err");
+          return;
+        }
+        const tableEl = document.querySelector("#resultBody .result-table");
+        if (!tableEl) {
+          toast("টেবিল পাওয়া যায়নি", "err");
+          return;
+        }
+        const sourceRows = Array.from(tableEl.querySelectorAll("tbody > tr"));
+        if (!sourceRows.length) {
+          toast("প্রিন্ট করার জন্য কোনো শিক্ষার্থী নেই", "err");
+          return;
+        }
+        const fullTable = tableEl.cloneNode(true);
+        fullTable.querySelectorAll("input.mark-input").forEach(function (inp) {
+          const eng = inp.dataset.eng || "";
+          const span = document.createElement("span");
+          span.textContent = eng === "" ? "" : toBn(eng);
+          inp.replaceWith(span);
+        });
+        const metaParts = [];
+        metaParts.push("শ্রেণি: " + esc(ctx.cls));
+        if (ctx.year) metaParts.push("শিক্ষাবর্ষ: " + esc(ctx.year));
+        metaParts.push("মোট শিক্ষার্থী: " + toBn(ctx.students.length));
+        const headHTML =
+          '<div class="print-head"><div class="school">' +
+          esc(SCHOOL_NAME) +
+          '</div><div class="exam">ফলাফল — ' +
+          esc(ctx.exam) +
+          '</div><div class="meta">' +
+          metaParts.join(" &nbsp;|&nbsp; ") +
+          "</div></div>";
+        const signHTML =
+          '<div class="signature-block"><div class="sig-item"><div class="sig-dots"></div><div class="sig-text">শ্রেণি শিক্ষকের স্বাক্ষর</div></div><div class="sig-item"><div class="sig-dots"></div><div class="sig-text">প্রধান শিক্ষকের স্বাক্ষর</div></div></div>';
+        const actions =
+          '<div class="action-bar"><button type="button" class="secondary" onclick="window.close()">✕ বন্ধ করুন</button><button type="button" onclick="window.print()">🖨️ প্রিন্ট / PDF</button></div>';
+        const printScript = `<script>
+(function () {
+  var MIN = 1, MAX = 60, perPage = ${PRINT_STUDENTS_PER_PAGE};
+  var HEAD = ${JSON.stringify(headHTML)};
+  var SIGN = ${JSON.stringify(signHTML)};
+  var BN = "০১২৩৪৫৬৭৮৯";
+  function toBn(v) { return String(v).replace(/[0-9]/g, function (d) { return BN[+d]; }); }
+  var tpl = document.getElementById("srcTemplate");
+  var docEl = document.getElementById("printDoc");
+  var valEl = document.getElementById("pcVal");
+  var minusBtn = document.getElementById("pcMinus");
+  var plusBtn = document.getElementById("pcPlus");
+  function render() {
+    var src = tpl.content ? tpl.content.querySelector("table") : null;
+    if (!src) return;
+    var thead = src.querySelector("thead");
+    var rows = src.querySelectorAll("tbody > tr");
+    var total = rows.length;
+    var pages = Math.max(1, Math.ceil(total / perPage));
+    var out = "";
+    for (var p = 0; p < pages; p++) {
+      var start = p * perPage, end = Math.min(start + perPage, total);
+      var tb = "<tbody>";
+      for (var i = start; i < end; i++) tb += rows[i].outerHTML;
+      tb += "</tbody>";
+      out += '<section class="print-page">' + HEAD + '<div class="print-table-wrap"><table class="result-table">' + (thead ? thead.outerHTML : "") + tb + "</table></div>" + SIGN + '<div class="page-footer">পৃষ্ঠা ' + toBn(p + 1) + " / " + toBn(pages) + "</div></section>";
+    }
+    docEl.innerHTML = out;
+    valEl.textContent = toBn(perPage);
+    minusBtn.disabled = perPage <= MIN;
+    plusBtn.disabled = perPage >= MAX;
+  }
+  function change(d) {
+    var next = perPage + d;
+    if (next < MIN) next = MIN;
+    if (next > MAX) next = MAX;
+    if (next === perPage) return;
+    perPage = next; render();
+  }
+  minusBtn.addEventListener("click", function () { change(-1); });
+  plusBtn.addEventListener("click", function () { change(1); });
+  render();
+})();
+<\/script>`;
+        const doc =
+          '<!doctype html><html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ফলাফল — ' +
+          esc(ctx.exam) +
+          "</title><style>" +
+          PRINT_STYLES +
+          "</style></head><body>" +
+          '<div class="print-controls"><span class="pc-label">প্রতি পৃষ্ঠায় শিক্ষার্থী</span><button type="button" class="pc-btn" id="pcMinus" title="কমান">−</button><span class="pc-val" id="pcVal">' +
+          toBn(PRINT_STUDENTS_PER_PAGE) +
+          '</span><button type="button" class="pc-btn" id="pcPlus" title="বাড়ান">+</button></div>' +
+          '<main class="print-document" id="printDoc"></main><template id="srcTemplate">' +
+          fullTable.outerHTML +
+          "</template>" +
+          actions +
+          printScript +
+          "</body></html>";
+        const blob = new Blob([doc], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const win = window.open(url, "_blank");
+        if (!win) {
+          URL.revokeObjectURL(url);
+          toast("পপআপ ব্লক হয়েছে — অনুমতি দিন", "err");
+          return;
+        }
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if ($("saveDialog").classList.contains("show")) {
+            closeModal("saveDialog");
+            return;
+          }
+          if ($("savedModal").classList.contains("show")) {
+            closeModal("savedModal");
+            return;
+          }
+        }
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          !e.shiftKey &&
+          !e.altKey &&
+          (e.key === "p" || e.key === "P")
+        ) {
+          if (!ctx || !$("resultView").classList.contains("active")) return;
+          e.preventDefault();
+          openPrintView();
+          return;
+        }
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          !e.shiftKey &&
+          !e.altKey &&
+          (e.key === "s" || e.key === "S")
+        ) {
+          if (!ctx || !$("resultView").classList.contains("active")) return;
+          e.preventDefault();
+          openSaveDialog();
+          return;
+        }
+        if (
+          e.key === "Escape" &&
+          ctx &&
+          $("resultView").classList.contains("active")
+        ) {
+          if (
+            e.target &&
+            e.target.classList &&
+            e.target.classList.contains("mark-input")
+          )
+            return;
+          closeResultView(true);
+        }
+      });
+      window.addEventListener("beforeunload", () => {
+        if (ctx) saveDraft();
+      });
+      window.addEventListener("resize", debounce(syncStickyHeads, 150));
+
+      document
+        .getElementById("restoreFileInput")
+        .addEventListener("change", function (e) {
+          UnifiedBackup.handleFile(e, "students");
+        });
+
+      initSetup();
+      initSavedResults();
+    </script>
+  </body>
+</html>

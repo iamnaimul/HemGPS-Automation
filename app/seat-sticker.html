@@ -1,0 +1,2555 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e40af'/%3E%3Cpath d='M14 20h36M14 32h28M14 44h18' stroke='%23ffffff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <title>সিট স্টিকার তৈরি — হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+    <style>
+      :root {
+        --paper: #ffffff;
+        --paper-2: #fafafa;
+        --paper-3: #f5f6f8;
+        --page-bg: #eef1f5;
+        --ink: #1f2937;
+        --ink-2: #374151;
+        --ink-3: #6b7280;
+        --ink-4: #9ca3af;
+        --line: #d1d5db;
+        --line-2: #9ca3af;
+        --danger: #b91c1c;
+        --success: #047857;
+        --warn: #b45309;
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --shadow-md: 0 2px 8px rgba(15, 23, 42, 0.06);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1);
+        --radius: 10px;
+        --radius-lg: 14px;
+        --card: #ffffff;
+        --surface: #f8fafc;
+        --text: #1f2937;
+        --text-soft: #374151;
+        --muted: #6b7280;
+        --border: #d1d5db;
+        --border-strong: #9ca3af;
+        --primary: #1d4ed8;
+        --primary-hover: #1e40af;
+        --primary-soft: #eff6ff;
+        --primary-soft-2: #dbeafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(29, 78, 216, 0.16);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--page-bg);
+        color: var(--ink);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font-family: var(--font-body);
+        font-size: inherit;
+        outline: none;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        background: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-head);
+        font-weight: 900;
+        letter-spacing: 0.15px;
+      }
+      :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+        outline: 3px solid rgba(29, 78, 216, 0.38);
+        outline-offset: 2px;
+      }
+      .top-bar {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        padding: 16px 26px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        box-shadow: var(--shadow-md);
+      }
+      .top-bar .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+      }
+      .top-bar .brand-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        flex-shrink: 0;
+      }
+      .top-bar h1 {
+        font-size: clamp(15px, 1.4vw, 18px);
+        font-weight: 900;
+        line-height: 1.25;
+      }
+      .top-bar p {
+        font-size: clamp(11.5px, 1vw, 12.5px);
+        opacity: 0.88;
+      }
+      .top-bar-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.18s ease;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.28);
+      }
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30, 64, 175, 0.36);
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .btn-ghost:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--ink-2);
+        border: 1.5px solid var(--line);
+      }
+      .btn-outline:hover:not(:disabled) {
+        border-color: #1e40af;
+        color: #1e40af;
+        transform: translateY(-1px);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .setup-wrap {
+        max-width: 780px;
+        margin: 40px auto;
+        padding: 0 18px;
+        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .setup-card {
+        background: var(--paper);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        position: relative;
+      }
+      .setup-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1e3a8a, #1d4ed8);
+      }
+      .setup-head {
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, #f8fafc, #eff6ff);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .setup-head .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        box-shadow: 0 10px 22px -6px rgba(30, 64, 175, 0.5);
+        flex-shrink: 0;
+      }
+      .setup-head h2 {
+        font-size: 19px;
+        font-weight: 900;
+        margin-bottom: 3px;
+        color: var(--ink);
+      }
+      .setup-head p {
+        font-size: 12.5px;
+        color: var(--ink-3);
+      }
+      .setup-body {
+        padding: 24px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .setup-section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .setup-section-title {
+        font-family: var(--font-head);
+        font-size: 12px;
+        font-weight: 900;
+        color: #1e40af;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 9px;
+        border-bottom: 1.5px solid var(--line);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--ink-2);
+      }
+      .field select,
+      .field input {
+        padding: 11px 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        font-size: 14px;
+        background: #fff;
+        color: var(--ink);
+        width: 100%;
+        transition: 0.15s;
+        font-weight: 500;
+      }
+      .field select:hover,
+      .field input:hover {
+        border-color: var(--line-2);
+      }
+      .field select:focus,
+      .field input:focus {
+        border-color: #1e40af;
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.11);
+      }
+      .setup-foot {
+        padding: 18px 26px 22px;
+        background: var(--paper-2);
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .setup-status {
+        font-size: 13px;
+        color: var(--ink-2);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        font-weight: 600;
+      }
+      .setup-status .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.16);
+      }
+      .setup-status.warn {
+        color: var(--warn);
+      }
+      .setup-status.warn .dot {
+        background: var(--warn);
+        box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.16);
+      }
+      .setup-status strong {
+        color: #1e40af;
+        font-weight: 800;
+      }
+      .hint-strip {
+        font-size: 12px;
+        color: #1e40af;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        padding: 9px 14px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        line-height: 1.45;
+      }
+      .hint-strip svg {
+        flex-shrink: 0;
+      }
+      #resultView {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+        background: var(--paper-3);
+      }
+      #resultView.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .result-toolbar {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        padding: 14px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-md);
+      }
+      .result-toolbar .info h3 {
+        font-size: 16.5px;
+        font-weight: 900;
+      }
+      .result-toolbar .info p {
+        font-size: 12px;
+        opacity: 0.78;
+        margin-top: 2px;
+      }
+      .result-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .result-actions button {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 9px 15px;
+        border-radius: 9px;
+        font-size: 12.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.15s;
+      }
+      .result-actions button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+      .result-actions .btn-solid {
+        background: #fff;
+        color: #0f172a;
+        border-color: #fff;
+      }
+      .result-actions .btn-solid:hover {
+        background: #f1f5f9;
+      }
+      .result-actions .btn-danger-solid {
+        background: #b91c1c;
+        border-color: #b91c1c;
+      }
+      .result-actions .btn-danger-solid:hover {
+        background: #991b1b;
+      }
+      .result-body {
+        flex: 1;
+        overflow: auto;
+        background: var(--paper-3);
+        min-height: 0;
+        padding: 22px 14px;
+      }
+      .result-foot {
+        padding: 13px 22px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: var(--ink-3);
+        flex-shrink: 0;
+      }
+      .result-foot strong {
+        color: var(--ink);
+        font-weight: 800;
+      }
+      .result-foot kbd {
+        background: #e2e8f0;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+        color: var(--ink-2);
+        font-weight: 700;
+      }
+      .sheets-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .sheet-outer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 18px;
+        overflow: hidden;
+      }
+      .sheet-scaler {
+        position: relative;
+      }
+      .sheet {
+        --cols: 4;
+        --rows: 4;
+        --gap: 5mm;
+        --page-m: 5mm;
+        --paper-w: 355.6mm;
+        --paper-h: 215.9mm;
+        width: var(--paper-w);
+        height: var(--paper-h);
+        display: grid;
+        grid-template-columns: repeat(var(--cols), 1fr);
+        grid-template-rows: repeat(var(--rows), 1fr);
+        gap: var(--gap);
+        padding: var(--page-m);
+        background: #fff;
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        box-shadow: 0 8px 26px rgba(15, 23, 42, 0.12);
+        transform-origin: top left;
+      }
+      .sticker {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border: 2.2pt solid #111;
+        border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+        background: #fff;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7pt 10pt;
+        overflow: hidden;
+        text-align: center;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .sticker::before {
+        content: "";
+        position: absolute;
+        inset: 2pt;
+        border: 1pt solid #333;
+        border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
+        transform: rotate(-0.4deg);
+        pointer-events: none;
+      }
+      .st-body {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5pt;
+      }
+      .st-school {
+        width: 100%;
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 25px;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .st-rule {
+        width: 58%;
+        border-top: 1.8pt dotted #000;
+      }
+      .st-exam {
+        width: 100%;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 1.25;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .st-name {
+        width: 100%;
+        max-width: 100%;
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 18pt;
+        line-height: 1.2;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+      }
+      .st-meta {
+        width: 100%;
+        font-weight: 700;
+        font-size: 11pt;
+        line-height: 1.25;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .empty-wrap {
+        max-width: 520px;
+        margin: 60px auto;
+        padding: 0 18px;
+      }
+      .empty-card {
+        background: var(--paper);
+        padding: 50px 32px;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+      }
+      .empty-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #b45309, #b91c1c);
+      }
+      .empty-card svg {
+        color: var(--ink-4);
+        margin-bottom: 18px;
+      }
+      .empty-card h3 {
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .empty-card p {
+        font-size: 13.5px;
+        color: var(--ink-3);
+        line-height: 1.75;
+      }
+      .empty-card p strong {
+        color: var(--ink-2);
+        font-weight: 800;
+      }
+      .empty-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        z-index: 2000;
+        max-width: 360px;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        display: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        border-left: 4px solid #1e40af;
+      }
+      .toast.show {
+        display: block;
+        animation: toastIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .toast.err {
+        border-left-color: var(--danger);
+      }
+      .toast.ok {
+        border-left-color: var(--success);
+      }
+      @keyframes toastIn {
+        from {
+          transform: translateY(16px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+      @media (max-width: 900px) {
+        .setup-wrap {
+          margin: 20px auto;
+        }
+        .result-toolbar {
+          padding: 12px 16px;
+        }
+        .result-body {
+          padding: 12px 6px;
+        }
+      }
+      @media (max-width: 640px) {
+        .top-bar {
+          padding: 12px 16px;
+        }
+        .top-bar h1 {
+          font-size: 15px;
+        }
+        .setup-wrap {
+          padding: 0 10px;
+          margin: 14px auto;
+        }
+        .setup-body {
+          padding: 16px;
+          gap: 14px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .setup-foot {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .setup-foot .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .result-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+        }
+        .result-actions button {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+      .unified-backup-bar {
+        position: fixed;
+        top: max(12px, env(safe-area-inset-top, 0px));
+        right: max(12px, env(safe-area-inset-right, 0px));
+        z-index: 9998;
+        display: flex;
+        gap: 6px;
+      }
+      .unified-backup-bar button {
+        padding: 7px 13px;
+        border-radius: 8px;
+        border: 1px solid rgba(29, 78, 216, 0.25);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        box-shadow: 0 2px 8px rgba(29, 78, 216, 0.12);
+        transition: all 0.15s ease;
+      }
+      .unified-backup-bar button:hover {
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+        transform: translateY(-1px);
+      }
+      @supports (padding: env(safe-area-inset-top)) {
+        .top-bar {
+          padding-top: max(16px, env(safe-area-inset-top, 0px));
+          padding-left: max(26px, env(safe-area-inset-left, 0px));
+          padding-right: max(26px, env(safe-area-inset-right, 0px));
+        }
+        .result-foot {
+          padding-bottom: max(13px, env(safe-area-inset-bottom, 0px));
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .result-actions button {
+          min-height: 40px;
+        }
+        .unified-backup-bar button {
+          min-height: 40px;
+          padding: 8px 14px;
+          font-size: 13px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+      @media print {
+        html,
+        body {
+          background: #fff !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .top-bar,
+        .setup-wrap,
+        .result-toolbar,
+        .result-foot,
+        .empty-wrap,
+        .toast,
+        .unified-backup-bar {
+          display: none !important;
+        }
+        #resultView.active {
+          display: block !important;
+          min-height: 0 !important;
+          background: #fff !important;
+        }
+        .result-body {
+          padding: 0 !important;
+          margin: 0 !important;
+          background: #fff !important;
+          overflow: visible !important;
+          flex: none !important;
+          min-height: 0 !important;
+        }
+        .sheets-wrap {
+          display: block !important;
+          gap: 0 !important;
+        }
+        .sheet-outer {
+          display: block !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: visible !important;
+          break-after: page;
+          page-break-after: always;
+        }
+        .sheet-outer:last-child {
+          break-after: auto;
+          page-break-after: auto;
+        }
+        .sheet-scaler {
+          width: auto !important;
+          height: auto !important;
+        }
+        .sheet {
+          transform: none !important;
+          box-shadow: none !important;
+          border: 0 !important;
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        .sticker {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <line x1="7" y1="9" x2="17" y2="9"></line>
+            <line x1="7" y1="13" x2="14" y2="13"></line>
+            <line x1="7" y1="17" x2="11" y2="17"></line>
+          </svg>
+        </div>
+        <div>
+          <h1>সিট স্টিকার তৈরি</h1>
+          <p>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-wrap" id="setupWrap">
+      <div class="setup-card">
+        <div class="setup-head">
+          <div class="icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h2>সিট স্টিকার</h2>
+            <p>শ্রেণি, শিক্ষাবর্ষ ও পরীক্ষা নির্বাচন করুন</p>
+          </div>
+        </div>
+        <div class="setup-body">
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              শিক্ষার্থী নির্বাচন
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label
+                  >শ্রেণি <span style="color: var(--danger)">*</span></label
+                >
+                <select id="classSelect"></select>
+              </div>
+              <div class="field">
+                <label>শিক্ষাবর্ষ (ঐচ্ছিক)</label>
+                <select id="yearSelect">
+                  <option value="">-- সব শিক্ষাবর্ষ --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 11l3 3L22 4"></path>
+                <path
+                  d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                ></path>
+              </svg>
+              পরীক্ষার নাম <span style="color: var(--danger)">*</span>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>পরীক্ষা নির্বাচন</label>
+                <select id="examSelect" onchange="onExamSelectChange()">
+                  <option value="">-- নির্বাচন করুন --</option>
+                  <option value="প্রথম প্রান্তিক মূল্যায়ন">
+                    প্রথম প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="দ্বিতীয় প্রান্তিক মূল্যায়ন">
+                    দ্বিতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="তৃতীয় প্রান্তিক মূল্যায়ন">
+                    তৃতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="__custom__">অন্যান্য (নিজে লিখুন)...</option>
+                </select>
+              </div>
+              <div class="field" id="customExamField" style="display: none">
+                <label>পরীক্ষার নাম লিখুন</label>
+                <input
+                  type="text"
+                  id="customExamName"
+                  placeholder="যেমন: বিশেষ মূল্যায়ন"
+                  maxlength="80"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="hint-strip">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span
+              >প্রিন্ট উইন্ডোতে পেপার, কলাম, সারি, গ্যাপ ও মার্জিন পরিবর্তন করা
+              যাবে।</span
+            >
+          </div>
+        </div>
+        <div class="setup-foot">
+          <div class="setup-status" id="setupStatus">
+            <span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>
+          </div>
+          <button
+            class="btn btn-primary"
+            id="generateBtn"
+            onclick="startStickerGeneration()"
+            disabled
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              ></path>
+            </svg>
+            প্রিভিউ তৈরি করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-wrap" id="emptyWrap" style="display: none">
+      <div class="empty-card">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h3>শিক্ষার্থীর তথ্য পাওয়া যায়নি</h3>
+        <p>
+          এই ব্রাউজারে কোনো ডেটা নেই। <strong>সব ডেটা রিস্টোর</strong> বাটন
+          দিয়ে ব্যাকআপ ফিরিয়ে আনুন, অথবা students.html থেকে ডেটা যোগ করুন।
+        </p>
+        <div class="empty-actions">
+          <button
+            class="btn btn-primary"
+            onclick="document.getElementById('restoreFileInput').click()"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            সব ডেটা রিস্টোর
+          </button>
+          <button class="btn btn-outline" onclick="retryLoad()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            আবার চেষ্টা করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultView">
+      <div class="result-toolbar">
+        <div class="info">
+          <h3 id="rtTitle">সিট স্টিকার</h3>
+          <p id="rtSub">—</p>
+        </div>
+        <div class="result-actions">
+          <button class="btn-solid" onclick="openPrintView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              ></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            প্রিন্ট ভিউ খুলুন
+          </button>
+          <button class="btn-danger-solid" onclick="closeResultView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            বন্ধ করুন
+          </button>
+        </div>
+      </div>
+      <div class="result-body" id="resultBody"></div>
+      <div class="result-foot">
+        <div>মোট স্টিকার: <strong id="rtCount">০</strong></div>
+        <div class="hint">
+          <kbd>Ctrl</kbd> + <kbd>P</kbd> প্রিন্ট ভিউ • <kbd>Esc</kbd> বন্ধ
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <input
+      type="file"
+      id="restoreFileInput"
+      accept=".json,application/json"
+      style="display: none"
+    />
+    <div class="unified-backup-bar">
+      <button
+        type="button"
+        onclick="UnifiedBackup.backup()"
+        title="school + teachers + students — সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+      >
+        সব ডেটা ব্যাকআপ
+      </button>
+      <button
+        type="button"
+        onclick="document.getElementById('restoreFileInput').click()"
+        title="সব ডেটা রিস্টোর"
+      >
+        সব ডেটা রিস্টোর
+      </button>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {},
+            any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+        var modal = null,
+          pending = null;
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled /><div><div class="ub-title">' +
+                esc(s.label) +
+                '</div><div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option><option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '"><input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked /><div><div class="ub-title">' +
+              esc(s.label) +
+              '</div><div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>' +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button><button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+        window.UnifiedBackup = {
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <script>
+      "use strict";
+
+      const SCHOOL_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+      const PAPER_PRESETS = {
+        a4: { label: "A4", w: 210, h: 297 },
+        a5: { label: "A5", w: 148, h: 210 },
+        a3: { label: "A3", w: 297, h: 420 },
+        letter: { label: "Letter", w: 215.9, h: 279.4 },
+        legal: { label: "Legal", w: 215.9, h: 355.6 },
+        tabloid: { label: "Tabloid", w: 279.4, h: 431.8 },
+      };
+      const DEFAULT_SETTINGS = {
+        paper: "legal",
+        orientation: "landscape",
+        customW: 355.6,
+        customH: 215.9,
+        cols: 4,
+        rows: 4,
+        gap: 5,
+        pageMargin: 5,
+      };
+      const SETTINGS_KEY = "hemnagar_sticker_settings_v4";
+      const STUDENT_KEYS = [
+        "hemnagar_students_v20",
+        "hemnagar_students_v19",
+        "hemnagar_students_v18",
+        "hemnagar_students_v17",
+        "hemnagar_students_v16",
+        "hemnagar_students_v15",
+        "hemnagar_students_v14",
+      ];
+      const SNAPSHOT_KEY = "hemnagar_result_snapshot";
+      const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+      const CLASSES = [
+        "১ম (প্রথম)",
+        "২য় (দ্বিতীয়)",
+        "৩য় (তৃতীয়)",
+        "৪র্থ (চতুর্থ)",
+        "৫ম (পঞ্চম)",
+      ];
+
+      let allStudents = [];
+      let ctx = null;
+      let settings = loadSettings();
+      const $ = (id) => document.getElementById(id);
+
+      function toEn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[০-৯]/g, (m) => BN_DIGITS.indexOf(m));
+      }
+      function toBn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
+      }
+      function esc(t) {
+        return String(t == null ? "" : t)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function toast(msg, type) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.className = "toast show " + (type || "");
+        clearTimeout(t._tm);
+        t._tm = setTimeout(() => {
+          t.className = "toast";
+        }, 2800);
+      }
+      function debounce(fn, delay) {
+        let t;
+        return function (...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), delay);
+        };
+      }
+
+      function loadSettings() {
+        try {
+          const raw = localStorage.getItem(SETTINGS_KEY);
+          if (!raw) return { ...DEFAULT_SETTINGS };
+          const s = JSON.parse(raw);
+          return { ...DEFAULT_SETTINGS, ...s };
+        } catch (_) {
+          return { ...DEFAULT_SETTINGS };
+        }
+      }
+      function saveSettings(s) {
+        settings = s;
+        try {
+          localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+        } catch (_) {}
+      }
+
+      function getPaperDims(s) {
+        s = s || settings;
+        if (s.paper === "custom") {
+          const w = Math.max(50, Math.min(2000, +s.customW || 210));
+          const h = Math.max(50, Math.min(2000, +s.customH || 297));
+          return { w, h };
+        }
+        const p = PAPER_PRESETS[s.paper] || PAPER_PRESETS.a4;
+        const w = p.w,
+          h = p.h;
+        if (s.orientation === "landscape")
+          return { w: Math.max(w, h), h: Math.min(w, h) };
+        return { w: Math.min(w, h), h: Math.max(w, h) };
+      }
+      function paperLabelOf(s) {
+        s = s || settings;
+        const { w, h } = getPaperDims(s);
+        if (s.paper === "custom")
+          return "কাস্টম (" + Math.round(w) + " × " + Math.round(h) + " মিমি)";
+        const p = PAPER_PRESETS[s.paper] || PAPER_PRESETS.a4;
+        const o = s.orientation === "landscape" ? "ল্যান্ডস্কেপ" : "পোর্ট্রেট";
+        return (
+          p.label +
+          " " +
+          o +
+          " (" +
+          Math.round(w) +
+          " × " +
+          Math.round(h) +
+          " মিমি)"
+        );
+      }
+
+      function autofit(el, minPx) {
+        if (!el) return;
+        el.style.fontSize = "";
+        let size = parseFloat(window.getComputedStyle(el).fontSize);
+        if (!size || !isFinite(size)) return;
+        let guard = 0;
+        while (
+          el.scrollWidth > el.clientWidth + 0.5 &&
+          size > minPx &&
+          guard < 90
+        ) {
+          size -= 0.5;
+          el.style.fontSize = size + "px";
+          guard++;
+        }
+      }
+      function autofitAll(root) {
+        const scope = root || document;
+        scope.querySelectorAll(".st-name").forEach((el) => autofit(el, 15));
+        scope.querySelectorAll(".st-school").forEach((el) => autofit(el, 15));
+        scope.querySelectorAll(".st-exam").forEach((el) => autofit(el, 13));
+      }
+      function fitSheets() {
+        const body = $("resultBody");
+        if (!body) return;
+        const avail = Math.max(200, body.clientWidth - 30);
+        body.querySelectorAll(".sheet-outer").forEach((outer) => {
+          const scaler = outer.querySelector(".sheet-scaler");
+          const sheet = outer.querySelector(".sheet");
+          if (!scaler || !sheet) return;
+          sheet.style.transform = "";
+          const w = sheet.offsetWidth || 1;
+          const h = sheet.offsetHeight || 1;
+          const scale = Math.min(1, avail / w);
+          if (scale < 1) {
+            sheet.style.transform = "scale(" + scale + ")";
+            scaler.style.width = w * scale + "px";
+            scaler.style.height = h * scale + "px";
+          } else {
+            scaler.style.width = w + "px";
+            scaler.style.height = h + "px";
+          }
+        });
+      }
+
+      function updatePrintPageRule() {
+        const { w, h } = getPaperDims(settings);
+        let el = document.getElementById("pageRuleStyle");
+        if (!el) {
+          el = document.createElement("style");
+          el.id = "pageRuleStyle";
+          document.head.appendChild(el);
+        }
+        el.textContent = "@page { size: " + w + "mm " + h + "mm; margin: 0; }";
+      }
+
+      function tryLoadFromSnapshot() {
+        try {
+          const raw = localStorage.getItem(SNAPSHOT_KEY);
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (obj && Array.isArray(obj.students) && obj.students.length)
+            return obj.students;
+        } catch (e) {}
+        return null;
+      }
+      function tryLoadFromMainKeys() {
+        for (const k of STUDENT_KEYS) {
+          try {
+            const raw = localStorage.getItem(k);
+            if (!raw) continue;
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr) && arr.length) return arr;
+          } catch (e) {}
+        }
+        return null;
+      }
+      function loadStudents() {
+        return tryLoadFromMainKeys() || tryLoadFromSnapshot() || [];
+      }
+
+      function refreshSetup() {
+        const classSel = $("classSelect");
+        const oldCls = classSel.value;
+        classSel.innerHTML =
+          '<option value="">-- শ্রেণি নির্বাচন করুন --</option>';
+        CLASSES.forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          classSel.appendChild(o);
+        });
+        if ([...classSel.options].some((o) => o.value === oldCls))
+          classSel.value = oldCls;
+
+        const years = [
+          ...new Set(allStudents.map((s) => s.academicYear).filter(Boolean)),
+        ];
+        years.sort((a, b) => String(b).localeCompare(String(a), "bn"));
+        const yearSel = $("yearSelect");
+        const oldYear = yearSel.value;
+        yearSel.innerHTML = '<option value="">-- সব শিক্ষাবর্ষ --</option>';
+        years.forEach((y) => {
+          const o = document.createElement("option");
+          o.value = y;
+          o.textContent = y;
+          yearSel.appendChild(o);
+        });
+        if ([...yearSel.options].some((o) => o.value === oldYear))
+          yearSel.value = oldYear;
+        updateStatus();
+      }
+      function initSetup() {
+        allStudents = loadStudents();
+        $("classSelect").addEventListener("change", updateStatus);
+        $("yearSelect").addEventListener("change", updateStatus);
+        $("customExamName").addEventListener("input", updateStatus);
+
+        if (!window._storageBound) {
+          window.addEventListener("storage", function (e) {
+            if (!e.key) return;
+            const relevant =
+              e.key === SNAPSHOT_KEY || STUDENT_KEYS.indexOf(e.key) !== -1;
+            if (!relevant) return;
+            const fresh = loadStudents();
+            if (fresh.length && fresh.length !== allStudents.length) {
+              allStudents = fresh;
+              $("emptyWrap").style.display = "none";
+              $("setupWrap").style.display = "block";
+              refreshSetup();
+              toast("ডেটা আপডেট হয়েছে — " + toBn(fresh.length) + " জন", "ok");
+            }
+          });
+          window._storageBound = true;
+        }
+        if (!window._settingsBound) {
+          window.addEventListener("storage", function (e) {
+            if (e.key !== SETTINGS_KEY) return;
+            settings = loadSettings();
+            if (ctx && $("resultView").classList.contains("active")) {
+              renderPreview();
+              updateResultSub();
+              requestAnimationFrame(() => {
+                fitSheets();
+                autofitAll($("resultBody"));
+              });
+            }
+          });
+          window._settingsBound = true;
+        }
+
+        if (allStudents.length === 0) {
+          $("setupWrap").style.display = "none";
+          $("emptyWrap").style.display = "block";
+          return;
+        }
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+      }
+
+      function retryLoad() {
+        const arr = loadStudents();
+        if (!arr.length) {
+          toast("এখনো কোনো ডেটা পাওয়া যায়নি — সব ডেটা রিস্টোর করুন", "err");
+          return;
+        }
+        allStudents = arr;
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+        toast("ডেটা লোড হয়েছে — " + toBn(arr.length) + " জন", "ok");
+      }
+      function onExamSelectChange() {
+        const v = $("examSelect").value;
+        $("customExamField").style.display =
+          v === "__custom__" ? "flex" : "none";
+        if (v === "__custom__")
+          setTimeout(() => $("customExamName").focus(), 60);
+        updateStatus();
+      }
+      function getExamName() {
+        const v = $("examSelect").value;
+        if (v === "__custom__") return $("customExamName").value.trim();
+        return v;
+      }
+      function updateStatus() {
+        const cls = $("classSelect").value;
+        const exam = getExamName();
+        const status = $("setupStatus"),
+          btn = $("generateBtn");
+        if (!cls) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        if (!exam) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>পরীক্ষার নাম নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        const year = $("yearSelect").value;
+        const count = allStudents.filter(
+          (s) => s.class === cls && (!year || s.academicYear === year),
+        ).length;
+        if (count === 0) {
+          status.className = "setup-status warn";
+          status.innerHTML =
+            '<span class="dot"></span><span>এই শ্রেণিতে কোনো শিক্ষার্থী নেই</span>';
+          btn.disabled = true;
+          return;
+        }
+        status.className = "setup-status";
+        status.innerHTML =
+          '<span class="dot"></span><span>মোট <strong>' +
+          toBn(count) +
+          "</strong> টি স্টিকার তৈরি হবে</span>";
+        btn.disabled = false;
+      }
+
+      function stickerHTML(st, examLine) {
+        const cls = st.class ? String(st.class) : "";
+        const roll = st.roll ? toBn(String(st.roll).trim()) : "";
+        return (
+          '<div class="sticker"><div class="st-body">' +
+          '<div class="st-school">' +
+          esc(SCHOOL_NAME) +
+          "</div>" +
+          '<div class="st-rule"></div>' +
+          '<div class="st-exam">' +
+          esc(examLine) +
+          "</div>" +
+          '<div class="st-name">' +
+          esc(st.nameBn || "") +
+          "</div>" +
+          '<div class="st-meta">শ্রেণি: ' +
+          esc(cls) +
+          " &nbsp;•&nbsp; রোল: " +
+          esc(roll) +
+          "</div>" +
+          "</div></div>"
+        );
+      }
+      function sheetAttrs(cols, rows, gap, pw, ph, pm) {
+        return (
+          'style="--cols:' +
+          cols +
+          "; --rows:" +
+          rows +
+          "; --gap:" +
+          gap +
+          "mm; --paper-w:" +
+          pw +
+          "mm; --paper-h:" +
+          ph +
+          "mm; --page-m:" +
+          pm +
+          'mm;"'
+        );
+      }
+      function buildSheetsHTML(stickerList, cols, rows, gap, pw, ph, pm) {
+        const per = cols * rows;
+        const pages = Math.max(1, Math.ceil(stickerList.length / per));
+        let out = "";
+        for (let p = 0; p < pages; p++) {
+          const chunk = stickerList.slice(p * per, (p + 1) * per).join("");
+          out +=
+            '<div class="sheet-outer"><div class="sheet-scaler"><section class="sheet" ' +
+            sheetAttrs(cols, rows, gap, pw, ph, pm) +
+            ">" +
+            chunk +
+            "</section></div></div>";
+        }
+        return '<div class="sheets-wrap">' + out + "</div>";
+      }
+
+      function startStickerGeneration() {
+        const cls = $("classSelect").value;
+        const year = $("yearSelect").value;
+        const exam = getExamName();
+        if (!cls || !exam) return;
+        const classStudents = allStudents
+          .filter((s) => {
+            if (s.class !== cls) return false;
+            if (year && s.academicYear !== year) return false;
+            return true;
+          })
+          .sort((a, b) => {
+            const ra = parseInt(toEn(a.roll)) || 0,
+              rb = parseInt(toEn(b.roll)) || 0;
+            if (ra !== rb) return ra - rb;
+            return String(a.nameBn || "").localeCompare(
+              String(b.nameBn || ""),
+              "bn",
+            );
+          });
+        if (classStudents.length === 0) {
+          toast("কোনো শিক্ষার্থী নেই", "err");
+          return;
+        }
+        const examLine = year ? exam + " — " + year : exam;
+        ctx = { cls, year, exam, examLine, students: classStudents };
+        renderPreview();
+        $("rtTitle").textContent = "সিট স্টিকার — " + exam;
+        $("rtCount").textContent = toBn(classStudents.length);
+        updateResultSub();
+        $("setupWrap").style.display = "none";
+        $("emptyWrap").style.display = "none";
+        $("resultView").classList.add("active");
+        requestAnimationFrame(() => {
+          fitSheets();
+          autofitAll($("resultBody"));
+        });
+      }
+      function updateResultSub() {
+        if (!ctx) return;
+        const subs = [ctx.cls];
+        if (ctx.year) subs.push("শিক্ষাবর্ষ: " + ctx.year);
+        subs.push(paperLabelOf(settings));
+        subs.push(
+          "প্রতি পৃষ্ঠায় " +
+            toBn(settings.cols) +
+            " × " +
+            toBn(settings.rows) +
+            " = " +
+            toBn(settings.cols * settings.rows) +
+            " টি",
+        );
+        $("rtSub").textContent = subs.join(" • ");
+      }
+      function renderPreview() {
+        const body = $("resultBody");
+        const { w, h } = getPaperDims(settings);
+        const pm = Math.max(0, Math.min(30, +settings.pageMargin || 0));
+        const list = ctx.students.map((st) => stickerHTML(st, ctx.examLine));
+        body.innerHTML = buildSheetsHTML(
+          list,
+          settings.cols,
+          settings.rows,
+          settings.gap,
+          w,
+          h,
+          pm,
+        );
+        updatePrintPageRule();
+      }
+      function closeResultView(skipConfirm = false) {
+        if (!skipConfirm && !confirm("সিট স্টিকার বন্ধ করবেন?")) return;
+        $("resultView").classList.remove("active");
+        $("setupWrap").style.display = "block";
+        ctx = null;
+        updateStatus();
+      }
+
+      const PRINT_BASE_STYLES = `
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; background: #fff; color: #000; font-family: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .print-document { width: 100%; }
+        .sheets-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        .sheet-outer { display: flex; justify-content: center; }
+        .sheet { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); grid-template-rows: repeat(var(--rows, 4), 1fr); gap: var(--gap, 5mm); background: #fff; overflow: hidden; break-inside: avoid; page-break-inside: avoid; }
+        .sticker {
+          position: relative; width: 100%; height: 100%; box-sizing: border-box;
+          border: 2.2pt solid #111; border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+          background: #fff; color: #000; display: flex; align-items: center;
+          justify-content: center; padding: 7pt 10pt; overflow: hidden;
+          text-align: center; break-inside: avoid; page-break-inside: avoid;
+        }
+        .sticker::before {
+          content: ""; position: absolute; inset: 2pt; border: 1pt solid #333;
+          border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%; transform: rotate(-0.4deg);
+          pointer-events: none;
+        }
+        .st-body { position: relative; z-index: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5pt; }
+        .st-school { width: 100%; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-weight: 900; font-size: 25px; line-height: 1.15; letter-spacing: 0.2px; color: #000; white-space: nowrap; overflow: hidden; }
+        .st-rule { width: 58%; border-top: 1.8pt dotted #000; }
+        .st-exam { width: 100%; font-weight: 700; font-size: 20px; line-height: 1.25; color: #000; white-space: nowrap; overflow: hidden; }
+        .st-name { width: 100%; max-width: 100%; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-weight: 900; font-size: 18pt; line-height: 1.2; color: #000; white-space: nowrap; overflow: hidden; text-align: center; }
+        .st-meta { width: 100%; font-weight: 700; font-size: 11pt; line-height: 1.25; color: #000; white-space: nowrap; overflow: hidden; }
+        .print-toolbar { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(180deg, #1e293b, #0f172a); color: #fff; padding: 8px 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; z-index: 1000; font-family: inherit; font-size: 12.5px; box-shadow: 0 2px 10px rgba(0,0,0,0.25); }
+        .print-toolbar .pt-group { display: flex; align-items: center; gap: 6px; }
+        .print-toolbar label { font-weight: 700; opacity: 0.85; font-size: 11.5px; }
+        .print-toolbar select, .print-toolbar input[type="number"] { padding: 5px 7px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.1); color: #fff; font-size: 12.5px; font-family: inherit; font-weight: 600; }
+        .print-toolbar select option { color: #0f172a; }
+        .print-toolbar input[type="number"] { width: 56px; text-align: center; }
+        .print-toolbar .pt-btn { width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.22); font-size: 15px; font-weight: 900; line-height: 1; cursor: pointer; transition: 0.15s; }
+        .print-toolbar .pt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.22); border-color: #60a5fa; }
+        .print-toolbar .pt-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .print-toolbar .pt-val { min-width: 22px; text-align: center; font-weight: 900; color: #60a5fa; }
+        .print-toolbar .pt-info { margin-left: auto; font-size: 11px; opacity: 0.9; padding: 4px 9px; border-radius: 6px; background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3); color: #bae6fd; font-weight: 700; }
+        .print-toolbar .pt-primary { background: #1d4ed8; border-color: #1d4ed8; padding: 6px 13px; width: auto; height: auto; font-size: 12.5px; border-radius: 7px; }
+        .print-toolbar .pt-primary:hover { background: #2563eb; }
+        .print-toolbar .pt-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.18); margin: 0 2px; }
+        .print-document { padding: 70px 20px 20px; }
+        @media screen {
+          body { background: #eef2f7; }
+          .sheet { width: var(--paper-w); height: var(--paper-h); padding: var(--page-m, 5mm); border: 1px solid #cbd5e1; box-shadow: 0 8px 26px rgba(15,23,42,0.12); }
+        }
+        @media print {
+          .print-toolbar { display: none !important; }
+          .print-document { padding: 0 !important; }
+          .sheets-wrap { gap: 0 !important; display: block !important; }
+          .sheet-outer { display: block; }
+          .sheet { width: calc(var(--paper-w) - 2 * var(--page-m, 5mm)); height: calc(var(--paper-h) - 2 * var(--page-m, 5mm)); padding: 0; border: none; box-shadow: none; }
+          .sheet + .sheet { break-before: page; page-break-before: always; }
+          .sticker { break-inside: avoid; page-break-inside: avoid; }
+        }
+      `;
+
+      function openPrintView() {
+        if (!ctx) {
+          toast("প্রথমে সিট স্টিকার তৈরি করুন", "err");
+          return;
+        }
+        if (!ctx.students.length) {
+          toast("প্রিন্ট করার জন্য কোনো শিক্ষার্থী নেই", "err");
+          return;
+        }
+        const stickers = ctx.students
+          .map((st) => stickerHTML(st, ctx.examLine))
+          .join("");
+        const title = "সিট স্টিকার — " + esc(ctx.exam);
+
+        const printScript =
+          "<script>\n" +
+          "(function () {\n" +
+          '  var BN = "০১২৩৪৫৬৭৮৯";\n' +
+          "  function toBn(v) { return String(v).replace(/[0-9]/g, function (d) { return BN[+d]; }); }\n" +
+          "  function $s(id) { return document.getElementById(id); }\n" +
+          "  var SETTINGS_KEY = " +
+          JSON.stringify(SETTINGS_KEY) +
+          ";\n" +
+          "  var DEFAULT = " +
+          JSON.stringify(DEFAULT_SETTINGS) +
+          ";\n" +
+          "  var PAPER = " +
+          JSON.stringify(PAPER_PRESETS) +
+          ";\n" +
+          "  var BASE = " +
+          JSON.stringify(settings) +
+          ";\n" +
+          "  function load() { var out = {}, k; for (k in DEFAULT) out[k] = DEFAULT[k]; for (k in BASE) if (BASE.hasOwnProperty(k)) out[k] = BASE[k]; try { var raw = localStorage.getItem(SETTINGS_KEY); if (raw) { var obj = JSON.parse(raw); for (var k2 in obj) if (obj.hasOwnProperty(k2)) out[k2] = obj[k2]; } } catch (e) {} return out; }\n" +
+          "  function save() { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (e) {} }\n" +
+          "  var s = load();\n" +
+          "  function getPaper() { if (s.paper === 'custom') { var w = Math.max(50, Math.min(2000, +s.customW || 210)); var h = Math.max(50, Math.min(2000, +s.customH || 297)); return { w: w, h: h }; } var p = PAPER[s.paper] || PAPER.a4; var w2 = p.w, h2 = p.h; if (s.orientation === 'landscape') return { w: Math.max(w2,h2), h: Math.min(w2,h2) }; return { w: Math.min(w2,h2), h: Math.max(w2,h2) }; }\n" +
+          "  function pageMargin() { return Math.max(0, Math.min(30, +s.pageMargin || 0)); }\n" +
+          "  function usable() { var p = getPaper(); var m = pageMargin(); return { w: Math.max(20, p.w - 2*m), h: Math.max(20, p.h - 2*m) }; }\n" +
+          "  function maxCols() { var u = usable(); return Math.max(1, Math.min(12, Math.floor(u.w / 25))); }\n" +
+          "  function maxRows() { var u = usable(); return Math.max(1, Math.min(20, Math.floor(u.h / 18))); }\n" +
+          "  function paperLabel() { var p = getPaper(); if (s.paper === 'custom') return 'কাস্টম (' + Math.round(p.w) + ' × ' + Math.round(p.h) + ' মিমি)'; var pp = PAPER[s.paper] || PAPER.a4; var o = s.orientation === 'landscape' ? 'ল্যান্ডস্কেপ' : 'পোর্ট্রেট'; return pp.label + ' ' + o + ' (' + Math.round(p.w) + ' × ' + Math.round(p.h) + ' মিমি)'; }\n" +
+          "  var pageStyleEl = document.createElement('style');\n" +
+          "  document.head.appendChild(pageStyleEl);\n" +
+          "  function updatePageStyle() { var p = getPaper(); var m = pageMargin(); pageStyleEl.textContent = '@page { size: ' + p.w + 'mm ' + p.h + 'mm; margin: ' + m + 'mm; }'; }\n" +
+          "  function autofit(el, minPx) { el.style.fontSize = ''; var size = parseFloat(window.getComputedStyle(el).fontSize); if (!size || !isFinite(size)) return; var guard = 0; while (el.scrollWidth > el.clientWidth + 0.5 && size > minPx && guard < 90) { size -= 0.5; el.style.fontSize = size + 'px'; guard++; } }\n" +
+          "  function autofitAll() { var a = docEl.querySelectorAll('.st-name'); for (var i = 0; i < a.length; i++) autofit(a[i], 15); var b = docEl.querySelectorAll('.st-school'); for (var j = 0; j < b.length; j++) autofit(b[j], 15); var c = docEl.querySelectorAll('.st-exam'); for (var k = 0; k < c.length; k++) autofit(c[k], 13); }\n" +
+          "  var tpl = document.getElementById('srcTemplate');\n" +
+          "  var docEl = document.getElementById('printDoc');\n" +
+          "  function render() {\n" +
+          "    var nodes = tpl.content.querySelectorAll('.sticker');\n" +
+          "    var cols = Math.max(1, Math.min(maxCols(), s.cols|0 || 1));\n" +
+          "    var rows = Math.max(1, Math.min(maxRows(), s.rows|0 || 1));\n" +
+          "    s.cols = cols; s.rows = rows;\n" +
+          "    var gap = Math.max(0, Math.min(15, +s.gap || 0));\n" +
+          "    var p = getPaper(); var m = pageMargin();\n" +
+          "    var per = cols * rows; var total = nodes.length;\n" +
+          "    var pages = Math.max(1, Math.ceil(total / per));\n" +
+          "    var out = '';\n" +
+          "    for (var pg = 0; pg < pages; pg++) {\n" +
+          "      var start = pg * per; var end = Math.min(start + per, total);\n" +
+          "      var inner = '';\n" +
+          "      for (var ii = start; ii < end; ii++) inner += nodes[ii].outerHTML;\n" +
+          "      out += '<div class=\"sheet-outer\"><section class=\"sheet\" style=\"--cols:' + cols + '; --rows:' + rows + '; --gap:' + gap + 'mm; --paper-w:' + p.w + 'mm; --paper-h:' + p.h + 'mm; --page-m:' + m + 'mm;\">' + inner + '</section></div>';\n" +
+          "    }\n" +
+          "    docEl.innerHTML = '<div class=\"sheets-wrap\">' + out + '</div>';\n" +
+          "    autofitAll(); updatePageStyle(); syncControls();\n" +
+          "  }\n" +
+          "  function syncControls() {\n" +
+          "    $s('pPaper').value = s.paper; $s('pOrient').value = s.orientation;\n" +
+          "    $s('pOrientWrap').style.display = s.paper === 'custom' ? 'none' : '';\n" +
+          "    $s('pCustomWrap').style.display = s.paper === 'custom' ? '' : 'none';\n" +
+          "    if (s.paper === 'custom') { $s('pCustomW').value = s.customW; $s('pCustomH').value = s.customH; }\n" +
+          "    $s('pColVal').textContent = toBn(s.cols); $s('pRowVal').textContent = toBn(s.rows);\n" +
+          "    $s('pGap').value = s.gap; $s('pMargin').value = pageMargin();\n" +
+          "    $s('pColMinus').disabled = s.cols <= 1; $s('pColPlus').disabled = s.cols >= maxCols();\n" +
+          "    $s('pRowMinus').disabled = s.rows <= 1; $s('pRowPlus').disabled = s.rows >= maxRows();\n" +
+          "    $s('pInfo').textContent = paperLabel() + ' • ' + toBn(s.cols) + '×' + toBn(s.rows) + ' = ' + toBn(s.cols * s.rows) + ' / পৃষ্ঠা';\n" +
+          "  }\n" +
+          "  function apply() { save(); render(); }\n" +
+          "  $s('pPaper').addEventListener('change', function () { s.paper = this.value; apply(); });\n" +
+          "  $s('pOrient').addEventListener('change', function () { s.orientation = this.value; apply(); });\n" +
+          "  $s('pCustomW').addEventListener('input', function () { s.customW = +this.value || 210; apply(); });\n" +
+          "  $s('pCustomH').addEventListener('input', function () { s.customH = +this.value || 297; apply(); });\n" +
+          "  $s('pGap').addEventListener('input', function () { s.gap = +this.value; apply(); });\n" +
+          "  $s('pMargin').addEventListener('input', function () { s.pageMargin = +this.value; apply(); });\n" +
+          "  $s('pColMinus').addEventListener('click', function () { if (s.cols > 1) { s.cols--; apply(); } });\n" +
+          "  $s('pColPlus').addEventListener('click', function () { if (s.cols < maxCols()) { s.cols++; apply(); } });\n" +
+          "  $s('pRowMinus').addEventListener('click', function () { if (s.rows > 1) { s.rows--; apply(); } });\n" +
+          "  $s('pRowPlus').addEventListener('click', function () { if (s.rows < maxRows()) { s.rows++; apply(); } });\n" +
+          "  render();\n" +
+          "})();\n" +
+          "<\/script>";
+
+        const doc =
+          '<!doctype html><html lang="bn"><head>' +
+          '<meta charset="UTF-8">' +
+          '<meta name="viewport" content="width=device-width,initial-scale=1.0">' +
+          "<title>" +
+          title +
+          "</title>" +
+          "<style>" +
+          PRINT_BASE_STYLES +
+          "</style></head><body>" +
+          '<div class="print-toolbar no-print">' +
+          '<div class="pt-group"><label>পেপার</label>' +
+          '<select id="pPaper">' +
+          '<option value="a4">A4</option><option value="a5">A5</option><option value="a3">A3</option>' +
+          '<option value="letter">Letter</option><option value="legal">Legal</option><option value="tabloid">Tabloid</option>' +
+          '<option value="custom">কাস্টম…</option>' +
+          "</select></div>" +
+          '<div class="pt-group" id="pOrientWrap"><label>ওরিয়েন্টেশন</label>' +
+          '<select id="pOrient"><option value="portrait">পোর্ট্রেট</option><option value="landscape">ল্যান্ডস্কেপ</option></select></div>' +
+          '<div class="pt-group" id="pCustomWrap" style="display:none"><label>সাইজ</label>' +
+          '<input type="number" id="pCustomW" min="50" max="2000" step="1" value="210"><span>×</span>' +
+          '<input type="number" id="pCustomH" min="50" max="2000" step="1" value="297"><span>মিমি</span></div>' +
+          '<span class="pt-sep"></span>' +
+          '<div class="pt-group"><label>কলাম</label>' +
+          '<button type="button" class="pt-btn" id="pColMinus">−</button>' +
+          '<span class="pt-val" id="pColVal">' +
+          toBn(settings.cols) +
+          "</span>" +
+          '<button type="button" class="pt-btn" id="pColPlus">+</button></div>' +
+          '<div class="pt-group"><label>সারি</label>' +
+          '<button type="button" class="pt-btn" id="pRowMinus">−</button>' +
+          '<span class="pt-val" id="pRowVal">' +
+          toBn(settings.rows) +
+          "</span>" +
+          '<button type="button" class="pt-btn" id="pRowPlus">+</button></div>' +
+          '<div class="pt-group"><label>গ্যাপ</label>' +
+          '<input type="number" id="pGap" min="0" max="15" step="0.5" value="' +
+          settings.gap +
+          '"><span>মিমি</span></div>' +
+          '<div class="pt-group"><label>মার্জিন</label>' +
+          '<input type="number" id="pMargin" min="0" max="30" step="0.5" value="' +
+          settings.pageMargin +
+          '"><span>মিমি</span></div>' +
+          '<div class="pt-group pt-info" id="pInfo">—</div>' +
+          '<div class="pt-group">' +
+          '<button type="button" class="pt-btn pt-primary" onclick="window.print()">🖨️ প্রিন্ট</button>' +
+          '<button type="button" class="pt-btn" onclick="window.close()" title="বন্ধ">✕</button>' +
+          "</div></div>" +
+          '<main class="print-document" id="printDoc"></main>' +
+          '<template id="srcTemplate">' +
+          stickers +
+          "</template>" +
+          printScript +
+          "</body></html>";
+
+        let win = null;
+        try {
+          win = window.open("", "_blank");
+        } catch (_) {
+          win = null;
+        }
+        if (!win) {
+          toast("পপআপ ব্লক হয়েছে — অনুমতি দিন", "err");
+          return;
+        }
+        try {
+          win.document.open();
+          win.document.write(doc);
+          win.document.close();
+        } catch (err) {
+          try {
+            win.close();
+          } catch (_) {}
+          toast("প্রিন্ট ভিউ খোলা যায়নি — আবার চেষ্টা করুন", "err");
+          return;
+        }
+        try {
+          win.focus();
+        } catch (_) {}
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          !e.shiftKey &&
+          !e.altKey &&
+          (e.key === "p" || e.key === "P")
+        ) {
+          if (!ctx || !$("resultView").classList.contains("active")) return;
+          e.preventDefault();
+          openPrintView();
+          return;
+        }
+        if (
+          e.key === "Escape" &&
+          ctx &&
+          $("resultView").classList.contains("active")
+        )
+          closeResultView(true);
+      });
+
+      window.addEventListener(
+        "resize",
+        debounce(() => {
+          if (ctx && $("resultView").classList.contains("active")) {
+            fitSheets();
+            autofitAll($("resultBody"));
+          }
+        }, 180),
+      );
+
+      document
+        .getElementById("restoreFileInput")
+        .addEventListener("change", function (e) {
+          UnifiedBackup.handleFile(e, "students");
+        });
+
+      initSetup();
+    </script>
+  </body>
+</html>

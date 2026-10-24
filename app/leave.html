@@ -1,0 +1,3175 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="color-scheme" content="light" />
+    <meta
+      name="description"
+      content="হেমনগর সরকারি প্রাথমিক বিদ্যালয় — সহকারি শিক্ষকের নৈমিত্তিক ছুটির আবেদন প্রস্তুতকরণ"
+    />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>নৈমিত্তিক ছুটির আবেদন | সহকারি শিক্ষক</title>
+    <style>
+      :root {
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+
+        --brand: #0d9488;
+        --brand-d: #0f766e;
+        --brand-soft: #ecfeff;
+        --brand-line: #a7f3d0;
+        --grad: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+
+        --ink: #0f172a;
+        --ink2: #475569;
+        --muted: #64748b;
+        --faint: #94a3b8;
+        --line: #e2e8f0;
+        --bg: #f1f5f9;
+        --card: #ffffff;
+
+        --danger: #dc2626;
+        --warn: #b45309;
+        --ok: #059669;
+
+        --r: 14px;
+        --rs: 9px;
+        --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+        --shadow-md: 0 10px 30px -8px rgba(13, 148, 136, 0.45);
+        --shadow-lg: 0 24px 60px -12px rgba(15, 23, 42, 0.4);
+      }
+
+      /* Aliases for UnifiedBackup */
+      :root {
+        --surface: #f8fafc;
+        --text: #0f172a;
+        --text-soft: #475569;
+        --border: #e2e8f0;
+        --border-strong: #94a3b8;
+        --primary: #0d9488;
+        --primary-hover: #0f766e;
+        --primary-soft: #ecfeff;
+        --primary-soft-2: #cffafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(13, 148, 136, 0.16);
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 0.75in 0.5in 0.6in 1.2in;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-head);
+        margin: 0;
+      }
+      button,
+      input,
+      select {
+        font-family: inherit;
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      .app {
+        min-height: 100vh;
+        padding: clamp(12px, 2.5vw, 24px) clamp(10px, 2.5vw, 16px) 60px;
+        background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .hdr {
+        background: var(--grad);
+        color: #fff;
+        border-radius: 16px;
+        padding: clamp(16px, 3vw, 22px) clamp(16px, 3vw, 26px);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 14px;
+      }
+      .hdr .ico {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1.5px solid rgba(255, 255, 255, 0.28);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .hdr h1 {
+        font-size: clamp(15px, 2.4vw, 18px);
+        font-weight: 400;
+        letter-spacing: -0.2px;
+      }
+      .hdr p {
+        margin: 3px 0 0;
+        font-size: clamp(11px, 1.8vw, 12.5px);
+        opacity: 0.92;
+      }
+
+      .chip {
+        display: none;
+        align-items: center;
+        gap: 12px;
+        background: #fff;
+        border: 1.5px solid var(--brand-line);
+        border-left: 5px solid var(--brand);
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 14px;
+        box-shadow: var(--shadow-sm);
+      }
+      .chip.show {
+        display: flex;
+      }
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--grad);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-head);
+        font-size: 16px;
+        flex: none;
+        overflow: hidden;
+      }
+      .avatar.female {
+        background: linear-gradient(135deg, #e11d48, #be123c);
+      }
+      .chip .info {
+        flex: 1;
+        min-width: 0;
+      }
+      .chip .name {
+        font-family: var(--font-head);
+        font-size: 14px;
+        color: var(--ink);
+      }
+      .chip .meta {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .chip .change {
+        flex: none;
+        background: var(--brand-soft);
+        color: var(--brand-d);
+        border: 1.5px solid #a5f3fc;
+        padding: 7px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .chip .change:hover {
+        background: #cffafe;
+      }
+
+      .sec {
+        padding: clamp(14px, 3vw, 22px);
+        margin-bottom: 14px;
+      }
+      .sec-head {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--line);
+      }
+      .step {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--grad);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        flex: none;
+      }
+      .sec-head h2 {
+        font-size: clamp(13px, 2.2vw, 14.5px);
+        font-weight: 400;
+        color: var(--ink);
+      }
+      .sec-head .hint {
+        margin-left: auto;
+        font-size: 11.5px;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 16px;
+      }
+      .grid .full {
+        grid-column: 1 / -1;
+      }
+
+      .f label {
+        display: block;
+        font-size: 12.5px;
+        color: var(--ink2);
+        margin-bottom: 6px;
+      }
+      .f .req {
+        color: var(--danger);
+      }
+      .f input,
+      .f select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1.5px solid var(--line);
+        border-radius: var(--rs);
+        font-size: 13.5px;
+        color: var(--ink);
+        background: #fff;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
+        margin: 0;
+      }
+      .f input:focus,
+      .f select:focus {
+        border-color: var(--brand);
+        outline: 0;
+        box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.12);
+      }
+      .f input::placeholder {
+        color: var(--faint);
+      }
+      .f input[readonly] {
+        background: #f0fdfa;
+        border-color: #99f6e4;
+        color: var(--brand-d);
+      }
+      .f input.invalid {
+        border-color: var(--danger);
+        box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+      }
+      .f input[data-date] {
+        letter-spacing: 0.4px;
+        font-variant-numeric: tabular-nums;
+      }
+      .manual {
+        display: none;
+        margin-top: 8px;
+      }
+      .manual.show {
+        display: block;
+      }
+      .sub {
+        font-size: 11px;
+        color: var(--faint);
+        margin-top: 4px;
+      }
+      .note {
+        font-size: 11px;
+        color: var(--brand-d);
+        margin-top: 4px;
+      }
+
+      .unit-wrap {
+        display: flex;
+        gap: 8px;
+      }
+      .unit-wrap input {
+        flex: 1;
+        min-width: 0;
+      }
+      .unit {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 14px;
+        background: #f1f5f9;
+        border: 1.5px solid var(--line);
+        border-radius: var(--rs);
+        font-size: 12.5px;
+        color: var(--ink2);
+        white-space: nowrap;
+      }
+      .date-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .auto-note {
+        display: none;
+        align-items: center;
+        gap: 5px;
+        font-size: 11.5px;
+        color: var(--brand-d);
+        margin-top: 8px;
+      }
+      .auto-note.show {
+        display: inline-flex;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 11px 22px;
+        border-radius: 10px;
+        font-size: 13.5px;
+        cursor: pointer;
+        border: 0;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          border-color 0.18s ease,
+          color 0.18s ease;
+      }
+      .btn-primary {
+        background: var(--grad);
+        color: #fff;
+        box-shadow: 0 4px 12px -2px rgba(13, 148, 136, 0.4);
+      }
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px -2px rgba(13, 148, 136, 0.5);
+      }
+      .btn-ghost {
+        background: #fff;
+        color: var(--ink2);
+        border: 1.5px solid var(--line);
+      }
+      .btn-ghost:hover {
+        border-color: var(--brand);
+        color: var(--brand);
+      }
+
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(3px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(10px, 3vw, 20px);
+        animation: fade 0.2s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .modal {
+        background: #fff;
+        border-radius: 16px;
+        width: 100%;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        animation: rise 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        max-height: 92vh;
+      }
+      .modal.setup {
+        max-width: 560px;
+      }
+      .modal.picker {
+        max-width: 700px;
+      }
+
+      .modal-head {
+        background: var(--grad);
+        color: #fff;
+        padding: clamp(16px, 3vw, 22px) clamp(16px, 3vw, 26px);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: none;
+      }
+      .modal-head .ico {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1.5px solid rgba(255, 255, 255, 0.28);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .modal-head h2 {
+        font-size: clamp(14px, 2.4vw, 17px);
+        font-weight: 400;
+      }
+      .modal-head p {
+        margin: 3px 0 0;
+        font-size: 12.5px;
+        opacity: 0.92;
+      }
+      .x-btn {
+        margin-left: auto;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 15px;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .x-btn:hover {
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      .modal-body {
+        padding: clamp(16px, 3vw, 24px);
+        overflow-y: auto;
+      }
+
+      .status {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        border-left: 4px solid var(--ok);
+        padding: 12px 14px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+        font-size: 12.5px;
+        color: #065f46;
+        line-height: 1.65;
+      }
+      .status.warn {
+        background: #fffbeb;
+        border-color: #fde68a;
+        border-left-color: #d97706;
+        color: #78350f;
+      }
+      .status .badge {
+        flex: none;
+        background: var(--ok);
+        color: #fff;
+        padding: 2px 10px;
+        border-radius: 100px;
+        font-size: 12px;
+      }
+      .status.warn .badge {
+        background: #d97706;
+      }
+
+      .opt-title {
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.6px;
+        margin-bottom: 10px;
+      }
+      .opt-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .opt {
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        cursor: pointer;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+        transition: all 0.2s ease;
+      }
+      .opt:hover {
+        border-color: var(--brand);
+        background: var(--brand-soft);
+        transform: translateY(-2px);
+      }
+      .opt.disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .opt .oi {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+      }
+      .opt.list .oi {
+        background: var(--grad);
+      }
+      .opt.manual .oi {
+        background: linear-gradient(135deg, #64748b, #475569);
+      }
+      .opt b {
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--ink);
+      }
+      .opt span {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .search {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+        background: #f8fafc;
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: none;
+      }
+      .search svg {
+        position: absolute;
+        left: 30px;
+        color: var(--faint);
+        pointer-events: none;
+      }
+      .search input {
+        width: 100%;
+        padding: 10px 14px 10px 38px;
+        border: 1.5px solid var(--line);
+        border-radius: var(--rs);
+        font-size: 13.5px;
+        background: #fff;
+        outline: none;
+      }
+      .search input:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+      }
+      .picker-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px 16px 18px;
+        min-height: 120px;
+      }
+      .picker-list::-webkit-scrollbar {
+        width: 8px;
+      }
+      .picker-list::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .t-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        background: #fff;
+        transition: all 0.15s ease;
+      }
+      .t-item:hover {
+        border-color: var(--brand);
+        background: var(--brand-soft);
+        transform: translateX(3px);
+      }
+      .t-item .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+      }
+      .t-item .info {
+        flex: 1;
+        min-width: 0;
+      }
+      .t-item .name {
+        font-size: 13.5px;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .t-item .meta {
+        font-size: 11.5px;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .t-item .badge {
+        flex: none;
+        font-size: 10.5px;
+        padding: 3px 9px;
+        border-radius: 100px;
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        white-space: nowrap;
+      }
+      .empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--faint);
+        font-size: 13.5px;
+      }
+
+      .modal-foot {
+        padding: 12px 16px;
+        border-top: 1px solid var(--line);
+        background: #f8fafc;
+        text-align: right;
+        flex: none;
+      }
+      .modal-foot button {
+        padding: 8px 20px;
+        border-radius: 8px;
+        background: var(--line);
+        color: #334155;
+        font-size: 13px;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+        transform: translate(-50%, 20px);
+        background: #0f172a;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.6;
+        max-width: min(92vw, 520px);
+        box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+        z-index: 10050;
+        white-space: pre-line;
+        text-align: center;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .toast.ok {
+        background: #065f46;
+      }
+      .toast.err {
+        background: #991b1b;
+      }
+      .toast.warn {
+        background: #78350f;
+      }
+
+      #printArea {
+        display: none;
+        max-width: 720px;
+        margin: 18px auto 40px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        padding: clamp(20px, 4vw, 42px);
+        box-shadow: 0 4px 18px -6px rgba(15, 23, 42, 0.12);
+        font-family: var(--font-body);
+        color: #111;
+        line-height: 1.7;
+        font-size: 14.5px;
+      }
+      #printArea.show {
+        display: block;
+      }
+      #printArea p {
+        margin: 0 0 14px;
+      }
+      #printArea .p-block {
+        margin-bottom: 16px;
+      }
+      #printArea .aligned-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 16px;
+      }
+      #printArea .aligned-list li {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 0 8px;
+        margin-bottom: 5px;
+        align-items: start;
+      }
+      #printArea .aligned-list .label {
+        white-space: nowrap;
+      }
+      #printArea .aligned-list .value {
+        word-break: break-word;
+      }
+      #printArea .p-sign {
+        margin-top: 26px;
+      }
+      #printArea .p-foot {
+        margin-top: 34px;
+      }
+      #printArea .sign-gap {
+        height: 48px;
+      }
+      #printArea .print-btn {
+        text-align: center;
+        margin-top: 30px;
+      }
+      #printArea .print-btn button {
+        padding: 10px 22px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1.5px solid var(--brand);
+        background: var(--brand);
+        color: #fff;
+        cursor: pointer;
+      }
+      #printArea .print-btn button:hover {
+        background: var(--brand-d);
+      }
+
+      @media print {
+        html,
+        body {
+          min-height: 0 !important;
+          height: auto !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: hidden !important;
+          background: #fff !important;
+        }
+        .app,
+        .overlay,
+        .toast,
+        .no-print,
+        .unified-backup-bar {
+          display: none !important;
+        }
+        #printArea,
+        #printArea.show {
+          display: block !important;
+          width: 100%;
+          max-width: none;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+          box-shadow: none;
+          background: #fff;
+          color: #000;
+          font-family: var(--font-body);
+          font-size: 11.8pt;
+          line-height: 1.35;
+          page-break-after: avoid;
+          break-after: avoid;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        #printArea p {
+          margin: 0 0 4pt !important;
+          line-height: 1.35 !important;
+        }
+        #printArea .p-block {
+          margin-bottom: 6pt !important;
+          line-height: 1.35 !important;
+        }
+        #printArea > div:first-child {
+          margin-bottom: 4pt !important;
+          line-height: 1.35 !important;
+        }
+        #printArea .p-content {
+          margin-bottom: 3pt !important;
+        }
+        #printArea .aligned-list {
+          margin: 0 0 5pt !important;
+          padding: 0 !important;
+        }
+        #printArea .aligned-list li {
+          display: grid !important;
+          grid-template-columns: max-content 1fr !important;
+          gap: 0 6pt !important;
+          margin-bottom: 1pt !important;
+          line-height: 1.32 !important;
+          align-items: start !important;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        #printArea .aligned-list .label {
+          padding-right: 0 !important;
+          white-space: nowrap !important;
+        }
+        #printArea .aligned-list .value {
+          white-space: normal !important;
+          word-break: break-word;
+        }
+        #printArea .p-sign {
+          margin-top: 10pt !important;
+          line-height: 1.35 !important;
+        }
+        #printArea .p-foot {
+          margin-top: 12pt !important;
+          line-height: 1.35 !important;
+        }
+        #printArea .sign-gap {
+          height: 30pt !important;
+        }
+        #printArea .print-btn {
+          display: none !important;
+        }
+        #printArea::after {
+          content: none !important;
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .grid,
+        .opt-grid,
+        .date-pair {
+          grid-template-columns: 1fr;
+        }
+        .sec-head .hint {
+          display: none;
+        }
+        .actions {
+          flex-direction: column-reverse;
+        }
+        .actions .btn {
+          width: 100%;
+        }
+        .chip {
+          flex-wrap: wrap;
+        }
+        .chip .change {
+          width: 100%;
+        }
+        .modal {
+          max-height: 94vh;
+        }
+      }
+      @media (max-width: 380px) {
+        .hdr .ico,
+        .modal-head .ico {
+          display: none;
+        }
+      }
+
+      /* ===== Screen optimization ===== */
+      :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+        outline: 3px solid rgba(13, 148, 136, 0.38);
+        outline-offset: 2px;
+      }
+      .unified-backup-bar {
+        position: fixed;
+        top: max(12px, env(safe-area-inset-top, 0px));
+        right: max(12px, env(safe-area-inset-right, 0px));
+        z-index: 9998;
+        display: flex;
+        gap: 6px;
+      }
+      .unified-backup-bar button {
+        padding: 7px 13px;
+        border-radius: 8px;
+        border: 1px solid rgba(13, 148, 136, 0.35);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--brand-d);
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        box-shadow: 0 2px 8px rgba(13, 148, 136, 0.15);
+        transition: all 0.15s ease;
+      }
+      .unified-backup-bar button:hover {
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+        transform: translateY(-1px);
+      }
+      @supports (padding: env(safe-area-inset-top)) {
+        .app {
+          padding-top: max(
+            clamp(12px, 2.5vw, 24px),
+            env(safe-area-inset-top, 0px)
+          );
+          padding-left: max(
+            clamp(10px, 2.5vw, 16px),
+            env(safe-area-inset-left, 0px)
+          );
+          padding-right: max(
+            clamp(10px, 2.5vw, 16px),
+            env(safe-area-inset-right, 0px)
+          );
+          padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+        }
+        .overlay {
+          padding-top: max(
+            clamp(10px, 3vw, 20px),
+            env(safe-area-inset-top, 0px)
+          );
+          padding-bottom: max(
+            clamp(10px, 3vw, 20px),
+            env(safe-area-inset-bottom, 0px)
+          );
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .opt,
+        .chip .change,
+        .modal-foot button {
+          min-height: 42px;
+        }
+        .unified-backup-bar button {
+          min-height: 40px;
+          padding: 8px 14px;
+          font-size: 13px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ====================== SETUP MODAL ====================== -->
+    <div class="overlay" id="setupOverlay" role="dialog" aria-modal="true">
+      <div class="modal setup">
+        <div class="modal-head">
+          <div class="ico">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          </div>
+          <div>
+            <h2>নৈমিত্তিক ছুটির আবেদন — সহকারি শিক্ষক</h2>
+            <p>শুরু করার পদ্ধতি নির্বাচন করুন</p>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="status" id="dataStatus">
+            <span class="badge" id="dataStatusBadge">✓</span>
+            <span id="dataStatusText"></span>
+          </div>
+
+          <div class="opt-title">আবেদনকারীর তথ্য কীভাবে নেবেন?</div>
+          <div class="opt-grid">
+            <button type="button" class="opt list" id="optList">
+              <div class="oi">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+              </div>
+              <b>তালিকা থেকে নির্বাচন</b>
+              <span id="optListDesc"
+                >সংরক্ষিত সহকারি শিক্ষকদের তালিকা থেকে বেছে নিন</span
+              >
+            </button>
+            <button type="button" class="opt manual" id="optManual">
+              <div class="oi">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 20h9" />
+                  <path
+                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                  />
+                </svg>
+              </div>
+              <b>নিজে তথ্য দিয়ে তৈরি</b>
+              <span>সব তথ্য সরাসরি ফর্মে লিখে আবেদন প্রস্তুত করুন</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== TEACHER PICKER ====================== -->
+    <div
+      class="overlay hidden"
+      id="pickerOverlay"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="modal picker">
+        <div class="modal-head">
+          <div class="ico">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
+          <div>
+            <h2>সহকারি শিক্ষক নির্বাচন করুন</h2>
+            <p id="pickerCount">মোট ০ জন</p>
+          </div>
+          <button type="button" class="x-btn" id="pickerClose" title="বন্ধ">
+            ✕
+          </button>
+        </div>
+
+        <div class="search">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="text"
+            id="pickerSearch"
+            placeholder="নাম, IPEMIS পিন বা মোবাইল দিয়ে খুঁজুন..."
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="picker-list" id="pickerList"></div>
+
+        <div class="modal-foot">
+          <button type="button" id="pickerCancel">বাতিল</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== FORM SHELL ====================== -->
+    <div class="app" id="appShell">
+      <div class="wrap">
+        <div class="hdr">
+          <div class="ico">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          </div>
+          <div>
+            <h1>নৈমিত্তিক ছুটির আবেদন ফরম</h1>
+            <p>হেমনগর সরকারি প্রাথমিক বিদ্যালয় — সহকারি শিক্ষক</p>
+          </div>
+        </div>
+
+        <div class="chip" id="pickedChip">
+          <div class="avatar" id="chipAvatar">?</div>
+          <div class="info">
+            <div class="name" id="chipName">—</div>
+            <div class="meta" id="chipMeta">—</div>
+          </div>
+          <button type="button" class="change" id="chipChange">
+            ↻ পরিবর্তন
+          </button>
+        </div>
+
+        <form id="leaveForm" novalidate autocomplete="off">
+          <div class="card sec">
+            <div class="sec-head">
+              <span class="step">১</span>
+              <h2>আবেদনকারীর তথ্য</h2>
+              <span class="hint">সহকারি শিক্ষকের পরিচিতি</span>
+            </div>
+            <div class="grid">
+              <div class="f">
+                <label for="dateOfApp"
+                  >আবেদনের তারিখ <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="dateOfApp"
+                  data-date
+                  placeholder="দিন/মাস/বছর"
+                  maxlength="10"
+                  inputmode="numeric"
+                  required
+                />
+              </div>
+              <div class="f">
+                <label for="applicantGender">লিঙ্গ</label>
+                <select id="applicantGender">
+                  <option value="পুরুষ">পুরুষ</option>
+                  <option value="মহিলা">মহিলা</option>
+                </select>
+              </div>
+              <div class="f">
+                <label for="applicantName"
+                  >আবেদনকারীর নাম <span class="req">*</span></label
+                >
+                <select id="applicantName" required></select>
+                <input
+                  type="text"
+                  id="applicantManual"
+                  class="manual"
+                  placeholder="আবেদনকারীর নাম লিখুন"
+                />
+              </div>
+              <div class="f">
+                <label for="teacherDesignation">পদবি</label>
+                <input
+                  type="text"
+                  id="teacherDesignation"
+                  value="সহকারি শিক্ষক"
+                />
+              </div>
+              <div class="f">
+                <label for="mobile"
+                  >মোবাইল নম্বর <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="mobile"
+                  data-digits
+                  inputmode="numeric"
+                  maxlength="11"
+                  placeholder="০১XXXXXXXXX"
+                  required
+                />
+              </div>
+              <div class="f">
+                <label for="email">ইমেইল (ঐচ্ছিক)</label>
+                <input
+                  type="text"
+                  id="email"
+                  inputmode="email"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <div class="f full">
+                <label for="schoolName">বিদ্যালয়ের নাম</label>
+                <input
+                  type="text"
+                  id="schoolName"
+                  value="হেমনগর সরকারি প্রাথমিক বিদ্যালয়"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card sec">
+            <div class="sec-head">
+              <span class="step">২</span>
+              <h2>ছুটির বিবরণ</h2>
+              <span class="hint">কারণ, সময়কাল ও দিনসংখ্যা</span>
+            </div>
+            <div class="grid">
+              <div class="f full">
+                <label for="reason"
+                  >প্রার্থীত ছুটির কারণ <span class="req">*</span></label
+                >
+                <select id="reason" required>
+                  <option value="">নির্বাচন করুন</option>
+                  <option value="পারিবারিক প্রয়োজন">পারিবারিক প্রয়োজন</option>
+                  <option value="ব্যক্তিগত কাজ">ব্যক্তিগত কাজ</option>
+                  <option value="স্বাস্থ্য সংক্রান্ত সমস্যা">
+                    স্বাস্থ্য সংক্রান্ত সমস্যা
+                  </option>
+                  <option value="__manual__">অন্যান্য (নিজে লিখুন)</option>
+                </select>
+                <input
+                  type="text"
+                  id="otherReason"
+                  class="manual"
+                  placeholder="ছুটির কারণ লিখুন"
+                />
+              </div>
+              <div class="f full">
+                <label>ছুটির সময়কাল <span class="req">*</span></label>
+                <div class="date-pair">
+                  <div>
+                    <input
+                      type="text"
+                      id="startDate"
+                      data-date
+                      placeholder="দিন/মাস/বছর"
+                      maxlength="10"
+                      inputmode="numeric"
+                      required
+                    />
+                    <div class="sub">শুরু তারিখ</div>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      id="endDate"
+                      data-date
+                      placeholder="দিন/মাস/বছর"
+                      maxlength="10"
+                      inputmode="numeric"
+                      required
+                    />
+                    <div class="sub">শেষ তারিখ</div>
+                  </div>
+                </div>
+                <div class="auto-note" id="daysAutoNote">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span id="daysAutoText"></span>
+                </div>
+              </div>
+              <div class="f">
+                <label for="totalDays"
+                  >মোট ছুটির দিন <span class="req">*</span></label
+                >
+                <div class="unit-wrap">
+                  <input
+                    type="text"
+                    id="totalDays"
+                    readonly
+                    placeholder="০"
+                    required
+                  />
+                  <span class="unit">দিন</span>
+                </div>
+                <div class="note">সময়কাল থেকে স্বয়ংক্রিয়ভাবে হিসাব হবে</div>
+              </div>
+              <div class="f">
+                <label for="takenDays"
+                  >এ বছর ভোগকৃত নৈমিত্তিক ছুটি <span class="req">*</span></label
+                >
+                <div class="unit-wrap">
+                  <input
+                    type="text"
+                    id="takenDays"
+                    data-digits
+                    inputmode="numeric"
+                    maxlength="4"
+                    placeholder="০"
+                    required
+                  />
+                  <span class="unit">দিন</span>
+                </div>
+              </div>
+              <div class="f full">
+                <label for="address"
+                  >ছুটিকালীন অবস্থানের ঠিকানা <span class="req">*</span></label
+                >
+                <select id="address" required>
+                  <option value="">নির্বাচন করুন</option>
+                  <option value="নিজ বাড়িতে">নিজ বাড়িতে</option>
+                  <option value="নিজ জেলায়">নিজ জেলায়</option>
+                  <option value="নিজ জেলার বাইরে">নিজ জেলার বাইরে</option>
+                  <option value="__manual__">অন্যান্য (নিজে লিখুন)</option>
+                </select>
+                <input
+                  type="text"
+                  id="otherAddress"
+                  class="manual"
+                  placeholder="ঠিকানা লিখুন"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card sec">
+            <div class="sec-head">
+              <span class="step">৩</span>
+              <h2>দায়িত্ব ও অনুমোদন</h2>
+              <span class="hint">দায়িত্ব গ্রহণকারী ও ছুটি অনুমোদনকারী</span>
+            </div>
+            <div class="grid">
+              <div class="f full">
+                <label for="WorkCharge"
+                  >আমার অনুপস্থিতিতে দায়িত্ব গ্রহণকারী শিক্ষক
+                  <span class="req">*</span></label
+                >
+                <select id="WorkCharge" required></select>
+              </div>
+              <div class="f full">
+                <label for="approverName"
+                  >ছুটি অনুমোদনকারী (প্রধান / ভারপ্রাপ্ত প্রধান শিক্ষক)
+                  <span class="req">*</span></label
+                >
+                <select id="approverName" required></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn btn-ghost" id="btnReset">
+              রিসেট
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              প্রিভিউ তৈরি করুন
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ====================== PRINT AREA ====================== -->
+    <div id="printArea" aria-live="polite">
+      <div>তারিখ: <span data-out="appDate"></span> খ্রি.</div>
+      <div class="p-block" style="margin-top: 12px">
+        বরাবর,<br />
+        <span data-out="approverDesig">প্রধান শিক্ষক</span><br />
+        হেমনগর সরকারি প্রাথমিক বিদ্যালয়<br />
+        গোপালপুর, টাঙ্গাইল
+      </div>
+      <div class="p-block">
+        <b>বিষয়:</b> কর্মস্থল ত্যাগসহ / ত্যাগ ব্যতিত
+        <span data-out="days"></span> দিনের নৈমিত্তিক ছুটির আবেদন।
+      </div>
+      <div class="p-content">
+        <p>
+          জনাব,<br />
+          যথাযথ সম্মান প্রদর্শন পূর্বক বিনীত নিবেদন এই যে, নিম্নবর্ণিত বিবরণের
+          প্রেক্ষিতে আমার <span data-out="days"></span> দিনের নৈমিত্তিক ছুটি
+          প্রয়োজন।
+        </p>
+        <ol class="aligned-list" id="printList"></ol>
+        <p>
+          অতএব, উল্লেখিত <span data-out="days"></span> দিনের নৈমিত্তিক ছুটি
+          মঞ্জুর পূর্বক আমাকে কর্মস্থল ত্যাগের অনুমতিসহ / অনুমতি ব্যতীত ছুটি
+          দানে মহোদয়ের মর্জি হয়।
+        </p>
+      </div>
+      <div class="p-sign">
+        <span data-out="signerLabel">বিনীত নিবেদক</span>,
+        <div class="sign-gap"></div>
+        নাম: <span data-out="applicant"></span><br />
+        পদবি: <span data-out="designation"></span><br />
+        প্রতিষ্ঠান: <span data-out="school"></span><br />
+        গোপালপুর, টাঙ্গাইল
+      </div>
+      <div class="p-foot">
+        অনুমোদিত
+        <div class="sign-gap"></div>
+        <span data-out="approver"></span><br />
+        <span data-out="approverDesig"></span><br />
+        হেমনগর সরকারি প্রাথমিক বিদ্যালয়<br />
+        গোপালপুর, টাঙ্গাইল
+      </div>
+      <div class="print-btn">
+        <button type="button" onclick="window.print()">
+          Print / Save as PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================== TOAST + HIDDEN INPUTS ====================== -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <input
+      type="file"
+      id="restoreFileInput"
+      accept=".json,application/json"
+      style="display: none"
+    />
+
+    <!-- ====================== UNIFIED BACKUP BAR ====================== -->
+    <div class="unified-backup-bar">
+      <button
+        type="button"
+        onclick="UnifiedBackup.backup()"
+        title="school + teachers + students — সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+      >
+        সব ডেটা ব্যাকআপ
+      </button>
+      <button
+        type="button"
+        onclick="document.getElementById('restoreFileInput').click()"
+        title="সব ডেটা রিস্টোর"
+      >
+        সব ডেটা রিস্টোর
+      </button>
+    </div>
+
+    <!-- ====================== UNIFIED BACKUP IIFE ====================== -->
+    <script>
+      (function () {
+        "use strict";
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_VERSION = "1.1.1-pro";
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {};
+          var any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appVersion: APP_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+        var modal = null,
+          pending = null;
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled /><div><div class="ub-title">' +
+                esc(s.label) +
+                '</div><div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option><option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '"><input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked /><div><div class="ub-title">' +
+              esc(s.label) +
+              '</div><div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (m.appVersion
+              ? " &nbsp;•&nbsp; সংস্করণ: " + esc(m.appVersion)
+              : "") +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>' +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button><button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+        window.UnifiedBackup = {
+          VERSION: APP_VERSION,
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <!-- ====================== PAGE LOGIC ====================== -->
+    <script>
+      (function () {
+        "use strict";
+
+        const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+        /* Read-only backward compat: leave import key still accepted */
+        const IMPORT_KEYS = [
+          "hemnagar_teachers_leave_import",
+          "hemnagar_teachers_v1",
+        ];
+        const STATE_KEY = "hemnagar_leave_state_v8";
+        const LEGACY_STATE_KEYS = ["hemnagar_leave_state_v7"];
+
+        const SCHOOL_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        const DEFAULT_DESIG = "সহকারি শিক্ষক";
+        const DEFAULT_APPROVER_DESIG = "প্রধান শিক্ষক";
+
+        const LETTERS = "ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ".split(" ");
+
+        const FIELDS = [
+          "dateOfApp",
+          "applicantGender",
+          "applicantName",
+          "teacherDesignation",
+          "mobile",
+          "email",
+          "schoolName",
+          "reason",
+          "startDate",
+          "endDate",
+          "takenDays",
+          "address",
+          "WorkCharge",
+          "approverName",
+        ];
+        const MANUALS = ["applicantManual", "otherReason", "otherAddress"];
+        const MOBILE_RE = /^01[3-9]\d{8}$/;
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        const $ = (id) => document.getElementById(id);
+        const qsa = (sel, root) =>
+          Array.prototype.slice.call((root || document).querySelectorAll(sel));
+
+        const toBn = (v) =>
+          String(v == null ? "" : v).replace(/\d/g, (d) => BN_DIGITS[+d]);
+        const toEn = (v) =>
+          String(v == null ? "" : v).replace(/[০-৯]/g, (m) =>
+            BN_DIGITS.indexOf(m),
+          );
+        const pad2 = (n) => String(n).padStart(2, "0");
+        const firstChar = (s) =>
+          String(s || "?")
+            .trim()
+            .charAt(0) || "?";
+        const digitsOnly = (v) => toEn(v).replace(/\D/g, "");
+
+        function node(tag, cls, text) {
+          const n = document.createElement(tag);
+          if (cls) n.className = cls;
+          if (text != null) n.textContent = text;
+          return n;
+        }
+        function debounce(fn, ms) {
+          let t;
+          return function () {
+            const args = arguments,
+              self = this;
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(self, args), ms);
+          };
+        }
+
+        const store = {
+          get(k) {
+            try {
+              return localStorage.getItem(k);
+            } catch (e) {
+              return null;
+            }
+          },
+          set(k, v) {
+            try {
+              localStorage.setItem(k, v);
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+          del(k) {
+            try {
+              localStorage.removeItem(k);
+            } catch (e) {}
+          },
+          json(k) {
+            const raw = this.get(k);
+            if (!raw) return null;
+            try {
+              return JSON.parse(raw);
+            } catch (e) {
+              return null;
+            }
+          },
+        };
+
+        let toastTimer = 0;
+        function toast(msg, type) {
+          const el = $("toast");
+          if (!el) return;
+          el.textContent = msg;
+          el.className = "toast show" + (type ? " " + type : "");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(
+            () => {
+              el.className = "toast";
+            },
+            type === "err" ? 5200 : 3400,
+          );
+        }
+
+        /* ---- Date helpers ---- */
+        function normalizeDate(input) {
+          if (!input) return "";
+          let v = toEn(String(input)).trim();
+          if (!v) return "";
+          v = v.replace(/[.\-\s]+/g, "/");
+          const parts = v.split("/").filter(Boolean);
+          let d, m, y;
+          if (parts.length === 3) {
+            if (parts[0].length === 4) {
+              y = parts[0];
+              m = parts[1];
+              d = parts[2];
+            } else {
+              d = parts[0];
+              m = parts[1];
+              y = parts[2];
+            }
+          } else if (parts.length === 1) {
+            const dig = parts[0].replace(/\D/g, "");
+            if (dig.length === 8) {
+              d = dig.slice(0, 2);
+              m = dig.slice(2, 4);
+              y = dig.slice(4);
+            } else if (dig.length === 6) {
+              d = dig.slice(0, 2);
+              m = dig.slice(2, 4);
+              y = "20" + dig.slice(4);
+            } else return "";
+          } else return "";
+          d = String(d).padStart(2, "0");
+          m = String(m).padStart(2, "0");
+          if (String(y).length === 2) y = "20" + y;
+          if (
+            !/^\d{2}$/.test(d) ||
+            !/^\d{2}$/.test(m) ||
+            !/^\d{4}$/.test(String(y))
+          )
+            return "";
+          const dd = +d,
+            mm = +m;
+          if (dd < 1 || dd > 31 || mm < 1 || mm > 12) return "";
+          return d + "/" + m + "/" + y;
+        }
+        function parseDate(s) {
+          const v = normalizeDate(s);
+          if (!v) return null;
+          const p = v.split("/");
+          const d = +p[0],
+            m = +p[1],
+            y = +p[2];
+          const dt = new Date(y, m - 1, d);
+          if (
+            dt.getFullYear() !== y ||
+            dt.getMonth() !== m - 1 ||
+            dt.getDate() !== d
+          )
+            return null;
+          return dt;
+        }
+        function fmtDate(d) {
+          if (!(d instanceof Date) || isNaN(d.getTime())) return "";
+          return (
+            pad2(d.getDate()) +
+            "/" +
+            pad2(d.getMonth() + 1) +
+            "/" +
+            d.getFullYear()
+          );
+        }
+        function maskDigits(digits) {
+          let out = "";
+          for (let i = 0; i < digits.length; i++) {
+            out += digits[i];
+            if (i === 1 && digits.length > 2) out += "/";
+            else if (i === 3 && digits.length > 4) out += "/";
+          }
+          return out;
+        }
+        function normalizeField(el) {
+          if (!el || !el.value) return "";
+          const n = normalizeDate(el.value);
+          if (n) el.value = toBn(n);
+          return n;
+        }
+        function fire(el) {
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+          el.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        function attachDateMask(el) {
+          if (!el || el.dataset.mask === "1") return;
+          el.dataset.mask = "1";
+          el.addEventListener("keydown", function (e) {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.key.length === 1 && !/[\d০-৯]/.test(e.key))
+              e.preventDefault();
+          });
+          el.addEventListener("paste", function (e) {
+            e.preventDefault();
+            const clip = e.clipboardData || window.clipboardData;
+            const txt = (clip && clip.getData("text")) || "";
+            const full = normalizeDate(txt);
+            const shown = full
+              ? toBn(full)
+              : toBn(maskDigits(digitsOnly(txt).slice(0, 8)));
+            el.value = shown;
+            fire(el);
+          });
+          el.addEventListener("input", function (e) {
+            const raw = el.value;
+            if (/[^\d\/\s]/.test(toEn(raw))) {
+              const full = normalizeDate(raw);
+              if (full) {
+                el.value = toBn(full);
+                try {
+                  el.setSelectionRange(el.value.length, el.value.length);
+                } catch (_) {}
+                return;
+              }
+            }
+            const pos = el.selectionStart || 0;
+            const beforeCursor = toEn(raw.slice(0, pos));
+            const digitsBefore = beforeCursor.replace(/[^\d]/g, "").length;
+            const digits = digitsOnly(raw).slice(0, 8);
+            let out = maskDigits(digits);
+            const deleting = String(e.inputType || "").indexOf("delete") === 0;
+            const justFilled =
+              !deleting &&
+              pos === raw.length &&
+              (digits.length === 2 || digits.length === 4);
+            if (justFilled) out += "/";
+            const display = toBn(out);
+            if (el.value !== display) {
+              el.value = display;
+              let np = 0,
+                counted = 0;
+              for (let i = 0; i < out.length && counted < digitsBefore; i++) {
+                np = i + 1;
+                if (/\d/.test(out[i])) counted++;
+              }
+              if (justFilled) np = out.length;
+              try {
+                el.setSelectionRange(np, np);
+              } catch (_) {}
+            }
+          });
+          el.addEventListener("blur", function () {
+            if (el.value) normalizeField(el);
+          });
+        }
+
+        /* ---- State ---- */
+        const state = {
+          teachers: [],
+          filtered: [],
+          idx: new Map(),
+          picked: null,
+        };
+        const isAssistant = (t) =>
+          /সহকারি|সহকারী/.test(String((t && t.designation) || ""));
+        const isPrincipal = (t) =>
+          /প্রধান/.test(String((t && t.designation) || ""));
+        const byName = (a, b) =>
+          String(a.nameBn || "").localeCompare(String(b.nameBn || ""), "bn");
+        const assistants = () => state.teachers.filter(isAssistant);
+        const principals = () => state.teachers.filter(isPrincipal);
+
+        function sanitizeTeachers(arr) {
+          if (!Array.isArray(arr)) return [];
+          const out = [];
+          for (let i = 0; i < arr.length; i++) {
+            const t = arr[i];
+            if (!t || typeof t !== "object") continue;
+            const nameBn = String(t.nameBn || "").trim();
+            const pin = String(t.ipemisPin || "").trim();
+            if (!nameBn && !pin) continue;
+            out.push({
+              nameBn: nameBn,
+              nameEn: String(t.nameEn || "").trim(),
+              designation: String(t.designation || "").trim(),
+              gender: t.gender === "মহিলা" ? "মহিলা" : "পুরুষ",
+              mobile: String(t.mobile || "").trim(),
+              ipemisPin: pin,
+            });
+          }
+          return out;
+        }
+        function readTeacherStorage() {
+          for (let i = 0; i < IMPORT_KEYS.length; i++) {
+            const arr = store.json(IMPORT_KEYS[i]);
+            if (Array.isArray(arr) && arr.length) return sanitizeTeachers(arr);
+          }
+          return [];
+        }
+        function setTeachers(list) {
+          state.teachers = list;
+          state.idx = new Map();
+          for (let i = 0; i < list.length; i++) state.idx.set(list[i], i);
+        }
+
+        function fillSelect(sel, placeholder, items, valueFn, labelFn, onEach) {
+          const prev = sel.value;
+          sel.textContent = "";
+          sel.appendChild(new Option(placeholder, ""));
+          items.forEach((t) => {
+            const o = new Option(labelFn(t), valueFn(t));
+            if (onEach) onEach(o, t);
+            sel.appendChild(o);
+          });
+          if (
+            prev &&
+            Array.prototype.some.call(sel.options, (o) => o.value === prev)
+          )
+            sel.value = prev;
+        }
+        function addOption(sel, value, label) {
+          if (!value) return;
+          const exists = Array.prototype.some.call(
+            sel.options,
+            (o) => o.value === value,
+          );
+          if (!exists) sel.appendChild(new Option(label || value, value));
+          sel.value = value;
+        }
+        function populateSelects() {
+          const app = $("applicantName");
+          fillSelect(
+            app,
+            "নির্বাচন করুন",
+            assistants().sort(byName),
+            (t) => t.nameBn,
+            (t) => t.nameBn,
+          );
+          app.appendChild(new Option("অন্যান্য (নিজে লিখুন)", "__manual__"));
+          const apr = $("approverName");
+          fillSelect(
+            apr,
+            "নির্বাচন করুন",
+            principals().sort(byName),
+            (t) => t.nameBn,
+            (t) => t.nameBn + (t.designation ? " — " + t.designation : ""),
+            (o, t) =>
+              (o.dataset.desig = t.designation || DEFAULT_APPROVER_DESIG),
+          );
+          populateWorkCharge();
+        }
+        function populateWorkCharge() {
+          const w = $("WorkCharge");
+          if (!w) return;
+          const exclude = getApplicantName();
+          fillSelect(
+            w,
+            "নির্বাচন করুন",
+            state.teachers
+              .slice()
+              .sort(byName)
+              .filter((t) => t.nameBn && t.nameBn !== exclude),
+            (t) => t.nameBn,
+            (t) => t.nameBn + (t.designation ? " — " + t.designation : ""),
+          );
+        }
+        function getApplicantName() {
+          const sel = $("applicantName");
+          if (!sel) return "";
+          if (sel.value === "__manual__")
+            return $("applicantManual").value.trim();
+          return sel.value || "";
+        }
+
+        function showSetup() {
+          const list = assistants();
+          const heads = principals();
+          const status = $("dataStatus"),
+            badge = $("dataStatusBadge"),
+            text = $("dataStatusText");
+          const optList = $("optList"),
+            optListDesc = $("optListDesc");
+
+          if (!list.length) {
+            status.classList.add("warn");
+            badge.textContent = "!";
+            text.textContent =
+              "তালিকায় কোনো সহকারি শিক্ষক পাওয়া যায়নি। সব ডেটা রিস্টোর করুন, অথবা নিজে তথ্য দিয়ে তৈরি করুন।";
+            optList.classList.add("disabled");
+            optListDesc.textContent =
+              "তালিকা খালি — সব ডেটা রিস্টোর করুন অথবা নিজে তথ্য দিয়ে তৈরি করুন";
+            return;
+          }
+          status.classList.remove("warn");
+          badge.textContent = "✓";
+          let msg =
+            "শিক্ষক তালিকায় " +
+            toBn(list.length) +
+            " জন সহকারি শিক্ষক পাওয়া গেছে।";
+          msg +=
+            heads.length > 0
+              ? " ছুটি অনুমোদনকারী: " + toBn(heads.length) + " জন।"
+              : " তবে কোনো প্রধান/ভারপ্রাপ্ত প্রধান শিক্ষক পাওয়া যায়নি — ছুটি অনুমোদনকারী নির্বাচন করা যাবে না।";
+          text.textContent = msg;
+          optList.classList.remove("disabled");
+          optListDesc.textContent =
+            toBn(list.length) +
+            " জন সহকারি শিক্ষক থেকে আবেদনকারী নির্বাচন করুন";
+        }
+        function hideSetup() {
+          $("setupOverlay").classList.add("hidden");
+        }
+
+        function openPicker() {
+          const list = assistants();
+          if (!list.length) {
+            toast(
+              "তালিকায় কোনো সহকারি শিক্ষক নেই। সব ডেটা রিস্টোর করুন অথবা নিজে তথ্য দিয়ে তৈরি করুন।",
+              "warn",
+            );
+            return;
+          }
+          hideSetup();
+          $("pickerOverlay").classList.remove("hidden");
+          $("pickerSearch").value = "";
+          $("pickerCount").textContent = "মোট " + toBn(list.length) + " জন";
+          state.filtered = list.slice().sort(byName);
+          renderPicker();
+          setTimeout(() => {
+            try {
+              $("pickerSearch").focus();
+            } catch (_) {}
+          }, 80);
+        }
+        function closePicker() {
+          $("pickerOverlay").classList.add("hidden");
+          if (!state.picked) $("setupOverlay").classList.remove("hidden");
+        }
+        function renderPicker() {
+          const list = $("pickerList");
+          list.textContent = "";
+          if (!state.filtered.length) {
+            list.appendChild(
+              node("div", "empty", "কোনো শিক্ষক পাওয়া যায়নি।"),
+            );
+            return;
+          }
+          const frag = document.createDocumentFragment();
+          state.filtered.forEach((t) => {
+            const item = node("div", "t-item");
+            item.dataset.i = state.idx.get(t);
+            item.appendChild(
+              node(
+                "div",
+                "avatar" + (t.gender === "মহিলা" ? " female" : ""),
+                firstChar(t.nameBn),
+              ),
+            );
+            const info = node("div", "info");
+            info.appendChild(node("div", "name", t.nameBn || "—"));
+            const meta = [
+              t.ipemisPin ? "পিন: " + toBn(t.ipemisPin) : "",
+              t.mobile ? "মোবাইল: " + toBn(t.mobile) : "",
+            ]
+              .filter(Boolean)
+              .join("  •  ");
+            if (meta) info.appendChild(node("div", "meta", meta));
+            item.appendChild(info);
+            item.appendChild(
+              node("div", "badge", t.designation || DEFAULT_DESIG),
+            );
+            frag.appendChild(item);
+          });
+          list.appendChild(frag);
+        }
+        function filterPicker() {
+          const q = toEn($("pickerSearch").value).toLowerCase().trim();
+          const pool = assistants();
+          if (!q) state.filtered = pool.slice().sort(byName);
+          else {
+            const terms = q.split(/\s+/).filter(Boolean);
+            state.filtered = pool
+              .filter((t) => {
+                const hay = [
+                  t.nameBn,
+                  t.nameEn,
+                  t.ipemisPin,
+                  t.mobile,
+                  t.designation,
+                ]
+                  .filter(Boolean)
+                  .map((v) => toEn(v).toLowerCase())
+                  .join(" ");
+                return terms.every((term) => hay.indexOf(term) !== -1);
+              })
+              .sort(byName);
+          }
+          renderPicker();
+        }
+        function renderChip(t) {
+          const chip = $("pickedChip");
+          if (!t) {
+            chip.classList.remove("show");
+            return;
+          }
+          const av = $("chipAvatar");
+          av.textContent = firstChar(t.nameBn);
+          av.className = "avatar" + (t.gender === "মহিলা" ? " female" : "");
+          $("chipName").textContent = t.nameBn || "—";
+          $("chipMeta").textContent = [
+            t.designation || "",
+            t.ipemisPin ? "পিন: " + toBn(t.ipemisPin) : "",
+            t.mobile ? "মোবাইল: " + toBn(t.mobile) : "",
+          ]
+            .filter(Boolean)
+            .join("  •  ");
+          chip.classList.add("show");
+        }
+        function selectTeacher(i) {
+          const t = state.teachers[i];
+          if (!t) return;
+          state.picked = t;
+          addOption($("applicantName"), t.nameBn, t.nameBn);
+          $("teacherDesignation").value = t.designation || DEFAULT_DESIG;
+          $("applicantGender").value = t.gender;
+          if (t.mobile) $("mobile").value = toBn(digitsOnly(t.mobile));
+          renderChip(t);
+          $("pickerOverlay").classList.add("hidden");
+          hideSetup();
+          syncManuals();
+          populateWorkCharge();
+          setDefaultDate();
+          saveState();
+          $("appShell").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        /* ---- Persistence ---- */
+        function collectState() {
+          const d = {};
+          FIELDS.forEach((id) => {
+            const el = $(id);
+            if (el) d[id] = el.value;
+          });
+          MANUALS.forEach((id) => {
+            const el = $(id);
+            if (el) d[id] = el.value;
+          });
+          return d;
+        }
+        function saveState() {
+          store.set(
+            STATE_KEY,
+            JSON.stringify({ v: 8, t: Date.now(), d: collectState() }),
+          );
+        }
+        const saveSoon = debounce(saveState, 380);
+
+        function loadState() {
+          let raw = store.json(STATE_KEY);
+          if (!raw || !raw.d) {
+            for (let i = 0; i < LEGACY_STATE_KEYS.length; i++) {
+              const old = store.json(LEGACY_STATE_KEYS[i]);
+              if (old && typeof old === "object") {
+                raw = { v: 8, d: old };
+                store.del(LEGACY_STATE_KEYS[i]);
+                break;
+              }
+            }
+          }
+          if (!raw || !raw.d) return false;
+          const d = raw.d;
+          let any = false;
+          FIELDS.forEach((id) => {
+            const el = $(id);
+            if (!el || d[id] == null || d[id] === "") return;
+            if (el.tagName === "SELECT") addOption(el, d[id], d[id]);
+            else el.value = d[id];
+            any = true;
+          });
+          MANUALS.forEach((id) => {
+            const el = $(id);
+            if (el && d[id]) el.value = d[id];
+          });
+          ["dateOfApp", "startDate", "endDate"].forEach((id) => {
+            const el = $(id);
+            if (el && el.value) normalizeField(el);
+          });
+          const name = $("applicantName").value;
+          if (name && name !== "__manual__") {
+            const found = state.teachers.filter((t) => t.nameBn === name)[0];
+            if (found) {
+              state.picked = found;
+              renderChip(found);
+            }
+          }
+          syncManuals();
+          updateAppDate();
+          calcDays();
+          populateWorkCharge();
+          return any;
+        }
+
+        function toggleManual(sel, inp) {
+          if (!sel || !inp) return;
+          inp.classList.toggle("show", sel.value === "__manual__");
+        }
+        function syncManuals() {
+          toggleManual($("reason"), $("otherReason"));
+          toggleManual($("address"), $("otherAddress"));
+          toggleManual($("applicantName"), $("applicantManual"));
+        }
+
+        function setDefaultDate() {
+          const el = $("dateOfApp");
+          if (!el) return;
+          if (!el.value) el.value = toBn(fmtDate(new Date()));
+          else normalizeField(el);
+          updateAppDate();
+        }
+        function updateAppDate() {
+          const el = $("dateOfApp");
+          if (!el) return;
+          normalizeField(el);
+          setOut("appDate", el.value ? toBn(el.value) : "…………");
+        }
+        function calcDays() {
+          const s = $("startDate"),
+            e = $("endDate"),
+            total = $("totalDays");
+          const note = $("daysAutoNote"),
+            txt = $("daysAutoText");
+          if (s) normalizeField(s);
+          if (e) normalizeField(e);
+          const sv = s ? s.value : "",
+            ev = e ? e.value : "";
+          if (!sv || !ev) {
+            total.value = "";
+            note.classList.remove("show");
+            return;
+          }
+          const sd = parseDate(sv),
+            ed = parseDate(ev);
+          if (!sd || !ed || ed < sd) {
+            total.value = "";
+            note.classList.remove("show");
+            return;
+          }
+          const days = Math.round((ed - sd) / 86400000) + 1;
+          total.value = toBn(days);
+          txt.textContent = "মোট " + toBn(days) + " দিন";
+          note.classList.add("show");
+        }
+
+        function validate() {
+          const v = (id) => ($(id) ? $(id).value.trim() : "");
+          const applicant =
+            v("applicantName") === "__manual__"
+              ? v("applicantManual")
+              : v("applicantName");
+          if (!applicant)
+            return {
+              msg: "অনুগ্রহ করে আবেদনকারীর নাম দিন।",
+              focus: "applicantName",
+            };
+          if (!parseDate(v("dateOfApp")))
+            return {
+              msg: "আবেদনের তারিখ দিন/মাস/বছর ফরম্যাটে সঠিকভাবে দিন।",
+              focus: "dateOfApp",
+            };
+          const mob = digitsOnly(v("mobile"));
+          if (!mob)
+            return { msg: "অনুগ্রহ করে মোবাইল নম্বর দিন।", focus: "mobile" };
+          if (!MOBILE_RE.test(mob))
+            return {
+              msg: "মোবাইল নম্বরটি সঠিক নয়। ১১ ডিজিটের সচল নম্বর দিন (যেমন ০১৭XXXXXXXX)।",
+              focus: "mobile",
+            };
+          const em = v("email");
+          if (em && !EMAIL_RE.test(em))
+            return { msg: "ইমেইল ঠিকানাটি সঠিক নয়।", focus: "email" };
+          const sd = parseDate(v("startDate")),
+            ed = parseDate(v("endDate"));
+          if (!sd || !ed)
+            return {
+              msg: "ছুটির সময়কাল (শুরু ও শেষ তারিখ) দিন/মাস/বছর ফরম্যাটে দিন।",
+              focus: "startDate",
+            };
+          if (ed < sd)
+            return {
+              msg: "শেষ তারিখ শুরু তারিখের আগে হতে পারে না।",
+              focus: "endDate",
+            };
+          if (!v("totalDays"))
+            return {
+              msg: "ছুটির দিন সংখ্যা হিসাব করা যায়নি। তারিখ ঠিকভাবে দিন।",
+              focus: "startDate",
+            };
+          if (!digitsOnly(v("takenDays")))
+            return {
+              msg: "অনুগ্রহ করে এ বছর ভোগকৃত মোট নৈমিত্তিক ছুটির দিন দিন।",
+              focus: "takenDays",
+            };
+          if (v("reason") === "__manual__" && !v("otherReason"))
+            return { msg: "ছুটির কারণ লিখুন।", focus: "otherReason" };
+          if (v("address") === "__manual__" && !v("otherAddress"))
+            return {
+              msg: "ছুটিকালীন অবস্থানের ঠিকানা লিখুন।",
+              focus: "otherAddress",
+            };
+          if (!v("WorkCharge"))
+            return {
+              msg: "অনুগ্রহ করে দায়িত্ব গ্রহণকারী শিক্ষকের নাম নির্বাচন করুন।",
+              focus: "WorkCharge",
+            };
+          if (!v("approverName"))
+            return {
+              msg: "অনুগ্রহ করে ছুটি অনুমোদনকারী নির্বাচন করুন।",
+              focus: "approverName",
+            };
+          return null;
+        }
+        function markInvalid(id) {
+          qsa(".invalid").forEach((el) => el.classList.remove("invalid"));
+          const el = $(id);
+          if (!el) return;
+          el.classList.add("invalid");
+          try {
+            el.focus({ preventScroll: false });
+          } catch (_) {
+            el.focus();
+          }
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(() => el.classList.remove("invalid"), 2600);
+        }
+
+        function setOut(name, value) {
+          qsa('[data-out="' + name + '"]').forEach((el) => {
+            el.textContent = value == null ? "" : value;
+          });
+        }
+        function buildPreview() {
+          const v = (id) => ($(id) ? $(id).value.trim() : "");
+          const applicant =
+            v("applicantName") === "__manual__"
+              ? v("applicantManual")
+              : v("applicantName");
+          const reason =
+            v("reason") === "__manual__"
+              ? v("otherReason") || "অন্যান্য"
+              : v("reason");
+          const address =
+            v("address") === "__manual__"
+              ? v("otherAddress") || "অন্যান্য"
+              : v("address");
+          const total = $("totalDays").value;
+          const taken = $("takenDays").value;
+          let approverDesig = DEFAULT_APPROVER_DESIG;
+          const aSel = $("approverName");
+          const opt = Array.prototype.find.call(
+            aSel.options,
+            (o) => o.value === aSel.value,
+          );
+          if (opt && opt.dataset.desig) approverDesig = opt.dataset.desig;
+          const startBn = toBn($("startDate").value || "…………");
+          const endBn = toBn($("endDate").value || "…………");
+          const rows = [
+            ["আবেদনকারীর নাম", applicant],
+            ["প্রার্থীত ছুটির কারণ", reason],
+            [
+              "প্রার্থীত ছুটির সময়কাল",
+              startBn + " খ্রি. হতে " + endBn + " খ্রি. পর্যন্ত",
+            ],
+            ["ছুটির মোট দিন সংখ্যা", total + " দিন"],
+            ["এ বছর ভোগকৃত মোট নৈমিত্তিক ছুটি", taken + " দিন"],
+            ["ছুটিকালীন অবস্থানের ঠিকানা", address],
+            ["আবেদনকারীর মোবাইল নম্বর", $("mobile").value.trim()],
+          ];
+          if (v("email")) rows.push(["আবেদনকারীর ইমেইল", v("email")]);
+          rows.push(["দায়িত্ব গ্রহণকারী শিক্ষক", v("WorkCharge")]);
+          rows.push(["দায়িত্ব গ্রহণকারীর স্বাক্ষর", ""]);
+          const ol = $("printList");
+          ol.textContent = "";
+          const frag = document.createDocumentFragment();
+          rows.forEach((r, i) => {
+            const li = node("li");
+            li.appendChild(
+              node("span", "label", (LETTERS[i] || "") + ". " + r[0] + " :"),
+            );
+            li.appendChild(node("span", "value", r[1] || "\u00A0"));
+            frag.appendChild(li);
+          });
+          ol.appendChild(frag);
+          setOut("days", total);
+          setOut("approverDesig", approverDesig);
+          setOut("approver", $("approverName").value);
+          setOut("applicant", applicant);
+          setOut("designation", v("teacherDesignation") || DEFAULT_DESIG);
+          setOut("school", v("schoolName") || SCHOOL_NAME);
+          setOut(
+            "signerLabel",
+            $("applicantGender").value === "মহিলা"
+              ? "বিনীত নিবেদিকা"
+              : "বিনীত নিবেদক",
+          );
+          updateAppDate();
+          const area = $("printArea");
+          area.classList.add("show");
+          area.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function handleSubmit(e) {
+          if (e) e.preventDefault();
+          try {
+            ["dateOfApp", "startDate", "endDate"].forEach((id) =>
+              normalizeField($(id)),
+            );
+            calcDays();
+            const err = validate();
+            if (err) {
+              toast(err.msg, "err");
+              markInvalid(err.focus);
+              return;
+            }
+            buildPreview();
+            saveState();
+            toast(
+              "প্রিভিউ তৈরি হয়েছে — প্রিন্ট বা PDF হিসেবে সংরক্ষণ করুন।",
+              "ok",
+            );
+          } catch (ex) {
+            toast(
+              "দুঃখিত, একটি অপ্রত্যাশিত সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+              "err",
+            );
+          }
+        }
+        function resetForm() {
+          if (!confirm("সব তথ্য মুছে নতুন করে শুরু করবেন?")) return;
+          try {
+            store.del(STATE_KEY);
+          } catch (_) {}
+          state.picked = null;
+          renderChip(null);
+          $("leaveForm").reset();
+          $("teacherDesignation").value = DEFAULT_DESIG;
+          $("schoolName").value = SCHOOL_NAME;
+          $("applicantGender").value = "পুরুষ";
+          $("daysAutoNote").classList.remove("show");
+          $("printArea").classList.remove("show");
+          syncManuals();
+          populateWorkCharge();
+          setDefaultDate();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          toast("ফর্ম রিসেট করা হয়েছে।", "ok");
+        }
+
+        function bind() {
+          $("optList").addEventListener("click", openPicker);
+          $("optManual").addEventListener("click", function () {
+            hideSetup();
+            state.picked = null;
+            renderChip(null);
+            syncManuals();
+            populateWorkCharge();
+            setDefaultDate();
+            saveState();
+            $("appShell").scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          });
+
+          $("pickerClose").addEventListener("click", closePicker);
+          $("pickerCancel").addEventListener("click", closePicker);
+          $("pickerSearch").addEventListener(
+            "input",
+            debounce(filterPicker, 130),
+          );
+          $("pickerList").addEventListener("click", function (e) {
+            const item = e.target.closest ? e.target.closest(".t-item") : null;
+            if (!item) return;
+            const i = parseInt(item.dataset.i, 10);
+            if (!isNaN(i)) selectTeacher(i);
+          });
+          $("chipChange").addEventListener("click", openPicker);
+
+          qsa("[data-digits]").forEach((inp) => {
+            inp.addEventListener("input", function () {
+              this.value = toBn(digitsOnly(this.value));
+            });
+          });
+          ["dateOfApp", "startDate", "endDate"].forEach((id) =>
+            attachDateMask($(id)),
+          );
+          $("dateOfApp").addEventListener("change", function () {
+            updateAppDate();
+            saveState();
+          });
+          $("startDate").addEventListener("change", function () {
+            calcDays();
+            saveState();
+          });
+          $("endDate").addEventListener("change", function () {
+            calcDays();
+            saveState();
+          });
+          ["reason", "address"].forEach((id) => {
+            $(id).addEventListener("change", function () {
+              syncManuals();
+              saveState();
+            });
+          });
+          $("applicantName").addEventListener("change", function () {
+            const name = this.value;
+            if (name && name !== "__manual__") {
+              const t = state.teachers.filter((x) => x.nameBn === name)[0];
+              if (t) {
+                state.picked = t;
+                $("teacherDesignation").value = t.designation || DEFAULT_DESIG;
+                $("applicantGender").value = t.gender;
+                if (t.mobile) $("mobile").value = toBn(digitsOnly(t.mobile));
+                renderChip(t);
+              }
+            } else {
+              state.picked = null;
+              renderChip(null);
+            }
+            syncManuals();
+            populateWorkCharge();
+            saveState();
+          });
+          $("applicantManual").addEventListener("input", populateWorkCharge);
+
+          const form = $("leaveForm");
+          form.addEventListener("input", function (e) {
+            if (e.target.matches("input, select")) saveSoon();
+          });
+          form.addEventListener("change", function (e) {
+            if (e.target.matches("input, select")) saveSoon();
+          });
+          form.addEventListener("submit", handleSubmit);
+          $("btnReset").addEventListener("click", resetForm);
+
+          document.addEventListener("keydown", function (e) {
+            if (
+              e.key === "Escape" &&
+              !$("pickerOverlay").classList.contains("hidden")
+            )
+              closePicker();
+          });
+
+          window.addEventListener("storage", function (e) {
+            if (!e.key) return;
+            if (IMPORT_KEYS.indexOf(e.key) === -1) return;
+            setTeachers(readTeacherStorage());
+            populateSelects();
+            showSetup();
+          });
+
+          /* Unified restore */
+          $("restoreFileInput").addEventListener("change", function (e) {
+            UnifiedBackup.handleFile(e, "teachers");
+          });
+        }
+
+        function init() {
+          try {
+            setTeachers(readTeacherStorage());
+            populateSelects();
+            bind();
+            const recovered = loadState();
+            setDefaultDate();
+            calcDays();
+            updateAppDate();
+            showSetup();
+            if (recovered)
+              toast(
+                "পূর্বের অসম্পূর্ণ আবেদনের তথ্য পুনরুদ্ধার করা হয়েছে।",
+                "ok",
+              );
+          } catch (ex) {
+            toast("অ্যাপ চালু করতে সমস্যা হয়েছে। পেজটি রিফ্রেশ করুন।", "err");
+          }
+        }
+
+        if (document.readyState === "loading")
+          document.addEventListener("DOMContentLoaded", init);
+        else init();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,4793 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0b6b57" />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>
+      বিদ্যালয়ের তথ্য ড্যাশবোর্ড | হেমনগর সরকারি প্রাথমিক বিদ্যালয়
+    </title>
+    <!-- SheetJS is lazy-loaded on export click — not blocking first paint -->
+    <style>
+      /* ============================================================
+         Design tokens — "Ink & Emerald" (matching students.html v2)
+      ============================================================ */
+      :root {
+        --bg: #f4f6f5;
+        --card: #ffffff;
+        --surface: #f7f9f8;
+        --text: #11201b;
+        --text-soft: #43544d;
+        --muted: #7b8a84;
+        --border: #e3e9e6;
+        --border-strong: #cfd9d4;
+
+        --primary: #0b6b57;
+        --primary-hover: #085646;
+        --primary-soft: #e6f3ee;
+        --primary-soft-2: #cde7dd;
+        --accent: #e0a526;
+        --gold: #e0a526;
+        --gold-soft: #fdf3da;
+        --ink: #0b2a22;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --excel: #1d7a4a;
+
+        --grad-brand: linear-gradient(
+          135deg,
+          #082f27 0%,
+          #0b6b57 58%,
+          #14906f 100%
+        );
+        --grad-soft: linear-gradient(135deg, #eef8f3 0%, #fcf6e6 100%);
+        --grad-gold: linear-gradient(135deg, #ecb53a 0%, #e0a526 100%);
+
+        --font-body:
+          "BCC Purno", "Noto Sans Bengali", "Hind Siliguri", Nikosh, NikoshBAN,
+          "Segoe UI", Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", "Noto Sans Bengali", Nikosh,
+          NikoshBAN, "Segoe UI", Arial, sans-serif;
+
+        --radius: 16px;
+        --radius-sm: 11px;
+        --shadow-sm: 0 1px 2px rgba(11, 42, 34, 0.06);
+        --shadow:
+          0 1px 2px rgba(11, 42, 34, 0.04), 0 12px 32px rgba(11, 42, 34, 0.07);
+        --shadow-md: 0 14px 34px rgba(11, 107, 87, 0.18);
+        --shadow-lg: 0 30px 80px rgba(8, 30, 24, 0.35);
+        --ring: 0 0 0 4px rgba(11, 107, 87, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background:
+          radial-gradient(
+            900px 380px at 0% -8%,
+            rgba(11, 107, 87, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            700px 360px at 100% 0%,
+            rgba(224, 165, 38, 0.1),
+            transparent 60%
+          ),
+          var(--bg);
+        background-attachment: fixed;
+        color: var(--text);
+        padding: 24px 20px 40px;
+        font-size: 15.5px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Disable fixed background on mobile — smooth scroll */
+      @media (max-width: 780px) {
+        body {
+          background-attachment: scroll;
+        }
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font-family: var(--font-body);
+        font-size: inherit;
+        line-height: inherit;
+        outline: none;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-head);
+        font-weight: 900;
+        letter-spacing: 0.15px;
+      }
+      ::selection {
+        background: var(--primary-soft-2);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      /* ============================================================
+         Hero header
+      ============================================================ */
+      .dashboard-header {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-bottom: 24px;
+        padding: 30px 34px;
+        border-radius: 24px;
+        background:
+          radial-gradient(
+              circle at 1px 1px,
+              rgba(255, 255, 255, 0.09) 1px,
+              transparent 0
+            )
+            0 0 / 22px 22px,
+          var(--grad-brand);
+        color: #fff;
+        box-shadow: 0 20px 44px rgba(8, 47, 39, 0.28);
+      }
+      .dashboard-header::before {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(224, 165, 38, 0.16);
+        width: 300px;
+        height: 300px;
+        right: -90px;
+        top: -150px;
+        pointer-events: none;
+      }
+      .dashboard-header::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        width: 180px;
+        height: 180px;
+        right: 180px;
+        bottom: -110px;
+        pointer-events: none;
+      }
+
+      .dashboard-title {
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+      }
+      .dashboard-title h2 {
+        font-size: 28px;
+        line-height: 1.28;
+        margin-bottom: 4px;
+        letter-spacing: 0;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(8, 30, 24, 0.2);
+      }
+      .dashboard-title h3 {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffe7a8;
+        background: rgba(224, 165, 38, 0.2);
+        border: 1px solid rgba(224, 165, 38, 0.55);
+        padding: 4px 15px;
+        border-radius: 999px;
+        margin-top: 6px;
+        letter-spacing: 0.3px;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+
+      .header-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        font-size: 14.5px;
+        font-weight: 800;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+      .header-actions .btn {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.28);
+        color: #fff;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .header-actions .btn:hover {
+        background: rgba(255, 255, 255, 0.26);
+        border-color: rgba(255, 255, 255, 0.55);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(8, 30, 24, 0.28);
+      }
+      .header-actions .btn:active {
+        transform: translateY(0);
+      }
+      .btn-success {
+        background: var(--grad-gold);
+        color: #3a2a00;
+        box-shadow: 0 8px 18px rgba(224, 165, 38, 0.3);
+      }
+      .btn-success:hover {
+        background: linear-gradient(135deg, #f0c14a 0%, #ecb53a 100%);
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        background: #eaf0ed;
+        color: var(--text-soft);
+      }
+      .btn-secondary:hover {
+        background: #dce6e1;
+        color: var(--text);
+      }
+      .btn-info {
+        background: linear-gradient(135deg, #0f8a6b, #0b6b57);
+        color: #fff;
+      }
+      .btn-excel {
+        background: linear-gradient(135deg, #22a366, var(--excel));
+        color: #fff;
+      }
+      .btn-purple {
+        background: linear-gradient(135deg, #0f8a6b, #0b6b57);
+        color: #fff;
+      }
+
+      /* ============================================================
+         TOC NAV
+      ============================================================ */
+      .toc-nav {
+        position: sticky;
+        top: 10px;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 10px 12px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow:
+          0 8px 24px rgba(11, 107, 87, 0.1),
+          inset 0 1px 0 #fff;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-soft-2) transparent;
+      }
+      .toc-nav::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 3px;
+        border-radius: 16px 16px 0 0;
+        background: linear-gradient(90deg, var(--primary), var(--gold));
+        opacity: 0.95;
+      }
+      .toc-nav::-webkit-scrollbar {
+        height: 6px;
+      }
+      .toc-nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .toc-nav::-webkit-scrollbar-thumb {
+        background: var(--primary-soft-2);
+        border-radius: 99px;
+      }
+      .toc-nav::-webkit-scrollbar-thumb:hover {
+        background: #9cc9ba;
+      }
+
+      .toc-pill {
+        position: relative;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--border-strong);
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--text-soft);
+        cursor: pointer;
+        transition: all 0.18s ease;
+        white-space: nowrap;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+      .toc-pill:hover {
+        border-color: #9cc9ba;
+        color: var(--primary);
+        background: var(--primary-soft);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(11, 107, 87, 0.16);
+      }
+      .toc-pill.active {
+        background: var(--grad-brand);
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(11, 107, 87, 0.35);
+      }
+      .toc-pill.active::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -7px;
+        width: 20px;
+        height: 3px;
+        border-radius: 99px;
+        transform: translateX(-50%);
+        background: var(--gold);
+        opacity: 0.95;
+      }
+
+      /* ============================================================
+         SECTION CARDS
+      ============================================================ */
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .section-card {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition:
+          box-shadow 0.2s ease,
+          border-color 0.2s ease,
+          transform 0.2s ease;
+        scroll-margin-top: 100px;
+        /* PERF: skip rendering off-screen cards */
+        content-visibility: auto;
+        contain-intrinsic-size: 400px;
+      }
+      .section-card:hover {
+        box-shadow: var(--shadow);
+        border-color: #9cc9ba;
+      }
+
+      .section-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        background: linear-gradient(180deg, #f6faf8 0%, #ffffff 100%);
+        border-bottom: 1px solid var(--border);
+        border-left: 5px solid var(--primary);
+      }
+
+      .section-card-title {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 16.5px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        flex: 1;
+      }
+      .section-card-title .sec-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        background: var(--grad-brand);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 5px 14px rgba(11, 107, 87, 0.3);
+      }
+      .section-card-title .sec-icon svg {
+        width: 19px;
+        height: 19px;
+      }
+      .section-card-title .sec-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .section-card-header-right {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-shrink: 0;
+      }
+
+      .count-badge {
+        font-size: 13px;
+        font-weight: 800;
+        background: var(--primary-soft);
+        color: var(--primary);
+        padding: 5px 13px;
+        border-radius: 999px;
+        border: 1px solid var(--primary-soft-2);
+        white-space: nowrap;
+      }
+
+      .edit-btn {
+        background: var(--gold-soft);
+        color: #a86b00;
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        border: 1px solid #f3d98f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.18s ease;
+        flex-shrink: 0;
+      }
+      .edit-btn:hover {
+        background: var(--grad-brand);
+        border-color: transparent;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(11, 107, 87, 0.35);
+      }
+      .edit-btn:active {
+        transform: translateY(0);
+      }
+      .edit-btn svg {
+        width: 17px;
+        height: 17px;
+      }
+
+      .section-card-body {
+        padding: 18px 20px 20px;
+      }
+
+      /* ============================================================
+         INFO GRID
+      ============================================================ */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .info-item {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 12px 15px 13px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+        overflow: hidden;
+        transition: all 0.18s ease;
+      }
+      .info-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--primary), var(--gold));
+        opacity: 0;
+        transition: opacity 0.18s ease;
+      }
+      .info-item:hover {
+        border-color: #9cc9ba;
+        background: #fff;
+        box-shadow: 0 8px 20px rgba(11, 107, 87, 0.1);
+        transform: translateY(-1px);
+      }
+      .info-item:hover::before {
+        opacity: 1;
+      }
+      .info-item.full {
+        grid-column: 1 / -1;
+      }
+
+      .info-label {
+        font-family: var(--font-head);
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--muted);
+        letter-spacing: 0.4px;
+        line-height: 1.35;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .info-value-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .info-value {
+        font-size: 15.5px;
+        font-weight: 700;
+        color: var(--text);
+        word-break: break-word;
+        line-height: 1.42;
+        flex: 1;
+        min-width: 0;
+      }
+      .info-value.empty {
+        color: #b3b9cf;
+        font-style: italic;
+        font-weight: 500;
+      }
+      .info-value.empty::before {
+        content: "—";
+      }
+
+      .copy-btn {
+        background: #fff;
+        color: var(--muted);
+        padding: 5px;
+        border-radius: 7px;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0.7;
+        transition: all 0.15s ease;
+      }
+      .copy-btn:hover {
+        background: var(--primary-soft);
+        color: var(--primary);
+        border-color: #9cc9ba;
+        opacity: 1;
+        transform: scale(1.06);
+      }
+      .copy-btn.copied {
+        background: var(--success);
+        color: #fff;
+        border-color: var(--success);
+        opacity: 1;
+      }
+      .copy-btn svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      .class-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .class-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        border: 1px solid var(--primary-soft-2);
+        font-size: 14.5px;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba(11, 107, 87, 0.08);
+      }
+      .class-chip svg {
+        color: var(--primary);
+        width: 13px;
+        height: 13px;
+      }
+
+      .sub-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .sub-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 15px 18px 17px 22px;
+        overflow: hidden;
+        transition: all 0.18s ease;
+      }
+      .sub-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 14px;
+        bottom: 14px;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+        background: linear-gradient(180deg, var(--primary), var(--gold));
+      }
+      .sub-card:hover {
+        border-color: #9cc9ba;
+        box-shadow: 0 8px 22px rgba(11, 107, 87, 0.1);
+      }
+      .sub-card-head {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed var(--border-strong);
+      }
+      .sub-card-head .num-badge {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--grad-brand);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(11, 107, 87, 0.3);
+      }
+      .sub-card-head .sub-title {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 15px;
+        color: var(--text);
+      }
+      .sub-card .info-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .empty-state {
+        padding: 30px 20px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 14.5px;
+        font-weight: 600;
+        background: var(--surface);
+        border: 1.5px dashed var(--border-strong);
+        border-radius: var(--radius-sm);
+      }
+      .empty-state svg {
+        opacity: 0.5;
+        margin-bottom: 8px;
+        color: var(--primary);
+      }
+
+      /* ============================================================
+         MODAL
+      ============================================================ */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 24, 19, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        animation: fadeIn 0.22s ease;
+        overflow-y: auto;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+
+      .modal-content {
+        background: #fff;
+        padding: 0;
+        border-radius: 22px;
+        width: 100%;
+        max-width: 920px;
+        max-height: 92vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--primary-soft-2);
+        animation: modalIn 0.24s ease;
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: translateY(-12px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        padding: 18px 24px;
+        color: #fff;
+        background: var(--grad-brand);
+        flex-wrap: wrap;
+      }
+      .modal-header-row::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(224, 165, 38, 0.18);
+        right: -60px;
+        top: -100px;
+        pointer-events: none;
+      }
+      .modal-header-row h3 {
+        position: relative;
+        z-index: 1;
+        font-size: 17px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .modal-header-row h3 svg {
+        width: 20px;
+        height: 20px;
+      }
+      .modal-close-btn {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        transition: 0.18s;
+      }
+      .modal-close-btn:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: rotate(90deg);
+      }
+
+      #editBody {
+        padding: 22px 24px;
+      }
+
+      .modal-actions {
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin: 0;
+        padding: 16px 24px;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        flex-wrap: wrap;
+        box-shadow: 0 -6px 18px rgba(11, 107, 87, 0.06);
+      }
+
+      .edit-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .edit-grid .form-group.full {
+        grid-column: 1 / -1;
+      }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 800;
+        margin-bottom: 7px;
+        color: var(--text-soft);
+        letter-spacing: 0.2px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: 12px;
+        font-size: 15px;
+        color: var(--text);
+        background: #fff;
+        transition: all 0.18s ease;
+      }
+      .form-group input::placeholder {
+        color: #aab1c6;
+      }
+      .form-group input:hover,
+      .form-group select:hover,
+      .form-group textarea:hover {
+        border-color: #9fb5ac;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary);
+        box-shadow: var(--ring);
+        background: #fff;
+      }
+
+      .dyn-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .dyn-item {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        transition: all 0.18s ease;
+      }
+      .dyn-item:hover {
+        border-color: #9cc9ba;
+        box-shadow: 0 6px 18px rgba(11, 107, 87, 0.1);
+      }
+      .dyn-item-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed var(--border-strong);
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .dyn-item-title {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 14.5px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dyn-item-title .num-badge {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--grad-brand);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(11, 107, 87, 0.3);
+      }
+      .btn-remove {
+        background: #fee2e2;
+        color: var(--danger);
+        padding: 8px 14px;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 800;
+        transition: 0.15s;
+      }
+      .btn-remove:hover {
+        background: #fecaca;
+        transform: translateY(-1px);
+      }
+      .btn-add-item {
+        background: var(--primary-soft);
+        color: var(--primary);
+        border: 1.5px dashed #9cc9ba;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 14px;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+      }
+      .btn-add-item:hover {
+        background: var(--primary-soft-2);
+        border-style: solid;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(11, 107, 87, 0.16);
+      }
+
+      .class-check-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 11px;
+      }
+      .check-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: 12px;
+        background: #fff;
+        cursor: pointer;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--text-soft);
+        transition: all 0.18s ease;
+        user-select: none;
+      }
+      .check-chip:hover {
+        border-color: #9cc9ba;
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+      .check-chip input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary);
+        cursor: pointer;
+      }
+      .check-chip:has(input:checked) {
+        border-color: var(--primary);
+        background: var(--grad-soft);
+        color: var(--primary);
+        font-weight: 800;
+        box-shadow: 0 0 0 4px rgba(11, 107, 87, 0.08);
+      }
+
+      .toast {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 2000;
+        max-width: 400px;
+        background: #0b2a22;
+        color: #fff;
+        padding: 16px 20px;
+        border-radius: 14px;
+        box-shadow: 0 16px 40px rgba(8, 30, 24, 0.4);
+        display: none;
+        font-size: 14.5px;
+        font-weight: 600;
+        border-left: 5px solid var(--primary);
+      }
+      .toast.show {
+        display: block;
+        animation: toastIn 0.28s ease;
+      }
+      .toast.ok {
+        background: #0c6b50;
+        border-left-color: #5eead4;
+      }
+      .toast.err {
+        background: #a62434;
+        border-left-color: #fca5a5;
+      }
+      @keyframes toastIn {
+        from {
+          transform: translateY(14px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      .footer-credit {
+        text-align: center;
+        padding: 22px 10px 14px;
+        color: var(--muted);
+        font-size: 13.5px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+      }
+      .footer-credit strong {
+        font-family: var(--font-head);
+        font-weight: 900;
+        color: var(--primary);
+      }
+
+      /* ============================================================
+         PRINT
+      ============================================================ */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 5mm 5mm;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        html,
+        body {
+          background: #fff !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          font-size: 9pt;
+          line-height: 1.18;
+        }
+        .toc-nav,
+        .header-actions,
+        .edit-btn,
+        .count-badge,
+        .copy-btn,
+        .footer-credit,
+        .toast,
+        .modal-overlay,
+        .empty-state svg {
+          display: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          height: 0 !important;
+        }
+        .container {
+          padding: 0 !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          max-width: 100% !important;
+        }
+        .dashboard-header {
+          background: #fff !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          padding: 0 0 1mm 0 !important;
+          margin: 0 0 2mm 0 !important;
+          border-bottom: 0.8pt solid #999 !important;
+          gap: 0 !important;
+        }
+        .dashboard-header::before,
+        .dashboard-header::after {
+          display: none !important;
+        }
+        .dashboard-title h2 {
+          font-size: 13pt !important;
+          margin: 0 !important;
+          color: #0b2a22 !important;
+          -webkit-text-fill-color: #0b2a22 !important;
+          background: none !important;
+          text-shadow: none !important;
+          line-height: 1.15 !important;
+        }
+        .dashboard-title h3 {
+          font-size: 8pt !important;
+          margin: 0 !important;
+          color: #666 !important;
+          background: none !important;
+          border: 0 !important;
+          padding: 0 !important;
+          line-height: 1.1 !important;
+        }
+        .dashboard {
+          gap: 1.5mm !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        .section-card {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          box-shadow: none !important;
+          border: 0.5pt solid #c8d0dc !important;
+          border-radius: 1.5mm !important;
+          margin: 0 0 1.5mm 0 !important;
+          overflow: hidden !important;
+          content-visibility: visible !important;
+        }
+        .section-card:hover {
+          box-shadow: none !important;
+          border-color: #c8d0dc !important;
+        }
+        .section-card-header {
+          padding: 1mm 2mm !important;
+          background: #eef8f3 !important;
+          border-bottom: 0.4pt solid #c8d0dc !important;
+          border-left: 0.4pt solid #c8d0dc !important;
+          gap: 1mm !important;
+        }
+        .section-card-title {
+          font-size: 8.5pt !important;
+          gap: 1.5mm !important;
+          color: #0b6b57 !important;
+          line-height: 1.15 !important;
+        }
+        .section-card-title .sec-icon {
+          display: none !important;
+        }
+        .section-card-title .sec-text {
+          white-space: normal !important;
+        }
+        .section-card-body {
+          padding: 1mm 2mm !important;
+        }
+        .info-grid {
+          grid-template-columns: 1fr 1fr 1fr !important;
+          gap: 0.6mm !important;
+        }
+        .info-item {
+          padding: 0.8mm 1.4mm !important;
+          border: 0.4pt solid #dfe3e8 !important;
+          border-radius: 1mm !important;
+          background: #fafbfc !important;
+          gap: 0 !important;
+          box-shadow: none !important;
+          transform: none !important;
+        }
+        .info-item::before {
+          display: none !important;
+        }
+        .info-item:hover {
+          border-color: #dfe3e8 !important;
+          background: #fafbfc !important;
+          box-shadow: none !important;
+          transform: none !important;
+        }
+        .info-item.full {
+          grid-column: 1 / -1 !important;
+        }
+        .info-label {
+          font-size: 5.8pt !important;
+          line-height: 1.05 !important;
+          letter-spacing: 0 !important;
+          color: #64748b !important;
+          margin: 0 !important;
+        }
+        .info-value {
+          font-size: 7.8pt !important;
+          line-height: 1.15 !important;
+          font-weight: 600 !important;
+          color: #11201b !important;
+          margin: 0 !important;
+        }
+        .info-value.empty {
+          color: #adb5bd !important;
+        }
+        .info-value-row {
+          gap: 0 !important;
+        }
+        .sub-list {
+          gap: 1mm !important;
+        }
+        .sub-card {
+          padding: 1mm 1.6mm !important;
+          border: 0.4pt solid #dfe3e8 !important;
+          border-radius: 1mm !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          margin: 0 !important;
+          background: #fff !important;
+          box-shadow: none !important;
+        }
+        .sub-card::before {
+          display: none !important;
+        }
+        .sub-card-head {
+          padding: 0 0 0.6mm 0 !important;
+          margin: 0 0 0.8mm 0 !important;
+          border-bottom: 0.3pt dotted #c8d0dc !important;
+          gap: 1mm !important;
+        }
+        .sub-card-head .num-badge {
+          display: none !important;
+        }
+        .sub-card-head .sub-title {
+          font-size: 7.5pt !important;
+          line-height: 1.1 !important;
+        }
+        .sub-card .info-grid {
+          gap: 0.5mm !important;
+        }
+        .class-chips {
+          gap: 0.8mm !important;
+        }
+        .class-chip {
+          padding: 0.4mm 1.4mm !important;
+          font-size: 7pt !important;
+          border-radius: 1mm !important;
+          gap: 0.5mm !important;
+          box-shadow: none !important;
+        }
+        .class-chip svg {
+          width: 6pt !important;
+          height: 6pt !important;
+        }
+        .empty-state {
+          padding: 1mm 2mm !important;
+          font-size: 7pt !important;
+          border: 0.3pt dashed #dfe3e8 !important;
+          background: #fff !important;
+        }
+      }
+
+      /* ============================================================
+         RESPONSIVE
+      ============================================================ */
+      @media (max-width: 1024px) {
+        .info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .sub-card .info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .edit-grid {
+          grid-template-columns: 1fr;
+        }
+        .class-check-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .dashboard-title h2 {
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 780px) {
+        body {
+          padding: 12px 10px 30px;
+          font-size: 15px;
+        }
+        .container {
+          padding: 0;
+        }
+        .dashboard-header {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 22px 18px;
+          border-radius: 20px;
+          gap: 16px;
+        }
+        .dashboard-title h2 {
+          font-size: 21px;
+        }
+        .dashboard-title h3 {
+          font-size: 13.5px;
+        }
+        .header-actions .btn {
+          flex: 1 1 calc(50% - 5px);
+          justify-content: center;
+          padding: 11px 14px;
+          font-size: 13.5px;
+        }
+        .toc-nav {
+          border-radius: 14px;
+          padding: 9px;
+          top: 6px;
+        }
+        .toc-pill {
+          padding: 8px 13px;
+          font-size: 13px;
+        }
+        .info-grid,
+        .sub-card .info-grid {
+          grid-template-columns: 1fr;
+        }
+        .class-check-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-card-header {
+          padding: 12px 14px;
+        }
+        .section-card-title {
+          font-size: 15px;
+        }
+        .section-card-title .sec-text {
+          white-space: normal;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .section-card-body {
+          padding: 14px 16px;
+        }
+        .modal-overlay {
+          padding: 8px;
+        }
+        .modal-content {
+          border-radius: 16px;
+          max-height: 95vh;
+        }
+        .modal-header-row {
+          padding: 15px 18px;
+        }
+        .modal-header-row h3 {
+          font-size: 15.5px;
+        }
+        #editBody {
+          padding: 16px 18px;
+        }
+        .modal-actions {
+          padding: 14px 18px;
+        }
+        .toast {
+          right: 10px;
+          left: 10px;
+          bottom: 10px;
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 420px) {
+        body {
+          padding: 8px 6px 24px;
+          font-size: 14.5px;
+        }
+        .dashboard-title h2 {
+          font-size: 19px;
+        }
+        .info-value {
+          font-size: 15px;
+        }
+        .header-actions .btn {
+          flex: 1 1 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+      .app-footer {
+        margin-top: 24px;
+      }
+      .backup-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--primary);
+        box-shadow: var(--shadow-sm);
+        padding: 16px 20px;
+        border-radius: var(--radius);
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+      .backup-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .backup-info .title {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 15px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        letter-spacing: 0.1px;
+      }
+      .backup-info .title svg {
+        color: var(--primary);
+      }
+      .backup-info .meta {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .backup-actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .btn-backup-sm {
+        padding: 9px 16px;
+        font-size: 13.5px;
+        font-weight: 700;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .btn-backup-sm.primary {
+        background: var(--primary);
+        color: #fff;
+        box-shadow: 0 5px 14px rgba(91, 94, 244, 0.28);
+      }
+      .btn-backup-sm.primary:hover {
+        background: var(--primary-hover);
+      }
+      .btn-backup-sm.secondary {
+        background: #fff;
+        color: var(--text-soft);
+        border: 1.5px solid var(--border);
+      }
+      .btn-backup-sm.secondary:hover {
+        background: var(--primary-soft);
+        border-color: #b9bdfb;
+        color: var(--primary);
+      }
+      .app-footer .footer-credit {
+        padding: 14px 10px 6px;
+      }
+      @media (max-width: 780px) {
+        .backup-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .backup-actions {
+          width: 100%;
+        }
+        .btn-backup-sm {
+          flex: 1;
+          justify-content: center;
+        }
+      }
+      @media screen {
+        .btn-backup-sm.primary {
+          box-shadow: 0 5px 14px rgba(11, 107, 87, 0.28);
+        }
+        .btn-backup-sm.secondary:hover {
+          border-color: #9cc9ba;
+        }
+        .backup-bar {
+          border-radius: 18px;
+          box-shadow: var(--shadow-sm);
+        }
+        .btn-backup-sm {
+          border-radius: 999px;
+        }
+        .btn-backup-sm.primary {
+          background: var(--primary);
+        }
+        .btn-backup-sm.primary:hover {
+          background: var(--primary-hover);
+        }
+      }
+      @media print {
+        .app-footer {
+          display: none !important;
+        }
+      }
+      /* ===== UNIFIED DESIGN SYSTEM v1.1.1-pro — identical in school / teachers / students ===== */
+      :root {
+        --bg: #f4f6f5;
+        --card: #ffffff;
+        --surface: #f7f9f8;
+        --text: #11201b;
+        --text-soft: #43544d;
+        --muted: #7b8a84;
+        --border: #e3e9e6;
+        --border-strong: #cfd9d4;
+        --primary: #0b6b57;
+        --primary-hover: #085646;
+        --primary-soft: #e6f3ee;
+        --primary-soft-2: #cde7dd;
+        --accent: #e0a526;
+        --gold: #e0a526;
+        --gold-soft: #fdf3da;
+        --ink: #0b2a22;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --excel: #1d7a4a;
+        --grad-brand: linear-gradient(135deg, #082f27 0%, #0b6b57 58%, #14906f 100%);
+        --grad-soft: linear-gradient(135deg, #eef8f3 0%, #fcf6e6 100%);
+        --grad-gold: linear-gradient(135deg, #ecb53a 0%, #e0a526 100%);
+        --font-body: "BCC Purno", "Noto Sans Bengali", "Hind Siliguri", Nikosh,
+          NikoshBAN, "Segoe UI", Arial, sans-serif;
+        --font-head: "BCC Purno Black", "BCC Purno", "Noto Sans Bengali", Nikosh,
+          NikoshBAN, "Segoe UI", Arial, sans-serif;
+        --radius: 16px;
+        --radius-sm: 11px;
+        --shadow-sm: 0 1px 2px rgba(11, 42, 34, 0.06);
+        --shadow: 0 1px 2px rgba(11, 42, 34, 0.04), 0 12px 32px rgba(11, 42, 34, 0.07);
+        --shadow-md: 0 14px 34px rgba(11, 107, 87, 0.18);
+        --shadow-lg: 0 30px 80px rgba(8, 30, 24, 0.35);
+        --ring: 0 0 0 4px rgba(11, 107, 87, 0.16);
+        --pad-x: 20px;
+        --pad-top: 24px;
+        --pad-bottom: 40px;
+        --page-max: 1500px;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--text);
+        font-size: 15.5px;
+        line-height: 1.6;
+        padding-top: max(var(--pad-top), env(safe-area-inset-top, 0px));
+        padding-right: max(var(--pad-x), env(safe-area-inset-right, 0px));
+        padding-bottom: max(var(--pad-bottom), env(safe-area-inset-bottom, 0px));
+        padding-left: max(var(--pad-x), env(safe-area-inset-left, 0px));
+      }
+      .container {
+        width: 100%;
+        max-width: var(--page-max);
+        margin-left: auto;
+        margin-right: auto;
+      }
+      :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+        outline: 3px solid rgba(11, 107, 87, 0.38);
+        outline-offset: 2px;
+      }
+
+      /* ---- header (brand + title) ---- */
+      .brand {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-width: 0;
+      }
+      .brand-logo {
+        width: 72px;
+        height: 72px;
+        padding: 4px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #fff;
+        flex-shrink: 0;
+        box-shadow:
+          0 0 0 4px rgba(255, 255, 255, 0.22),
+          0 10px 24px rgba(0, 0, 0, 0.25);
+      }
+      .dashboard-header {
+        padding: 30px 34px;
+        border-radius: 24px;
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+      .dashboard-title {
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+      }
+      .dashboard-title h2 {
+        font-size: 28px;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+      }
+      .dashboard-title h3 {
+        font-size: 14px;
+      }
+
+      /* ---- backup / restore bar + footer ---- */
+      .app-footer {
+        margin-top: 24px;
+      }
+      .backup-bar {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--primary);
+        box-shadow: var(--shadow-sm);
+        padding: 16px 20px;
+        border-radius: 18px;
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+      .backup-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+      }
+      .backup-info .title {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 15px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        letter-spacing: 0.1px;
+      }
+      .backup-info .title svg {
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+      .backup-info .meta {
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--muted);
+        overflow-wrap: anywhere;
+      }
+      .backup-actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .btn-backup-sm {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 9px 18px;
+        min-height: 40px;
+        font-family: inherit;
+        font-size: 13.5px;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+        border-radius: 999px;
+        border: 1.5px solid transparent;
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease,
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+      }
+      .btn-backup-sm svg {
+        flex-shrink: 0;
+      }
+      .btn-backup-sm:active {
+        transform: translateY(1px);
+      }
+      .btn-backup-sm.primary {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 5px 14px rgba(11, 107, 87, 0.28);
+      }
+      .btn-backup-sm.primary:hover {
+        background: var(--primary-hover);
+        border-color: var(--primary-hover);
+      }
+      .btn-backup-sm.secondary {
+        background: #fff;
+        border-color: var(--border);
+        color: var(--text-soft);
+      }
+      .btn-backup-sm.secondary:hover {
+        background: var(--primary-soft);
+        border-color: #9cc9ba;
+        color: var(--primary);
+      }
+      .btn-backup-sm:focus-visible {
+        outline: none;
+        box-shadow: var(--ring);
+      }
+      .footer-credit {
+        text-align: center;
+        padding: 14px 10px 6px;
+        color: var(--muted);
+        font-size: 13.5px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+      }
+      .footer-credit strong {
+        font-family: var(--font-head);
+        font-weight: 900;
+        color: var(--primary);
+      }
+
+      /* ---- toast (same look on every page) ---- */
+      .toast {
+        position: fixed;
+        right: 22px;
+        bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+        z-index: 2000;
+        max-width: 400px;
+        background: #0b2a22;
+        color: #fff;
+        padding: 16px 20px;
+        border-radius: 14px;
+        box-shadow: 0 16px 40px rgba(8, 30, 24, 0.4);
+        font-size: 14.5px;
+        font-weight: 600;
+        line-height: 1.5;
+        border-left: 5px solid var(--primary);
+      }
+
+      /* ---- big screens ---- */
+      @media (min-width: 1600px) {
+        :root {
+          --page-max: 1640px;
+          --pad-x: 28px;
+        }
+        body {
+          font-size: 16px;
+        }
+      }
+      @media (min-width: 2200px) {
+        :root {
+          --page-max: 1920px;
+          --pad-x: 40px;
+        }
+        body {
+          font-size: 17px;
+        }
+        .dashboard-title h2 {
+          font-size: 31px;
+        }
+      }
+
+      /* ---- medium screens (tablet / small laptop) ---- */
+      @media (max-width: 1024px) {
+        :root {
+          --pad-x: 16px;
+          --pad-top: 18px;
+          --pad-bottom: 32px;
+        }
+        .dashboard-header {
+          padding: 24px 26px;
+        }
+        .dashboard-title h2 {
+          font-size: 25px;
+        }
+      }
+
+      /* ---- small screens (phones) ---- */
+      @media (max-width: 780px) {
+        :root {
+          --pad-x: 10px;
+          --pad-top: 12px;
+          --pad-bottom: 30px;
+        }
+        body {
+          font-size: 15px;
+          background-attachment: scroll;
+        }
+        .dashboard-header {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 20px 18px;
+          border-radius: 20px;
+          gap: 16px;
+          margin-bottom: 18px;
+        }
+        .dashboard-header > .btn-add-new {
+          width: 100%;
+          justify-content: center;
+        }
+        .brand {
+          gap: 14px;
+        }
+        .brand-logo {
+          width: 52px;
+          height: 52px;
+        }
+        .dashboard-title h2 {
+          font-size: 21px;
+        }
+        .dashboard-title h3 {
+          font-size: 13.5px;
+        }
+        .backup-bar {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 14px 16px;
+          border-radius: 16px;
+        }
+        .backup-actions {
+          width: 100%;
+        }
+        .btn-backup-sm {
+          flex: 1 1 calc(33.333% - 9px);
+          padding: 10px 12px;
+          white-space: normal;
+        }
+        .toast {
+          left: 12px;
+          right: 12px;
+          bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+          max-width: none;
+          text-align: center;
+        }
+      }
+      @media (max-width: 560px) {
+        .btn-backup-sm {
+          flex: 1 1 calc(50% - 5px);
+        }
+        .btn-backup-sm.primary {
+          flex-basis: 100%;
+        }
+      }
+      @media (max-width: 420px) {
+        :root {
+          --pad-x: 6px;
+          --pad-top: 8px;
+          --pad-bottom: 24px;
+        }
+        body {
+          font-size: 14.5px;
+        }
+        .dashboard-header {
+          padding: 16px 14px;
+          border-radius: 16px;
+        }
+        .brand-logo {
+          width: 44px;
+          height: 44px;
+        }
+        .dashboard-title h2 {
+          font-size: 19px;
+        }
+        .backup-bar {
+          padding: 12px 12px;
+        }
+        .btn-backup-sm {
+          flex-basis: 100%;
+        }
+      }
+
+      /* ---- touch devices ---- */
+      @media (pointer: coarse) {
+        .btn-backup-sm {
+          min-height: 44px;
+        }
+        input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+            [type="range"]
+          ),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .btn-backup-sm {
+          transition: none;
+        }
+      }
+      @media print {
+        .app-footer {
+          display: none;
+        }
+      }
+      /* ===== /UNIFIED DESIGN SYSTEM ===== */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="dashboard-header">
+        <div class="brand">
+          <img
+            class="brand-logo"
+            src="img/SCHOOL-LOGO-round.png"
+            alt="স্কুল লোগো"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="dashboard-title">
+            <h2>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</h2>
+            <h3>বিদ্যালয়ের তথ্য ড্যাশবোর্ড</h3>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn" onclick="printDashboard()">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            প্রিন্ট
+          </button>
+          <button class="btn" onclick="exportExcel()" id="btnExcel">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            Excel
+          </button>
+        </div>
+      </div>
+
+      <nav class="toc-nav" id="tocNav"></nav>
+      <div class="dashboard" id="dashboard"></div>
+
+      <div class="app-footer">
+          <div class="backup-bar">
+            <div class="backup-info">
+              <div class="title">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                ডেটা ব্যাকআপ ও সুরক্ষা
+              </div>
+              <div class="meta" id="backupMeta">
+                সর্বশেষ ব্যাকআপ: এখনো নেওয়া হয়নি • সর্বশেষ রিস্টোর: এখনো করা হয়নি
+              </div>
+            </div>
+            <div class="backup-actions">
+              <button
+                class="btn-backup-sm primary"
+                onclick="downloadJSONBackup()"
+                type="button"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                JSON ব্যাকআপ
+              </button>
+              <input
+                type="file"
+                id="restoreFileInput"
+                onchange="handleRestoreFile(event)"
+                accept=".json,application/json"
+                style="display: none"
+              />
+              <button
+                class="btn-backup-sm secondary"
+                onclick="document.getElementById('restoreFileInput').click()"
+                type="button"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                রিস্টোর
+              </button>
+              <button
+                class="btn-backup-sm secondary"
+                onclick="recoverPrevious()"
+                type="button"
+                title="রিস্টোরের আগের অবস্থা ফিরিয়ে আনুন"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                Recovery Backup
+              </button>
+            </div>
+          </div>
+        <div class="footer-credit">
+          School data store by <strong>Naimul Hassan</strong> v1.1.1-pro
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+      <div class="modal-content">
+        <div class="modal-header-row">
+          <h3 id="editTitle"></h3>
+          <button
+            class="modal-close-btn"
+            onclick="closeEdit()"
+            title="বন্ধ করুন"
+          >
+            ✕
+          </button>
+        </div>
+        <div id="editBody"></div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeEdit()">বাতিল</button>
+          <button class="btn btn-success" onclick="saveEdit()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            সংরক্ষণ করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+      /* =====================================================================
+         UNIFIED BACKUP v1.1.1-pro  —  একটি JSON ফাইলে school + teachers + students
+         (এই ব্লকটি school.html / teachers.html / students.html — তিন ফাইলে হুবহু এক)
+         Shared contract: তিনটি পেজ একই origin থেকে খুললে একই localStorage দেখে।
+      ===================================================================== */
+      (function () {
+        "use strict";
+
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_VERSION = "1.1.1-pro";
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+
+        /* ক্রম = মডালে দেখানোর ক্রম */
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+
+        /* ---------- small helpers ---------- */
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+
+        /* ---------- normalise a raw value into a section's expected shape ---------- */
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          /* object (school) */
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+
+        /* ---------- read current data straight from storage ---------- */
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {};
+          var any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appVersion: APP_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+
+        /* ---------- toast ---------- */
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;" +
+              "padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;" +
+              "color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;" +
+              "transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+
+        /* ---------- BACKUP ---------- */
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) + "-" + pad(n.getMonth() + 1) + "-" + n.getFullYear() +
+            "_" + pad(n.getHours()) + "-" + pad(n.getMinutes()) + ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast("সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")", "ok");
+          return true;
+        }
+
+        /* ---------- figure out what a chosen file contains ---------- */
+        function detect(parsed, host) {
+          var found = {};
+          var label = "";
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          /* পুরোনো আলাদা-আলাদা ব্যাকআপ ফাইল */
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          /* ফরম্যাট-ফিল্ড নেই — যে পেজ থেকে খোলা হয়েছে তার ডেটা ধরে নিই */
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return { found: found, meta: isObj(parsed) ? parsed : {}, kind: "legacy" };
+            }
+          }
+          return null;
+        }
+
+        /* ---------- restore modal ---------- */
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}"
+        ].join("");
+
+        var modal = null;
+        var pending = null; /* { found, meta, source } */
+
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open")) cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + d.getFullYear() +
+              " " + pad(d.getHours()) + ":" + pad(d.getMinutes()),
+          );
+        }
+
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              'ব্যাকআপে: <b>' + countLabel(s, inFile) + "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) + "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled />' +
+                '<div><div class="ub-title">' + esc(s.label) + "</div>" +
+                '<div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option>' +
+                  '<option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' + s.id + '">' +
+              '<input type="checkbox" data-ub-sec="' + s.id + '" checked />' +
+              '<div><div class="ub-title">' + esc(s.label) + "</div>" +
+              '<div class="ub-meta">' + meta + "</div>" + mode + "</div></label>"
+            );
+          }).join("");
+
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' + esc(title) + "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' + fmtDate(m.exportDate || m.timestamp) +
+            (m.appVersion ? " &nbsp;•&nbsp; সংস্করণ: " + esc(m.appVersion) : "") +
+            (info.kind === "legacy" ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল" : "") + "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার ' +
+            "একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>" +
+            "অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>" +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button>' +
+            '<button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector('[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]');
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+
+        /* ---------- apply (all-or-nothing) ---------- */
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+
+          /* ১) বর্তমান অবস্থার Recovery Backup */
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (!confirm("Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?"))
+                return;
+            }
+          }
+
+          /* ২) নতুন মান তৈরি */
+          var writes = []; /* {key, value} */
+          var info = [];
+          var found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0, skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push("শিক্ষার্থী মার্জ: যোগ " + toBn(added) + ", স্কিপ " + toBn(skipped));
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+
+          /* ৩) লিখি; ব্যর্থ হলে সব আগের অবস্থায় ফেরত */
+          var undo = [];
+          var ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast("রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।", "err");
+            return;
+          }
+
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast("ডেটা সফলভাবে রিস্টোর হয়েছে" + (info.length ? " — " + info.join("; ") : "") + "। পেজ রিলোড হচ্ছে…", "ok");
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+
+        /* ---------- public entry points ---------- */
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            /* আগের (আলাদা) অ্যাপ-ভিত্তিক Recovery থাকলে সেটাই */
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = { found: f, meta: isObj(old) ? old : {}, kind: "legacy" };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + d.getFullYear() +
+              " " + pad(d.getHours()) + ":" + pad(d.getMinutes()),
+          );
+        }
+        /* সব পেজের ব্যাকআপ-বারে একই ফরম্যাটের তথ্য-লাইন */
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b = lsGet(LAST_KEY) || (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " + (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " + (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null) t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+
+        window.UnifiedBackup = {
+          VERSION: APP_VERSION,
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <script>
+      "use strict";
+
+      /* ============================================================
+         LAZY-LOAD SheetJS — only when Excel export is clicked
+      ============================================================ */
+      let xlsxPromise = null;
+      const XLSX_URL =
+        "https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js";
+      function loadXLSX() {
+        if (window.XLSX) return Promise.resolve(window.XLSX);
+        if (!xlsxPromise) {
+          xlsxPromise = new Promise((resolve, reject) => {
+            const s = document.createElement("script");
+            s.src = XLSX_URL;
+            s.async = true;
+            s.onload = () => resolve(window.XLSX);
+            s.onerror = () => {
+              xlsxPromise = null;
+              reject(new Error("XLSX load failed"));
+            };
+            document.head.appendChild(s);
+          });
+        }
+        return xlsxPromise;
+      }
+
+      const STORAGE_KEY = "hemnagar_school_v1";
+
+      /* ============================================================
+         SECTIONS DATA
+      ============================================================ */
+      const SECTIONS = [
+        {
+          id: "identity",
+          title: "১. বিদ্যালয়ের নাম ও ঠিকানা",
+          icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+          fields: [
+            {
+              id: "schoolNameLocal",
+              label: "বিদ্যালয়ের নাম (স্মারক অনুযায়ী) বাংলায়",
+              type: "text",
+              required: true,
+            },
+            {
+              id: "schoolName",
+              label: "বিদ্যালয়ের নাম (In English)",
+              type: "text",
+            },
+            { id: "schoolCode", label: "বিদ্যালয়ের কোড", type: "text" },
+            {
+              id: "schoolType",
+              label: "বিদ্যালয়ের ধরন",
+              type: "select",
+              options: [
+                "সরকারি প্রাথমিক বিদ্যালয়",
+                "বেসরকারি প্রাথমিক বিদ্যালয়",
+                "এমপিওভুক্ত",
+                "অন্যান্য",
+              ],
+            },
+            { id: "division", label: "বিভাগ", type: "text" },
+            { id: "district", label: "জেলা", type: "text" },
+            { id: "upazila", label: "উপজেলা/থানা", type: "text" },
+            { id: "union", label: "ইউনিয়ন/ওয়ার্ড", type: "text" },
+            { id: "cluster", label: "ক্লাস্টার", type: "text" },
+            {
+              id: "addressLine",
+              label: "ঠিকানা (বিস্তারিত)",
+              type: "text",
+              full: true,
+            },
+          ],
+        },
+        {
+          id: "basic",
+          title: "২. বিদ্যালয়ের মৌলিক তথ্য",
+          icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+          fields: [
+            { id: "academicYear", label: "শিক্ষাবর্ষ", type: "text" },
+            { id: "yearOfEstablishment", label: "প্রতিষ্ঠার সন", type: "text" },
+            {
+              id: "yearOfRegistration",
+              label: "রেজিস্ট্রেশন/নিবন্ধনের সন",
+              type: "text",
+            },
+            {
+              id: "geographicalLocation",
+              label: "ভৌগোলিক অবস্থান",
+              type: "select",
+              options: [
+                "হাওর এলাকা",
+                "পাহাড়ী এলাকা",
+                "উপকূলীয় এলাকা",
+                "চর এলাকা",
+                "শহরের বস্তি",
+                "চা বাগান",
+                "সমতল এলাকা",
+                "নদী তীরবর্তি/ভাঙ্গন এলাকা",
+                "পাহাড়ী চা বাগান",
+                "সীমান্ত এলাকা",
+                "দ্বীপ এলাকা",
+                "দুর্গম এলাকা",
+                "অতি দুর্গম এলাকা",
+                "অন্যান্য",
+              ],
+            },
+            {
+              id: "locationType",
+              label: "বিদ্যালয়ের অবস্থান",
+              type: "select",
+              options: ["গ্রামাঞ্চলে", "শহুরে এলাকায়", "শিল্প এলাকায়"],
+            },
+            {
+              id: "communicationLevel",
+              label: "যোগাযোগ ব্যবস্থা",
+              type: "select",
+              options: ["সহজ পথ", "কঠিন পথ", "অতি দুর্গম"],
+            },
+            {
+              id: "distanceFromUpazila",
+              label: "উপজেলা সদর থেকে দূরত্ব (কি.মি)",
+              type: "text",
+            },
+            {
+              id: "distanceFromPoliceStation",
+              label: "থানা থেকে দূরত্ব (কি.মি)",
+              type: "text",
+            },
+            {
+              id: "shelterCamp",
+              label: "আশ্রয়কেন্দ্র কাম বিদ্যালয়",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "modelSchool",
+              label: "মডেল স্কুল",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "schoolGrade",
+              label: "বিদ্যালয়ের গ্রেড",
+              type: "select",
+              options: ["এ", "বি", "সি", "ডি", "প্রযোজ্য নয়", "অজানা"],
+            },
+            {
+              id: "yearOfGradeDetermination",
+              label: "গ্রেড নির্ধারনের সন",
+              type: "text",
+            },
+            { id: "noOfShifts", label: "মোট শিফটের সংখ্যা", type: "text" },
+            {
+              id: "coEducationalActivities",
+              label: "সহশিক্ষা কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "academicActivities",
+              label: "একাডেমিক কার্যক্রম চালু",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            { id: "mediums", label: "পাঠদানের মাধ্যম", type: "text" },
+            {
+              id: "multipleSchoolInSameBuilding",
+              label: "একই ভবনে একাধিক স্কুল",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "noOfApprovedTeacherPosts",
+              label: "অনুমোদিত শিক্ষক পদের সংখ্যা",
+              type: "text",
+            },
+          ],
+        },
+        {
+          id: "facilities",
+          title: "৩. সুযোগ-সুবিধা ও উপকরণ",
+          icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/>',
+          fields: [
+            {
+              id: "playground",
+              label: "খেলার মাঠ",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "boundary",
+              label: "সীমানা প্রাচীর",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "schoolGate",
+              label: "বিদ্যালয়ের গেট",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "namePlate",
+              label: "নাম ফলক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "directionIndicator",
+              label: "প্রধান সড়কে দিক নির্দেশক ফলক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "bankAccountNo",
+              label: "ব্যাংক অ্যাকাউন্ট নম্বর",
+              type: "text",
+            },
+            { id: "bankName", label: "ব্যাংকের নাম", type: "text" },
+            {
+              id: "socialAudit",
+              label: "সোশাল অডিট",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "fireExtinguisher",
+              label: "অগ্নি নির্বাপক যন্ত্র",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "shaheedMinar",
+              label: "শহীদ মিনার",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "bookCorner",
+              label: "বুক কর্ণার",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "studentCouncil",
+              label: "স্টুডেন্ট কাউন্সিল",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "innovationActivities",
+              label: "ইনোভেশন কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "honestyStore",
+              label: "সততা স্টোর",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "humanityWall",
+              label: "মানবতার দেয়াল",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "firstAid",
+              label: "ফার্স্ট এইড বক্স",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "basicInfoDisplayed",
+              label: "মৌলিক তথ্য প্রদর্শিত",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "earlyWarningActivities",
+              label: "Early Warning কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "smallDoctorActivity",
+              label: "ক্ষুদে ডাক্তার কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "schoolForDisabled",
+              label: "প্রতিবন্ধী বিদ্যালয় হিসেবে নিবন্ধিত",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "prePrimaryEducation",
+              label: "প্রাক-প্রাথমিক শিক্ষা",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "powerConnection",
+              label: "বিদ্যুৎ সংযোগ",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "prePrimaryRoomSize",
+              label: "প্রাক-প্রাথমিক ক্লাসরুম কমপক্ষে ২৫০ ব.ফুট",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "fourCornerDecorationOfPrePrimary",
+              label: "৪টি কর্ণারসহ ডেকোরেটেড",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "safeDrinkingWater",
+              label: "নিরাপদ পানীয় জল",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "toiletWithoutWashBlock",
+              label: "টয়লেট (ওয়াশব্লক ব্যতীত)",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "washBlock",
+              label: "ওয়াশব্লক নির্মিত",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "slipActivities",
+              label: "স্লিপ কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "studentWelfare",
+              label: "শিক্ষার্থীকল্যাণ কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "srmContent",
+              label: "SRM সামগ্রী (গ্রেড ১-৩)",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "sportsEquipment",
+              label: "খেলাধুলার সরঞ্জামাদি",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "scoutClubActivities",
+              label: "স্কাউট/কাব কার্যক্রম",
+              type: "select",
+              options: ["বিদ্যমান", "বিদ্যমান নয়"],
+            },
+            {
+              id: "clubTeamStock",
+              label: "কাব দলের স্টক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "disinfectant",
+              label: "জীবানুনাশক ব্যবস্থা",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "ramp",
+              label: "বিশেষ চাহিদা শিশুদের র‍্যাম্প",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+          ],
+        },
+        {
+          id: "classes",
+          title: "৪. পাঠদানকৃত শ্রেণি",
+          icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+          special: "classes",
+        },
+        {
+          id: "geo",
+          title: "৫. জলবায়ু ও দুর্যোগ",
+          icon: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+          fields: [
+            {
+              id: "tidalWave",
+              label: "জলোচ্ছ্বাস",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "cyclone",
+              label: "সাইক্লোন",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "flood",
+              label: "বন্যা",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "waterLogging",
+              label: "জলাবদ্ধতা",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "salinity",
+              label: "লবনাক্ততা",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "riverErosion",
+              label: "নদী ভাঙ্গন",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "drought",
+              label: "খরা প্রবণ",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "earthquake",
+              label: "ভূমিকম্প",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "mountainCollapsible",
+              label: "পাহাড় ধ্বস",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "tides",
+              label: "জোয়ার-ভাটা",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            { id: "geoOthers", label: "অন্যান্য", type: "text" },
+          ],
+        },
+        {
+          id: "land",
+          title: "৬. বিদ্যালয়ের ভূমির তথ্য",
+          icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+          fields: [
+            { id: "amountOfLand", label: "ভূমির পরিমাণ (শতাংশ)", type: "text" },
+            { id: "ledgerBsNumber", label: "খতিয়ান (BS) নম্বর", type: "text" },
+            { id: "dagNumber", label: "দাগ নম্বর", type: "text" },
+            {
+              id: "recordDocumentNo",
+              label: "রেকর্ড (দলিল) নম্বর",
+              type: "text",
+            },
+            { id: "registeredAt", label: "রেজিস্ট্রি তারিখ", type: "date" },
+            { id: "nameOfDonor", label: "দাতার নাম", type: "text" },
+            { id: "nameOfRecipient", label: "গ্রহীতার নাম", type: "text" },
+            {
+              id: "ownershipPerMutation",
+              label: "নামজারী মালিকানা (নম্বর ও তারিখসহ)",
+              type: "text",
+            },
+            {
+              id: "landDevTaxPayer",
+              label: "ভূমি উন্নয়ন কর পরিশোধ",
+              type: "select",
+              options: ["হয়েছে", "হয় নাই"],
+            },
+            {
+              id: "mutated",
+              label: "নামজারী হয়েছে",
+              type: "select",
+              options: ["হ্যাঁ", "না"],
+            },
+            {
+              id: "landOccupied",
+              label: "জমি দখলে",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "landObjections",
+              label: "জমি সংক্রান্ত আপত্তি",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "highSchoolProblems",
+              label: "হাই স্কুল সংলগ্ন জটিলতা",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            { id: "csPlotNo", label: "সিএস প্লট নম্বর", type: "text" },
+            { id: "csKhatianNo", label: "সিএস খতিয়ান নম্বর", type: "text" },
+            { id: "csLandAmount", label: "সিএস ভূমি পরিমাণ", type: "text" },
+            { id: "rsPlotNo", label: "আরএস প্লট নম্বর", type: "text" },
+            { id: "rsLedgerNo", label: "আরএস খতিয়ান নম্বর", type: "text" },
+            { id: "rsLandAmount", label: "আরএস ভূমি পরিমাণ", type: "text" },
+            { id: "saPlotNo", label: "এসএ প্লট নম্বর", type: "text" },
+            { id: "saLedgerNo", label: "এসএ খতিয়ান নম্বর", type: "text" },
+            { id: "saLandAmount", label: "এসএ ভূমি পরিমাণ", type: "text" },
+          ],
+        },
+        {
+          id: "buildings",
+          title: "৭. বিদ্যালয়ের ভবনের তথ্য",
+          icon: '<path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/>',
+          special: "buildings",
+        },
+        {
+          id: "rooms",
+          title: "৮. বিদ্যালয়ের কক্ষের তথ্য",
+          icon: '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/>',
+          special: "rooms",
+        },
+        {
+          id: "washblock",
+          title: "৯. ওয়াশব্লক ব্যবস্থার তথ্য",
+          icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
+          special: "washblock",
+        },
+        {
+          id: "water",
+          title: "১০. পানীয় জলের ব্যবস্থার তথ্য",
+          icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
+          special: "water",
+        },
+        {
+          id: "sanitation",
+          title: "১১. স্যানিটেশন ব্যবস্থার তথ্য",
+          icon: '<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>',
+          special: "sanitation",
+        },
+        {
+          id: "furniture",
+          title: "১২. আসবাবপত্রের তথ্য",
+          icon: '<path d="M3 7v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/>',
+          special: "furniture",
+        },
+        {
+          id: "ict",
+          title: "১৩. তথ্য প্রযুক্তি ও মাল্টিমিডিয়া",
+          icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+          fields: [
+            {
+              id: "internetConnectionType",
+              label: "ইন্টারনেট সংযোগের ধরন",
+              type: "select",
+              options: [
+                "ব্রডব্যান্ড",
+                "ওয়্যারলেস",
+                "টিএন্ডটি",
+                "মোবাইল ইন্টারনেট",
+                "ইন্টারনেট নাই",
+                "অন্যান্য",
+              ],
+            },
+            {
+              id: "teachersCapableOfUsingTechnology",
+              label: "তথ্য প্রযুক্তি ব্যবহারে সক্ষম শিক্ষক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "computerUsedForTeachingAndLearning",
+              label: "ডেস্কটপ/ল্যাপটপ শিখনে ব্যবহৃত",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "internetUsedForTeachingAndLearning",
+              label: "ইন্টারনেট শিখনে ব্যবহৃত",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "multimediaUsedClassrooms",
+              label: "শ্রেণিকক্ষে মাল্টিমিডিয়া ব্যবহৃত",
+              type: "select",
+              options: ["হয়", "হয় না"],
+            },
+            {
+              id: "multimediaBasedClassrooms",
+              label: "মাল্টিমিডিয়া বেসড ক্লাসরুম",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "multimediaInteractiveClassrooms",
+              label: "মাল্টিমিডিয়া ইন্টারএক্টিভ ক্লাসরুম",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "soundSystem",
+              label: "সাউন্ড সিস্টেম",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+          ],
+        },
+        {
+          id: "ictEquipment",
+          title: "১৪. আইসিটি সরঞ্জামের তথ্য",
+          icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/>',
+          special: "ictEquipment",
+        },
+        {
+          id: "smc",
+          title: "১৫. বিদ্যালয় ব্যবস্থাপনা কমিটি (এসএমসি)",
+          icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+          fields: [
+            {
+              id: "smcCommittee",
+              label: "এসএমসি গঠিত",
+              type: "select",
+              options: ["হয়েছে", "হয় নাই"],
+            },
+            {
+              id: "nameOfSmcPresident",
+              label: "এসএমসি সভাপতির নাম",
+              type: "text",
+            },
+            {
+              id: "eligibilityOfSmcPresident",
+              label: "সভাপতির যোগ্যতা",
+              type: "text",
+            },
+            {
+              id: "noOfMaleMemberInSmcCommittee",
+              label: "পুরুষ সদস্য সংখ্যা",
+              type: "text",
+            },
+            {
+              id: "noOfFemaleMemberInSmcCommittee",
+              label: "মহিলা সদস্য সংখ্যা",
+              type: "text",
+            },
+            {
+              id: "noOfMeetingOfSmcCommittee",
+              label: "সভার সংখ্যা",
+              type: "text",
+            },
+          ],
+        },
+        {
+          id: "pta",
+          title: "১৬. সামাজিক উদ্বুদ্ধকরণ সভা ও পিটিএ",
+          icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+          fields: [
+            {
+              id: "noOfMotherRally",
+              label: "মা সমাবেশের সংখ্যা",
+              type: "text",
+            },
+            {
+              id: "noOfGuardianRally",
+              label: "অভিভাবক সমাবেশের সংখ্যা",
+              type: "text",
+            },
+            { id: "noOfYardMeeting", label: "উঠান বৈঠক সংখ্যা", type: "text" },
+            { id: "noOfRally", label: "র‍্যালি সংখ্যা", type: "text" },
+            { id: "noOfHomeVisit", label: "হোম ভিজিট সংখ্যা", type: "text" },
+            {
+              id: "parentTeacherAssociation",
+              label: "শিক্ষক অভিভাবক সমিতি (পিটিএ)",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            { id: "noOfPtaMeeting", label: "পিটিএ সভা সংখ্যা", type: "text" },
+          ],
+        },
+        {
+          id: "cultural",
+          title: "১৭. খেলাধুলা ও সাংস্কৃতিক কর্মকাণ্ড",
+          icon: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>',
+          fields: [
+            {
+              id: "harmonium",
+              label: "হারমোনিয়াম",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "musicalInstrument",
+              label: "তবলা, গিটার, পিয়ানো",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+          ],
+        },
+        {
+          id: "specialNeeds",
+          title: "১৮. বিশেষ চাহিদাসম্পন্ন শিক্ষার্থীর সুবিধা",
+          icon: '<circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/>',
+          fields: [
+            {
+              id: "rampSN",
+              label: "শারীরিক প্রতিবন্ধীদের জন্য র‍্যাম্প",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "toiletWithRamp",
+              label: "র‍্যাম্পসহ উপযুক্ত টয়লেট",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "wheelchair",
+              label: "হুইল চেয়ার",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "crutch",
+              label: "ক্রাচ",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "visionFencing",
+              label: "দৃষ্টি প্রতিবন্ধীদের ফেন্সিং",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "colorContrast",
+              label: "কালার কন্ট্রাস্ট",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "daisyBook",
+              label: "ডেইজি বুক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "brailleBook",
+              label: "ব্রেইল পাঠ্যপুস্তক",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "signLanguageTutor",
+              label: "Sign Language Tutor",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "signLanguageManual",
+              label: "Sign Language Manual",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "quietEnvironment",
+              label: "নিরব পরিবেশ",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+            {
+              id: "hearingAid",
+              label: "Hearing Aid",
+              type: "select",
+              options: ["আছে", "নাই"],
+            },
+          ],
+        },
+      ];
+
+      const CLASS_LIST = [
+        "প্রাক-প্রাথমিক ৪+",
+        "প্রাক-প্রাথমিক ৫+",
+        "প্রথম শ্রেণি",
+        "দ্বিতীয় শ্রেণি",
+        "তৃতীয় শ্রেণি",
+        "চতুর্থ শ্রেণি",
+        "পঞ্চম শ্রেণি",
+        "ষষ্ঠ শ্রেণি",
+        "সপ্তম শ্রেণি",
+        "অষ্টম শ্রেণি",
+      ];
+
+      const BUILDING_FIELDS = [
+        { id: "buildingNo", label: "ভবন নম্বর", type: "text" },
+        {
+          id: "ownershipType",
+          label: "মালিকানার ধরন",
+          type: "select",
+          options: ["নিজস্ব", "ভাড়া"],
+        },
+        { id: "numberOfCurrentFloors", label: "কত তলা বিশিষ্ট", type: "text" },
+        { id: "yearOfConstruction", label: "নির্মাণের সন", type: "text" },
+        {
+          id: "numberOfFoundationFloors",
+          label: "ফাউন্ডেশন (ভিত্তি) তলা",
+          type: "text",
+        },
+        { id: "numberOfRooms", label: "মোট কক্ষ সংখ্যা", type: "text" },
+        {
+          id: "condition",
+          label: "বর্তমান অবস্থা",
+          type: "select",
+          options: [
+            "নতুন/ভালো",
+            "ব্যবহারযোগ্য",
+            "মেরামতযোগ্য",
+            "নির্মাণাধীন",
+            "পুরোনো",
+            "অ-ব্যবহারযোগ্য",
+            "জরাজীর্ণ",
+            "ঝুঁকিপূর্ণ",
+            "পরিত্যক্ত",
+            "অজানা",
+          ],
+        },
+        {
+          id: "constructionType",
+          label: "নির্মাণের ধরন",
+          type: "select",
+          options: ["পাকা", "আধা পাকা", "কাচাঁ", "টিন সেড"],
+        },
+        {
+          id: "sourceOfFund",
+          label: "নির্মাণের প্রকল্প",
+          type: "select",
+          options: [
+            "পিইডিপি-১",
+            "পিইডিপি-২",
+            "পিইডিপি-৩",
+            "পিইডিপি-৪",
+            "পুনর্নির্মাণ",
+            "অন্যান্য প্রকল্প",
+            "প্রযোজ্য নয়",
+          ],
+        },
+        {
+          id: "ramp",
+          label: "র‍্যাম্প",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+      ];
+      const ROOM_FIELDS = [
+        { id: "buildingNo", label: "ভবন নম্বর", type: "text" },
+        { id: "roomName", label: "কক্ষের নাম", type: "text" },
+        {
+          id: "usagePurpose",
+          label: "ব্যবহারের ধরন",
+          type: "select",
+          options: [
+            "শ্রেণিকক্ষ",
+            "প্রধান শিক্ষক/অফিস কক্ষ",
+            "সহকারী শিক্ষক কক্ষ",
+            "লাইব্রেরি কক্ষ",
+            "উপকরণ প্রদর্শন কক্ষ",
+            "ভান্ডার বা স্টোর কক্ষ",
+            "প্রাক-প্রাথমিক কক্ষ",
+            "প্রাক-প্রাথমিক ৪+ কক্ষ",
+            "প্রাক-প্রাথমিক ৫+ কক্ষ",
+            "শুধুমাত্র প্রধান শিক্ষক কক্ষ",
+            "অন্যান্য কক্ষ",
+          ],
+        },
+        {
+          id: "electricityInClassroom",
+          label: "বিদ্যুৎ সংযোগ",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        { id: "roomLength", label: "কক্ষের দৈর্ঘ্য (ফুট)", type: "text" },
+        { id: "roomWidth", label: "কক্ষের প্রস্থ (ফুট)", type: "text" },
+        {
+          id: "constructionType",
+          label: "নির্মাণের ধরন",
+          type: "select",
+          options: ["পাকা", "আধা পাকা", "কাচাঁ", "টিন সেড"],
+        },
+        { id: "yearOfConstruction", label: "নির্মাণের সন", type: "text" },
+        {
+          id: "condition",
+          label: "বর্তমান অবস্থা",
+          type: "select",
+          options: [
+            "নতুন/ভালো",
+            "ব্যবহারযোগ্য",
+            "মেরামতযোগ্য",
+            "নির্মাণাধীন",
+            "পুরোনো",
+            "অ-ব্যবহারযোগ্য",
+            "জরাজীর্ণ",
+            "ঝুঁকিপূর্ণ",
+            "পরিত্যক্ত",
+            "অজানা",
+          ],
+        },
+      ];
+      const WASHBLOCK_FIELDS = [
+        { id: "yearOfConstruction", label: "নির্মাণের সন", type: "text" },
+        {
+          id: "constructionUnderProject",
+          label: "নির্মাণের প্রকল্প",
+          type: "select",
+          options: [
+            "পিইডিপি-১",
+            "পিইডিপি-২",
+            "পিইডিপি-৩",
+            "পিইডিপি-৪",
+            "পুনর্নির্মাণ",
+            "অন্যান্য প্রকল্প",
+            "প্রযোজ্য নয়",
+          ],
+        },
+        {
+          id: "washblockUserType",
+          label: "ব্যবহারকারীর ধরন",
+          type: "select",
+          options: [
+            "বালক",
+            "বালিকা",
+            "বালক ও বালিকা",
+            "শিক্ষক",
+            "শিক্ষিকা",
+            "পুরুষ ও মহিলা শিক্ষক",
+            "সার্বজনীন",
+          ],
+        },
+        {
+          id: "condition",
+          label: "বর্তমান অবস্থা",
+          type: "select",
+          options: [
+            "নতুন/ভালো",
+            "ব্যবহারযোগ্য",
+            "মেরামতযোগ্য",
+            "নির্মাণাধীন",
+            "পুরোনো",
+            "অ-ব্যবহারযোগ্য",
+            "জরাজীর্ণ",
+            "ঝুঁকিপূর্ণ",
+            "পরিত্যক্ত",
+            "অজানা",
+          ],
+        },
+        {
+          id: "washblockInUse",
+          label: "ওয়াশব্লক ব্যবহৃত হয়",
+          type: "select",
+          options: ["হয়", "হয় না"],
+        },
+        {
+          id: "withElectricity",
+          label: "বিদ্যুৎ সংযোগ",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "cleaningMaterial",
+          label: "পরিস্কারক দ্রব্যাদি",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "withWaterSource",
+          label: "পানির সরবরাহ",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "withSoap",
+          label: "হ্যান্ডওয়াশ/সাবান",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+      ];
+      const WATER_FIELDS = [
+        {
+          id: "safeWaterSource",
+          label: "নিরাপদ পানির উৎস",
+          type: "select",
+          options: [
+            "টিউবওয়েল",
+            "সাপ্লাইওয়াটার",
+            "ডিপটিউবওয়েল",
+            "কুয়া",
+            "পুকুর/নদী",
+            "সংগৃহিত বৃষ্টির পানি",
+            "টারা পাম্প",
+            "অন্যান্য",
+          ],
+        },
+        {
+          id: "condition",
+          label: "বর্তমান অবস্থা",
+          type: "select",
+          options: [
+            "নতুন/ভালো",
+            "ব্যবহারযোগ্য",
+            "মেরামতযোগ্য",
+            "নির্মাণাধীন",
+            "পুরোনো",
+            "অ-ব্যবহারযোগ্য",
+            "জরাজীর্ণ",
+            "ঝুঁকিপূর্ণ",
+            "পরিত্যক্ত",
+            "অজানা",
+          ],
+        },
+        {
+          id: "arsenicFree",
+          label: "আর্সেনিক মুক্ত",
+          type: "select",
+          options: ["হ্যাঁ", "না"],
+        },
+        {
+          id: "sourceOfFund",
+          label: "নির্মাণের প্রকল্প",
+          type: "select",
+          options: [
+            "পিইডিপি-১",
+            "পিইডিপি-২",
+            "পিইডিপি-৩",
+            "পিইডিপি-৪",
+            "পুনর্নির্মাণ",
+            "অন্যান্য প্রকল্প",
+            "প্রযোজ্য নয়",
+          ],
+        },
+        {
+          id: "ecolaiTested",
+          label: "ই.কোলাই টেস্ট",
+          type: "select",
+          options: ["হয়েছে", "হয় নাই"],
+        },
+        {
+          id: "salinityOrIron",
+          label: "লবনাক্ততা/আয়রন",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        { id: "yearOfEstablishment", label: "স্থাপনের সন", type: "text" },
+      ];
+      const SANITATION_FIELDS = [
+        {
+          id: "toiletUserType",
+          label: "ব্যবহারকারীর ধরন",
+          type: "select",
+          options: [
+            "বালক",
+            "বালিকা",
+            "বালক ও বালিকা",
+            "শিক্ষক",
+            "শিক্ষিকা",
+            "পুরুষ ও মহিলা শিক্ষক",
+            "সার্বজনীন",
+          ],
+        },
+        {
+          id: "condition",
+          label: "বর্তমান অবস্থা",
+          type: "select",
+          options: [
+            "নতুন/ভালো",
+            "ব্যবহারযোগ্য",
+            "মেরামতযোগ্য",
+            "নির্মাণাধীন",
+            "পুরোনো",
+            "অ-ব্যবহারযোগ্য",
+            "জরাজীর্ণ",
+            "ঝুঁকিপূর্ণ",
+            "পরিত্যক্ত",
+            "অজানা",
+          ],
+        },
+        {
+          id: "cleaningMaterial",
+          label: "পরিস্কারক দ্রব্যাদি",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "withSoap",
+          label: "হ্যান্ডওয়াশ/সাবান",
+          type: "select",
+          options: ["হয়", "হয় না"],
+        },
+        {
+          id: "withWaterSource",
+          label: "পানির সরবরাহ",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "withElectricity",
+          label: "বিদ্যুৎ সংযোগ",
+          type: "select",
+          options: ["আছে", "নাই"],
+        },
+        {
+          id: "constructionProject",
+          label: "নির্মাণের প্রকল্প",
+          type: "select",
+          options: [
+            "পিইডিপি-১",
+            "পিইডিপি-২",
+            "পিইডিপি-৩",
+            "পিইডিপি-৪",
+            "পুনর্নির্মাণ",
+            "অন্যান্য প্রকল্প",
+            "প্রযোজ্য নয়",
+          ],
+        },
+      ];
+      const FURNITURE_FIELDS = [
+        {
+          id: "furnitureType",
+          label: "আসবাবপত্রের ধরন",
+          type: "select",
+          options: [
+            "টি-টেবিল",
+            "বিশেষ চাহিদা সম্পন্ন শিক্ষার্থীর জন্য আসবাবপত্র",
+            "লো বেঞ্চ",
+            "হাই বেঞ্চ",
+            "চেয়ার",
+            "টেবিল",
+            "আলমারি",
+            "ফাইল ক্যাবিনেট",
+            "ব্ল্যাক/চকবোর্ড",
+            "হোয়াইট/মার্কারবোর্ড",
+            "পুশপিনবোর্ড",
+            "ফ্যান (টেবিল ও সিলিং সহ)",
+            "বুক শেলফ",
+            "অন্যান্য সরঞ্জাম",
+          ],
+        },
+        {
+          id: "numberOfUsableFurnitures",
+          label: "ব্যবহার উপযোগী",
+          type: "text",
+        },
+        {
+          id: "numberOfRepairableFurnitures",
+          label: "মেরামত যোগ্য",
+          type: "text",
+        },
+        {
+          id: "numberOfUnsuitableFurnitures",
+          label: "ব্যবহার অনুপযোগী",
+          type: "text",
+        },
+      ];
+      const ICT_EQUIPMENT_FIELDS = [
+        {
+          id: "productName",
+          label: "পণ্যের নাম",
+          type: "select",
+          options: [
+            "কম্পিউটার",
+            "ল্যাপটপ",
+            "প্রিন্টার",
+            "প্রজেক্টর",
+            "মডেম",
+            "স্পীকার/ সাউন্ড সিস্টেম",
+            "ইন্টারেক্টিভ হোয়াইট বোর্ড",
+            "মনিটর",
+            "লেজার প্রিন্টার",
+            "ফটোকপিয়ার",
+            "ট্যাবলেট",
+            "সফটওয়্যার",
+            "ডিজিটাল কনফারেন্স সিস্টেম",
+            "ইন্টারকম",
+            "রাউটার",
+            "আইপি ফোন",
+            "ইন্টারেক্টিভ ফ্ল্যাট প্যানেল (আইএফপি)",
+            "মোবাইল",
+          ],
+        },
+        { id: "serialNo", label: "সিরিয়াল নং", type: "text" },
+        { id: "brand", label: "ব্র্যান্ড", type: "text" },
+        { id: "model", label: "মডেল", type: "text" },
+        { id: "yearOfReceiptOfGoods", label: "পণ্য গ্রহনের সন", type: "text" },
+        {
+          id: "sourceOfProductAcquisition",
+          label: "পণ্য প্রাপ্তির উৎস",
+          type: "select",
+          options: [
+            "পিইডিপি৪",
+            "পিইডিপি-৩",
+            "নিজস্ব",
+            "সরকারী",
+            "বেসরকারি",
+            "অন্যান্য",
+          ],
+        },
+        {
+          id: "condition",
+          label: "পণ্যের বর্তমান অবস্থা",
+          type: "select",
+          options: ["নতুন", "পুরোনো", "ব্যবহারযোগ্য", "অ-ব্যবহারযোগ্য/নষ্ট"],
+        },
+        { id: "commentsOnIctEquipment", label: "মন্তব্য", type: "text" },
+      ];
+
+      const DYN_MAP = {
+        buildings: { key: "buildings", fields: BUILDING_FIELDS, title: "ভবন" },
+        rooms: { key: "rooms", fields: ROOM_FIELDS, title: "কক্ষ" },
+        washblock: {
+          key: "washblocks",
+          fields: WASHBLOCK_FIELDS,
+          title: "ওয়াশব্লক",
+        },
+        water: {
+          key: "waters",
+          fields: WATER_FIELDS,
+          title: "পানীয় জলের উৎস",
+        },
+        sanitation: {
+          key: "sanitations",
+          fields: SANITATION_FIELDS,
+          title: "টয়লেট",
+        },
+        furniture: {
+          key: "furnitures",
+          fields: FURNITURE_FIELDS,
+          title: "আসবাবপত্র",
+        },
+        ictEquipment: {
+          key: "ictEquipments",
+          fields: ICT_EQUIPMENT_FIELDS,
+          title: "সরঞ্জাম",
+        },
+      };
+
+      const SKIP_BN_DIGITS_IDS = new Set([
+        "schoolName",
+        "serialNo",
+        "brand",
+        "model",
+      ]);
+      const COPYABLE_IDS = new Set([
+        "schoolCode",
+        "bankAccountNo",
+        "ledgerBsNumber",
+        "dagNumber",
+        "recordDocumentNo",
+        "csPlotNo",
+        "csKhatianNo",
+        "rsPlotNo",
+        "rsLedgerNo",
+        "saPlotNo",
+        "saLedgerNo",
+      ]);
+      const COPYABLE_DYN_IDS = new Set(["serialNo", "brand", "model"]);
+
+      const $ = (id) => document.getElementById(id);
+      const BN_DIGITS = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+      function toBn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/\d/g, (d) => BN_DIGITS[+d]);
+      }
+      function displayBn(fieldId, value) {
+        const v = clean(value);
+        if (!v) return "";
+        if (SKIP_BN_DIGITS_IDS.has(fieldId)) return v;
+        return toBn(v);
+      }
+      function clean(v) {
+        return String(v === null || v === undefined ? "" : v).trim();
+      }
+      function escapeHtml(s) {
+        return String(s === null || s === undefined ? "" : s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+      function escapeJs(text) {
+        return String(text === null || text === undefined ? "" : text)
+          .replace(/\\/g, "\\\\")
+          .replace(/'/g, "\\'")
+          .replace(/\r?\n/g, "\\n");
+      }
+      function safeParse(raw) {
+        try {
+          return JSON.parse(raw);
+        } catch (e) {
+          return null;
+        }
+      }
+      let toastTimer = null;
+      function showToast(msg, type) {
+        const t = $("toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.className = "toast show " + (type || "");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          t.className = "toast";
+        }, 2200);
+      }
+      function dateStamp() {
+        const n = new Date();
+        return (
+          String(n.getDate()).padStart(2, "0") +
+          "-" +
+          String(n.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          n.getFullYear()
+        );
+      }
+
+      const Store = (function () {
+        let available = true;
+        const mem = Object.create(null);
+        try {
+          const tk = "__school_probe__";
+          localStorage.setItem(tk, "1");
+          localStorage.removeItem(tk);
+        } catch (e) {
+          available = false;
+        }
+        return {
+          get available() {
+            return available;
+          },
+          get(k) {
+            if (k in mem) return mem[k];
+            if (!available) return null;
+            try {
+              return localStorage.getItem(k);
+            } catch (e) {
+              return null;
+            }
+          },
+          set(k, v) {
+            mem[k] = v;
+            if (!available) return false;
+            try {
+              localStorage.setItem(k, v);
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+        };
+      })();
+
+      let schoolData = {
+        classes: [],
+        buildings: [],
+        rooms: [],
+        washblocks: [],
+        waters: [],
+        sanitations: [],
+        furnitures: [],
+        ictEquipments: [],
+      };
+      let editState = { sectionId: null, mode: null, dynKey: null, dynArr: [] };
+
+      const COPY_SVG =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      const CHECK_SVG =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      function copyToClipboard(text, btn) {
+        if (!text || !text.trim()) return;
+        const done = () => {
+          btn.classList.add("copied");
+          btn.innerHTML = CHECK_SVG;
+          setTimeout(() => {
+            btn.classList.remove("copied");
+            btn.innerHTML = COPY_SVG;
+          }, 1300);
+          showToast("কপি করা হয়েছে (মূল ফরম্যাট)", "ok");
+        };
+        const fallback = () => {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.position = "fixed";
+            ta.style.left = "-999999px";
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+            done();
+          } catch (e) {
+            showToast("কপি করা যায়নি", "err");
+          }
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else fallback();
+      }
+      window.copyToClipboard = copyToClipboard;
+
+      /* ============================================================
+         Dashboard rendering (deferred)
+      ============================================================ */
+      function buildToc() {
+        $("tocNav").innerHTML = SECTIONS.map(
+          (s, i) =>
+            '<button type="button" class="toc-pill' +
+            (i === 0 ? " active" : "") +
+            '" data-toc="' +
+            s.id +
+            '" onclick="scrollToSection(\'' +
+            s.id +
+            "')\">" +
+            escapeHtml(s.title) +
+            "</button>",
+        ).join("");
+      }
+      function scrollToSection(id) {
+        const el = document.getElementById("sec-" + id);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+      window.scrollToSection = scrollToSection;
+
+      function updateTocActive() {
+        const pills = document.querySelectorAll(".toc-pill");
+        let bestId = null,
+          bestTop = -Infinity;
+        SECTIONS.forEach((s) => {
+          const el = document.getElementById("sec-" + s.id);
+          if (!el) return;
+          const top = el.getBoundingClientRect().top;
+          if (top - 110 <= 0 && top > bestTop) {
+            bestTop = top;
+            bestId = s.id;
+          }
+        });
+        if (bestId) {
+          pills.forEach((p) => {
+            const on = p.dataset.toc === bestId;
+            p.classList.toggle("active", on);
+            if (on && p.scrollIntoView) {
+              const nav = $("tocNav");
+              if (nav) {
+                const pr = p.getBoundingClientRect();
+                const nr = nav.getBoundingClientRect();
+                if (pr.left < nr.left || pr.right > nr.right) {
+                  p.scrollIntoView({
+                    behavior: "smooth",
+                    inline: "center",
+                    block: "nearest",
+                  });
+                }
+              }
+            }
+          });
+        }
+      }
+
+      function renderDashboard() {
+        $("dashboard").innerHTML = SECTIONS.map((sec) =>
+          renderSection(sec),
+        ).join("");
+      }
+
+      /* Re-render only one section in place (fast path) */
+      function rerenderSection(id) {
+        const sec = findSection(id);
+        const old = document.getElementById("sec-" + id);
+        if (!sec || !old) {
+          renderDashboard();
+          return;
+        }
+        const tmp = document.createElement("div");
+        tmp.innerHTML = renderSection(sec).trim();
+        const newNode = tmp.firstElementChild;
+        if (newNode) old.replaceWith(newNode);
+      }
+
+      function renderSection(sec) {
+        const isDyn = !!DYN_MAP[sec.id];
+        let count = 0;
+        if (isDyn) count = (schoolData[DYN_MAP[sec.id].key] || []).length;
+        if (sec.special === "classes")
+          count = (schoolData.classes || []).length;
+
+        const countHtml =
+          (isDyn || sec.special === "classes") && count > 0
+            ? '<span class="count-badge">' + toBn(count) + " টি</span>"
+            : "";
+
+        let body = "";
+        if (sec.special === "classes") body = renderClassesBody();
+        else if (isDyn) body = renderDynBody(DYN_MAP[sec.id]);
+        else if (sec.fields) body = renderFieldsBody(sec.fields);
+
+        return (
+          '<div class="section-card" id="sec-' +
+          sec.id +
+          '">' +
+          '<div class="section-card-header">' +
+          '<div class="section-card-title">' +
+          '<span class="sec-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          sec.icon +
+          "</svg>" +
+          "</span>" +
+          '<span class="sec-text">' +
+          escapeHtml(sec.title) +
+          "</span>" +
+          "</div>" +
+          '<div class="section-card-header-right">' +
+          countHtml +
+          '<button class="edit-btn" onclick="openEdit(\'' +
+          sec.id +
+          '\')" title="সম্পাদনা করুন">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>' +
+          "</button>" +
+          "</div>" +
+          "</div>" +
+          '<div class="section-card-body">' +
+          body +
+          "</div>" +
+          "</div>"
+        );
+      }
+
+      function renderFieldsBody(fields) {
+        return (
+          '<div class="info-grid">' +
+          fields.map((f) => renderInfoItem(f, schoolData[f.id])).join("") +
+          "</div>"
+        );
+      }
+
+      function renderInfoItem(field, rawVal) {
+        const raw = clean(rawVal);
+        const isEmpty = !raw;
+        const shown = displayBn(field.id, raw);
+        const isCopy = COPYABLE_IDS.has(field.id) && !isEmpty;
+        const fullCls = field.full ? " full" : "";
+        const valueHtml = isEmpty
+          ? '<div class="info-value empty"></div>'
+          : '<div class="info-value">' + escapeHtml(shown) + "</div>";
+        const copyHtml = isCopy
+          ? '<button class="copy-btn" onclick="copyToClipboard(\'' +
+            escapeJs(raw) +
+            '\',this)" title="কপি করুন">' +
+            COPY_SVG +
+            "</button>"
+          : "";
+        return (
+          '<div class="info-item' +
+          fullCls +
+          '">' +
+          '<div class="info-label">' +
+          escapeHtml(field.label) +
+          "</div>" +
+          '<div class="info-value-row">' +
+          valueHtml +
+          copyHtml +
+          "</div>" +
+          "</div>"
+        );
+      }
+
+      function renderDynBody(dyn) {
+        const arr = schoolData[dyn.key] || [];
+        if (arr.length === 0) {
+          return (
+            '<div class="empty-state">' +
+            '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+            "<div>কোনো তথ্য যোগ করা হয়নি</div></div>"
+          );
+        }
+        return (
+          '<div class="sub-list">' +
+          arr
+            .map((item, i) => {
+              const fieldsHtml = dyn.fields
+                .map((f) => {
+                  const raw = clean(item[f.id]);
+                  const isEmpty = !raw;
+                  const shown = displayBn(f.id, raw);
+                  const isCopy = COPYABLE_DYN_IDS.has(f.id) && !isEmpty;
+                  return (
+                    '<div class="info-item">' +
+                    '<div class="info-label">' +
+                    escapeHtml(f.label) +
+                    "</div>" +
+                    '<div class="info-value-row">' +
+                    (isEmpty
+                      ? '<div class="info-value empty"></div>'
+                      : '<div class="info-value">' +
+                        escapeHtml(shown) +
+                        "</div>") +
+                    (isCopy
+                      ? '<button class="copy-btn" onclick="copyToClipboard(\'' +
+                        escapeJs(raw) +
+                        '\',this)" title="কপি করুন">' +
+                        COPY_SVG +
+                        "</button>"
+                      : "") +
+                    "</div></div>"
+                  );
+                })
+                .join("");
+              return (
+                '<div class="sub-card">' +
+                '<div class="sub-card-head">' +
+                '<span class="num-badge">' +
+                toBn(i + 1) +
+                "</span>" +
+                '<span class="sub-title">' +
+                escapeHtml(dyn.title) +
+                " #" +
+                toBn(i + 1) +
+                "</span>" +
+                "</div>" +
+                '<div class="info-grid">' +
+                fieldsHtml +
+                "</div>" +
+                "</div>"
+              );
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+
+      function renderClassesBody() {
+        const list = schoolData.classes || [];
+        if (list.length === 0)
+          return '<div class="empty-state">কোনো শ্রেণি নির্বাচন করা হয়নি</div>';
+        return (
+          '<div class="class-chips">' +
+          list
+            .map(
+              (c) =>
+                '<span class="class-chip">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+                escapeHtml(c) +
+                "</span>",
+            )
+            .join("") +
+          "</div>"
+        );
+      }
+
+      function findSection(id) {
+        return SECTIONS.find((s) => s.id === id);
+      }
+
+      /* ============================================================
+         Edit modal
+      ============================================================ */
+      function openEdit(sectionId) {
+        const sec = findSection(sectionId);
+        if (!sec) return;
+        editState.sectionId = sectionId;
+        $("editTitle").innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          sec.icon +
+          "</svg>" +
+          escapeHtml(sec.title);
+
+        const bodyEl = $("editBody");
+
+        if (sec.special === "classes") {
+          editState.mode = "classes";
+          bodyEl.innerHTML = renderClassesEditor();
+        } else if (DYN_MAP[sectionId]) {
+          editState.mode = "dyn";
+          editState.dynKey = DYN_MAP[sectionId].key;
+          editState.dynArr = JSON.parse(
+            JSON.stringify(schoolData[editState.dynKey] || []),
+          );
+          bodyEl.innerHTML =
+            '<div class="dyn-list" id="modalDynList"></div>' +
+            '<button type="button" class="btn-add-item" onclick="addDynItem()">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+            "নতুন আইটেম যোগ করুন</button>";
+          renderModalDynList();
+        } else if (sec.fields) {
+          editState.mode = "fields";
+          bodyEl.innerHTML = renderFieldsEditor(sec.fields);
+        }
+        $("editModal").classList.add("open");
+      }
+
+      function closeEdit() {
+        $("editModal").classList.remove("open");
+        editState = { sectionId: null, mode: null, dynKey: null, dynArr: [] };
+      }
+
+      function saveEdit() {
+        const sec = findSection(editState.sectionId);
+        if (!sec) {
+          closeEdit();
+          return;
+        }
+        if (editState.mode === "fields") {
+          sec.fields.forEach((f) => {
+            const el = document.getElementById("edit-" + f.id);
+            if (el) schoolData[f.id] = clean(el.value);
+          });
+        } else if (editState.mode === "classes") {
+          const arr = [];
+          document.querySelectorAll("[data-edit-class]").forEach((cb) => {
+            if (cb.checked) arr.push(cb.getAttribute("data-edit-class"));
+          });
+          schoolData.classes = arr;
+        } else if (editState.mode === "dyn") {
+          schoolData[editState.dynKey] = editState.dynArr;
+        }
+        if (!Store.set(STORAGE_KEY, JSON.stringify(schoolData))) {
+          showToast("ডেটা সংরক্ষণ করা যায়নি", "err");
+          return;
+        }
+        /* PERF: only re-render the section that changed */
+        const editedId = editState.sectionId;
+        closeEdit();
+        rerenderSection(editedId);
+        showToast("তথ্য সংরক্ষণ করা হয়েছে", "ok");
+      }
+      window.openEdit = openEdit;
+      window.closeEdit = closeEdit;
+      window.saveEdit = saveEdit;
+
+      function renderFieldsEditor(fields) {
+        let html = '<div class="edit-grid">';
+        fields.forEach((f) => {
+          const v = clean(schoolData[f.id]);
+          const cls = f.full ? " full" : "";
+          html +=
+            '<div class="form-group' +
+            cls +
+            '"><label>' +
+            escapeHtml(f.label) +
+            (f.required ? ' <span style="color:#ef4444">*</span>' : "") +
+            "</label>";
+          if (f.type === "select") {
+            html +=
+              '<select id="edit-' +
+              f.id +
+              '"><option value="">-- নির্বাচন করুন --</option>' +
+              f.options
+                .map(
+                  (o) =>
+                    '<option value="' +
+                    escapeHtml(o) +
+                    '"' +
+                    (String(v) === String(o) ? " selected" : "") +
+                    ">" +
+                    escapeHtml(o) +
+                    "</option>",
+                )
+                .join("") +
+              "</select>";
+          } else {
+            html +=
+              '<input type="text" id="edit-' +
+              f.id +
+              '" value="' +
+              escapeHtml(v) +
+              '" />';
+          }
+          html += "</div>";
+        });
+        html += "</div>";
+        return html;
+      }
+
+      function renderClassesEditor() {
+        const sel = schoolData.classes || [];
+        return (
+          '<div class="class-check-grid">' +
+          CLASS_LIST.map(
+            (c) =>
+              '<label class="check-chip"><input type="checkbox" data-edit-class="' +
+              escapeHtml(c) +
+              '"' +
+              (sel.indexOf(c) !== -1 ? " checked" : "") +
+              " /> " +
+              escapeHtml(c) +
+              "</label>",
+          ).join("") +
+          "</div>"
+        );
+      }
+
+      function renderModalDynList() {
+        const c = $("modalDynList");
+        if (!c) return;
+        const dyn = DYN_MAP[editState.sectionId];
+        if (!dyn) return;
+        const arr = editState.dynArr;
+        if (arr.length === 0) {
+          c.innerHTML =
+            '<div class="empty-state">কোনো আইটেম নেই। "নতুন আইটেম যোগ করুন" ক্লিক করুন।</div>';
+          return;
+        }
+        c.innerHTML = arr
+          .map((item, i) => {
+            let fieldsHtml = "";
+            dyn.fields.forEach((f) => {
+              const v = clean(item[f.id]);
+              fieldsHtml +=
+                '<div class="form-group"><label>' +
+                escapeHtml(f.label) +
+                "</label>";
+              if (f.type === "select") {
+                fieldsHtml +=
+                  '<select onchange="updateModalDynItem(' +
+                  i +
+                  ",'" +
+                  f.id +
+                  "',this.value)\">" +
+                  '<option value="">-- নির্বাচন করুন --</option>' +
+                  f.options
+                    .map(
+                      (o) =>
+                        '<option value="' +
+                        escapeHtml(o) +
+                        '"' +
+                        (String(v) === String(o) ? " selected" : "") +
+                        ">" +
+                        escapeHtml(o) +
+                        "</option>",
+                    )
+                    .join("") +
+                  "</select>";
+              } else {
+                fieldsHtml +=
+                  '<input type="text" value="' +
+                  escapeHtml(v) +
+                  '" oninput="updateModalDynItem(' +
+                  i +
+                  ",'" +
+                  f.id +
+                  "',this.value)\" />";
+              }
+              fieldsHtml += "</div>";
+            });
+            return (
+              '<div class="dyn-item">' +
+              '<div class="dyn-item-head">' +
+              '<div class="dyn-item-title"><span class="num-badge">' +
+              toBn(i + 1) +
+              "</span>" +
+              escapeHtml(dyn.title) +
+              " #" +
+              toBn(i + 1) +
+              "</div>" +
+              '<button type="button" class="btn-remove" onclick="removeModalDynItem(' +
+              i +
+              ')">✕ সরান</button>' +
+              "</div>" +
+              '<div class="edit-grid">' +
+              fieldsHtml +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
+      function updateModalDynItem(i, field, value) {
+        if (editState.dynArr[i]) editState.dynArr[i][field] = value;
+      }
+      function addDynItem() {
+        editState.dynArr.push({});
+        renderModalDynList();
+      }
+      function removeModalDynItem(i) {
+        editState.dynArr.splice(i, 1);
+        renderModalDynList();
+      }
+      window.updateModalDynItem = updateModalDynItem;
+      window.addDynItem = addDynItem;
+      window.removeModalDynItem = removeModalDynItem;
+
+      /* ============================================================
+         Export (lazy-loads SheetJS on click)
+      ============================================================ */
+      async function exportExcel() {
+        const btn = $("btnExcel");
+        if (btn) btn.disabled = true;
+        try {
+          await loadXLSX();
+        } catch (e) {
+          showToast(
+            "Excel লাইব্রেরি লোড হয়নি — ইন্টারনেট পরীক্ষা করুন",
+            "err",
+          );
+          if (btn) btn.disabled = false;
+          return;
+        }
+        if (typeof XLSX === "undefined") {
+          showToast("Excel লাইব্রেরি লোড হয়নি", "err");
+          if (btn) btn.disabled = false;
+          return;
+        }
+        try {
+          const wb = XLSX.utils.book_new();
+          const kvAoa = [["বিভাগ", "ক্ষেত্র", "মান"]];
+          SECTIONS.forEach((sec) => {
+            if (sec.fields)
+              sec.fields.forEach((f) =>
+                kvAoa.push([sec.title, f.label, schoolData[f.id] || ""]),
+              );
+            else if (sec.special === "classes")
+              kvAoa.push([
+                sec.title,
+                "শ্রেণি",
+                (schoolData.classes || []).join(", "),
+              ]);
+          });
+          const ws1 = XLSX.utils.aoa_to_sheet(kvAoa);
+          ws1["!cols"] = [{ wch: 34 }, { wch: 40 }, { wch: 46 }];
+          XLSX.utils.book_append_sheet(wb, ws1, "সারসংক্ষেপ");
+
+          const addDyn = (key, fields, name) => {
+            const arr = schoolData[key] || [];
+            if (!arr.length) return;
+            const aoa = [fields.map((f) => f.label)];
+            arr.forEach((it) => aoa.push(fields.map((f) => it[f.id] || "")));
+            XLSX.utils.book_append_sheet(
+              wb,
+              XLSX.utils.aoa_to_sheet(aoa),
+              name,
+            );
+          };
+          addDyn("buildings", BUILDING_FIELDS, "ভবন");
+          addDyn("rooms", ROOM_FIELDS, "কক্ষ");
+          addDyn("washblocks", WASHBLOCK_FIELDS, "ওয়াশব্লক");
+          addDyn("waters", WATER_FIELDS, "পানীয় জল");
+          addDyn("sanitations", SANITATION_FIELDS, "স্যানিটেশন");
+          addDyn("furnitures", FURNITURE_FIELDS, "আসবাবপত্র");
+          addDyn("ictEquipments", ICT_EQUIPMENT_FIELDS, "আইসিটি সরঞ্জাম");
+
+          XLSX.writeFile(wb, "school_data_" + dateStamp() + ".xlsx");
+          showToast("Excel ফাইল ডাউনলোড হয়েছে", "ok");
+        } catch (e) {
+          console.error(e);
+          showToast("Excel তৈরি করা যায়নি", "err");
+        } finally {
+          if (btn) btn.disabled = false;
+        }
+      }
+      window.exportExcel = exportExcel;
+
+      function updateBackupMeta() {
+        const el = $("backupMeta");
+        if (el) el.textContent = UnifiedBackup.metaText("school");
+      }
+      function downloadJSONBackup() {
+        if (UnifiedBackup.backup()) updateBackupMeta();
+      }
+      window.downloadJSONBackup = downloadJSONBackup;
+
+      function handleRestoreFile(event) {
+        UnifiedBackup.handleFile(event, "school");
+      }
+      window.handleRestoreFile = handleRestoreFile;
+      function recoverPrevious() {
+        UnifiedBackup.recover("school");
+      }
+      window.recoverPrevious = recoverPrevious;
+
+      function printDashboard() {
+        try {
+          window.print();
+        } catch (e) {
+          showToast("প্রিন্ট শুরু করা যায়নি", "err");
+        }
+      }
+      window.printDashboard = printDashboard;
+
+      /* ============================================================
+         Init
+      ============================================================ */
+      function bindScrollSpy() {
+        let ticking = false;
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(() => {
+                updateTocActive();
+                ticking = false;
+              });
+            }
+          },
+          { passive: true },
+        );
+      }
+      function bindModals() {
+        document
+          .getElementById("editModal")
+          .addEventListener("click", function (e) {
+            if (e.target === this) closeEdit();
+          });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && $("editModal").classList.contains("open"))
+            closeEdit();
+        });
+      }
+
+      function init() {
+        try {
+          /* Load saved data first (cheap) */
+          const raw = Store.get(STORAGE_KEY);
+          if (raw) {
+            const parsed = safeParse(raw);
+            if (parsed && typeof parsed === "object")
+              schoolData = Object.assign(schoolData, parsed);
+          }
+
+          /* Paint header + TOC immediately */
+          buildToc();
+          bindModals();
+          bindScrollSpy();
+
+          /* PERF: defer dashboard card construction so first paint happens now */
+          requestAnimationFrame(() => {
+            renderDashboard();
+            updateTocActive();
+          });
+
+          if (!Store.available)
+            showToast("এই ব্রাউজারে স্থায়ী স্টোরেজ নেই", "err");
+        } catch (err) {
+          console.error(err);
+          showToast("অ্যাপ চালু করতে সমস্যা হয়েছে", "err");
+        }
+      }
+
+      window.addEventListener("error", (e) => {
+        if (e && e.message) console.error("Runtime:", e.message);
+      });
+      init();
+      updateBackupMeta();
+    </script>
+  </body>
+  <!-- ============================================================
+     Author    : Naimul Hassan
+     Email     : iam.naimul@gmail.com
+     Date      : 20 October, 2026
+     Signature : NH-2026-10-20
+     ============================================================ -->
+</html>

@@ -1,0 +1,4712 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>মূল্যায়ন তথ্য সংরক্ষণ ছক — হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+    <style>
+      :root {
+        --paper: #ffffff;
+        --paper-2: #fafafa;
+        --paper-3: #f5f6f8;
+        --page-bg: #eef1f5;
+        --ink: #1f2937;
+        --ink-2: #374151;
+        --ink-3: #6b7280;
+        --ink-4: #9ca3af;
+        --line: #d1d5db;
+        --line-2: #9ca3af;
+        --edu-bg: #eef2ff;
+        --edu-bg-2: #e0e7ff;
+        --edu-bd: #c7d2fe;
+        --edu-txt: #3730a3;
+        --mrk-bg: #fffbeb;
+        --mrk-bg-2: #fef3c7;
+        --mrk-bd: #fde68a;
+        --mrk-txt: #78350f;
+        --res-bg: #ecfdf5;
+        --res-bg-2: #d1fae5;
+        --res-bd: #a7f3d0;
+        --res-txt: #065f46;
+        --danger: #b91c1c;
+        --danger-soft: #fef2f2;
+        --success: #047857;
+        --warn: #b45309;
+        --total-bg: #ecfdf5;
+        --total-txt: #065f46;
+        --avg-bg: #eff6ff;
+        --avg-txt: #1e40af;
+        --grade-bg: #fffbeb;
+        --grade-txt: #78350f;
+        --ach-bg: #f5f3ff;
+        --ach-txt: #5b21b6;
+        --q1: #d4e8df;
+        --q2: #f8e4c0;
+        --q3: #ddd5f0;
+        --fin: #f5cfcf;
+        --head: #1e40af;
+        --soft: #eaf2fb;
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --shadow-md: 0 2px 8px rgba(15, 23, 42, 0.06);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1);
+        --radius-lg: 14px;
+
+        --card: var(--paper);
+        --surface: var(--paper-3);
+        --text: var(--ink);
+        --text-soft: var(--ink-2);
+        --muted: var(--ink-3);
+        --border: var(--line);
+        --border-strong: var(--line-2);
+        --primary: #1e40af;
+        --primary-hover: #1d4ed8;
+        --primary-soft: #eff6ff;
+        --primary-soft-2: #dbeafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(30, 64, 175, 0.16);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--page-bg);
+        color: var(--ink);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font-family: var(--font-body);
+        font-size: inherit;
+        outline: none;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        background: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-head);
+        font-weight: 900;
+        letter-spacing: 0.15px;
+      }
+
+      .top-bar {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        padding: 16px 26px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        box-shadow: var(--shadow-md);
+      }
+      .top-bar .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+      }
+      .top-bar .brand-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        flex-shrink: 0;
+      }
+      .top-bar h1 {
+        font-size: clamp(15px, 1.4vw, 18px);
+        font-weight: 900;
+        line-height: 1.25;
+      }
+      .top-bar p {
+        font-size: clamp(11.5px, 1vw, 12.5px);
+        opacity: 0.9;
+      }
+      .top-bar-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.18s ease;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.28);
+      }
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30, 64, 175, 0.36);
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .btn-ghost:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--ink-2);
+        border: 1.5px solid var(--line);
+      }
+      .btn-outline:hover:not(:disabled) {
+        border-color: #1e40af;
+        color: #1e40af;
+        transform: translateY(-1px);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .btn .badge-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 19px;
+        height: 19px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: #f59e0b;
+        color: #fff;
+        font-family: var(--font-head);
+        font-size: 10.5px;
+        font-weight: 900;
+        line-height: 1;
+        box-shadow: 0 2px 6px rgba(245, 158, 11, 0.45);
+      }
+
+      .setup-wrap {
+        max-width: 780px;
+        margin: 40px auto;
+        padding: 0 18px;
+        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .setup-card {
+        background: var(--paper);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        position: relative;
+      }
+      .setup-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1e3a8a, #1d4ed8);
+      }
+      .setup-head {
+        padding: 22px 26px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, #f8fafc, #eff6ff);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .setup-head .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        box-shadow: 0 10px 22px -6px rgba(30, 64, 175, 0.5);
+        flex-shrink: 0;
+      }
+      .setup-head h2 {
+        font-size: 19px;
+        font-weight: 900;
+        margin-bottom: 3px;
+        color: var(--ink);
+      }
+      .setup-head p {
+        font-size: 12.5px;
+        color: var(--ink-3);
+      }
+      .setup-body {
+        padding: 24px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .setup-section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .setup-section-title {
+        font-family: var(--font-head);
+        font-size: 12px;
+        font-weight: 900;
+        color: #1e40af;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 9px;
+        border-bottom: 1.5px solid var(--line);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--ink-2);
+      }
+      .field select,
+      .field input {
+        padding: 11px 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        font-size: 14px;
+        background: #fff;
+        color: var(--ink);
+        width: 100%;
+        transition: 0.15s;
+        font-weight: 500;
+      }
+      .field select:hover,
+      .field input:hover {
+        border-color: var(--line-2);
+      }
+      .field select:focus,
+      .field input:focus {
+        border-color: #1e40af;
+        box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.11);
+      }
+      .setup-foot {
+        padding: 18px 26px 22px;
+        background: var(--paper-2);
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .setup-status {
+        font-size: 13px;
+        color: var(--ink-2);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        font-weight: 600;
+      }
+      .setup-status .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.16);
+      }
+      .setup-status.warn {
+        color: var(--warn);
+      }
+      .setup-status.warn .dot {
+        background: var(--warn);
+        box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.16);
+      }
+      .setup-status strong {
+        color: #1e40af;
+        font-weight: 800;
+      }
+
+      #resultView {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+        background: var(--paper);
+      }
+      #resultView.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .result-toolbar {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        padding: 14px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-md);
+      }
+      .result-toolbar .info h3 {
+        font-size: 16.5px;
+        font-weight: 900;
+      }
+      .result-toolbar .info p {
+        font-size: 12px;
+        opacity: 0.78;
+        margin-top: 2px;
+      }
+      .result-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .result-actions button {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 9px 15px;
+        border-radius: 9px;
+        font-size: 12.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.15s;
+      }
+      .result-actions button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+      .result-actions .btn-solid {
+        background: #fff;
+        color: #0f172a;
+        border-color: #fff;
+      }
+      .result-actions .btn-solid:hover {
+        background: #f1f5f9;
+      }
+      .result-actions .btn-save-solid {
+        background: #047857;
+        color: #fff;
+        border-color: #047857;
+        box-shadow: 0 4px 12px rgba(4, 120, 87, 0.35);
+      }
+      .result-actions .btn-save-solid:hover {
+        background: #065f46;
+        border-color: #065f46;
+      }
+      .result-actions .btn-danger-solid {
+        background: #b91c1c;
+        border-color: #b91c1c;
+      }
+      .result-actions .btn-danger-solid:hover {
+        background: #991b1b;
+      }
+      .result-body {
+        flex: 1;
+        overflow: auto;
+        background: var(--paper-3);
+        min-height: 0;
+        padding: 20px;
+      }
+      .result-foot {
+        padding: 13px 22px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: var(--ink-3);
+        flex-shrink: 0;
+      }
+      .result-foot strong {
+        color: var(--ink);
+        font-weight: 800;
+      }
+      .result-foot kbd {
+        background: #e2e8f0;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+        color: var(--ink-2);
+        font-weight: 700;
+      }
+
+      .table-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+      }
+      .result-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12.5px;
+        font-variant-numeric: tabular-nums;
+        background: var(--paper);
+      }
+      .result-table thead th {
+        position: sticky;
+        background: var(--paper-2);
+        color: var(--ink);
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 11px;
+        padding: 9px 6px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1.25;
+        border: 1px solid var(--line);
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .result-table thead tr:nth-child(1) th {
+        top: 0;
+      }
+      .result-table thead tr:nth-child(2) th {
+        top: 34px;
+      }
+      .result-table thead .group-head {
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 12px;
+        padding: 10px 8px;
+        letter-spacing: 0.4px;
+        border: 1px solid var(--line);
+        border-radius: 0;
+      }
+      .result-table thead .group-education {
+        background: linear-gradient(135deg, var(--edu-bg), var(--edu-bg-2));
+        color: var(--edu-txt);
+        border-color: var(--edu-bd);
+      }
+      .result-table thead .group-marks {
+        background: linear-gradient(135deg, var(--mrk-bg), var(--mrk-bg-2));
+        color: var(--mrk-txt);
+        border-color: var(--mrk-bd);
+      }
+      .result-table thead .group-result {
+        background: linear-gradient(135deg, var(--res-bg), var(--res-bg-2));
+        color: var(--res-txt);
+        border-color: var(--res-bd);
+      }
+      .result-table thead th.subject-head {
+        background: #fffbeb;
+        color: var(--mrk-txt);
+        font-size: 10px;
+        padding: 8px 4px;
+        white-space: normal;
+        line-height: 1.15;
+        max-width: 80px;
+      }
+      .result-table thead th.result-head {
+        background: #ecfdf5;
+        color: var(--res-txt);
+      }
+      .result-table tbody td {
+        padding: 8px 5px;
+        text-align: center;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 12.5px;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .result-table tbody tr:nth-child(even) td {
+        background: #fbfcfd;
+      }
+      .result-table tbody tr:hover td {
+        background: #f1f5f9;
+        cursor: pointer;
+      }
+      .result-table tbody td.col-rol {
+        font-weight: 700;
+        color: var(--ink-2);
+      }
+      .result-table tbody td.col-name {
+        text-align: left;
+        padding-left: 12px;
+        font-weight: 600;
+        min-width: 160px;
+      }
+      .result-table tbody td.col-class {
+        font-size: 11px;
+        color: var(--ink-2);
+      }
+      .result-table .avg-cell {
+        font-weight: 800;
+        background: #f0f7ff !important;
+        color: #1e40af !important;
+      }
+      .result-table .total-cell {
+        font-weight: 900;
+        background: var(--total-bg) !important;
+        color: var(--total-txt) !important;
+      }
+      .result-table .grade-cell {
+        font-family: var(--font-head);
+        font-weight: 900;
+        background: var(--grade-bg) !important;
+        color: var(--grade-txt) !important;
+        font-size: 13px;
+      }
+      .result-table .achieve-cell {
+        font-weight: 700;
+        background: var(--ach-bg) !important;
+        color: var(--ach-txt) !important;
+        font-size: 10.5px;
+        line-height: 1.25;
+        padding: 7px 4px;
+        white-space: normal;
+      }
+      .result-table .detail-btn {
+        padding: 5px 11px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        color: #fff;
+        box-shadow: 0 3px 9px rgba(30, 64, 175, 0.25);
+        border: 0;
+        cursor: pointer;
+        transition: 0.15s;
+        white-space: nowrap;
+      }
+      .result-table .detail-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        transform: translateY(-1px);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+        padding: 18px;
+      }
+      .modal-overlay.show {
+        display: flex;
+        animation: fadeIn 0.18s ease;
+      }
+      .modal {
+        background: #fff;
+        width: 100%;
+        max-width: 660px;
+        max-height: 86vh;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .modal.sm {
+        max-width: 470px;
+      }
+      .modal.chart-modal {
+        max-width: 1500px;
+        width: 98vw;
+        max-height: 94vh;
+      }
+      .modal-head {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(135deg, #f8fafc, #eff6ff);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .modal-head h3 {
+        font-size: 16px;
+        font-weight: 900;
+      }
+      .modal-head p {
+        font-size: 12px;
+        color: var(--ink-3);
+        margin-top: 2px;
+      }
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink-3);
+        background: #fff;
+        border: 1px solid var(--line);
+        transition: 0.15s;
+        font-size: 15px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .modal-close:hover {
+        background: var(--danger-soft);
+        color: var(--danger);
+        border-color: var(--danger);
+      }
+      .modal-tools {
+        padding: 12px 20px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper-2);
+      }
+      .modal-tools .btn {
+        padding: 8px 14px;
+        font-size: 12.5px;
+      }
+      .modal-body {
+        padding: 14px 20px 20px;
+        overflow: auto;
+        flex: 1;
+        min-height: 0;
+      }
+      .modal.chart-modal .modal-body {
+        padding: 14px;
+      }
+      .modal-foot {
+        padding: 14px 20px;
+        border-top: 1px solid var(--line);
+        background: var(--paper-2);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .chart-page {
+        background: #fff;
+        border: 1.5px solid var(--head);
+        overflow: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .chart-title {
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        font-family: var(--font-head);
+        font-size: 16px;
+        font-weight: 900;
+        color: #fff;
+        background: linear-gradient(135deg, #1e40af, #2563eb);
+        letter-spacing: 0.3px;
+      }
+      .chart-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1px solid var(--line);
+      }
+      .chart-info > div {
+        padding: 8px 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 14px;
+        align-items: center;
+        font-size: 12.5px;
+      }
+      .chart-info > div:first-child {
+        border-right: 1px solid var(--line);
+      }
+      .chart-info .ci-row {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 12px;
+        align-items: center;
+      }
+      .chart-info .black {
+        font-family: var(--font-head);
+        font-weight: 900;
+      }
+      .chart-info .ci-value {
+        font-weight: 700;
+        color: var(--ink);
+        border-bottom: 1px dotted var(--line-2);
+        padding: 0 4px;
+        min-width: 80px;
+        display: inline-block;
+      }
+      .chart-info .ci-na {
+        color: #6b7280;
+        font-style: italic;
+        font-weight: 600;
+      }
+      .box {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1.5px solid var(--head);
+        border-radius: 3px;
+        vertical-align: -2px;
+        margin-right: 4px;
+        background: #fff;
+        position: relative;
+      }
+      .box.checked::after {
+        content: "✓";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--head);
+        font-weight: 900;
+        line-height: 1;
+      }
+      .chart-table-wrap {
+        overflow-x: auto;
+        background: #fff;
+      }
+      .chart-table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 1100px;
+        font-size: 11px;
+        text-align: center;
+        table-layout: fixed;
+        background: #fff;
+      }
+      .chart-table th,
+      .chart-table td {
+        border: 1px solid var(--line);
+        padding: 1px;
+        text-align: center;
+        vertical-align: middle;
+        background: #fff;
+        color: var(--ink);
+      }
+      .chart-table th {
+        background: var(--soft);
+        color: var(--head);
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 11px;
+        padding: 2px 1px;
+      }
+      .chart-table th.q1 {
+        background: var(--q1);
+      }
+      .chart-table th.q2 {
+        background: var(--q2);
+      }
+      .chart-table th.q3 {
+        background: var(--q3);
+      }
+      .chart-table th.fin-head {
+        background: var(--fin);
+      }
+      .chart-table th.sub-head-cell {
+        width: 150px;
+        font-size: 12px;
+      }
+      .chart-table .v {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        white-space: nowrap;
+        height: 110px;
+        margin: auto;
+        font-size: 10px;
+        line-height: 1.15;
+        font-family: var(--font-body);
+        font-weight: 700;
+      }
+      .chart-table td.sub {
+        text-align: left;
+        padding-left: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        background: var(--soft);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .chart-table tbody tr:nth-child(even) td:not(.sub) {
+        background: rgba(30, 64, 175, 0.03);
+      }
+      .chart-table tr.total td {
+        background: var(--soft);
+        font-family: var(--font-head);
+        font-weight: 900;
+        font-size: 11px;
+      }
+      .chart-table tr.total td.sub {
+        text-align: center;
+        padding-left: 0;
+      }
+      .chart-table td.cont-cell {
+        font-weight: 800;
+        background: #f0f7f2;
+        color: #065f46;
+      }
+      .chart-table td.term-cell {
+        font-weight: 900;
+        background: #e6f2ff;
+        color: #1e40af;
+      }
+      .chart-table td.avg-cell {
+        font-weight: 900;
+        background: #eef2ff;
+        color: #3730a3;
+      }
+      .chart-table td.grade-cell {
+        font-family: var(--font-head);
+        font-weight: 900;
+        background: #fffbeb;
+        color: #78350f;
+        font-size: 12px;
+      }
+      .chart-table td.comment-cell {
+        background: #fafafa;
+        padding: 0;
+      }
+      .chart-table td.sum-col {
+        background: #f1f5f9;
+        font-weight: 800;
+        color: #334155;
+      }
+      .chart-input {
+        width: 100%;
+        padding: 3px 1px;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background: transparent;
+        text-align: center;
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--ink);
+        outline: none;
+        transition: 0.12s;
+        font-variant-numeric: tabular-nums;
+      }
+      .chart-input:hover {
+        background: #f8fafc;
+        border-color: var(--line);
+      }
+      .chart-input:focus {
+        background: #fff;
+        border-color: #1e40af;
+        box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.15);
+      }
+      .chart-input.invalid {
+        background: var(--danger-soft);
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .chart-input.filled {
+        background: #ecfdf5;
+        color: #065f46;
+      }
+      .chart-input::placeholder {
+        color: #cbd5e1;
+        font-weight: 500;
+      }
+      .comment-input {
+        width: 100%;
+        padding: 3px 3px;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background: transparent;
+        text-align: center;
+        font-family: var(--font-body);
+        font-size: 10.5px;
+        color: var(--ink);
+        outline: none;
+        transition: 0.12s;
+      }
+      .comment-input:hover {
+        background: #fff;
+        border-color: var(--line);
+      }
+      .comment-input:focus {
+        background: #fff;
+        border-color: #1e40af;
+        box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.15);
+      }
+      .chart-sign {
+        display: flex;
+        justify-content: space-between;
+        padding: 22px 50px 12px;
+        font-size: 13px;
+        background: #fff;
+      }
+      .chart-sign span {
+        border-top: 1.5px dashed var(--head);
+        padding-top: 5px;
+        min-width: 140px;
+        text-align: center;
+        font-weight: 700;
+        font-family: var(--font-head);
+      }
+
+      .empty-wrap {
+        max-width: 520px;
+        margin: 60px auto;
+        padding: 0 18px;
+      }
+      .empty-card {
+        background: var(--paper);
+        padding: 50px 32px;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+      }
+      .empty-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #b45309, #b91c1c);
+      }
+      .empty-card svg {
+        color: var(--ink-4);
+        margin-bottom: 18px;
+      }
+      .empty-card h3 {
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .empty-card p {
+        font-size: 13.5px;
+        color: var(--ink-3);
+        line-height: 1.75;
+      }
+      .empty-card p strong {
+        color: var(--ink-2);
+        font-weight: 800;
+      }
+      .empty-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        z-index: 2000;
+        max-width: 360px;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        display: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        border-left: 4px solid #1e40af;
+      }
+      .toast.show {
+        display: block;
+        animation: toastIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .toast.err {
+        border-left-color: var(--danger);
+      }
+      .toast.ok {
+        border-left-color: var(--success);
+      }
+      @keyframes toastIn {
+        from {
+          transform: translateY(16px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      .saved-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        margin-bottom: 10px;
+        transition: 0.15s;
+      }
+      .saved-item:hover {
+        border-color: #93c5fd;
+        box-shadow: 0 4px 14px rgba(30, 64, 175, 0.09);
+      }
+      .si-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .si-title {
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 900;
+        margin-bottom: 5px;
+        overflow-wrap: anywhere;
+        line-height: 1.35;
+      }
+      .si-meta {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 6px;
+        align-items: center;
+      }
+      .chip {
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--edu-bg);
+        color: var(--edu-txt);
+        border: 1px solid var(--edu-bd);
+        font-size: 10.5px;
+        font-weight: 700;
+      }
+      .si-count {
+        font-size: 11.5px;
+        color: var(--ink-3);
+        font-weight: 700;
+      }
+      .si-sub {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .badge {
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 10.5px;
+        font-weight: 800;
+        border: 1px solid;
+      }
+      .badge-ok {
+        background: var(--res-bg);
+        color: var(--res-txt);
+        border-color: var(--res-bd);
+      }
+      .badge-warn {
+        background: var(--mrk-bg);
+        color: var(--mrk-txt);
+        border-color: var(--mrk-bd);
+      }
+      .si-date {
+        font-size: 11px;
+        color: var(--ink-4);
+      }
+      .si-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+      .mini-btn {
+        padding: 6px 11px;
+        border-radius: 8px;
+        font-size: 11.5px;
+        font-weight: 700;
+        border: 1.5px solid var(--line);
+        background: #fff;
+        color: var(--ink-2);
+        transition: 0.15s;
+        white-space: nowrap;
+      }
+      .mini-btn:hover {
+        border-color: #1e40af;
+        color: #1e40af;
+        background: #f8fafc;
+      }
+      .mini-btn.primary {
+        background: linear-gradient(135deg, #1e40af, #1d4ed8);
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 3px 9px rgba(30, 64, 175, 0.28);
+      }
+      .mini-btn.primary:hover {
+        color: #fff;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      }
+      .mini-btn.danger:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+        background: var(--danger-soft);
+      }
+      .saved-empty {
+        text-align: center;
+        padding: 44px 16px;
+        color: var(--ink-3);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+      .saved-empty strong {
+        display: block;
+        font-family: var(--font-head);
+        font-size: 15px;
+        color: var(--ink-2);
+        margin-bottom: 6px;
+      }
+      .save-hint {
+        font-size: 12.5px;
+        color: var(--ink-3);
+        padding: 10px 12px;
+        border-radius: 9px;
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        line-height: 1.6;
+      }
+      .save-hint.ok {
+        color: var(--res-txt);
+        background: var(--res-bg);
+        border-color: var(--res-bd);
+        font-weight: 700;
+      }
+      .save-hint.warn {
+        color: var(--mrk-txt);
+        background: var(--mrk-bg);
+        border-color: var(--mrk-bd);
+        font-weight: 700;
+      }
+
+      @media print {
+        .top-bar,
+        .setup-wrap,
+        .result-toolbar,
+        .result-actions,
+        .result-foot,
+        .toast,
+        .modal-overlay {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        .result-body {
+          padding: 0 !important;
+          background: #fff !important;
+        }
+      }
+      @media (max-width: 900px) {
+        .setup-wrap {
+          margin: 20px auto;
+        }
+        .result-toolbar {
+          padding: 12px 16px;
+        }
+        .result-body {
+          padding: 12px;
+        }
+        .result-table tbody td,
+        .result-table thead th {
+          padding: 6px 5px;
+          font-size: 11px;
+        }
+        .chart-info {
+          grid-template-columns: 1fr;
+        }
+        .chart-info > div:first-child {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+      }
+      @media (max-width: 640px) {
+        .top-bar {
+          padding: 12px 16px;
+        }
+        .top-bar h1 {
+          font-size: 15px;
+        }
+        .setup-body {
+          padding: 16px;
+          gap: 14px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .setup-foot {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .setup-foot .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .result-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+        }
+        .result-actions button {
+          flex: 1;
+          justify-content: center;
+        }
+        .result-body {
+          padding: 8px;
+        }
+        .saved-item {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .si-actions {
+          justify-content: flex-end;
+        }
+        .modal-tools .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+        outline: 3px solid rgba(30, 64, 175, 0.38);
+        outline-offset: 2px;
+      }
+      @supports (padding: env(safe-area-inset-top)) {
+        .top-bar {
+          padding-top: max(16px, env(safe-area-inset-top, 0px));
+          padding-left: max(26px, env(safe-area-inset-left, 0px));
+          padding-right: max(26px, env(safe-area-inset-right, 0px));
+        }
+        .result-toolbar {
+          padding-top: max(14px, env(safe-area-inset-top, 0px));
+          padding-left: max(22px, env(safe-area-inset-left, 0px));
+          padding-right: max(22px, env(safe-area-inset-right, 0px));
+        }
+        .result-foot {
+          padding-bottom: max(13px, env(safe-area-inset-bottom, 0px));
+        }
+        .toast {
+          bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .mini-btn,
+        .modal-close {
+          min-height: 40px;
+        }
+        .top-bar-actions .btn,
+        .result-actions button,
+        .modal-tools .btn,
+        .modal-foot .btn {
+          min-height: 44px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]):not(.chart-input):not(
+            .comment-input
+          ),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>মূল্যায়ন তথ্য সংরক্ষণ ছক</h1>
+          <p>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</p>
+        </div>
+      </div>
+      <div class="top-bar-actions">
+        <input
+          type="file"
+          id="importFileInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="resultImportInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="restoreFileInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <button class="btn btn-ghost" onclick="openSavedResults()">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          সংরক্ষিত ছক
+          <span class="badge-count" id="savedBadge" style="display: none"
+            >০</span
+          >
+        </button>
+        <button
+          class="btn btn-ghost"
+          onclick="UnifiedBackup.backup()"
+          title="সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          সব ডেটা ব্যাকআপ
+        </button>
+        <button
+          class="btn btn-ghost"
+          onclick="document.getElementById('restoreFileInput').click()"
+          title="সব ডেটা রিস্টোর"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          সব ডেটা রিস্টোর
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-wrap" id="setupWrap">
+      <div class="setup-card">
+        <div class="setup-head">
+          <div class="icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h2>ছক তৈরি</h2>
+            <p>
+              শ্রেণি, শিক্ষাবর্ষ ও পরীক্ষার তথ্য দিন — ছক স্বয়ংক্রিয়ভাবে
+              নির্বাচিত হবে
+            </p>
+          </div>
+        </div>
+        <div class="setup-body">
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              শিক্ষার্থী নির্বাচন
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label
+                  >শ্রেণি <span style="color: var(--danger)">*</span></label
+                >
+                <select id="classSelect"></select>
+              </div>
+              <div class="field">
+                <label>শিক্ষাবর্ষ (ঐচ্ছিক)</label>
+                <select id="yearSelect">
+                  <option value="">-- সব শিক্ষাবর্ষ --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="setup-section">
+            <div class="setup-section-title">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 11l3 3L22 4"></path>
+                <path
+                  d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                ></path>
+              </svg>
+              পরীক্ষার নাম <span style="color: var(--danger)">*</span>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>পরীক্ষা নির্বাচন</label>
+                <select id="examSelect" onchange="onExamSelectChange()">
+                  <option value="">-- নির্বাচন করুন --</option>
+                  <option value="প্রথম প্রান্তিক মূল্যায়ন">
+                    প্রথম প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="দ্বিতীয় প্রান্তিক মূল্যায়ন">
+                    দ্বিতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="তৃতীয় প্রান্তিক মূল্যায়ন">
+                    তৃতীয় প্রান্তিক মূল্যায়ন
+                  </option>
+                  <option value="বার্ষিক মূল্যায়ন">বার্ষিক মূল্যায়ন</option>
+                  <option value="__custom__">অন্যান্য (নিজে লিখুন)...</option>
+                </select>
+              </div>
+              <div class="field" id="customExamField" style="display: none">
+                <label>পরীক্ষার নাম লিখুন</label>
+                <input
+                  type="text"
+                  id="customExamName"
+                  placeholder="যেমন: বিশেষ মূল্যায়ন"
+                  maxlength="80"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="setup-foot">
+          <div class="setup-status" id="setupStatus">
+            <span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>
+          </div>
+          <button
+            class="btn btn-primary"
+            id="generateBtn"
+            onclick="startGeneration()"
+            disabled
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path
+                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+              ></path>
+            </svg>
+            ছক তৈরি করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-wrap" id="emptyWrap" style="display: none">
+      <div class="empty-card">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h3>শিক্ষার্থীর তথ্য পাওয়া যায়নি</h3>
+        <p>
+          এই ব্রাউজারে কোনো ডেটা নেই। আপনি চাইলে
+          <strong>JSON Backup</strong> ফাইল লোড করে কাজ শুরু করতে পারেন।
+        </p>
+        <div class="empty-actions">
+          <button
+            class="btn btn-primary"
+            onclick="document.getElementById('importFileInput').click()"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            JSON ব্যাকআপ লোড করুন
+          </button>
+          <button class="btn btn-outline" onclick="retryLoad()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            আবার চেষ্টা করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultView">
+      <div class="result-toolbar">
+        <div class="info">
+          <h3 id="rtTitle">মূল্যায়ন ছক</h3>
+          <p id="rtSub">—</p>
+        </div>
+        <div class="result-actions">
+          <button class="btn-save-solid" onclick="openSaveDialog()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+              ></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            সংরক্ষণ
+          </button>
+          <button onclick="openPrintView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              ></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            প্রিন্ট (Ctrl+P)
+          </button>
+          <button class="btn-danger-solid" onclick="closeResultView()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            বন্ধ করুন
+          </button>
+        </div>
+      </div>
+      <div class="result-body" id="resultBody"></div>
+      <div class="result-foot">
+        <div>
+          মোট শিক্ষার্থী: <strong id="rtCount">০</strong> • সম্পূর্ণ:
+          <strong id="rtComplete">০</strong>
+        </div>
+        <div class="hint">
+          <kbd>সারিতে ক্লিক</kbd> বিস্তারিত ছক • <kbd>Ctrl+S</kbd> সংরক্ষণ •
+          <kbd>Esc</kbd> বন্ধ
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="chartModal">
+      <div class="modal chart-modal">
+        <div class="modal-head">
+          <div>
+            <h3 id="chartModalTitle">বিস্তারিত ছক</h3>
+            <p id="chartModalSub">—</p>
+          </div>
+          <button
+            class="modal-close"
+            type="button"
+            title="বন্ধ করুন"
+            onclick="closeChartModal()"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body" id="chartModalBody"></div>
+        <div class="modal-foot">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="closeChartModal()"
+          >
+            বন্ধ করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="savedModal">
+      <div class="modal">
+        <div class="modal-head">
+          <div>
+            <h3>সংরক্ষিত ছক</h3>
+            <p id="savedCount">—</p>
+          </div>
+          <button
+            class="modal-close"
+            type="button"
+            onclick="closeModal('savedModal')"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-tools">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="exportAllSaved()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            সব ব্যাকআপ (JSON)
+          </button>
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="document.getElementById('resultImportInput').click()"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            ব্যাকআপ আমদানি
+          </button>
+        </div>
+        <div class="modal-body" id="savedList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="saveDialog">
+      <div class="modal sm">
+        <div class="modal-head">
+          <div>
+            <h3>ছক সংরক্ষণ</h3>
+            <p>নম্বরগুলো এই ব্রাউজারে সংরক্ষিত থাকবে</p>
+          </div>
+          <button
+            class="modal-close"
+            type="button"
+            onclick="closeModal('saveDialog')"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="field" style="margin-bottom: 12px">
+            <label>সংরক্ষণের নাম</label>
+            <input
+              type="text"
+              id="saveNameInput"
+              maxlength="120"
+              placeholder="যেমন: প্রথম প্রান্তিক — ১ম"
+            />
+          </div>
+          <div class="save-hint" id="saveHint">—</div>
+        </div>
+        <div class="modal-foot">
+          <button
+            class="btn btn-outline"
+            type="button"
+            onclick="closeModal('saveDialog')"
+          >
+            বাতিল
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            onclick="confirmSaveResult()"
+          >
+            সংরক্ষণ করুন
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      (function () {
+        "use strict";
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {},
+            any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+        var modal = null,
+          pending = null;
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled /><div><div class="ub-title">' +
+                esc(s.label) +
+                '</div><div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option><option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '"><input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked /><div><div class="ub-title">' +
+              esc(s.label) +
+              '</div><div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>' +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button><button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+        window.UnifiedBackup = {
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <script>
+      "use strict";
+
+      const SCHOOL_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+      const STUDENT_KEYS = [
+        "hemnagar_students_v20",
+        "hemnagar_students_v19",
+        "hemnagar_students_v18",
+        "hemnagar_students_v17",
+        "hemnagar_students_v16",
+        "hemnagar_students_v15",
+        "hemnagar_students_v14",
+      ];
+      const SNAPSHOT_KEY = "hemnagar_result_snapshot";
+      const CHART_STORE_KEY = "hemnagar_chart_store_v1";
+      const CHART_BACKUP_TYPE = "hemnagar-chart-backup";
+      const CHART_BACKUP_VERSION = 1;
+      const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+
+      const TERMS = [
+        { name: "১ম প্রান্তিক", cls: "q1" },
+        { name: "২য় প্রান্তিক", cls: "q2" },
+        { name: "৩য় প্রান্তিক", cls: "q3" },
+      ];
+
+      const GRADE_12 = [
+        { min: 80, grade: "A+", ach: "অতি উত্তম" },
+        { min: 60, grade: "B", ach: "উত্তম" },
+        { min: 40, grade: "C", ach: "সন্তোষজনক" },
+        { min: 0, grade: "D", ach: "সহায়তা প্রয়োজন" },
+      ];
+      const GRADE_35 = [
+        { min: 80, grade: "A", ach: "অতি উত্তম" },
+        { min: 60, grade: "B", ach: "উত্তম" },
+        { min: 40, grade: "C", ach: "সন্তোষজনক" },
+        { min: 0, grade: "D", ach: "সহায়তা প্রয়োজন" },
+      ];
+
+      const CONFIG = {
+        "১ম (প্রথম)": {
+          chart: "ক",
+          classLabel: "প্রথম",
+          classOpts: ["প্রথম", "দ্বিতীয়"],
+          subjects: [
+            "বাংলা",
+            "ইংরেজি",
+            "গণিত",
+            "সামাজিক বিজ্ঞান ও প্রাথমিক বিজ্ঞান",
+            "ধর্মশিক্ষা",
+            "শিল্পকলা",
+            "শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা",
+          ],
+          parts: { pt: 20, sk: 5, dk: 5, kt: 20 },
+          contMax: 50,
+          writtenMax: 50,
+          grades: GRADE_12,
+        },
+        "২য় (দ্বিতীয়)": {
+          chart: "ক",
+          classLabel: "দ্বিতীয়",
+          classOpts: ["প্রথম", "দ্বিতীয়"],
+          subjects: [
+            "বাংলা",
+            "ইংরেজি",
+            "গণিত",
+            "সামাজিক বিজ্ঞান ও প্রাথমিক বিজ্ঞান",
+            "ধর্মশিক্ষা",
+            "শিল্পকলা",
+            "শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা",
+          ],
+          parts: { pt: 20, sk: 5, dk: 5, kt: 20 },
+          contMax: 50,
+          writtenMax: 50,
+          grades: GRADE_12,
+        },
+        "৩য় (তৃতীয়)": {
+          chart: "খ",
+          classLabel: "তৃতীয়",
+          classOpts: ["তৃতীয়", "চতুর্থ", "পঞ্চম"],
+          subjects: [
+            "বাংলা",
+            "ইংরেজি",
+            "গণিত",
+            "বিজ্ঞান",
+            "বাংলাদেশ ও বিশ্বপরিচয়",
+            "ধর্ম শিক্ষা",
+            "শিল্পকলা",
+            "শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা",
+          ],
+          parts: { pt: 10, sk: 5, dk: 5, kt: 10 },
+          contMax: 30,
+          writtenMax: 70,
+          grades: GRADE_35,
+        },
+        "৪র্থ (চতুর্থ)": {
+          chart: "খ",
+          classLabel: "চতুর্থ",
+          classOpts: ["তৃতীয়", "চতুর্থ", "পঞ্চম"],
+          subjects: [
+            "বাংলা",
+            "ইংরেজি",
+            "গণিত",
+            "বিজ্ঞান",
+            "বাংলাদেশ ও বিশ্বপরিচয়",
+            "ধর্ম শিক্ষা",
+            "শিল্পকলা",
+            "শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা",
+          ],
+          parts: { pt: 10, sk: 5, dk: 5, kt: 10 },
+          contMax: 30,
+          writtenMax: 70,
+          grades: GRADE_35,
+        },
+        "৫ম (পঞ্চম)": {
+          chart: "খ",
+          classLabel: "পঞ্চম",
+          classOpts: ["তৃতীয়", "চতুর্থ", "পঞ্চম"],
+          subjects: [
+            "বাংলা",
+            "ইংরেজি",
+            "গণিত",
+            "বিজ্ঞান",
+            "বাংলাদেশ ও বিশ্বপরিচয়",
+            "ধর্ম শিক্ষা",
+            "শিল্পকলা",
+            "শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা",
+          ],
+          parts: { pt: 10, sk: 5, dk: 5, kt: 10 },
+          contMax: 30,
+          writtenMax: 70,
+          grades: GRADE_35,
+        },
+      };
+
+      let allStudents = [];
+      let ctx = null;
+      let currentChartRow = null;
+      let studentData = {};
+
+      const $ = (id) => document.getElementById(id);
+      function toEn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[০-৯]/g, (m) => BN_DIGITS.indexOf(m));
+      }
+      function toBn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
+      }
+      function pureNumeric(str) {
+        const cleaned = toEn(str).replace(/[^0-9.]/g, "");
+        const firstDot = cleaned.indexOf(".");
+        if (firstDot === -1) return cleaned;
+        return (
+          cleaned.slice(0, firstDot + 1) +
+          cleaned.slice(firstDot + 1).replace(/\./g, "")
+        );
+      }
+      function esc(t) {
+        return String(t == null ? "" : t)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function toast(msg, type) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.className = "toast show " + (type || "");
+        clearTimeout(t._tm);
+        t._tm = setTimeout(() => {
+          t.className = "toast";
+        }, 2800);
+      }
+      function debounce(fn, delay) {
+        let t;
+        return function (...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), delay);
+        };
+      }
+      function safeFilePart(s) {
+        return (
+          String(s || "")
+            .replace(/[^\u0980-\u09FFa-zA-Z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "")
+            .slice(0, 40) || "chart"
+        );
+      }
+      function dateStamp() {
+        const d = new Date();
+        return (
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0")
+        );
+      }
+      function formatDateBn(iso) {
+        try {
+          const d = new Date(iso);
+          if (isNaN(d.getTime())) return "";
+          const dd = String(d.getDate()).padStart(2, "0");
+          const mm = String(d.getMonth() + 1).padStart(2, "0");
+          const yyyy = d.getFullYear();
+          let h = d.getHours();
+          const ampm = h < 12 ? "পূর্বাহ্ণ" : "অপরাহ্ণ";
+          h = h % 12 || 12;
+          const mi = String(d.getMinutes()).padStart(2, "0");
+          return (
+            toBn(dd + "/" + mm + "/" + yyyy + " " + h + ":" + mi) + " " + ampm
+          );
+        } catch (e) {
+          return "";
+        }
+      }
+      function makeId() {
+        return (
+          "cht_" +
+          Date.now().toString(36) +
+          "_" +
+          Math.random().toString(36).slice(2, 8)
+        );
+      }
+      function studentKey(roll, name) {
+        return String(roll || "").trim() + "|" + String(name || "").trim();
+      }
+
+      function getStudentSection(st) {
+        if (!st) return "";
+        const candidates = [
+          st.section,
+          st.shakha,
+          st.branch,
+          st.sectionBn,
+          st.sectionName,
+        ];
+        for (const c of candidates) {
+          if (c != null && String(c).trim() !== "") return String(c).trim();
+        }
+        return "";
+      }
+      function sectionDisplayHTML(st) {
+        const sec = getStudentSection(st);
+        if (sec) return esc(sec);
+        return '<span class="ci-na">প্রযোজ্য নয়</span>';
+      }
+      function sectionDisplayText(st) {
+        const sec = getStudentSection(st);
+        return sec ? sec : "প্রযোজ্য নয়";
+      }
+
+      function tryLoadFromSnapshot() {
+        try {
+          const raw = localStorage.getItem(SNAPSHOT_KEY);
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (obj && Array.isArray(obj.students) && obj.students.length)
+            return obj.students;
+        } catch (e) {}
+        return null;
+      }
+      function tryLoadFromMainKeys() {
+        for (const k of STUDENT_KEYS) {
+          try {
+            const raw = localStorage.getItem(k);
+            if (!raw) continue;
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr) && arr.length) return arr;
+          } catch (e) {}
+        }
+        return null;
+      }
+      function loadStudents() {
+        return tryLoadFromMainKeys() || tryLoadFromSnapshot() || [];
+      }
+
+      function refreshSetup() {
+        const classSel = $("classSelect");
+        const oldCls = classSel.value;
+        classSel.innerHTML =
+          '<option value="">-- শ্রেণি নির্বাচন করুন --</option>';
+        Object.keys(CONFIG).forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          classSel.appendChild(o);
+        });
+        if ([...classSel.options].some((o) => o.value === oldCls))
+          classSel.value = oldCls;
+
+        const years = [
+          ...new Set(allStudents.map((s) => s.academicYear).filter(Boolean)),
+        ];
+        years.sort((a, b) => String(b).localeCompare(String(a), "bn"));
+        const yearSel = $("yearSelect");
+        const oldYear = yearSel.value;
+        yearSel.innerHTML = '<option value="">-- সব শিক্ষাবর্ষ --</option>';
+        years.forEach((y) => {
+          const o = document.createElement("option");
+          o.value = y;
+          o.textContent = y;
+          yearSel.appendChild(o);
+        });
+        if ([...yearSel.options].some((o) => o.value === oldYear))
+          yearSel.value = oldYear;
+        updateStatus();
+      }
+
+      function initSetup() {
+        allStudents = loadStudents();
+        $("classSelect").addEventListener("change", updateStatus);
+        $("yearSelect").addEventListener("change", updateStatus);
+        $("customExamName").addEventListener("input", updateStatus);
+
+        const imp = $("importFileInput");
+        if (imp && !imp._bound) {
+          imp.addEventListener("change", handleImportFile);
+          imp._bound = true;
+        }
+
+        if (!window._storageBound) {
+          window.addEventListener("storage", function (e) {
+            if (!e.key) return;
+            const relevant =
+              e.key === SNAPSHOT_KEY ||
+              STUDENT_KEYS.indexOf(e.key) !== -1 ||
+              e.key === CHART_STORE_KEY;
+            if (!relevant) return;
+            if (e.key === CHART_STORE_KEY) {
+              updateSavedBadge();
+              if ($("savedModal").classList.contains("show")) renderSavedList();
+              return;
+            }
+            const fresh = loadStudents();
+            if (fresh.length && fresh.length !== allStudents.length) {
+              allStudents = fresh;
+              $("emptyWrap").style.display = "none";
+              $("setupWrap").style.display = "block";
+              refreshSetup();
+              toast("ডেটা আপডেট হয়েছে — " + toBn(fresh.length) + " জন", "ok");
+            }
+          });
+          window._storageBound = true;
+        }
+
+        if (allStudents.length === 0) {
+          $("setupWrap").style.display = "none";
+          $("emptyWrap").style.display = "block";
+          return;
+        }
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+      }
+
+      function handleImportFile(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          try {
+            const data = JSON.parse(ev.target.result);
+            let arr = null;
+            if (Array.isArray(data)) arr = data;
+            else if (data && Array.isArray(data.students)) arr = data.students;
+            const valid = (arr || []).filter(
+              (s) => s && typeof s === "object" && (s.nameBn || s.roll),
+            );
+            if (valid.length === 0)
+              throw new Error("ফাইলে কোনো বৈধ শিক্ষার্থীর তথ্য নেই");
+            try {
+              localStorage.setItem(
+                SNAPSHOT_KEY,
+                JSON.stringify({
+                  timestamp: new Date().toISOString(),
+                  totalRecords: valid.length,
+                  students: valid,
+                  source: "imported",
+                }),
+              );
+            } catch (_) {}
+            allStudents = valid;
+            $("emptyWrap").style.display = "none";
+            $("setupWrap").style.display = "block";
+            refreshSetup();
+            toast("লোড হয়েছে: " + toBn(valid.length) + " জন শিক্ষার্থী", "ok");
+          } catch (err) {
+            toast("ফাইল পড়তে সমস্যা: " + err.message, "err");
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+      }
+
+      function retryLoad() {
+        const arr = loadStudents();
+        if (!arr.length) {
+          toast("এখনো কোনো ডেটা পাওয়া যায়নি — JSON ব্যাকআপ লোড করুন", "err");
+          return;
+        }
+        allStudents = arr;
+        $("emptyWrap").style.display = "none";
+        $("setupWrap").style.display = "block";
+        refreshSetup();
+        toast("ডেটা লোড হয়েছে — " + toBn(arr.length) + " জন", "ok");
+      }
+
+      function onExamSelectChange() {
+        const v = $("examSelect").value;
+        $("customExamField").style.display =
+          v === "__custom__" ? "flex" : "none";
+        if (v === "__custom__")
+          setTimeout(() => $("customExamName").focus(), 60);
+        updateStatus();
+      }
+      function getExamName() {
+        const v = $("examSelect").value;
+        if (v === "__custom__") return $("customExamName").value.trim();
+        return v;
+      }
+      function updateStatus() {
+        const cls = $("classSelect").value;
+        const exam = getExamName();
+        const status = $("setupStatus");
+        const btn = $("generateBtn");
+        if (!cls) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>শ্রেণি নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        if (!exam) {
+          status.className = "setup-status";
+          status.innerHTML =
+            '<span class="dot"></span><span>পরীক্ষার নাম নির্বাচন করুন</span>';
+          btn.disabled = true;
+          return;
+        }
+        const year = $("yearSelect").value;
+        const count = allStudents.filter(
+          (s) => s.class === cls && (!year || s.academicYear === year),
+        ).length;
+        if (count === 0) {
+          status.className = "setup-status warn";
+          status.innerHTML =
+            '<span class="dot"></span><span>এই শ্রেণিতে কোনো শিক্ষার্থী নেই</span>';
+          btn.disabled = true;
+          return;
+        }
+        const cfg = CONFIG[cls];
+        status.className = "setup-status";
+        status.innerHTML =
+          '<span class="dot"></span><span>মোট <strong>' +
+          toBn(count) +
+          "</strong> জন শিক্ষার্থী • ছক ‘" +
+          cfg.chart +
+          "’</span>";
+        btn.disabled = false;
+      }
+
+      function startGeneration(record) {
+        const cls = $("classSelect").value;
+        const year = $("yearSelect").value;
+        const exam = getExamName();
+        if (!cls || !exam) return;
+        const cfg = CONFIG[cls];
+        if (!cfg) {
+          toast("শ্রেণির কনফিগারেশন পাওয়া যায়নি", "err");
+          return;
+        }
+        const classStudents = allStudents
+          .filter((s) => {
+            if (s.class !== cls) return false;
+            if (year && s.academicYear !== year) return false;
+            return true;
+          })
+          .sort((a, b) => {
+            const ra = parseInt(toEn(a.roll)) || 0;
+            const rb = parseInt(toEn(b.roll)) || 0;
+            if (ra !== rb) return ra - rb;
+            return String(a.nameBn || "").localeCompare(
+              String(b.nameBn || ""),
+              "bn",
+            );
+          });
+        if (classStudents.length === 0) {
+          toast("কোনো শিক্ষার্থী নেই", "err");
+          return;
+        }
+        ctx = { cls, year, exam, cfg, students: classStudents };
+        studentData = {};
+        if (record && Array.isArray(record.students)) {
+          const n = applySavedRecord(record);
+          toast(
+            "পুনরুদ্ধার হয়েছে — " + toBn(n) + " জন শিক্ষার্থীর তথ্য",
+            "ok",
+          );
+        } else if (restoreDraft()) {
+          toast("আগের অসম্পূর্ণ তথ্য পুনরুদ্ধার হয়েছে", "ok");
+        }
+        renderMainTable();
+        updateCompleteCount();
+        $("rtTitle").textContent = "মূল্যায়ন ছক ‘" + cfg.chart + "’ — " + exam;
+        const subs = [cls];
+        if (year) subs.push("শিক্ষাবর্ষ: " + year);
+        $("rtSub").textContent = subs.join(" • ");
+        $("rtCount").textContent = toBn(classStudents.length);
+        $("setupWrap").style.display = "none";
+        $("resultView").classList.add("active");
+      }
+
+      function closeResultView(skipConfirm) {
+        if (
+          !skipConfirm &&
+          !confirm(
+            "ছক বন্ধ করবেন? অসম্পূর্ণ তথ্য স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে।",
+          )
+        )
+          return;
+        saveDraft();
+        $("resultView").classList.remove("active");
+        $("setupWrap").style.display = "block";
+        ctx = null;
+        updateStatus();
+      }
+
+      function getStudentData(st) {
+        const key = studentKey(st.roll, st.nameBn);
+        if (!studentData[key]) studentData[key] = { marks: {}, comments: {} };
+        return studentData[key];
+      }
+      function readMark(inp) {
+        if (!inp) return { state: "blank", value: 0 };
+        const eng = inp.dataset.eng;
+        if (eng === undefined || eng === null || eng === "")
+          return { state: "blank", value: 0 };
+        const v = Number(eng);
+        const max = parseFloat(inp.dataset.max);
+        if (!Number.isFinite(v) || v < 0 || v > max)
+          return { state: "invalid", value: 0 };
+        return { state: "valid", value: v };
+      }
+      function computeStudentSummary(sd, cfg) {
+        const subjectAvgs = [];
+        let avgSum = 0,
+          avgCount = 0;
+        cfg.subjects.forEach((_, si) => {
+          const terms = [];
+          TERMS.forEach((_, ti) => {
+            const m = (sd.marks && sd.marks[si + ":" + ti]) || {};
+            const p = cfg.parts;
+            const ptV = m.pt != null && m.pt !== "" ? Number(m.pt) : null;
+            const skV = m.sk != null && m.sk !== "" ? Number(m.sk) : null;
+            const dkV = m.dk != null && m.dk !== "" ? Number(m.dk) : null;
+            const ktV = m.kt != null && m.kt !== "" ? Number(m.kt) : null;
+            const lnV = m.ln != null && m.ln !== "" ? Number(m.ln) : null;
+            if (
+              ptV == null ||
+              skV == null ||
+              dkV == null ||
+              ktV == null ||
+              lnV == null
+            ) {
+              terms.push(null);
+              return;
+            }
+            if (
+              ptV < 0 ||
+              ptV > p.pt ||
+              skV < 0 ||
+              skV > p.sk ||
+              dkV < 0 ||
+              dkV > p.dk ||
+              ktV < 0 ||
+              ktV > p.kt ||
+              lnV < 0 ||
+              lnV > cfg.writtenMax
+            ) {
+              terms.push(null);
+              return;
+            }
+            terms.push(ptV + skV + dkV + ktV + lnV);
+          });
+          if (terms.every((t) => t != null)) {
+            const avg = (terms[0] + terms[1] + terms[2]) / 3;
+            subjectAvgs.push(avg);
+            avgSum += avg;
+            avgCount++;
+          } else subjectAvgs.push(null);
+        });
+        const overallAvg = avgCount > 0 ? avgSum / avgCount : null;
+        let grade = null,
+          ach = null;
+        if (overallAvg != null) {
+          for (const g of cfg.grades) {
+            if (overallAvg >= g.min) {
+              grade = g.grade;
+              ach = g.ach;
+              break;
+            }
+          }
+        }
+        return { subjectAvgs, overallAvg, grade, ach };
+      }
+
+      function renderMainTable() {
+        if (!ctx) return;
+        const body = $("resultBody");
+        const cfg = ctx.cfg;
+        let h = '<div class="table-card"><table class="result-table"><thead>';
+        h += "<tr>";
+        h +=
+          '<th colspan="3" class="group-head group-education">শিক্ষাগত তথ্য</th>';
+        h +=
+          '<th colspan="' +
+          cfg.subjects.length +
+          '" class="group-head group-marks">বিষয়ভিত্তিক গড়</th>';
+        h += '<th colspan="3" class="group-head group-result">ফলাফল</th>';
+        h +=
+          '<th rowspan="2" class="group-head group-result" style="background:#f1f5f9;color:#334155">বিস্তারিত</th>';
+        h += "</tr><tr>";
+        h += '<th class="col-rol">রোল</th>';
+        h += '<th class="col-name">নাম</th>';
+        h += '<th class="col-class">শ্রেণি</th>';
+        cfg.subjects.forEach((s) => {
+          h += '<th class="subject-head">' + esc(s) + "</th>";
+        });
+        h += '<th class="result-head">সামগ্রিক গড়</th>';
+        h += '<th class="result-head">গ্রেড</th>';
+        h += '<th class="result-head">শিখন অর্জন</th>';
+        h += "</tr></thead><tbody>";
+        ctx.students.forEach((st, ri) => {
+          const sd = getStudentData(st);
+          const sum = computeStudentSummary(sd, cfg);
+          h += '<tr data-ri="' + ri + '" onclick="openChartModal(' + ri + ')">';
+          h += '<td class="col-rol">' + esc(toBn(st.roll || "")) + "</td>";
+          h += '<td class="col-name">' + esc(st.nameBn || "") + "</td>";
+          h += '<td class="col-class">' + esc(st.class || "") + "</td>";
+          sum.subjectAvgs.forEach((a) => {
+            h +=
+              '<td class="avg-cell">' +
+              (a != null ? toBn(a.toFixed(2)) : "—") +
+              "</td>";
+          });
+          h +=
+            '<td class="total-cell">' +
+            (sum.overallAvg != null ? toBn(sum.overallAvg.toFixed(2)) : "—") +
+            "</td>";
+          h += '<td class="grade-cell">' + (sum.grade || "—") + "</td>";
+          h += '<td class="achieve-cell">' + (sum.ach || "—") + "</td>";
+          h +=
+            '<td><button type="button" class="detail-btn" onclick="event.stopPropagation();openChartModal(' +
+            ri +
+            ')">খুলুন</button></td>';
+          h += "</tr>";
+        });
+        h += "</tbody></table></div>";
+        body.innerHTML = h;
+      }
+      function refreshMainRow(ri) {
+        if (!ctx) return;
+        const body = $("resultBody");
+        const tr = body.querySelector('tr[data-ri="' + ri + '"]');
+        if (!tr) return;
+        const st = ctx.students[ri];
+        const sd = getStudentData(st);
+        const sum = computeStudentSummary(sd, ctx.cfg);
+        const cells = tr.querySelectorAll("td");
+        const base = 3;
+        sum.subjectAvgs.forEach((a, i) => {
+          cells[base + i].textContent = a != null ? toBn(a.toFixed(2)) : "—";
+        });
+        cells[base + sum.subjectAvgs.length].textContent =
+          sum.overallAvg != null ? toBn(sum.overallAvg.toFixed(2)) : "—";
+        cells[base + sum.subjectAvgs.length + 1].textContent = sum.grade || "—";
+        cells[base + sum.subjectAvgs.length + 2].textContent = sum.ach || "—";
+      }
+
+      function openChartModal(ri) {
+        if (!ctx) return;
+        if (ri < 0 || ri >= ctx.students.length) return;
+        currentChartRow = ri;
+        const st = ctx.students[ri];
+        const sd = getStudentData(st);
+        const cfg = ctx.cfg;
+        $("chartModalTitle").textContent = "বিস্তারিত ছক — " + st.nameBn;
+        $("chartModalSub").textContent =
+          ctx.cls + (ctx.year ? " • " + ctx.year : "") + " • " + ctx.exam;
+        $("chartModalBody").innerHTML = buildChartHTML(st, sd, cfg);
+        bindChartInputs();
+        recomputeChart();
+        openModal("chartModal");
+      }
+      function closeChartModal() {
+        saveDraft();
+        closeModal("chartModal");
+        if (currentChartRow != null) {
+          refreshMainRow(currentChartRow);
+          updateCompleteCount();
+        }
+        currentChartRow = null;
+      }
+
+      function buildChartHTML(st, sd, cfg) {
+        const p = cfg.parts;
+        const contMax = cfg.contMax;
+        let h = '<div class="chart-page">';
+        h +=
+          '<div class="chart-title">মূল্যায়ন তথ্য সংরক্ষণ ছক ‘' +
+          cfg.chart +
+          "’ " +
+          (ctx.year || "২০২৬") +
+          " খ্রি. : পূর্ণমান ১০০</div>";
+        const summary = computeStudentSummary(sd, cfg);
+        h += '<div class="chart-info"><div>';
+        h +=
+          '<div class="ci-row"><span class="black">শিক্ষার্থীর নাম :</span> <span class="ci-value">' +
+          esc(st.nameBn || "") +
+          "</span></div>";
+        h += '<div class="ci-row"><span class="black">শ্রেণি :</span>';
+        cfg.classOpts.forEach((opt) => {
+          h +=
+            '<span><i class="box' +
+            (opt === cfg.classLabel ? " checked" : "") +
+            '"></i>' +
+            opt +
+            "</span>";
+        });
+        h += "</div>";
+        h +=
+          '<div class="ci-row"><span><b class="black">শাখা :</b> ' +
+          sectionDisplayHTML(st) +
+          '</span><span><b class="black">রোল :</b> ' +
+          esc(toBn(st.roll || "")) +
+          "</span></div>";
+        h += "</div><div>";
+        h += '<div class="ci-row"><span class="black">প্রাপ্ত গ্রেড :</span>';
+        cfg.grades.forEach((g) => {
+          h +=
+            '<span><i class="box' +
+            (summary.grade === g.grade ? " checked" : "") +
+            '"></i>' +
+            g.grade +
+            "</span>";
+        });
+        h += "</div>";
+        h += '<div class="ci-row"><span class="black">শিখন অবস্থান :</span>';
+        cfg.grades.forEach((g) => {
+          h +=
+            '<span><i class="box' +
+            (summary.ach === g.ach ? " checked" : "") +
+            '"></i>' +
+            g.ach +
+            "</span>";
+        });
+        h += "</div></div></div>";
+        h += '<div class="chart-table-wrap"><table class="chart-table">';
+        h += "<thead><tr>";
+        h += '<th rowspan="3" class="sub-head-cell">বিষয়</th>';
+        TERMS.forEach((t) => {
+          h += '<th colspan="7" class="' + t.cls + '">' + t.name + "</th>";
+        });
+        h += '<th colspan="3" class="fin-head">চূড়ান্ত ফলাফল</th></tr><tr>';
+        TERMS.forEach((t) => {
+          h +=
+            '<th colspan="5" class="' +
+            t.cls +
+            '">ধারাবাহিক মূল্যায়ন - ' +
+            toBn(contMax) +
+            "</th>";
+          h += '<th colspan="2" class="' + t.cls + '">সামষ্টিক</th>';
+        });
+        h +=
+          '<th rowspan="2" class="fin-head"><div class="v">তিন প্রান্তিকের গড়</div></th>';
+        h += '<th rowspan="2" class="fin-head"><div class="v">গ্রেড</div></th>';
+        h +=
+          '<th rowspan="2" class="fin-head"><div class="v">মন্তব্য</div></th></tr><tr>';
+        TERMS.forEach((t) => {
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">পাঠ্যপুস্তক/সহায়িকা - ' +
+            toBn(p.pt) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">শ্রেণিকাজে সক্রিয়তা - ' +
+            toBn(p.sk) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">দক্ষতা/বোধগম্যতা - ' +
+            toBn(p.dk) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">ক্লাস টেস্ট - ' +
+            toBn(p.kt) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">ধারাবাহিক মোট - ' +
+            toBn(contMax) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">লিখিত - ' +
+            toBn(cfg.writtenMax) +
+            "</div></th>";
+          h +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">প্রান্তিকে মোট ১০০</div></th>';
+        });
+        h += "</tr></thead><tbody>";
+        cfg.subjects.forEach((subj, si) => {
+          h += "<tr>";
+          h +=
+            '<td class="sub" title="' + esc(subj) + '">' + esc(subj) + "</td>";
+          TERMS.forEach((t, ti) => {
+            const m = (sd.marks && sd.marks[si + ":" + ti]) || {};
+            h +=
+              '<td><input type="text" inputmode="numeric" class="chart-input" maxlength="3" placeholder="' +
+              toBn(p.pt) +
+              '" data-si="' +
+              si +
+              '" data-ti="' +
+              ti +
+              '" data-f="pt" data-max="' +
+              p.pt +
+              '" value="' +
+              (m.pt ? toBn(m.pt) : "") +
+              '" data-eng="' +
+              (m.pt || "") +
+              '"></td>';
+            h +=
+              '<td><input type="text" inputmode="numeric" class="chart-input" maxlength="3" placeholder="' +
+              toBn(p.sk) +
+              '" data-si="' +
+              si +
+              '" data-ti="' +
+              ti +
+              '" data-f="sk" data-max="' +
+              p.sk +
+              '" value="' +
+              (m.sk ? toBn(m.sk) : "") +
+              '" data-eng="' +
+              (m.sk || "") +
+              '"></td>';
+            h +=
+              '<td><input type="text" inputmode="numeric" class="chart-input" maxlength="3" placeholder="' +
+              toBn(p.dk) +
+              '" data-si="' +
+              si +
+              '" data-ti="' +
+              ti +
+              '" data-f="dk" data-max="' +
+              p.dk +
+              '" value="' +
+              (m.dk ? toBn(m.dk) : "") +
+              '" data-eng="' +
+              (m.dk || "") +
+              '"></td>';
+            h +=
+              '<td><input type="text" inputmode="numeric" class="chart-input" maxlength="3" placeholder="' +
+              toBn(p.kt) +
+              '" data-si="' +
+              si +
+              '" data-ti="' +
+              ti +
+              '" data-f="kt" data-max="' +
+              p.kt +
+              '" value="' +
+              (m.kt ? toBn(m.kt) : "") +
+              '" data-eng="' +
+              (m.kt || "") +
+              '"></td>';
+            h +=
+              '<td class="cont-cell" data-cont="' + si + "-" + ti + '">—</td>';
+            h +=
+              '<td><input type="text" inputmode="numeric" class="chart-input" maxlength="3" placeholder="' +
+              toBn(cfg.writtenMax) +
+              '" data-si="' +
+              si +
+              '" data-ti="' +
+              ti +
+              '" data-f="ln" data-max="' +
+              cfg.writtenMax +
+              '" value="' +
+              (m.ln ? toBn(m.ln) : "") +
+              '" data-eng="' +
+              (m.ln || "") +
+              '"></td>';
+            h +=
+              '<td class="term-cell" data-term="' + si + "-" + ti + '">—</td>';
+          });
+          h += '<td class="avg-cell" data-avg="' + si + '">—</td>';
+          h += '<td class="grade-cell" data-grade="' + si + '">—</td>';
+          const cm = (sd.comments && sd.comments[si]) || "";
+          h +=
+            '<td class="comment-cell"><input type="text" class="comment-input" maxlength="60" placeholder="মন্তব্য" data-csi="' +
+            si +
+            '" value="' +
+            esc(cm) +
+            '"></td>';
+          h += "</tr>";
+        });
+        h += '<tr class="total"><td class="sub">সর্বমোট</td>';
+        TERMS.forEach((t, ti) => {
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="pt">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="sk">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="dk">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="kt">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="cont">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="ln">—</td>';
+          h +=
+            '<td class="sum-col" data-sum-ti="' +
+            ti +
+            '" data-sum-f="term">—</td>';
+        });
+        h += '<td class="sum-col" data-sum-avg>—</td>';
+        h += '<td class="sum-col" data-sum-grade>—</td>';
+        h += '<td class="sum-col"></td>';
+        h += "</tr></tbody></table></div>";
+        h +=
+          '<div class="chart-sign"><span>শ্রেণি শিক্ষক</span><span>প্রধান শিক্ষক</span></div>';
+        h += "</div>";
+        return h;
+      }
+
+      function bindChartInputs() {
+        const body = $("chartModalBody");
+        if (body._bound) return;
+        body.addEventListener("input", handleChartInput);
+        body.addEventListener("keydown", handleChartKeydown);
+        body.addEventListener("blur", handleChartBlur, true);
+        body._bound = true;
+      }
+      function handleChartInput(e) {
+        const inp = e.target;
+        if (inp.classList.contains("chart-input")) {
+          const raw = inp.value;
+          const cleaned = raw.replace(/[^0-9০-৯.]/g, "");
+          const bangla = toBn(cleaned);
+          if (bangla !== raw) {
+            const pos = inp.selectionStart || 0;
+            let keptBefore = 0;
+            for (let i = 0; i < pos && i < raw.length; i++) {
+              if (/[0-9০-৯.]/.test(raw[i])) keptBefore++;
+            }
+            inp.value = bangla;
+            try {
+              inp.setSelectionRange(keptBefore, keptBefore);
+            } catch (_) {}
+          }
+          const eng = pureNumeric(inp.value);
+          inp.dataset.eng = eng;
+          const max = parseFloat(inp.dataset.max);
+          const v = eng === "" ? null : parseFloat(eng);
+          if (v !== null && (isNaN(v) || v < 0 || v > max)) {
+            inp.classList.add("invalid");
+            inp.classList.remove("filled");
+          } else if (v !== null) {
+            inp.classList.remove("invalid");
+            inp.classList.add("filled");
+          } else {
+            inp.classList.remove("invalid", "filled");
+          }
+          persistChartInput(inp);
+          recomputeChart();
+          saveDraftDebounced();
+        } else if (inp.classList.contains("comment-input")) {
+          persistChartComment(inp);
+          saveDraftDebounced();
+        }
+      }
+      function handleChartKeydown(e) {
+        const inp = e.target;
+        if (inp.classList.contains("chart-input") && e.key === "Enter") {
+          e.preventDefault();
+          const all = [...$("chartModalBody").querySelectorAll(".chart-input")];
+          const idx = all.indexOf(inp);
+          const next = all[idx + 1];
+          if (next) {
+            next.focus();
+            next.select();
+          }
+        }
+        if (e.key === "Escape" && inp.classList.contains("chart-input"))
+          inp.blur();
+      }
+      function handleChartBlur(e) {
+        const inp = e.target;
+        if (!inp || !inp.classList) return;
+        if (
+          inp.classList.contains("chart-input") ||
+          inp.classList.contains("comment-input")
+        )
+          saveDraft();
+      }
+      function persistChartInput(inp) {
+        if (!ctx || currentChartRow == null) return;
+        const st = ctx.students[currentChartRow];
+        const sd = getStudentData(st);
+        const si = inp.dataset.si,
+          ti = inp.dataset.ti,
+          f = inp.dataset.f;
+        const key = si + ":" + ti;
+        if (!sd.marks[key]) sd.marks[key] = {};
+        const eng = inp.dataset.eng || "";
+        if (eng === "") delete sd.marks[key][f];
+        else sd.marks[key][f] = eng;
+        if (Object.keys(sd.marks[key]).length === 0) delete sd.marks[key];
+      }
+      function persistChartComment(inp) {
+        if (!ctx || currentChartRow == null) return;
+        const st = ctx.students[currentChartRow];
+        const sd = getStudentData(st);
+        const si = inp.dataset.csi;
+        const v = inp.value.trim();
+        if (v) sd.comments[si] = v;
+        else delete sd.comments[si];
+      }
+
+      function recomputeChart() {
+        if (!ctx || currentChartRow == null) return;
+        const body = $("chartModalBody");
+        const table = body.querySelector(".chart-table");
+        if (!table) return;
+        const cfg = ctx.cfg;
+        const rows = table.querySelectorAll("tbody > tr:not(.total)");
+        let allAvgs = [];
+        rows.forEach((row, si) => {
+          const terms = [];
+          TERMS.forEach((t, ti) => {
+            const getV = (f) => {
+              const inp = row.querySelector(
+                'input[data-si="' +
+                  si +
+                  '"][data-ti="' +
+                  ti +
+                  '"][data-f="' +
+                  f +
+                  '"]',
+              );
+              return readMark(inp);
+            };
+            const pt = getV("pt"),
+              sk = getV("sk"),
+              dk = getV("dk"),
+              kt = getV("kt"),
+              ln = getV("ln");
+            let cont = null,
+              term = null;
+            if (
+              pt.state === "valid" &&
+              sk.state === "valid" &&
+              dk.state === "valid" &&
+              kt.state === "valid"
+            ) {
+              cont = pt.value + sk.value + dk.value + kt.value;
+              if (ln.state === "valid") term = cont + ln.value;
+            }
+            terms.push({ cont, term });
+            const c = row.querySelector('[data-cont="' + si + "-" + ti + '"]');
+            if (c) c.textContent = cont != null ? toBn(cont) : "—";
+            const tc = row.querySelector('[data-term="' + si + "-" + ti + '"]');
+            if (tc) tc.textContent = term != null ? toBn(term) : "—";
+          });
+          let avg = null,
+            grade = "—";
+          if (terms.every((t) => t.term != null)) {
+            avg = (terms[0].term + terms[1].term + terms[2].term) / 3;
+            allAvgs.push(avg);
+            for (const g of cfg.grades) {
+              if (avg >= g.min) {
+                grade = g.grade;
+                break;
+              }
+            }
+          }
+          const ac = row.querySelector('[data-avg="' + si + '"]');
+          if (ac) ac.textContent = avg != null ? toBn(avg.toFixed(2)) : "—";
+          const gc = row.querySelector('[data-grade="' + si + '"]');
+          if (gc) gc.textContent = grade;
+        });
+        const totalRow = table.querySelector("tr.total");
+        if (totalRow) {
+          TERMS.forEach((t, ti) => {
+            ["pt", "sk", "dk", "kt", "cont", "ln", "term"].forEach((f) => {
+              let sum = 0,
+                any = false;
+              rows.forEach((row, si) => {
+                if (f === "cont" || f === "term") {
+                  const cell = row.querySelector(
+                    "[data-" +
+                      (f === "cont" ? "cont" : "term") +
+                      '="' +
+                      si +
+                      "-" +
+                      ti +
+                      '"]',
+                  );
+                  if (cell && cell.textContent !== "—") {
+                    const n = parseFloat(toEn(cell.textContent));
+                    if (Number.isFinite(n)) {
+                      sum += n;
+                      any = true;
+                    }
+                  }
+                } else {
+                  const inp = row.querySelector(
+                    'input[data-si="' +
+                      si +
+                      '"][data-ti="' +
+                      ti +
+                      '"][data-f="' +
+                      f +
+                      '"]',
+                  );
+                  const r = readMark(inp);
+                  if (r.state === "valid") {
+                    sum += r.value;
+                    any = true;
+                  }
+                }
+              });
+              const cell = totalRow.querySelector(
+                '[data-sum-ti="' + ti + '"][data-sum-f="' + f + '"]',
+              );
+              if (cell) cell.textContent = any ? toBn(sum) : "—";
+            });
+          });
+          const oa =
+            allAvgs.length > 0
+              ? allAvgs.reduce((a, b) => a + b, 0) / allAvgs.length
+              : null;
+          const ac = totalRow.querySelector("[data-sum-avg]");
+          if (ac) ac.textContent = oa != null ? toBn(oa.toFixed(2)) : "—";
+          const gc = totalRow.querySelector("[data-sum-grade]");
+          if (gc) {
+            if (oa != null) {
+              let g = "—";
+              for (const gr of cfg.grades) {
+                if (oa >= gr.min) {
+                  g = gr.grade;
+                  break;
+                }
+              }
+              gc.textContent = g;
+            } else gc.textContent = "—";
+          }
+        }
+        const summary = computeStudentSummary(
+          getStudentData(ctx.students[currentChartRow]),
+          cfg,
+        );
+        body.querySelectorAll(".box").forEach((b) => {
+          const txt = b.parentElement.textContent.trim();
+          if (cfg.grades.some((g) => g.grade === txt))
+            b.classList.toggle("checked", txt === summary.grade);
+          else if (cfg.grades.some((g) => g.ach === txt))
+            b.classList.toggle("checked", txt === summary.ach);
+        });
+        if (currentChartRow != null) refreshMainRow(currentChartRow);
+      }
+
+      function getDraftKey() {
+        if (!ctx) return null;
+        return (
+          "hemnagar_chart_draft:" +
+          [ctx.cls, ctx.year || "all", ctx.exam].join("|")
+        );
+      }
+      function saveDraft() {
+        if (!ctx) return;
+        try {
+          localStorage.setItem(
+            getDraftKey(),
+            JSON.stringify({
+              savedAt: new Date().toISOString(),
+              data: studentData,
+            }),
+          );
+        } catch (_) {}
+      }
+      const saveDraftDebounced = debounce(saveDraft, 600);
+      function restoreDraft() {
+        const key = getDraftKey();
+        if (!key) return false;
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) return false;
+          const data = JSON.parse(raw);
+          if (!data || !data.data) return false;
+          studentData = data.data;
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function readStore() {
+        try {
+          const raw = localStorage.getItem(CHART_STORE_KEY);
+          if (!raw) return [];
+          const arr = JSON.parse(raw);
+          return Array.isArray(arr) ? arr : [];
+        } catch (e) {
+          return [];
+        }
+      }
+      function writeStore(list) {
+        try {
+          localStorage.setItem(CHART_STORE_KEY, JSON.stringify(list));
+          return true;
+        } catch (e) {
+          toast("সংরক্ষণ ব্যর্থ — স্টোরেজ পূর্ণ হতে পারে", "err");
+          return false;
+        }
+      }
+      function updateSavedBadge() {
+        const n = readStore().length;
+        const b = $("savedBadge");
+        if (b) {
+          b.textContent = toBn(n);
+          b.style.display = n ? "inline-flex" : "none";
+        }
+        const c = $("savedCount");
+        if (c)
+          c.textContent = n
+            ? toBn(n) + " টি ছক সংরক্ষিত আছে"
+            : "এখনো কোনো ছক সংরক্ষণ করা হয়নি";
+      }
+      function openModal(id) {
+        const el = $(id);
+        if (el) el.classList.add("show");
+      }
+      function closeModal(id) {
+        const el = $(id);
+        if (el) el.classList.remove("show");
+      }
+
+      function computeStats() {
+        if (!ctx) return { total: 0, filled: 0, complete: 0 };
+        const cfg = ctx.cfg;
+        let total = ctx.students.length,
+          filled = 0,
+          complete = 0;
+        ctx.students.forEach((st) => {
+          const key = studentKey(st.roll, st.nameBn);
+          const sd = studentData[key];
+          if (!sd) return;
+          let any = false,
+            all = true;
+          cfg.subjects.forEach((_, si) => {
+            TERMS.forEach((_, ti) => {
+              const m = sd.marks && sd.marks[si + ":" + ti];
+              if (!m) {
+                all = false;
+                return;
+              }
+              const hasAny =
+                m.pt != null ||
+                m.sk != null ||
+                m.dk != null ||
+                m.kt != null ||
+                m.ln != null;
+              if (hasAny) any = true;
+              if (
+                m.pt == null ||
+                m.sk == null ||
+                m.dk == null ||
+                m.kt == null ||
+                m.ln == null
+              )
+                all = false;
+            });
+          });
+          if (any) filled++;
+          if (all) complete++;
+        });
+        return { total, filled, complete };
+      }
+
+      function openSaveDialog() {
+        if (!ctx) {
+          toast("প্রথমে ছক তৈরি করুন", "err");
+          return;
+        }
+        const stats = computeStats();
+        if (stats.total === 0) {
+          toast("সংরক্ষণ করার মতো কোনো সারি নেই", "err");
+          return;
+        }
+        const auto =
+          ctx.exam + " — " + ctx.cls + (ctx.year ? " (" + ctx.year + ")" : "");
+        $("saveNameInput").value = auto;
+        const hint = $("saveHint");
+        const done = stats.complete === stats.total;
+        hint.className = "save-hint " + (done ? "ok" : "warn");
+        hint.innerHTML = done
+          ? "✔ সব " +
+            toBn(stats.total) +
+            " জন শিক্ষার্থীর ছক সম্পূর্ণ — <strong>সম্পূর্ণ</strong> হিসেবে সংরক্ষিত হবে।"
+          : "⚠ " +
+            toBn(stats.filled) +
+            " / " +
+            toBn(stats.total) +
+            " জনের তথ্য দেওয়া হয়েছে — <strong>অসম্পূর্ণ</strong> হিসেবে সংরক্ষিত হবে। পরে আবার খুলে সম্পূর্ণ করা যাবে।";
+        openModal("saveDialog");
+        setTimeout(() => {
+          const i = $("saveNameInput");
+          i.focus();
+          i.select();
+        }, 80);
+      }
+
+      function confirmSaveResult() {
+        if (!ctx) {
+          toast("প্রথমে ছক তৈরি করুন", "err");
+          return;
+        }
+        const stats = computeStats();
+        const name =
+          ($("saveNameInput").value || "").trim() ||
+          ctx.exam + " — " + ctx.cls + (ctx.year ? " (" + ctx.year + ")" : "");
+        const students = ctx.students.map((st) => {
+          const key = studentKey(st.roll, st.nameBn);
+          return {
+            roll: String(st.roll || ""),
+            name: String(st.nameBn || ""),
+            data: studentData[key] || { marks: {}, comments: {} },
+          };
+        });
+        const list = readStore();
+        const now = new Date().toISOString();
+        const status =
+          stats.total > 0 && stats.complete === stats.total
+            ? "completed"
+            : "draft";
+        const existingIdx = list.findIndex(
+          (r) =>
+            r.cls === ctx.cls &&
+            (r.year || "") === (ctx.year || "") &&
+            r.exam === ctx.exam,
+        );
+        let rec;
+        if (existingIdx >= 0) {
+          if (
+            !confirm(
+              "এই শ্রেণি, শিক্ষাবর্ষ ও পরীক্ষার একটি সংরক্ষণ আগে থেকেই আছে।\n\nআগেরটির উপর হালনাগাদ করবেন?",
+            )
+          )
+            return;
+          rec = list.splice(existingIdx, 1)[0];
+          rec.name = name;
+          rec.status = status;
+          rec.total = stats.total;
+          rec.filled = stats.filled;
+          rec.complete = stats.complete;
+          rec.chart = ctx.cfg.chart;
+          rec.subjects = ctx.cfg.subjects.slice();
+          rec.students = students;
+          rec.updatedAt = now;
+        } else {
+          rec = {
+            id: makeId(),
+            name: name,
+            cls: ctx.cls,
+            year: ctx.year || "",
+            exam: ctx.exam,
+            chart: ctx.cfg.chart,
+            status: status,
+            total: stats.total,
+            filled: stats.filled,
+            complete: stats.complete,
+            subjects: ctx.cfg.subjects.slice(),
+            students: students,
+            createdAt: now,
+            updatedAt: now,
+            app: "hemnagar-chart",
+          };
+        }
+        list.unshift(rec);
+        if (writeStore(list)) {
+          closeModal("saveDialog");
+          updateSavedBadge();
+          toast(
+            status === "completed"
+              ? "সম্পূর্ণ ছক সংরক্ষিত হয়েছে"
+              : "অসম্পূর্ণ ছক সংরক্ষিত হয়েছে",
+            "ok",
+          );
+        }
+      }
+
+      function openSavedResults() {
+        renderSavedList();
+        updateSavedBadge();
+        openModal("savedModal");
+      }
+
+      function renderSavedList() {
+        const wrap = $("savedList");
+        if (!wrap) return;
+        const list = readStore();
+        if (!list.length) {
+          wrap.innerHTML =
+            '<div class="saved-empty"><strong>কোনো সংরক্ষিত ছক নেই</strong>ছক তৈরির পর <b>সংরক্ষণ</b> বাটনে চাপ দিলে এখানে জমা হবে।<br>আগের ব্যাকআপ ফাইল থাকলে <b>ব্যাকআপ আমদানি</b> করুন।</div>';
+          return;
+        }
+        wrap.innerHTML = list
+          .map((rec) => {
+            const done = rec.status === "completed";
+            const total = Number(rec.total) || (rec.students || []).length;
+            return (
+              '<div class="saved-item" data-id="' +
+              esc(rec.id) +
+              '">' +
+              '<div class="si-main">' +
+              '<div class="si-title">' +
+              esc(rec.name || rec.exam || "ছক") +
+              "</div>" +
+              '<div class="si-meta">' +
+              '<span class="chip">' +
+              esc(rec.cls || "") +
+              "</span>" +
+              (rec.year
+                ? '<span class="chip">' + esc(rec.year) + "</span>"
+                : "") +
+              '<span class="chip">' +
+              esc(rec.exam || "") +
+              "</span>" +
+              '<span class="chip">ছক ‘' +
+              esc(rec.chart || "?") +
+              "’</span>" +
+              '<span class="si-count">' +
+              toBn(total) +
+              " জন</span></div>" +
+              '<div class="si-sub"><span class="badge ' +
+              (done ? "badge-ok" : "badge-warn") +
+              '">' +
+              (done ? "সম্পূর্ণ" : "অসম্পূর্ণ") +
+              "</span>" +
+              '<span class="si-date">' +
+              formatDateBn(rec.updatedAt || rec.createdAt) +
+              "</span></div></div>" +
+              '<div class="si-actions">' +
+              '<button type="button" class="mini-btn primary" data-act="load">খুলুন</button>' +
+              '<button type="button" class="mini-btn" data-act="export">JSON</button>' +
+              '<button type="button" class="mini-btn danger" data-act="delete">মুছুন</button>' +
+              "</div></div>"
+            );
+          })
+          .join("");
+      }
+
+      function initSavedResults() {
+        const listEl = $("savedList");
+        if (listEl && !listEl._bound) {
+          listEl.addEventListener("click", (e) => {
+            const btn = e.target.closest
+              ? e.target.closest("button[data-act]")
+              : null;
+            if (!btn) return;
+            const item = btn.closest(".saved-item");
+            if (!item) return;
+            const id = item.dataset.id;
+            const act = btn.dataset.act;
+            if (act === "load") loadSavedResult(id);
+            else if (act === "export") exportSavedResult(id);
+            else if (act === "delete") deleteSavedResult(id);
+          });
+          listEl._bound = true;
+        }
+        const imp = $("resultImportInput");
+        if (imp && !imp._bound) {
+          imp.addEventListener("change", handleResultImport);
+          imp._bound = true;
+        }
+        ["savedModal", "saveDialog", "chartModal"].forEach((id) => {
+          const el = $(id);
+          if (el && !el._bound) {
+            el.addEventListener("mousedown", (ev) => {
+              if (ev.target === el) {
+                if (id === "chartModal") closeChartModal();
+                else closeModal(id);
+              }
+            });
+            el._bound = true;
+          }
+        });
+        updateSavedBadge();
+      }
+
+      function loadSavedResult(id) {
+        const rec = readStore().find((r) => r.id === id);
+        if (!rec) {
+          toast("সংরক্ষিত ছক পাওয়া যায়নি", "err");
+          return;
+        }
+        if (!CONFIG[rec.cls]) {
+          toast("শ্রেণির কনফিগারেশন পাওয়া যায়নি: " + rec.cls, "err");
+          return;
+        }
+        closeModal("savedModal");
+        const classSel = $("classSelect");
+        if (![...classSel.options].some((o) => o.value === rec.cls)) {
+          toast("শ্রেণি তালিকায় পাওয়া যায়নি", "err");
+          return;
+        }
+        classSel.value = rec.cls;
+        const yearSel = $("yearSelect");
+        if (rec.year) {
+          if (![...yearSel.options].some((o) => o.value === rec.year)) {
+            const o = document.createElement("option");
+            o.value = rec.year;
+            o.textContent = rec.year;
+            yearSel.appendChild(o);
+          }
+          yearSel.value = rec.year;
+        } else yearSel.value = "";
+        const examSel = $("examSelect");
+        const isPreset = [...examSel.options].some((o) => o.value === rec.exam);
+        if (isPreset) {
+          examSel.value = rec.exam;
+          $("customExamField").style.display = "none";
+        } else {
+          examSel.value = "__custom__";
+          $("customExamField").style.display = "flex";
+          $("customExamName").value = rec.exam || "";
+        }
+        updateStatus();
+        if ($("generateBtn").disabled) {
+          toast(
+            "এই শ্রেণি/শিক্ষাবর্ষে কোনো শিক্ষার্থী নেই — আগে শিক্ষার্থীর ডেটা লোড করুন",
+            "err",
+          );
+          return;
+        }
+        startGeneration(rec);
+      }
+      function applySavedRecord(rec) {
+        if (!rec || !Array.isArray(rec.students)) return 0;
+        let n = 0;
+        rec.students.forEach((s) => {
+          const key = studentKey(s.roll, s.name);
+          studentData[key] = s.data || { marks: {}, comments: {} };
+          n++;
+        });
+        return n;
+      }
+      function deleteSavedResult(id) {
+        const list = readStore();
+        const rec = list.find((r) => r.id === id);
+        if (!rec) return;
+        if (!confirm('"' + (rec.name || rec.exam) + '" মুছে ফেলবেন?')) return;
+        if (writeStore(list.filter((r) => r.id !== id))) {
+          updateSavedBadge();
+          renderSavedList();
+          toast("মুছে ফেলা হয়েছে", "ok");
+        }
+      }
+
+      function downloadJson(obj, filename) {
+        const blob = new Blob([JSON.stringify(obj, null, 2)], {
+          type: "application/json;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+      }
+      function exportSavedResult(id) {
+        const rec = readStore().find((r) => r.id === id);
+        if (!rec) {
+          toast("ছক পাওয়া যায়নি", "err");
+          return;
+        }
+        downloadJson(
+          {
+            app: "hemnagar-chart",
+            type: CHART_BACKUP_TYPE,
+            version: CHART_BACKUP_VERSION,
+            school: SCHOOL_NAME,
+            exportedAt: new Date().toISOString(),
+            results: [rec],
+          },
+          "chart_" +
+            safeFilePart(rec.cls) +
+            "_" +
+            safeFilePart(rec.exam) +
+            "_" +
+            dateStamp() +
+            ".json",
+        );
+        toast("JSON ফাইল ডাউনলোড হয়েছে", "ok");
+      }
+      function exportAllSaved() {
+        const list = readStore();
+        if (!list.length) {
+          toast("সংরক্ষিত কোনো ছক নেই", "err");
+          return;
+        }
+        downloadJson(
+          {
+            app: "hemnagar-chart",
+            type: CHART_BACKUP_TYPE,
+            version: CHART_BACKUP_VERSION,
+            school: SCHOOL_NAME,
+            exportedAt: new Date().toISOString(),
+            count: list.length,
+            results: list,
+          },
+          "hemnagar_charts_backup_" + dateStamp() + ".json",
+        );
+        toast(toBn(list.length) + " টি ছক ব্যাকআপ হয়েছে", "ok");
+      }
+      function normalizeImport(data) {
+        let arr = [];
+        if (Array.isArray(data)) arr = data;
+        else if (data && Array.isArray(data.results)) arr = data.results;
+        else if (data && data.cls && Array.isArray(data.students)) arr = [data];
+        const now = new Date().toISOString();
+        const out = [];
+        arr.forEach((r) => {
+          if (!r || typeof r !== "object") return;
+          if (!r.cls || !Array.isArray(r.students)) return;
+          const students = r.students
+            .filter((s) => s && typeof s === "object")
+            .map((s) => ({
+              roll: String(s.roll == null ? "" : s.roll),
+              name: String(s.name == null ? "" : s.name),
+              data:
+                s.data && typeof s.data === "object"
+                  ? s.data
+                  : { marks: {}, comments: {} },
+            }));
+          if (!students.length) return;
+          out.push({
+            id:
+              typeof r.id === "string" && r.id.trim() ? r.id.trim() : makeId(),
+            name: String(r.name || (r.exam || "ছক") + " — " + r.cls).slice(
+              0,
+              120,
+            ),
+            cls: String(r.cls),
+            year: String(r.year || ""),
+            exam: String(r.exam || ""),
+            chart: String(r.chart || ""),
+            status: r.status === "completed" ? "completed" : "draft",
+            total: Number(r.total) || students.length,
+            filled: Number(r.filled) || 0,
+            complete: Number(r.complete) || 0,
+            subjects: Array.isArray(r.subjects) ? r.subjects : [],
+            students: students,
+            createdAt: r.createdAt || now,
+            updatedAt: r.updatedAt || now,
+            app: "hemnagar-chart",
+          });
+        });
+        return out;
+      }
+      function handleResultImport(e) {
+        const file = e.target.files && e.target.files[0];
+        e.target.value = "";
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          try {
+            const data = JSON.parse(ev.target.result);
+            const incoming = normalizeImport(data);
+            if (!incoming.length)
+              throw new Error("ফাইলে কোনো বৈধ সংরক্ষিত ছক নেই");
+            const list = readStore();
+            let added = 0,
+              updated = 0;
+            incoming.forEach((rec) => {
+              const idx = list.findIndex((r) => r.id === rec.id);
+              if (idx >= 0) {
+                list[idx] = rec;
+                updated++;
+              } else {
+                list.unshift(rec);
+                added++;
+              }
+            });
+            if (writeStore(list)) {
+              updateSavedBadge();
+              renderSavedList();
+              openModal("savedModal");
+              toast(
+                "আমদানি সম্পন্ন — নতুন " +
+                  toBn(added) +
+                  ", হালনাগাদ " +
+                  toBn(updated),
+                "ok",
+              );
+            }
+          } catch (err) {
+            toast("ফাইল পড়তে সমস্যা: " + err.message, "err");
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function updateCompleteCount() {
+        if (!ctx) return;
+        const stats = computeStats();
+        $("rtComplete").textContent = toBn(stats.complete);
+      }
+
+      const PRINT_STYLES = `
+@page{size:A4 landscape;margin:5mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#000;font-family:"BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:9pt;line-height:1.2}
+.print-document{width:100%}
+.print-page{position:relative;width:100%;padding:0 0 4mm 0;break-inside:avoid;page-break-inside:avoid}
+.print-page + .print-page{break-before:page;page-break-before:always}
+.print-school{text-align:center;padding:0 0 3px 0;margin:0}
+.print-school .school-name{font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-size:18pt;font-weight:900;color:#000;line-height:1.15;letter-spacing:.3px}
+.print-school .school-rule{border-top:1.5px solid #000;margin-top:4px}
+.chart-title{margin:0;padding:7px 10px;text-align:center;font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-size:12.5pt;font-weight:900;color:#fff;background:#1e40af;letter-spacing:.3px}
+.chart-info{display:grid;grid-template-columns:1fr 1fr;border:1px solid #000;border-top:0;background:#fff}
+.chart-info>div{padding:4px 10px;display:flex;flex-wrap:wrap;gap:3px 14px;align-items:center;font-size:9.5pt}
+.chart-info>div:first-child{border-right:1px solid #000}
+.chart-info .ci-row{width:100%;display:flex;flex-wrap:wrap;gap:3px 14px;align-items:center}
+.chart-info .black{font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-weight:900}
+.chart-info .ci-value{border-bottom:1px dotted #000;padding:0 5px;min-width:65px;display:inline-block;font-weight:700}
+.chart-info .ci-na{font-style:italic;font-weight:600}
+.box{display:inline-block;width:11px;height:11px;border:1.2px solid #000;border-radius:2px;vertical-align:-1px;margin-right:3px;background:#fff;position:relative}
+.box.checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#000;font-weight:900;line-height:1}
+table.chart-table{border-collapse:collapse;width:100%;table-layout:fixed;font-family:inherit;font-size:8pt;color:#000;background:#fff;border:1.2px solid #000;margin:0}
+table.chart-table th,table.chart-table td{border:1px solid #000;padding:2px 1.5px;text-align:center;vertical-align:middle;color:#000;line-height:1.15;background:#fff}
+table.chart-table thead{display:table-header-group}
+table.chart-table thead th{font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-weight:900;font-size:8pt;padding:3px 2px}
+table.chart-table th.q1{background:#d4e8df !important}
+table.chart-table th.q2{background:#f8e4c0 !important}
+table.chart-table th.q3{background:#ddd5f0 !important}
+table.chart-table th.fin-head{background:#f5cfcf !important}
+table.chart-table .v{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;height:92px;margin:auto;font-size:7pt;line-height:1.05;font-family:inherit;font-weight:700}
+table.chart-table td.sub{text-align:left;padding-left:5px;font-size:8.5pt;font-weight:700;background:#eaf2fb !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table.chart-table tbody tr{height:6mm;break-inside:avoid}
+table.chart-table tbody tr:nth-child(even) td:not(.sub){background:#fafafa !important}
+table.chart-table td.cont-cell{background:#e3efe7 !important;font-weight:800}
+table.chart-table td.term-cell{background:#d9e8f8 !important;font-weight:900}
+table.chart-table td.avg-cell{background:#e2e8fa !important;font-weight:900}
+table.chart-table td.grade-cell{background:#fdf0d5 !important;font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-weight:900;font-size:9pt}
+table.chart-table td.sum-col{background:#e2e8f0 !important;font-weight:800}
+table.chart-table tr.total td{background:#cfe2f3 !important;font-family:"BCC Purno Black","BCC Purno",Nikosh,NikoshBAN,Arial,sans-serif;font-weight:900;font-size:8.5pt}
+.chart-sign{display:flex;justify-content:space-between;padding:10mm 22mm 0;font-size:10pt;background:#fff}
+.chart-sign span{border-top:1.2px dotted #000;padding-top:3px;min-width:34mm;text-align:center;font-weight:700}
+.page-footer{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:8pt;font-weight:700;color:#000}
+@media screen{body{background:#eef2f7;padding:20px}
+  .print-document{max-width:1800px;margin:0 auto}
+  .print-page{background:#fff;margin:0 auto 20px;padding:16px 18px 28px;border:1px solid #cbd5e1;box-shadow:0 6px 22px rgba(15,23,42,.1)}
+}
+.action-bar{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;gap:8px}
+.action-bar button{font-family:inherit;font-size:13px;font-weight:700;padding:11px 18px;border:0;border-radius:9px;cursor:pointer;background:#1e40af;color:#fff;box-shadow:0 4px 14px rgba(30,64,175,.35);transition:.15s}
+.action-bar button:hover{background:#1d4ed8;transform:translateY(-1px)}
+.action-bar button.secondary{background:#fff;color:#334155;border:1.5px solid #e2e8f0;box-shadow:0 2px 6px rgba(15,23,42,.08)}
+.action-bar button.secondary:hover{border-color:#1e40af;color:#1e40af}
+@media print{.action-bar{display:none!important}body{padding:0!important}.print-page{margin:0;padding:0 0 4mm 0;border:0;box-shadow:none}}
+`;
+
+      function buildPrintChart(st, sd, cfg, pageNo, totalPages) {
+        const p = cfg.parts;
+        const contMax = cfg.contMax;
+        const summary = computeStudentSummary(sd, cfg);
+        const schoolHeader =
+          '<div class="print-school"><div class="school-name">' +
+          esc(SCHOOL_NAME) +
+          '</div><div class="school-rule"></div></div>';
+
+        let infoHTML = '<div class="chart-info"><div>';
+        infoHTML +=
+          '<div class="ci-row"><span class="black">শিক্ষার্থীর নাম :</span> <span class="ci-value">' +
+          esc(st.nameBn || "") +
+          "</span></div>";
+        infoHTML += '<div class="ci-row"><span class="black">শ্রেণি :</span>';
+        cfg.classOpts.forEach((opt) => {
+          infoHTML +=
+            '<span><i class="box' +
+            (opt === cfg.classLabel ? " checked" : "") +
+            '"></i>' +
+            opt +
+            "</span>";
+        });
+        infoHTML += "</div>";
+        infoHTML +=
+          '<div class="ci-row"><span><b class="black">শাখা :</b> ' +
+          sectionDisplayHTML(st) +
+          '</span><span><b class="black">রোল :</b> ' +
+          esc(toBn(st.roll || "")) +
+          "</span></div>";
+        infoHTML += "</div><div>";
+        infoHTML +=
+          '<div class="ci-row"><span class="black">প্রাপ্ত গ্রেড :</span>';
+        cfg.grades.forEach((g) => {
+          infoHTML +=
+            '<span><i class="box' +
+            (summary.grade === g.grade ? " checked" : "") +
+            '"></i>' +
+            g.grade +
+            "</span>";
+        });
+        infoHTML += "</div>";
+        infoHTML +=
+          '<div class="ci-row"><span class="black">শিখন অবস্থান :</span>';
+        cfg.grades.forEach((g) => {
+          infoHTML +=
+            '<span><i class="box' +
+            (summary.ach === g.ach ? " checked" : "") +
+            '"></i>' +
+            g.ach +
+            "</span>";
+        });
+        infoHTML += "</div></div></div>";
+
+        let thead =
+          '<thead><tr><th rowspan="3" class="sub-head-cell">বিষয়</th>';
+        TERMS.forEach((t) => {
+          thead += '<th colspan="7" class="' + t.cls + '">' + t.name + "</th>";
+        });
+        thead +=
+          '<th colspan="3" class="fin-head">চূড়ান্ত ফলাফল</th></tr><tr>';
+        TERMS.forEach((t) => {
+          thead +=
+            '<th colspan="5" class="' +
+            t.cls +
+            '">ধারাবাহিক মূল্যায়ন - ' +
+            toBn(contMax) +
+            "</th>";
+          thead += '<th colspan="2" class="' + t.cls + '">সামষ্টিক</th>';
+        });
+        thead +=
+          '<th rowspan="2" class="fin-head"><div class="v">তিন প্রান্তিকের গড়</div></th>';
+        thead +=
+          '<th rowspan="2" class="fin-head"><div class="v">গ্রেড</div></th>';
+        thead +=
+          '<th rowspan="2" class="fin-head"><div class="v">মন্তব্য</div></th></tr><tr>';
+        TERMS.forEach((t) => {
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">পাঠ্যপুস্তক/সহায়িকা - ' +
+            toBn(p.pt) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">শ্রেণিকাজে সক্রিয়তা - ' +
+            toBn(p.sk) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">দক্ষতা - ' +
+            toBn(p.dk) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">ক্লাস টেস্ট - ' +
+            toBn(p.kt) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">ধারাবাহিক মোট - ' +
+            toBn(contMax) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">লিখিত - ' +
+            toBn(cfg.writtenMax) +
+            "</div></th>";
+          thead +=
+            '<th class="' +
+            t.cls +
+            '"><div class="v">প্রান্তিকে মোট ১০০</div></th>';
+        });
+        thead += "</tr></thead>";
+
+        let tbody = "<tbody>";
+        cfg.subjects.forEach((subj, si) => {
+          const terms = [];
+          let avg = null,
+            grade = "";
+          TERMS.forEach((_, ti) => {
+            const m = (sd.marks && sd.marks[si + ":" + ti]) || {};
+            const ptV = m.pt != null && m.pt !== "" ? Number(m.pt) : null;
+            const skV = m.sk != null && m.sk !== "" ? Number(m.sk) : null;
+            const dkV = m.dk != null && m.dk !== "" ? Number(m.dk) : null;
+            const ktV = m.kt != null && m.kt !== "" ? Number(m.kt) : null;
+            const lnV = m.ln != null && m.ln !== "" ? Number(m.ln) : null;
+            let cont = null,
+              term = null;
+            if (ptV != null && skV != null && dkV != null && ktV != null) {
+              cont = ptV + skV + dkV + ktV;
+              if (lnV != null) term = cont + lnV;
+            }
+            terms.push({ cont, term, ptV, skV, dkV, ktV, lnV });
+          });
+          if (terms.every((t) => t.term != null)) {
+            avg = (terms[0].term + terms[1].term + terms[2].term) / 3;
+            for (const g of cfg.grades) {
+              if (avg >= g.min) {
+                grade = g.grade;
+                break;
+              }
+            }
+          }
+          tbody += "<tr>";
+          tbody += '<td class="sub">' + esc(subj) + "</td>";
+          terms.forEach((td) => {
+            tbody += "<td>" + (td.ptV != null ? toBn(td.ptV) : "") + "</td>";
+            tbody += "<td>" + (td.skV != null ? toBn(td.skV) : "") + "</td>";
+            tbody += "<td>" + (td.dkV != null ? toBn(td.dkV) : "") + "</td>";
+            tbody += "<td>" + (td.ktV != null ? toBn(td.ktV) : "") + "</td>";
+            tbody +=
+              '<td class="cont-cell">' +
+              (td.cont != null ? toBn(td.cont) : "") +
+              "</td>";
+            tbody += "<td>" + (td.lnV != null ? toBn(td.lnV) : "") + "</td>";
+            tbody +=
+              '<td class="term-cell">' +
+              (td.term != null ? toBn(td.term) : "") +
+              "</td>";
+          });
+          tbody +=
+            '<td class="avg-cell">' +
+            (avg != null ? toBn(avg.toFixed(2)) : "") +
+            "</td>";
+          tbody += '<td class="grade-cell">' + esc(grade) + "</td>";
+          tbody +=
+            "<td>" + esc((sd.comments && sd.comments[si]) || "") + "</td>";
+          tbody += "</tr>";
+        });
+
+        tbody += '<tr class="total"><td class="sub">সর্বমোট</td>';
+        TERMS.forEach((_, ti) => {
+          let sumPt = 0,
+            sumSk = 0,
+            sumDk = 0,
+            sumKt = 0,
+            sumCont = 0,
+            sumLn = 0,
+            sumTerm = 0;
+          let anyPt = false,
+            anyCont = false,
+            anyTerm = false;
+          cfg.subjects.forEach((_, si) => {
+            const m = (sd.marks && sd.marks[si + ":" + ti]) || {};
+            const ptV = m.pt != null && m.pt !== "" ? Number(m.pt) : null;
+            const skV = m.sk != null && m.sk !== "" ? Number(m.sk) : null;
+            const dkV = m.dk != null && m.dk !== "" ? Number(m.dk) : null;
+            const ktV = m.kt != null && m.kt !== "" ? Number(m.kt) : null;
+            const lnV = m.ln != null && m.ln !== "" ? Number(m.ln) : null;
+            if (ptV != null) {
+              sumPt += ptV;
+              anyPt = true;
+            }
+            if (skV != null) sumSk += skV;
+            if (dkV != null) sumDk += dkV;
+            if (ktV != null) sumKt += ktV;
+            if (ptV != null && skV != null && dkV != null && ktV != null) {
+              const c = ptV + skV + dkV + ktV;
+              sumCont += c;
+              anyCont = true;
+              if (lnV != null) {
+                sumTerm += c + lnV;
+                anyTerm = true;
+              }
+            }
+            if (lnV != null) sumLn += lnV;
+          });
+          tbody +=
+            '<td class="sum-col">' + (anyPt ? toBn(sumPt) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyPt ? toBn(sumSk) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyPt ? toBn(sumDk) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyPt ? toBn(sumKt) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyCont ? toBn(sumCont) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyPt ? toBn(sumLn) : "") + "</td>";
+          tbody +=
+            '<td class="sum-col">' + (anyTerm ? toBn(sumTerm) : "") + "</td>";
+        });
+        const oa = summary.overallAvg;
+        tbody +=
+          '<td class="sum-col">' +
+          (oa != null ? toBn(oa.toFixed(2)) : "") +
+          "</td>";
+        tbody += '<td class="sum-col">' + esc(summary.grade || "") + "</td>";
+        tbody += '<td class="sum-col"></td>';
+        tbody += "</tr></tbody>";
+
+        return (
+          '<section class="print-page">' +
+          schoolHeader +
+          '<div class="chart-title">মূল্যায়ন তথ্য সংরক্ষণ ছক ‘' +
+          cfg.chart +
+          "’ " +
+          (ctx.year || "২০২৬") +
+          " খ্রি. : পূর্ণমান ১০০</div>" +
+          infoHTML +
+          '<table class="chart-table">' +
+          thead +
+          tbody +
+          "</table>" +
+          '<div class="chart-sign"><span>শ্রেণি শিক্ষক</span><span>প্রধান শিক্ষক</span></div>' +
+          '<div class="page-footer">ছক ' +
+          toBn(pageNo) +
+          " / " +
+          toBn(totalPages) +
+          "</div></section>"
+        );
+      }
+
+      function openPrintView() {
+        if (!ctx) {
+          toast("প্রথমে ছক তৈরি করুন", "err");
+          return;
+        }
+        saveDraft();
+        const cfg = ctx.cfg;
+        let pagesHTML = "";
+        ctx.students.forEach((st, ri) => {
+          const sd = getStudentData(st);
+          pagesHTML += buildPrintChart(
+            st,
+            sd,
+            cfg,
+            ri + 1,
+            ctx.students.length,
+          );
+        });
+        const actions =
+          '<div class="action-bar"><button type="button" class="secondary" onclick="window.close()">✕ বন্ধ করুন</button><button type="button" onclick="window.print()">🖨️ প্রিন্ট / PDF</button></div>';
+        const doc =
+          '<!doctype html><html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>মূল্যায়ন ছক — ' +
+          esc(ctx.exam) +
+          "</title><style>" +
+          PRINT_STYLES +
+          "</style></head><body>" +
+          '<main class="print-document">' +
+          pagesHTML +
+          "</main>" +
+          actions +
+          "</body></html>";
+        const blob = new Blob([doc], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const win = window.open(url, "_blank");
+        if (!win) {
+          URL.revokeObjectURL(url);
+          toast("পপআপ ব্লক হয়েছে — অনুমতি দিন", "err");
+          return;
+        }
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if ($("chartModal").classList.contains("show")) {
+            closeChartModal();
+            return;
+          }
+          if ($("saveDialog").classList.contains("show")) {
+            closeModal("saveDialog");
+            return;
+          }
+          if ($("savedModal").classList.contains("show")) {
+            closeModal("savedModal");
+            return;
+          }
+        }
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          !e.shiftKey &&
+          !e.altKey &&
+          (e.key === "p" || e.key === "P")
+        ) {
+          if (!ctx || !$("resultView").classList.contains("active")) return;
+          e.preventDefault();
+          openPrintView();
+          return;
+        }
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          !e.shiftKey &&
+          !e.altKey &&
+          (e.key === "s" || e.key === "S")
+        ) {
+          if (!ctx || !$("resultView").classList.contains("active")) return;
+          e.preventDefault();
+          openSaveDialog();
+          return;
+        }
+        if (
+          e.key === "Escape" &&
+          ctx &&
+          $("resultView").classList.contains("active")
+        ) {
+          if ($("chartModal").classList.contains("show")) return;
+          closeResultView(true);
+        }
+      });
+      window.addEventListener("beforeunload", () => {
+        if (ctx) saveDraft();
+      });
+
+      document
+        .getElementById("restoreFileInput")
+        .addEventListener("change", function (e) {
+          UnifiedBackup.handleFile(e, "students");
+        });
+
+      initSetup();
+      initSavedResults();
+    </script>
+  </body>
+</html>

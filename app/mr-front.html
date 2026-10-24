@@ -1,0 +1,2007 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>MR Front Page | হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+
+    <style>
+      /* ============================================================
+         MR Front Page — v1.1.0
+         Fonts : BCC Purno (body) / BCC Purno Black (headings)
+                 Nikosh / NikoshBAN (fallback) — NO Noto Sans Bengali
+         New   : Print font scale (--print-fs) + toolbar selector
+         Update: Legal Landscape default + page center (H+V)
+         Update: JSON backup/restore of basic information
+         ============================================================ */
+
+      :root {
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+
+        --sheet-w: 1980px;
+        --print-zoom: 0.65;
+        --fs: 15.5px;
+
+        --zoom: 1; /* screen zoom (JS) */
+        --pzoom: 1; /* preview outer zoom (JS) */
+
+        /* print/preview effective font scale (1 = screen size) */
+        --pf: 1;
+        /* user-selectable print font scale */
+        --print-fs: 1.15;
+
+        --ink: #000;
+        --line: #000;
+        --paper: #fff;
+        --app-bg: #eceef1;
+
+        --ed-bg: #fffdf0;
+        --ed-hover: #fffbe0;
+        --ed-focus: #fff2bf;
+        --auto-bg: #f2f4f6;
+
+        --accent: #0a6b3d;
+        --danger: #b3261e;
+        --ok: #0a6b3d;
+        --bad: #c0392b;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        padding: 10px;
+        background: var(--app-bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      /* ---------------- Toolbar ---------------- */
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin: -10px -10px 10px;
+        padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.94);
+        border-bottom: 1px solid #d5dae0;
+        backdrop-filter: blur(6px);
+      }
+
+      .tb-title {
+        font-family: var(--font-head);
+        font-weight: 700;
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      .zoom {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .zoom-label {
+        min-width: 54px;
+        text-align: center;
+        font-size: 13px;
+        color: #333;
+      }
+
+      /* --- print font size selector --- */
+      .psel {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: #333;
+        white-space: nowrap;
+      }
+      .psel select {
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1;
+        padding: 7px 8px;
+        border-radius: 8px;
+        border: 1px solid #c8ced6;
+        background: #fff;
+        color: #111;
+        cursor: pointer;
+      }
+      .psel select:hover {
+        border-color: var(--accent);
+      }
+      .psel select:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .btn {
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 1;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #c8ced6;
+        background: #fff;
+        color: #111;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          color 0.15s;
+      }
+      .btn:hover:not(:disabled) {
+        background: #f0f6f3;
+        border-color: var(--accent);
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .btn.primary:hover:not(:disabled) {
+        background: #0c7d47;
+      }
+      .btn.danger {
+        color: var(--danger);
+        border-color: #e2b6b3;
+      }
+      .btn.danger:hover:not(:disabled) {
+        background: #fdf1f0;
+        border-color: var(--danger);
+      }
+      .btn.small {
+        padding: 6px 9px;
+        font-size: 13px;
+      }
+      .btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .status {
+        margin-left: auto;
+        font-size: 12px;
+        color: #5b636b;
+        white-space: nowrap;
+      }
+
+      /* ---------------- Sheet ---------------- */
+      .wrap {
+        overflow-x: auto;
+        overflow-y: visible;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .sheet {
+        width: var(--sheet-w);
+        margin: 0 auto;
+        background: var(--paper);
+        font-family: var(--font-body);
+        zoom: var(--zoom, 1);
+      }
+
+      @media screen {
+        .sheet {
+          box-shadow: 0 1px 10px rgba(0, 0, 0, 0.12);
+        }
+      }
+
+      /* ---------------- Head ---------------- */
+      .head {
+        display: grid;
+        grid-template-columns: 1320px 660px;
+        align-items: start;
+      }
+      .head .ttl {
+        text-align: center;
+        padding-top: 6px;
+      }
+      .head h1 {
+        margin: 0;
+        font-family: var(--font-head);
+        font-size: calc(36px * var(--pf));
+        line-height: 1.25;
+        font-weight: 700;
+      }
+      .head .mon {
+        font-size: calc(16px * var(--pf));
+        margin-top: 6px;
+      }
+      .head .mon.ed {
+        display: inline-block;
+        padding: 0 6px;
+      }
+
+      .emis {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        row-gap: 6px;
+        padding: 3px 0 0 3px;
+        font-size: calc(17px * var(--pf));
+        font-weight: 700;
+      }
+
+      .info-p {
+        margin: 6px 0 14px;
+        font-size: calc(var(--fs) * var(--pf));
+        line-height: 1.75;
+      }
+      .info-p.ed {
+        padding: 2px 4px;
+      }
+
+      /* ---------------- Tables ---------------- */
+      .t {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: var(--sheet-w);
+        background: #fff;
+        font-size: calc(var(--fs) * var(--pf));
+      }
+      .t th,
+      .t td {
+        border: 1px solid var(--line);
+        padding: 2px 3px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 1.3;
+        font-weight: 400;
+        height: 25px;
+      }
+
+      .main thead tr:first-child th {
+        height: 48px;
+      }
+      .main tbody td {
+        height: 26px;
+      }
+      .main td.cls {
+        white-space: nowrap;
+        background: #f7f9f8;
+      }
+      .main tr.total td {
+        font-weight: 700;
+        background: #eef4f1;
+      }
+
+      .gap {
+        height: 40px;
+      }
+
+      .info .h {
+        line-height: 1.4;
+      }
+      .info .l {
+        text-align: left;
+        padding-left: 4px;
+      }
+      .info tr:last-child td {
+        height: 30px;
+      }
+
+      /* ---------------- Editable ---------------- */
+      .ed {
+        background: var(--ed-bg);
+        outline: none;
+        cursor: text;
+      }
+      .ed:hover {
+        background: var(--ed-hover);
+      }
+      .ed:focus {
+        background: var(--ed-focus);
+        box-shadow: inset 0 0 0 2px #d9a300;
+      }
+      .ed.v-ok {
+        box-shadow: inset 0 -2px 0 0 var(--ok);
+      }
+      .ed.v-bad {
+        box-shadow: inset 0 -2px 0 0 var(--bad);
+      }
+
+      .auto {
+        background: var(--auto-bg);
+        cursor: default;
+        font-weight: 600;
+      }
+
+      /* ---------------- Signature ---------------- */
+      .sign {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 200px;
+        padding-bottom: 6px;
+        font-size: calc(16px * var(--pf));
+      }
+      .sign span {
+        border-top: 1px dotted #555;
+        padding-top: 4px;
+        min-width: 240px;
+        text-align: center;
+      }
+
+      /* ---------------- Toast ---------------- */
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        z-index: 200;
+        max-width: 90vw;
+        padding: 10px 16px;
+        border-radius: 10px;
+        background: #222;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 20px);
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .toast.ok {
+        background: var(--ok);
+      }
+      .toast.bad {
+        background: var(--bad);
+      }
+
+      /* ---------------- Preview mode ---------------- */
+      body.preview {
+        background: #4c5157;
+        --pf: var(--print-fs, 1.15); /* প্রিভিউতেও প্রিন্টের ফন্ট আকার দেখাবে */
+      }
+      body.preview .wrap {
+        zoom: var(--pzoom, 1);
+        overflow: visible;
+        padding: 16px 8px 40px;
+      }
+      body.preview .sheet {
+        zoom: var(--print-zoom);
+        margin: 0 auto;
+        outline: 1px solid #8a9098;
+        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+      }
+
+      /* ---------------- Small screens ---------------- */
+      @media (max-width: 820px) {
+        body {
+          padding: 6px;
+        }
+        .toolbar {
+          margin: -6px -6px 8px;
+          gap: 6px;
+          padding: 6px;
+        }
+        .btn {
+          padding: 7px 9px;
+          font-size: 13px;
+        }
+        .tb-title {
+          font-size: 13px;
+        }
+        .zoom-label {
+          min-width: 46px;
+          font-size: 12px;
+        }
+        .psel span {
+          display: none;
+        }
+        .status {
+          display: none;
+        }
+      }
+
+      /* ---------------- Print ---------------- */
+      @media print {
+        /* ডিফল্ট: Legal size, Landscape */
+        @page {
+          size: legal landscape;
+          margin: 0;
+        }
+
+        /* প্রিন্টে ফন্ট বড় করার জন্য কার্যকর স্কেল */
+        :root {
+          --pf: var(--print-fs, 1.15);
+        }
+
+        /* @page margin: 0 করে মার্জিনগুলো .wrap-এর padding-এ দেওয়া হলো,
+           যাতে টেবিল পৃষ্ঠার ঠিক মাঝখানে (উপরে-নিচে ও বামে-ডানে) বসে। */
+        html {
+          width: 100%;
+          height: 100%;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #fff !important;
+        }
+
+        body {
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100%;
+          height: 100%;
+          background: #fff !important;
+        }
+
+        .no-print,
+        .toolbar,
+        .toast {
+          display: none !important;
+        }
+
+        /* ---- পৃষ্ঠার কেন্দ্রে (উপরে-নিচে + বামে-ডানে) ---- */
+        .wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          padding: 0.5in 4mm 4mm 4mm;
+          box-sizing: border-box;
+          overflow: visible !important;
+          zoom: 1 !important;
+        }
+
+        .sheet {
+          zoom: var(--print-zoom) !important;
+          margin: 0 !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        /* ---- প্রিন্ট রিডেবিলিটি: সারি/লাইন স্পেসিং ঠিক রেখে ফন্ট বড় ---- */
+        .t th,
+        .t td {
+          line-height: 1.25;
+        }
+        .info-p {
+          line-height: 1.62;
+          margin: 6px 0 10px;
+        }
+        .main thead tr:first-child th {
+          height: 50px;
+        }
+        .main tbody td {
+          height: 27px;
+        }
+        .gap {
+          height: 24px;
+        }
+        .sign {
+          margin-top: 140px;
+        }
+
+        .ed,
+        .ed:hover,
+        .ed:focus,
+        .auto,
+        .ed.v-ok,
+        .ed.v-bad {
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+
+        .main tr.total td,
+        .main td.cls {
+          background: transparent !important;
+        }
+
+        tr,
+        td,
+        th {
+          page-break-inside: avoid;
+        }
+
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ==================== TOOLBAR ==================== -->
+    <div class="toolbar no-print" role="toolbar" aria-label="টুলবার">
+      <span class="tb-title">MR ফ্রন্ট পেজ</span>
+
+      <div class="zoom">
+        <button class="btn small" id="zoomOut" type="button" title="ছোট করুন">
+          −
+        </button>
+        <span class="zoom-label" id="zoomLabel">১০০%</span>
+        <button class="btn small" id="zoomIn" type="button" title="বড় করুন">
+          +
+        </button>
+        <button class="btn small" id="zoomFit" type="button">ফিট</button>
+      </div>
+
+      <label class="psel" for="printFs">
+        <span>প্রিন্ট ফন্ট</span>
+        <select id="printFs" aria-label="প্রিন্ট ফন্টের আকার">
+          <option value="1">১০০%</option>
+          <option value="1.15" selected>১১৫%</option>
+          <option value="1.25">১২৫%</option>
+          <option value="1.35">১৩৫%</option>
+        </select>
+      </label>
+
+      <button class="btn" id="btnPreview" type="button">
+        🔍 প্রিন্ট প্রিভিউ
+      </button>
+      <button class="btn primary" id="btnPrint" type="button">
+        🖨️ প্রিন্ট
+      </button>
+      <button class="btn" id="btnSave" type="button">💾 সংরক্ষণ</button>
+      <button class="btn" id="btnBackup" type="button">⬇ ব্যাকআপ (JSON)</button>
+      <button class="btn" id="btnRestore" type="button">
+        ⬆ রিস্টোর (JSON)
+      </button>
+      <input
+        type="file"
+        id="fileRestore"
+        accept="application/json,.json"
+        hidden
+      />
+      <button class="btn danger" id="btnReset" type="button">
+        ↺ ডিফল্টে ফিরুন
+      </button>
+
+      <span class="status" id="status"></span>
+    </div>
+
+    <!-- ==================== SHEET ==================== -->
+    <div class="wrap" id="wrap">
+      <div class="sheet" id="sheet">
+        <div class="head">
+          <div class="ttl">
+            <h1>হেমনগর সরকারি প্রাথমিক বিদ্যালয়, গোপালপুর, টাঙ্গাইল</h1>
+            <div class="mon ed" data-k="month">
+              মাসের নাম: সেপ্টেম্বর, ২০২৬ খ্রি.
+            </div>
+          </div>
+
+          <div class="emis">
+            <span>EMIS কোড:</span>
+            <span class="ed" data-num="1" data-k="emis">৩০৬০৩০৭০৬</span>
+
+            <span>Email Address:</span>
+            <span class="ed" data-type="email" data-k="email"
+              >HemGPS127795@gmail.com</span
+            >
+          </div>
+        </div>
+
+        <p class="info-p ed" data-k="info">
+          ক্লাস্টার: বেলুয়া, ডাকঘর: হেমনগর, ইউনিয়ন: হেমনগর, ওয়ার্ড নং: ০২,
+          বিদ্যালয়ের গ্রেড: এ, শিক্ষক-শিক্ষার্থী অনুপাত: ১:২৩, প্রতিষ্ঠার সন:
+          ১৯৭৪ খ্রি., বিদ্যালয়ের ভবন সংখ্যা: ০৩ টি, ভবন নির্মান সন: ১৯৮২, ১৯৯৮,
+          ২০২০ খ্রি., মোট শ্রেণিকক্ষের সংখ্যা: ১৭, মোট জমির পরিমান ৭৪.০০ শতাংশ,
+          দখলের পরিমাণ: ৭৪.০০ শতাংশ, বেদখলের পরিমাণ: ০ শতাংশ, সীমানা প্রাচীর:
+          আছে, শিফটের সংখ্যা: ১, অনুমোদিত পদ সংখ্যা: ৮ টি, কর্মরত: ৭ জন, শূন্য:
+          ১ টি, সংযুক্তিপ্রাপ্ত: ০ জন।
+        </p>
+
+        <table class="t main" id="mainTable"></table>
+
+        <div class="gap"></div>
+
+        <!-- ==================== INFO TABLE ==================== -->
+        <table class="t info">
+          <colgroup>
+            <col style="width: 300px" />
+            <col style="width: 60px" />
+            <col style="width: 120px" />
+            <col style="width: 120px" />
+            <col style="width: 120px" />
+            <col style="width: 180px" />
+            <col style="width: 60px" />
+            <col style="width: 60px" />
+            <col style="width: 120px" />
+            <col style="width: 120px" />
+            <col style="width: 60px" />
+            <col style="width: 60px" />
+            <col style="width: 60px" />
+            <col style="width: 240px" />
+            <col style="width: 150px" />
+            <col style="width: 150px" />
+          </colgroup>
+
+          <tbody>
+            <tr>
+              <td class="l">৫ বছর পূর্বে ১ম শ্রেণির ছাত্র সংখ্যা</td>
+              <td class="ed" data-num="1" data-k="first5">০</td>
+              <td rowspan="2"></td>
+              <td rowspan="2" class="h">ব্যবহার<br />যোগ্য</td>
+              <td rowspan="2" class="h">ব্যবহার<br />অযোগ্য</td>
+              <td colspan="6" class="h">সমাপনী পরীক্ষার তথ্য</td>
+              <td colspan="2" class="h">বৃত্তি</td>
+              <td rowspan="2" class="h">মেরামতের ধরণ</td>
+              <td rowspan="2" class="h">টাকার পরিমাণ</td>
+              <td rowspan="2" class="h">অর্থবছর</td>
+            </tr>
+
+            <tr>
+              <td class="l">ঝড়ে পড়ার সংখ্যা</td>
+              <td class="ed" data-num="1" data-k="dropN">০</td>
+              <td rowspan="2" class="h">সাল<br />(বিগত ৩ বছর)</td>
+              <td colspan="2" rowspan="2" class="h">ভর্তিকৃত</td>
+              <td rowspan="2" class="h">ডিআরভুক্ত</td>
+              <td rowspan="2" class="h">পরীক্ষায়<br />অংশগ্রহণ</td>
+              <td rowspan="2" class="h">পাশের<br />সংখ্যা</td>
+              <td rowspan="2" class="h">সাধারণ</td>
+              <td rowspan="2" class="h">ট্যালেন্ট<br />পুল</td>
+            </tr>
+
+            <tr>
+              <td class="l">ঝড়ে পড়ার হার</td>
+              <td class="ed" data-num="1" data-k="dropRate">০</td>
+              <td class="l">চেয়ার</td>
+              <td class="ed" data-num="1" data-k="chairOk">২৩</td>
+              <td class="ed" data-num="1" data-k="chairBad">২</td>
+              <td class="ed" data-k="rep3type">বড় ধরণের মেরামত</td>
+              <td class="ed" data-k="rep3amt"></td>
+              <td class="ed" data-k="rep3fy"></td>
+            </tr>
+
+            <tr>
+              <td class="l">শহীদ মিনার আছে কিনা</td>
+              <td class="ed" data-k="shohid">নাই</td>
+              <td class="l">টেবিল</td>
+              <td class="ed" data-num="1" data-k="tableOk">৮</td>
+              <td class="ed" data-num="1" data-k="tableBad">২</td>
+              <td class="ed" data-num="1" data-k="exY1">২০২৩</td>
+              <td colspan="2" class="ed" data-num="1" data-k="exAdm1">৫০</td>
+              <td class="ed" data-num="1" data-k="exDR1">৫০</td>
+              <td class="ed" data-num="1" data-k="exPart1">৫০</td>
+              <td class="ed" data-num="1" data-k="exPass1">৫০</td>
+              <td class="ed" data-num="1" data-k="brGen1">৫০</td>
+              <td class="ed" data-num="1" data-k="brTal1">০</td>
+              <td class="ed" data-k="rep4type">মাইনর/ক্ষুদ্র মেরামত</td>
+              <td class="ed" data-k="rep4amt">১,৫০,০০০/=</td>
+              <td class="ed" data-k="rep4fy">২০২৫-২০২৬</td>
+            </tr>
+
+            <tr>
+              <td class="l">ওয়াশব্লক আছে কিনা</td>
+              <td class="ed" data-k="washblock">হ্যাঁ</td>
+              <td class="l">আলমিরা</td>
+              <td class="ed" data-num="1" data-k="almirahOk">২</td>
+              <td class="ed" data-num="1" data-k="almirahBad">১</td>
+              <td class="ed" data-num="1" data-k="exY2">২০২৪</td>
+              <td colspan="2" class="ed" data-num="1" data-k="exAdm2">৪৫</td>
+              <td class="ed" data-num="1" data-k="exDR2">৪৫</td>
+              <td class="ed" data-num="1" data-k="exPart2">৪৫</td>
+              <td class="ed" data-num="1" data-k="exPass2">৪৫</td>
+              <td class="ed" data-num="1" data-k="brGen2">৪৫</td>
+              <td class="ed" data-num="1" data-k="brTal2">০</td>
+              <td class="ed" data-k="rep5type">স্লীপের অনুদানের পরিমাণ</td>
+              <td class="ed" data-k="rep5amt"></td>
+              <td class="ed" data-k="rep5fy"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2" class="l ed" data-k="ict">
+                ল্যাপটপ: ২টি, প্রজেক্টর: ২টি, সাউন্ড সিস্টেম: ১টি
+              </td>
+              <td class="l">বুক সেলফ</td>
+              <td class="ed" data-num="1" data-k="shelfOk">১</td>
+              <td class="ed" data-num="1" data-k="shelfBad">০</td>
+              <td class="ed" data-num="1" data-k="exY3">২০২৫</td>
+              <td colspan="2" class="ed" data-num="1" data-k="exAdm3">০</td>
+              <td class="ed" data-num="1" data-k="exDR3">০</td>
+              <td class="ed" data-num="1" data-k="exPart3">০</td>
+              <td class="ed" data-num="1" data-k="exPass3">০</td>
+              <td class="ed" data-num="1" data-k="brGen3">০</td>
+              <td class="ed" data-num="1" data-k="brTal3">০</td>
+              <td class="ed" data-k="rep6type">রুটিন মেইন্ট্যানেন্স</td>
+              <td class="ed" data-k="rep6amt"></td>
+              <td class="ed" data-k="rep6fy"></td>
+            </tr>
+
+            <tr>
+              <td class="l">বিগত ৩ মাসের হোম ভিজিটের সংখ্যা</td>
+              <td class="ed" data-num="1" data-k="homeVisit">১৫</td>
+              <td class="l">SRM</td>
+              <td class="ed" data-num="1" data-k="srmOk">১৭০</td>
+              <td class="ed" data-num="1" data-k="srmBad">৩০</td>
+              <td colspan="2" class="l">বিগত ১ বছরের এসএমসি সভা</td>
+              <td class="ed" data-num="1" data-k="smcMeet"></td>
+              <td colspan="3" class="l">বিগত ১ বছরের মা সমাবেশ</td>
+              <td colspan="2" class="ed" data-k="motherMeet">০৩ টি</td>
+              <td class="ed" data-k="rep7type">ওয়াশব্লক মেইন্ট্যানেন্স</td>
+              <td class="ed" data-k="rep7amt"></td>
+              <td class="ed" data-k="rep7fy"></td>
+            </tr>
+
+            <tr>
+              <td colspan="2" rowspan="2" class="l ed" data-k="cabLeader">
+                কাব লিডারগণের নাম - সাদিকুল ইসলাম
+              </td>
+              <td class="l">উপকরণ</td>
+              <td class="ed" data-num="1" data-k="upOk">১০০</td>
+              <td class="ed" data-num="1" data-k="upBad">৫০</td>
+              <td colspan="2" class="l">বিগত ১ বছরের পিটিএ সভা</td>
+              <td class="ed" data-num="1" data-k="ptaMeet"></td>
+              <td colspan="3" class="l">বিগত ১ বছরের অভিভাবক সমাবেশ</td>
+              <td colspan="2" class="ed" data-k="guardMeet">০৪ টি</td>
+              <td class="ed" data-k="rep8type">অন্যান্য</td>
+              <td class="ed" data-k="rep8amt"></td>
+              <td class="ed" data-k="rep8fy"></td>
+            </tr>
+
+            <tr>
+              <td colspan="3" class="l">এসএমসি কমিটি অনুমোদনের তারিখ</td>
+              <td
+                colspan="3"
+                class="ed"
+                data-type="date"
+                data-k="smcApprove"
+              ></td>
+              <td colspan="2" class="l">এসএমসি সভাপতির নাম</td>
+              <td colspan="4" class="ed" data-k="smcPres"></td>
+              <td class="l">সভাপতির মোবাইল নম্বর</td>
+              <td class="ed" data-type="phone" data-k="presPhone"></td>
+            </tr>
+
+            <tr>
+              <td class="l">মনিটরিং বোর্ড হালনাগাদ আছে কিনা</td>
+              <td class="ed" data-k="monitor">হ্যাঁ</td>
+              <td colspan="3" class="l">এসএমসি কমিটির সর্বশেষ সভার তারিখ</td>
+              <td
+                colspan="3"
+                class="ed"
+                data-type="date"
+                data-k="smcLastDate"
+              ></td>
+              <td colspan="3" class="l">
+                সর্বশেষ পরিদর্শনকারী কর্মকর্তার নাম ও পদবী
+              </td>
+              <td colspan="3" class="l ed" data-k="lastVisitor">
+                ফরিদা আক্তার - ইনস্ট্রাক্টর UTC
+              </td>
+              <td class="l">পরিদর্শনের তারিখ</td>
+              <td class="ed" data-type="date" data-k="visitDate">০২/০৭/২০২৬</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sign">
+          <span>উপজেলা শিক্ষা অফিসার</span>
+          <span>সহকারি উপজেলা শিক্ষা অফিসার</span>
+          <span>এসএমসি সভাপতি/সদস্য স্বাক্ষর ও সীল</span>
+          <span>প্রধান শিক্ষকের স্বাক্ষর ও সীল</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ============================================================
+           ১. কনস্ট্যান্ট ও কনফিগারেশন
+           ============================================================ */
+        var BN = "০১২৩৪৫৬৭৮৯";
+
+        /* সিস্টেমের বর্তমান মাসের নাম (বাংলা) */
+        var BN_MONTHS = [
+          "জানুয়ারি",
+          "ফেব্রুয়ারি",
+          "মার্চ",
+          "এপ্রিল",
+          "মে",
+          "জুন",
+          "জুলাই",
+          "আগস্ট",
+          "সেপ্টেম্বর",
+          "অক্টোবর",
+          "নভেম্বর",
+          "ডিসেম্বর",
+        ];
+
+        var STORE_KEY = "hemgps.mr.front.v101";
+        var SHEET_W = 1980;
+        var PRINT_ZOOM = 0.65;
+        var NROWS = 7;
+        var NCOLS = 33;
+
+        /* প্রিন্ট ফন্ট স্কেল */
+        var PRINT_FS_KEY = STORE_KEY + ".pfs";
+        var PRINT_FS_DEFAULT = 1.15;
+
+        var TOTAL_SKIP = { 1: 1, 10: 1 };
+        var AUTO_COLS = { 4: 1, 13: 1, 16: 1, 19: 1, 22: 1, 25: 1 };
+        var SUM_COLS = {
+          4: [2, 3],
+          13: [11, 12],
+          16: [14, 15],
+          19: [17, 18],
+          22: [20, 21],
+          25: [23, 24],
+        };
+
+        /* ---------- সংখ্যা রূপান্তর ---------- */
+        function toBn(v) {
+          return String(v).replace(/[0-9]/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function toEn(v) {
+          return String(v).replace(/[০-৯]/g, function (d) {
+            return String(BN.indexOf(d));
+          });
+        }
+        function parseBn(v) {
+          if (v == null) return 0;
+          var s = toEn(v).replace(/[^\d]/g, "");
+          if (!s) return 0;
+          var n = parseInt(s, 10);
+          return isFinite(n) ? n : 0;
+        }
+
+        /* ============================================================
+           ২. প্রধান টেবিলের হেডার ও ডেটা কনফিগারেশন
+           ============================================================ */
+        var HEAD1 = [
+          [1, 2, "শ্রেণি"],
+          [3, 1, "ভর্তিকৃত শিক্ষার্থীর তথ্য"],
+          [1, 2, "মোট<br>হিন্দু"],
+          [2, 1, "উপস্থিতির তথ্য"],
+          [2, 1, "বিশেষ চাহিদা<br>সম্পন্ন"],
+          [1, 2, "বয়স<br>মোট"],
+          [3, 1, "জরিপকৃত শিশু"],
+          [3, 1, "জরিপ থেকে নিজ বিদ্যালয়ে<br>ভর্তি"],
+          [3, 1, "জরিপ থেকে অন্য বিদ্যালয়ে<br>ভর্তি"],
+          [3, 1, "জরিপ থেকে কোন বিদ্যালয়ে<br>ভর্তি হয়নি"],
+          [3, 1, "ক্যাচমেন্ট এর বাহির থেকে<br>নিজ বিদ্যালয়ে ভর্তি"],
+          [2, 1, "১ম সাময়িক<br>পরীক্ষা"],
+          [2, 1, "২য় সাময়িক<br>পরীক্ষা"],
+          [3, 1, "বার্ষিক পরীক্ষা"],
+          [1, 2, "প্রাপ্ত বই<br>(সেট)"],
+        ];
+
+        var HEAD2 = [
+          "ছাত্র",
+          "ছাত্রী",
+          "মোট",
+          "বালক",
+          "মোট",
+          "বালক",
+          "মোট",
+          "বালক",
+          "বালিকা",
+          "মোট",
+          "বালক",
+          "বালিকা",
+          "মোট",
+          "বালক",
+          "বালিকা",
+          "মোট",
+          "বালক",
+          "বালিকা",
+          "মোট",
+          "বালক",
+          "বালিকা",
+          "মোট",
+          "অংশগ্রহণ",
+          "উত্তীর্ণ",
+          "অংশগ্রহণ",
+          "উত্তীর্ণ",
+          "অংশগ্রহণ",
+          "উত্তীর্ণ",
+          "পুনরাবৃত্তি",
+        ];
+
+        /* [শ্রেণি, বয়স, {কলাম: মান}] */
+        var ROWS = [
+          [
+            "৪+",
+            "৪+",
+            {
+              2: 5,
+              3: 6,
+              5: 0,
+              6: 5,
+              7: 8,
+              8: 0,
+              9: 0,
+              11: 17,
+              12: 17,
+              14: 0,
+              15: 3,
+              17: 10,
+              18: 10,
+              20: 7,
+              21: 4,
+              23: 1,
+              24: 1,
+              26: 0,
+              27: 0,
+              28: 0,
+              29: 0,
+              30: 0,
+              31: 0,
+              32: 0,
+              33: 0,
+            },
+          ],
+          [
+            "৫+",
+            "৫+",
+            {
+              2: 10,
+              3: 8,
+              5: 2,
+              6: 8,
+              7: 14,
+              8: 0,
+              9: 0,
+              11: 31,
+              12: 26,
+              14: 2,
+              15: 4,
+              17: 21,
+              18: 22,
+              20: 8,
+              21: 0,
+              23: 3,
+              24: 1,
+              26: 0,
+              27: 0,
+              28: 0,
+              29: 0,
+              30: 14,
+              31: 13,
+              32: 1,
+              33: 25,
+            },
+          ],
+          [
+            "১ম",
+            "৬+",
+            {
+              2: 11,
+              3: 13,
+              5: 3,
+              6: 7,
+              7: 20,
+              8: 1,
+              9: 1,
+              11: 26,
+              12: 32,
+              14: 6,
+              15: 6,
+              17: 15,
+              18: 24,
+              20: 5,
+              21: 2,
+              23: 1,
+              24: 5,
+              26: 0,
+              27: 0,
+              28: 0,
+              29: 0,
+              30: 15,
+              31: 15,
+              32: 0,
+              33: 32,
+            },
+          ],
+          [
+            "২য়",
+            "৭+",
+            {
+              2: 15,
+              3: 8,
+              5: 7,
+              6: 12,
+              7: 16,
+              8: 0,
+              9: 0,
+              11: 29,
+              12: 28,
+              14: 8,
+              15: 4,
+              17: 21,
+              18: 23,
+              20: 0,
+              21: 1,
+              23: 2,
+              24: 1,
+              26: 0,
+              27: 0,
+              28: 0,
+              29: 0,
+              30: 19,
+              31: 13,
+              32: 6,
+              33: 32,
+            },
+          ],
+          [
+            "৩য়",
+            "৮+",
+            {
+              2: 6,
+              3: 23,
+              5: 7,
+              6: 5,
+              7: 21,
+              8: 0,
+              9: 0,
+              11: 25,
+              12: 44,
+              14: 7,
+              15: 17,
+              17: 17,
+              18: 24,
+              20: 1,
+              21: 3,
+              23: 1,
+              24: 2,
+              26: 31,
+              27: 22,
+              28: 31,
+              29: 23,
+              30: 31,
+              31: 24,
+              32: 7,
+              33: 30,
+            },
+          ],
+          [
+            "৪র্থ",
+            "৯+",
+            {
+              2: 16,
+              3: 17,
+              5: 9,
+              6: 12,
+              7: 26,
+              8: 1,
+              9: 1,
+              11: 27,
+              12: 22,
+              14: 10,
+              15: 12,
+              17: 15,
+              18: 8,
+              20: 2,
+              21: 2,
+              23: 2,
+              24: 2,
+              26: 37,
+              27: 17,
+              28: 37,
+              29: 18,
+              30: 35,
+              31: 20,
+              32: 15,
+              33: 42,
+            },
+          ],
+          [
+            "৫ম",
+            "১০+",
+            {
+              2: 9,
+              3: 10,
+              5: 4,
+              6: 9,
+              7: 19,
+              8: 0,
+              9: 0,
+              11: 29,
+              12: 23,
+              14: 9,
+              15: 12,
+              17: 18,
+              18: 11,
+              20: 3,
+              21: 2,
+              23: 3,
+              24: 2,
+              26: 30,
+              27: 16,
+              28: 30,
+              29: 22,
+              30: 32,
+              31: 32,
+              32: 0,
+              33: 29,
+            },
+          ],
+        ];
+
+        /* ============================================================
+           ৩. DOM রেফারেন্স
+           ============================================================ */
+        var root = document.documentElement;
+        var $ = function (id) {
+          return document.getElementById(id);
+        };
+
+        var wrapEl = $("wrap");
+        var tableEl = $("mainTable");
+        var toastEl = $("toast");
+        var statusEl = $("status");
+        var zoomLabel = $("zoomLabel");
+
+        /* ============================================================
+           ৪. রেন্ডার — মূল টেবিল
+           ============================================================ */
+        function buildMainTable() {
+          var colgroup =
+            "<colgroup>" +
+            '<col style="width:60px">'.repeat(NCOLS) +
+            "</colgroup>";
+
+          var h1 = "";
+          for (var i = 0; i < HEAD1.length; i++) {
+            h1 +=
+              '<th colspan="' +
+              HEAD1[i][0] +
+              '" rowspan="' +
+              HEAD1[i][1] +
+              '">' +
+              HEAD1[i][2] +
+              "</th>";
+          }
+
+          var h2 = "";
+          for (var j = 0; j < HEAD2.length; j++)
+            h2 += "<th>" + HEAD2[j] + "</th>";
+
+          var body = "";
+
+          for (var r = 0; r < ROWS.length; r++) {
+            var row = ROWS[r];
+            body += "<tr>";
+            for (var c = 1; c <= NCOLS; c++) {
+              if (c === 1) {
+                body += '<td class="cls">' + row[0] + "</td>";
+              } else if (c === 10) {
+                body += '<td class="cls">' + row[1] + "</td>";
+              } else if (AUTO_COLS[c]) {
+                body +=
+                  '<td class="auto" data-r="' +
+                  r +
+                  '" data-c="' +
+                  c +
+                  '"></td>';
+              } else {
+                var v = row[2][c];
+                body +=
+                  '<td class="ed" data-num="1" data-r="' +
+                  r +
+                  '" data-c="' +
+                  c +
+                  '">' +
+                  (v == null ? "০" : toBn(v)) +
+                  "</td>";
+              }
+            }
+            body += "</tr>";
+          }
+
+          /* মোট সারি */
+          body += "<tr>";
+          for (var c2 = 1; c2 <= NCOLS; c2++) {
+            if (c2 === 1) {
+              body += '<td class="cls">মোট</td>';
+            } else if (c2 === 10) {
+              body += '<td class="cls">-</td>';
+            } else {
+              body +=
+                '<td class="auto" data-r="total" data-c="' + c2 + '"></td>';
+            }
+          }
+          body += "</tr>";
+
+          tableEl.innerHTML =
+            colgroup +
+            "<thead><tr>" +
+            h1 +
+            "</tr><tr>" +
+            h2 +
+            "</tr></thead><tbody>" +
+            body +
+            "</tbody>";
+        }
+
+        /* ============================================================
+           ৫. সেল ক্যাশ (দ্রুত হিসাবের জন্য)
+           ============================================================ */
+        var grid = [];
+        var totalCells = {};
+
+        function cacheCells() {
+          grid = [];
+          totalCells = {};
+          for (var r = 0; r < NROWS; r++) grid[r] = [];
+
+          var cells = tableEl.querySelectorAll("tbody td[data-r][data-c]");
+          for (var i = 0; i < cells.length; i++) {
+            var td = cells[i];
+            var rowId = td.getAttribute("data-r");
+            var col = parseInt(td.getAttribute("data-c"), 10);
+            if (rowId === "total") totalCells[col] = td;
+            else grid[parseInt(rowId, 10)][col] = td;
+          }
+        }
+
+        /* ============================================================
+           ৬. স্বয়ংক্রিয় হিসাব
+           ============================================================ */
+        function setNum(el, n) {
+          if (!el) return;
+          var t = toBn(n);
+          if (el.textContent !== t) el.textContent = t;
+        }
+
+        function recalc() {
+          var r, c, k, pair, sum;
+
+          /* ৬.১ পাশাপাশি যোগ → মোট কলাম */
+          for (r = 0; r < NROWS; r++) {
+            var row = grid[r];
+            for (k in SUM_COLS) {
+              if (!Object.prototype.hasOwnProperty.call(SUM_COLS, k)) continue;
+              pair = SUM_COLS[k];
+              var a = row[pair[0]];
+              var b = row[pair[1]];
+              sum = parseBn(a && a.textContent) + parseBn(b && b.textContent);
+              setNum(row[k], sum);
+            }
+          }
+
+          /* ৬.২ উপরে-নিচে যোগ → মোট সারি */
+          for (c = 1; c <= NCOLS; c++) {
+            if (TOTAL_SKIP[c]) continue;
+            var tc = totalCells[c];
+            if (!tc) continue;
+            sum = 0;
+            for (r = 0; r < NROWS; r++) {
+              var cell = grid[r][c];
+              if (cell) sum += parseBn(cell.textContent);
+            }
+            setNum(tc, sum);
+          }
+        }
+
+        /* ============================================================
+           ৭. এডিটএবল ফিল্ড প্রস্তুত
+           ============================================================ */
+        var eds = [];
+
+        function collectEditable() {
+          var list = document.querySelectorAll(".ed");
+          eds = [];
+          var autoKey = 0;
+          for (var i = 0; i < list.length; i++) {
+            var el = list[i];
+            el.contentEditable = "true";
+            el.spellcheck = false;
+            if (
+              !el.getAttribute("data-k") &&
+              el.getAttribute("data-r") == null
+            ) {
+              el.setAttribute("data-k", "a" + autoKey++);
+            }
+            eds.push(el);
+          }
+        }
+
+        function keyOf(el) {
+          var k = el.getAttribute("data-k");
+          if (k) return k;
+          return (
+            "m" + el.getAttribute("data-r") + "_" + el.getAttribute("data-c")
+          );
+        }
+
+        /* ============================================================
+           ৮. সংরক্ষণ / পুনরুদ্ধার
+           ============================================================ */
+        function save(silent) {
+          try {
+            var d = {};
+            for (var i = 0; i < eds.length; i++) {
+              var el = eds[i];
+              d[keyOf(el)] = (el.textContent || "").trim();
+            }
+            localStorage.setItem(
+              STORE_KEY,
+              JSON.stringify({ v: 101, t: Date.now(), d: d }),
+            );
+            if (!silent) toast("তথ্য সংরক্ষণ হয়েছে ✓", "ok");
+            setStatus("সংরক্ষিত: " + nowBn());
+            return true;
+          } catch (e) {
+            if (!silent) toast("সংরক্ষণ ব্যর্থ: " + e.message, "bad");
+            return false;
+          }
+        }
+
+        function restore() {
+          var raw;
+          try {
+            raw = localStorage.getItem(STORE_KEY);
+          } catch (e) {
+            return 0;
+          }
+          if (!raw) return 0;
+
+          var obj;
+          try {
+            obj = JSON.parse(raw);
+          } catch (e) {
+            /* নষ্ট ডেটা — ব্যাকআপ রেখে পরিষ্কার করা হচ্ছে */
+            try {
+              localStorage.setItem(STORE_KEY + ".bak", raw);
+              localStorage.removeItem(STORE_KEY);
+            } catch (_) {}
+            toast("সংরক্ষিত ডেটা নষ্ট ছিল — ব্যাকআপ রাখা হয়েছে", "bad");
+            return 0;
+          }
+
+          if (!obj || typeof obj !== "object" || !obj.d) return 0;
+
+          var count = 0;
+          for (var i = 0; i < eds.length; i++) {
+            var el = eds[i];
+            var k = keyOf(el);
+            if (Object.prototype.hasOwnProperty.call(obj.d, k)) {
+              var v = obj.d[k];
+              if (typeof v === "string") {
+                el.textContent = v;
+                count++;
+              }
+            }
+          }
+          if (count) {
+            toast(
+              "পূর্বের সংরক্ষিত তথ্য পুনরুদ্ধার হয়েছে (" +
+                toBn(count) +
+                " ঘর)",
+              "ok",
+            );
+            setStatus("পুনরুদ্ধার: " + nowBn());
+          }
+          return count;
+        }
+
+        function nowBn() {
+          var d = new Date();
+          var p = function (n) {
+            return (n < 10 ? "0" : "") + n;
+          };
+          return toBn(p(d.getHours()) + ":" + p(d.getMinutes()));
+        }
+
+        var saveTimer = 0;
+        function scheduleSave() {
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(function () {
+            save(true);
+          }, 900);
+        }
+
+        /* ============================================================
+           ৮.১ JSON ব্যাকআপ / রিস্টোর (বেসিক ইনফরমেশন)
+           ============================================================ */
+        function collectData() {
+          var d = {};
+          for (var i = 0; i < eds.length; i++) {
+            var el = eds[i];
+            d[keyOf(el)] = (el.textContent || "").trim();
+          }
+          return d;
+        }
+
+        function applyData(data, complain) {
+          if (!data || typeof data !== "object") return 0;
+          var count = 0;
+          for (var i = 0; i < eds.length; i++) {
+            var el = eds[i];
+            var k = keyOf(el);
+            if (
+              Object.prototype.hasOwnProperty.call(data, k) &&
+              typeof data[k] === "string"
+            ) {
+              el.textContent = data[k];
+              count++;
+            }
+          }
+          return count;
+        }
+
+        function backupJSON() {
+          try {
+            var payload = {
+              app: "MR Front Page",
+              school: "হেমনগর সরকারি প্রাথমিক বিদ্যালয়",
+              version: 101,
+              exportedAt: new Date().toISOString(),
+              printFs:
+                parseFloat(
+                  getComputedStyle(root).getPropertyValue("--print-fs"),
+                ) || PRINT_FS_DEFAULT,
+              data: collectData(),
+            };
+
+            var blob = new Blob([JSON.stringify(payload, null, 2)], {
+              type: "application/json;charset=utf-8",
+            });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            var d = new Date();
+            var p = function (n) {
+              return (n < 10 ? "0" : "") + n;
+            };
+            a.href = url;
+            a.download =
+              "MR-Front-Backup-" +
+              d.getFullYear() +
+              p(d.getMonth() + 1) +
+              p(d.getDate()) +
+              "-" +
+              p(d.getHours()) +
+              p(d.getMinutes()) +
+              ".json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(function () {
+              URL.revokeObjectURL(url);
+            }, 1000);
+
+            toast("ব্যাকআপ ফাইল ডাউনলোড হয়েছে ✓", "ok");
+            setStatus("ব্যাকআপ: " + nowBn());
+          } catch (e) {
+            toast("ব্যাকআপ ব্যর্থ: " + e.message, "bad");
+          }
+        }
+
+        function restoreJSON(file) {
+          if (!file) return;
+          if (
+            !confirm(
+              "বর্তমান তথ্যগুলো ফাইলের তথ্য দিয়ে প্রতিস্থাপিত হবে।\nআপনি কি নিশ্চিত?",
+            )
+          )
+            return;
+
+          var reader = new FileReader();
+          reader.onload = function (ev) {
+            var obj;
+            try {
+              obj = JSON.parse(String(ev.target.result));
+            } catch (e) {
+              toast("JSON ফাইল পড়া যায়নি", "bad");
+              return;
+            }
+
+            var data = obj && (obj.data || obj.d);
+            if (!data || typeof data !== "object") {
+              toast("ফাইলে বৈধ ব্যাকআপ ডেটা নেই", "bad");
+              return;
+            }
+
+            var count = applyData(data, true);
+
+            /* প্রিন্ট ফন্ট স্কেল পুনরুদ্ধার (যদি থাকে) */
+            if (obj && obj.printFs != null && isFinite(+obj.printFs)) {
+              var v = Math.max(1, Math.min(1.5, +obj.printFs));
+              applyPrintFs(v);
+              var sel = $("printFs");
+              if (sel) sel.value = String(v);
+              try {
+                localStorage.setItem(PRINT_FS_KEY, String(v));
+              } catch (e) {}
+            }
+
+            recalc();
+            validateAll();
+            save(true);
+
+            toast("রিস্টোর সম্পন্ন (" + toBn(count) + " ঘর)", "ok");
+            setStatus("রিস্টোর: " + nowBn());
+          };
+          reader.onerror = function () {
+            toast("ফাইল পড়তে সমস্যা হয়েছে", "bad");
+          };
+          reader.readAsText(file, "utf-8");
+        }
+
+        /* ============================================================
+           ৯. ইনপুট নরমালাইজেশন ও ভ্যালিডেশন
+           ============================================================ */
+        var EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        var PHONE_RE = /^01[3-9]\d{8}$/;
+
+        function pad2(n) {
+          return (n < 10 ? "0" : "") + n;
+        }
+
+        /* DD/MM/YYYY (বাংলা বা ইংরেজি অঙ্ক) */
+        function normDate(raw) {
+          var s = toEn(raw)
+            .replace(/[^\d/\-.]/g, " ")
+            .trim();
+          var m = s.match(
+            /^(\d{1,2})\s*[/\-.]\s*(\d{1,2})\s*[/\-.]\s*(\d{2,4})$/,
+          );
+          if (!m) return null;
+          var d = +m[1],
+            mo = +m[2],
+            y = +m[3];
+          if (y < 100) y += 2000;
+          if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+          var dt = new Date(y, mo - 1, d);
+          if (
+            dt.getFullYear() !== y ||
+            dt.getMonth() !== mo - 1 ||
+            dt.getDate() !== d
+          )
+            return null;
+          return pad2(d) + "/" + pad2(mo) + "/" + y;
+        }
+
+        function mark(el, state) {
+          el.classList.remove("v-ok", "v-bad");
+          if (state === "ok") el.classList.add("v-ok");
+          else if (state === "bad") el.classList.add("v-bad");
+        }
+
+        function checkField(el, complain) {
+          var type = el.getAttribute("data-type");
+          if (!type) return true;
+          var v = (el.textContent || "").trim();
+          var ok = true,
+            msg = "";
+
+          if (type === "email") {
+            if (!v) {
+              mark(el, "");
+              el.title = "";
+              return true;
+            }
+            ok = EMAIL_RE.test(v);
+            msg = "সঠিক ইমেইল ঠিকানা দিন (যেমন: name@example.com)";
+          } else if (type === "phone") {
+            if (!v) {
+              mark(el, "");
+              el.title = "";
+              return true;
+            }
+            var digits = toEn(v).replace(/\D/g, "");
+            ok = PHONE_RE.test(digits);
+            msg = "সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (যেমন: 017XXXXXXXX)";
+          } else if (type === "date") {
+            if (!v) {
+              mark(el, "");
+              el.title = "";
+              return true;
+            }
+            ok = normDate(v) !== null;
+            msg = "তারিখ DD/MM/YYYY ফরম্যাটে লিখুন (যেমন: ০২/০৭/২০২৬)";
+          }
+
+          mark(el, ok ? "ok" : "bad");
+          el.title = ok ? "" : msg;
+          if (!ok && complain) toast(msg, "bad");
+          return ok;
+        }
+
+        function normalize(el) {
+          var type = el.getAttribute("data-type");
+          var v = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+          if (type === "email") {
+            el.textContent = v.replace(/\s+/g, "");
+            checkField(el, true);
+            return;
+          }
+
+          if (type === "phone") {
+            el.textContent = toBn(toEn(v).replace(/\D/g, ""));
+            checkField(el, true);
+            return;
+          }
+
+          if (type === "date") {
+            var d = normDate(v);
+            if (d) {
+              el.textContent = toBn(d);
+              checkField(el, false);
+            } else if (v) {
+              el.textContent = v;
+              checkField(el, true);
+            } else {
+              el.textContent = "";
+              mark(el, "");
+            }
+            return;
+          }
+
+          /* সাধারণ ফিল্ড — সব অঙ্ক বাংলায় */
+          v = toBn(v);
+
+          /* শুধু-সংখ্যার ঘর */
+          if (el.getAttribute("data-num") != null) {
+            var digits = toEn(v).replace(/[^\d]/g, "");
+            v = digits === "" ? "০" : toBn(digits);
+          }
+
+          if (el.textContent !== v) el.textContent = v;
+        }
+
+        function validateAll() {
+          var list = document.querySelectorAll(".ed[data-type]");
+          for (var i = 0; i < list.length; i++) checkField(list[i], false);
+        }
+
+        /* ============================================================
+           ১০. জুম / স্ক্রিন ফিট
+           ============================================================ */
+        var zoomMode = "fit"; /* "fit" | সংখ্যা */
+        var previewOn = false;
+
+        function applyZoom() {
+          var vw = root.clientWidth || window.innerWidth;
+
+          if (previewOn) {
+            var pageW = SHEET_W * PRINT_ZOOM;
+            var k = (vw - 32) / pageW;
+            k = Math.max(0.15, Math.min(1, k));
+            root.style.setProperty("--pzoom", String(k));
+          }
+
+          var avail = (wrapEl.clientWidth || vw) - 4;
+          var z = zoomMode === "fit" ? Math.min(1, avail / SHEET_W) : zoomMode;
+          z = Math.max(0.15, Math.min(2, z));
+
+          root.style.setProperty("--zoom", String(z));
+          zoomLabel.textContent = toBn(Math.round(z * 100)) + "%";
+        }
+
+        function setZoom(z) {
+          zoomMode = Math.max(0.15, Math.min(2, z));
+          applyZoom();
+          try {
+            localStorage.setItem(STORE_KEY + ".zoom", String(zoomMode));
+          } catch (e) {}
+        }
+
+        function loadZoomPref() {
+          try {
+            var z = localStorage.getItem(STORE_KEY + ".zoom");
+            if (z === "fit") zoomMode = "fit";
+            else if (z && isFinite(+z)) zoomMode = +z;
+          } catch (e) {}
+        }
+
+        /* ============================================================
+           ১০.১ প্রিন্ট ফন্ট স্কেল
+           ============================================================ */
+        function applyPrintFs(v) {
+          root.style.setProperty("--print-fs", String(v));
+        }
+
+        function loadPrintFsPref() {
+          var sel = $("printFs");
+          if (!sel) return;
+          var v = PRINT_FS_DEFAULT;
+          try {
+            var s = localStorage.getItem(PRINT_FS_KEY);
+            if (s && isFinite(+s)) v = +s;
+          } catch (e) {}
+          v = Math.max(1, Math.min(1.5, v));
+          sel.value = String(v);
+          if (!sel.value) {
+            v = PRINT_FS_DEFAULT;
+            sel.value = String(v);
+          }
+          applyPrintFs(v);
+        }
+
+        function bindPrintFs() {
+          var sel = $("printFs");
+          if (!sel) return;
+          sel.addEventListener("change", function () {
+            var v = parseFloat(this.value);
+            if (!isFinite(v)) v = PRINT_FS_DEFAULT;
+            applyPrintFs(v);
+            try {
+              localStorage.setItem(PRINT_FS_KEY, String(v));
+            } catch (e) {}
+            toast(
+              "প্রিন্ট ফন্ট আকার: " + toBn(Math.round(v * 100)) + "%",
+              "ok",
+            );
+          });
+        }
+
+        /* ============================================================
+           ১১. টোস্ট মেসেজ
+           ============================================================ */
+        var toastTimer = 0;
+        function toast(msg, type) {
+          clearTimeout(toastTimer);
+          toastEl.textContent = msg;
+          toastEl.className = "toast show" + (type ? " " + type : "");
+          toastTimer = setTimeout(function () {
+            toastEl.className = "toast";
+          }, 2800);
+        }
+
+        function setStatus(txt) {
+          if (statusEl) statusEl.textContent = txt;
+        }
+
+        /* ============================================================
+           ১২. ইভেন্ট বাইন্ডিং
+           ============================================================ */
+        var rafId = 0;
+        function scheduleRecalc() {
+          if (rafId) return;
+          rafId = requestAnimationFrame(function () {
+            rafId = 0;
+            try {
+              recalc();
+            } catch (e) {
+              console.warn("Recalc error:", e);
+            }
+          });
+        }
+
+        function isEd(node) {
+          return (
+            node &&
+            node.nodeType === 1 &&
+            node.classList &&
+            node.classList.contains("ed")
+          );
+        }
+
+        function bindEvents() {
+          /* ১২.১ ইনপুট */
+          document.addEventListener("input", function (e) {
+            var el = e.target;
+            if (!isEd(el)) return;
+            if (el.getAttribute("data-r") != null) scheduleRecalc();
+            scheduleSave();
+          });
+
+          /* ১২.২ ফোকাস আউট → নরমালাইজ */
+          document.addEventListener(
+            "focusout",
+            function (e) {
+              var el = e.target;
+              if (!isEd(el)) return;
+              try {
+                normalize(el);
+              } catch (err) {
+                console.warn("Normalize error:", err);
+              }
+              if (el.getAttribute("data-r") != null) scheduleRecalc();
+              scheduleSave();
+            },
+            true,
+          );
+
+          /* ১২.৩ এন্টার → সেল থেকে বেরিয়ে যাওয়া */
+          document.addEventListener("keydown", function (e) {
+            var el = e.target;
+            if (!isEd(el)) return;
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              el.blur();
+            } else if (e.key === "Escape") {
+              el.blur();
+            }
+          });
+
+          /* ১২.৪ টুলবার */
+          $("btnSave").addEventListener("click", function () {
+            save(false);
+          });
+
+          $("btnBackup").addEventListener("click", function () {
+            save(true);
+            backupJSON();
+          });
+
+          $("btnRestore").addEventListener("click", function () {
+            var f = $("fileRestore");
+            if (f) f.click();
+          });
+
+          var fr = $("fileRestore");
+          if (fr) {
+            fr.addEventListener("change", function () {
+              if (this.files && this.files[0]) {
+                restoreJSON(this.files[0]);
+              }
+              this.value = ""; /* একই ফাইল আবার নির্বাচন করা যাবে */
+            });
+          }
+
+          $("btnPrint").addEventListener("click", function () {
+            save(true);
+            try {
+              window.print();
+            } catch (e) {
+              toast("প্রিন্ট শুরু করা যায়নি", "bad");
+            }
+          });
+
+          $("btnPreview").addEventListener("click", function () {
+            previewOn = !previewOn;
+            document.body.classList.toggle("preview", previewOn);
+            this.textContent = previewOn
+              ? "✖ প্রিভিউ বন্ধ"
+              : "🔍 প্রিন্ট প্রিভিউ";
+            $("zoomOut").disabled = previewOn;
+            $("zoomIn").disabled = previewOn;
+            $("zoomFit").disabled = previewOn;
+            applyZoom();
+            window.scrollTo(0, 0);
+          });
+
+          $("btnReset").addEventListener("click", function () {
+            if (
+              !confirm(
+                "সব পরিবর্তন মুছে গিয়ে ডিফল্ট (আসল) অবস্থায় ফিরে যাবে।\nআপনি কি নিশ্চিত?",
+              )
+            )
+              return;
+            try {
+              localStorage.removeItem(STORE_KEY);
+              localStorage.removeItem(STORE_KEY + ".bak");
+              localStorage.removeItem(PRINT_FS_KEY);
+            } catch (e) {}
+            location.reload();
+          });
+
+          $("zoomIn").addEventListener("click", function () {
+            var cur =
+              parseFloat(getComputedStyle(root).getPropertyValue("--zoom")) ||
+              1;
+            setZoom(cur + 0.1);
+          });
+
+          $("zoomOut").addEventListener("click", function () {
+            var cur =
+              parseFloat(getComputedStyle(root).getPropertyValue("--zoom")) ||
+              1;
+            setZoom(cur - 0.1);
+          });
+
+          $("zoomFit").addEventListener("click", function () {
+            zoomMode = "fit";
+            applyZoom();
+            try {
+              localStorage.setItem(STORE_KEY + ".zoom", "fit");
+            } catch (e) {}
+          });
+
+          /* ১২.৫ প্রিন্ট ফন্ট সিলেক্টর */
+          bindPrintFs();
+
+          /* ১২.৬ রিসাইজ */
+          var rzTimer = 0;
+          window.addEventListener("resize", function () {
+            clearTimeout(rzTimer);
+            rzTimer = setTimeout(applyZoom, 150);
+          });
+
+          /* ১২.৭ পেজ লোড / আনলোড */
+          window.addEventListener("beforeunload", function () {
+            try {
+              save(true);
+            } catch (e) {}
+          });
+
+          document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "hidden") {
+              try {
+                save(true);
+              } catch (e) {}
+            }
+          });
+
+          /* ১২.৮ প্রিন্টের আগে জুম ঠিক রাখতে */
+          window.addEventListener("beforeprint", function () {
+            applyZoom();
+          });
+        }
+
+        /* ============================================================
+           ১২.৯ মাসের নাম — সিস্টেমের বর্তমান মাস ও বছর অনুযায়ী
+           ============================================================ */
+        function setCurrentMonth() {
+          var el = document.querySelector('.mon.ed[data-k="month"]');
+          if (!el) return;
+          var d = new Date();
+          el.textContent =
+            "মাসের নাম: " +
+            BN_MONTHS[d.getMonth()] +
+            ", " +
+            toBn(d.getFullYear()) +
+            " খ্রি.";
+        }
+
+        /* ============================================================
+           ১৩. ইনিশিয়ালাইজ
+           ============================================================ */
+        function init() {
+          try {
+            buildMainTable();
+            cacheCells();
+            collectEditable();
+            loadZoomPref();
+            loadPrintFsPref();
+            restore();
+            setCurrentMonth(); /* ← সিস্টেমের চলতি মাস ও বছর */
+            recalc();
+            validateAll();
+            applyZoom();
+            bindEvents();
+            setStatus("প্রস্তুত");
+          } catch (err) {
+            console.error(err);
+            toast("অ্যাপ্লিকেশন চালু করতে সমস্যা: " + err.message, "bad");
+          }
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+  <!-- ============================================================
+     Author    : Naimul Hassan
+     Email     : iam.naimul@gmail.com
+     Date      : 20 October, 2026
+     Signature : NH-2026-10-20
+     ============================================================ -->
+</html>

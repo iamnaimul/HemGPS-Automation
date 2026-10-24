@@ -1,0 +1,3312 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+
+    <link rel="preload" as="image" href="img/bg-cer.png" />
+    <link rel="preload" as="image" href="img/cer_logo.png" />
+    <link rel="preload" as="image" href="img/SCHOOL-LOGO-round_bw.svg" />
+
+    <title>প্রত্যয়নপত্র | হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+    <style>
+      :root {
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-num: Nikosh, NikoshBAN, "BCC Purno", Arial, sans-serif;
+
+        --blue-900: #0b2f6b;
+        --blue-800: #123f8c;
+        --blue-700: #1749a8;
+        --blue-600: #1d4ed8;
+        --blue-500: #2563eb;
+        --blue-400: #3b82f6;
+        --blue-300: #93c5fd;
+        --blue-200: #bfdbfe;
+        --blue-100: #dbeafe;
+        --blue-50: #eff6ff;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #dbe4f0;
+
+        --cert-frame: #0b2f6b;
+        --cert-frame-inner: #1749a8;
+      }
+
+      /* Aliases for the shared UnifiedBackup modal */
+      :root {
+        --card: #ffffff;
+        --surface: #f8fafc;
+        --text: #0f172a;
+        --text-soft: #475569;
+        --border: #dbe4f0;
+        --border-strong: #94a3b8;
+        --primary: #1d4ed8;
+        --primary-hover: #1749a8;
+        --primary-soft: #eff6ff;
+        --primary-soft-2: #dbeafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(29, 78, 216, 0.16);
+        /* --muted already defined above */
+      }
+
+      @page {
+        size: A4 Landscape;
+        margin: 0.25in;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        color: #000;
+      }
+
+      .cert-page {
+        margin: 0.3in 0.15in;
+        border: 3px solid var(--cert-frame);
+        padding: 5px;
+        box-sizing: border-box;
+        background: #fff;
+        position: relative;
+      }
+      #container {
+        position: relative;
+        border: 1px solid var(--cert-frame-inner);
+        padding: 15px;
+        box-sizing: border-box;
+      }
+      .cert-page::before,
+      .cert-page::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border: 2px solid var(--cert-frame);
+        background: #fff;
+        pointer-events: none;
+      }
+      .cert-page::before {
+        top: -7px;
+        left: -7px;
+        border-right: 0;
+        border-bottom: 0;
+      }
+      .cert-page::after {
+        bottom: -7px;
+        right: -7px;
+        border-left: 0;
+        border-top: 0;
+      }
+
+      #title {
+        text-align: center;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-head);
+        text-align: center;
+        padding: 0;
+        margin: 0;
+      }
+      h1 {
+        margin-top: 5px;
+        font-size: 2.5em;
+      }
+      .nikFont {
+        font-family: var(--font-num);
+      }
+      p {
+        font-size: 20px;
+        padding: 0;
+        margin: 0;
+      }
+      #outNameBn,
+      #outNameEn,
+      #outDobNum {
+        font-weight: bold;
+      }
+      .mainText {
+        text-align: justify;
+        margin: 15px 20px;
+      }
+
+      .cert-header {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        border: 0;
+        margin-top: 10px;
+      }
+      .cert-header col {
+        width: 33.3333%;
+      }
+      .cert-header td {
+        width: 33.3333%;
+        border: 0;
+        padding: 0;
+        vertical-align: top;
+      }
+      .cert-header .ch-left {
+        text-align: left;
+      }
+      .cert-header .ch-center {
+        text-align: center;
+      }
+      .cert-header .ch-right {
+        text-align: right;
+      }
+      .cert-header .ch-right h4 {
+        text-align: right;
+      }
+      .student-photo-slot {
+        margin-top: 6px;
+        min-height: 110px;
+      }
+
+      .doubleText {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 85px;
+      }
+
+      .serial-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .serial-block h4 {
+        text-align: left;
+      }
+
+      .qr-wrap {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        background: #fff;
+        padding: 2px 4px 3px;
+        border: 1px solid var(--cert-frame-inner);
+        border-radius: 3px;
+      }
+      .qr-wrap svg {
+        display: block;
+        width: 160px;
+        height: 160px;
+        shape-rendering: crispEdges;
+      }
+      .qr-label {
+        font-family: var(--font-body);
+        font-size: 12px;
+        line-height: 1;
+        color: var(--cert-frame);
+        letter-spacing: 0.3px;
+        font-weight: 700;
+      }
+      .qr-fallback {
+        width: 160px;
+        height: 160px;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-num);
+        font-size: 12px;
+        color: #b91c1c;
+        border: 1px dashed #b91c1c;
+        background: #fff5f5;
+      }
+
+      #sclPic {
+        display: block;
+        margin: 0 auto;
+        width: 185px;
+      }
+      #cerLogo {
+        text-align: center;
+        width: 250px;
+        margin: 15px;
+      }
+      #backgroundImg {
+        width: 180px;
+        position: absolute;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.8;
+      }
+      .uppLine {
+        border-top: 1.5px dotted;
+        padding-top: 3px;
+      }
+
+      @media print {
+        #formArea,
+        .setup-overlay,
+        .picker-overlay,
+        .smart-banner,
+        #restoreFileInput,
+        .unified-backup-bar {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        .cert-paper {
+          display: block !important;
+          padding: 0 !important;
+          background: transparent !important;
+        }
+        .cert-page {
+          box-shadow: none !important;
+        }
+        .cert-page,
+        #container,
+        .qr-wrap,
+        .qr-wrap svg {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+
+      @media screen {
+        body {
+          background: #eef3fb;
+          padding: 24px 0 40px;
+        }
+        .cert-paper {
+          display: flex;
+          justify-content: center;
+          padding: 0 16px;
+        }
+        .cert-page {
+          width: 100%;
+          max-width: 10.89in;
+          box-shadow: 0 18px 45px -22px rgba(11, 47, 107, 0.35);
+        }
+      }
+
+      @media screen {
+        #formArea {
+          font-family: var(--font-body);
+          padding: 0 16px 40px;
+          border: 0;
+          margin: 0;
+          box-sizing: border-box;
+        }
+        .form-shell {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+
+        .form-head {
+          background: linear-gradient(
+            135deg,
+            #0b2f6b 0%,
+            #1749a8 48%,
+            #2563eb 100%
+          );
+          color: #fff;
+          border-radius: 18px 18px 0 0;
+          padding: 22px 26px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          box-shadow: 0 22px 45px -26px rgba(17, 58, 138, 0.95);
+          box-sizing: border-box;
+        }
+        .form-head .fh-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.16);
+          border: 1.5px solid rgba(255, 255, 255, 0.32);
+          display: grid;
+          place-items: center;
+          flex-shrink: 0;
+        }
+        .form-head h3 {
+          font-family: var(--font-head);
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: -0.2px;
+          text-align: left;
+          color: #fff;
+          margin: 0;
+          padding: 0;
+        }
+        .form-head p {
+          font-family: var(--font-body);
+          font-size: 12.5px;
+          color: #dbeafe;
+          margin: 5px 0 0;
+          opacity: 0.95;
+        }
+        .form-card {
+          background: #fff;
+          border: 1px solid var(--line);
+          border-top: 0;
+          border-radius: 0 0 18px 18px;
+          padding: 24px 26px 26px;
+          box-shadow: 0 26px 55px -34px rgba(11, 47, 107, 0.55);
+          box-sizing: border-box;
+        }
+        #formArea2 {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px 20px;
+          box-sizing: border-box;
+        }
+        #formArea2 .field {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 7px;
+          min-width: 0;
+          width: 100%;
+        }
+        #formArea2 .field > label {
+          font-family: var(--font-body);
+          font-size: 12.5px;
+          font-weight: 700;
+          color: var(--blue-800);
+          letter-spacing: 0.2px;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          text-align: left;
+        }
+        #formArea2 .field input,
+        #formArea2 .field select {
+          width: 100%;
+          padding: 11px 13px;
+          border: 1.5px solid var(--blue-200);
+          border-radius: 10px;
+          font-size: 14px;
+          font-family: var(--font-body);
+          color: var(--ink);
+          background: #fff;
+          box-sizing: border-box;
+          line-height: 1.4;
+          transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            background 0.15s ease;
+          outline: none;
+        }
+        #formArea2 .field input::placeholder {
+          color: #9db4d4;
+          font-weight: 500;
+          font-family: var(--font-num);
+        }
+        #formArea2 .field input:hover,
+        #formArea2 .field select:hover {
+          border-color: var(--blue-300);
+        }
+        #formArea2 .field input:focus,
+        #formArea2 .field select:focus {
+          border-color: var(--blue-500);
+          background: #fbfdff;
+          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+        #roll,
+        #session,
+        #dobNum,
+        #certDate,
+        #dobWord,
+        #serial {
+          font-family: var(--font-num);
+          letter-spacing: 0.3px;
+        }
+        #formArea2 .field-en input {
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+        }
+        .tag-en {
+          display: inline-grid;
+          place-items: center;
+          min-width: 26px;
+          height: 18px;
+          padding: 0 6px;
+          border-radius: 6px;
+          background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+          color: #fff;
+          font-family: Arial, sans-serif;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+        }
+        #formArea2 .field-date input {
+          font-family: var(--font-num);
+          letter-spacing: 0.6px;
+        }
+        .form-actions {
+          grid-column: 1 / -1;
+          display: flex;
+          gap: 12px;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+          padding-top: 16px;
+          margin-top: 4px;
+          border-top: 1.5px dashed var(--blue-100);
+        }
+        .btn {
+          padding: 12px 28px;
+          font-size: 14px;
+          font-family: var(--font-body);
+          font-weight: 700;
+          border-radius: 11px;
+          border: 0;
+          cursor: pointer;
+          line-height: 1;
+          transition: all 0.18s ease;
+        }
+        .btn-primary {
+          background: linear-gradient(135deg, #1d4ed8, #2563eb);
+          color: #fff;
+          box-shadow: 0 10px 22px -10px rgba(37, 99, 235, 0.95);
+        }
+        .btn-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 14px 26px -10px rgba(37, 99, 235, 1);
+        }
+        .btn:active {
+          transform: translateY(0);
+        }
+        #formArea2 h4 {
+          grid-column: 1 / -1;
+          font-family: var(--font-body);
+          font-size: 11px;
+          font-weight: 500;
+          color: #9db4d4;
+          text-align: right;
+          line-height: 1.6;
+          margin: 0;
+          padding: 4px 0 0;
+        }
+        .smart-banner {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 13px 18px;
+          background: linear-gradient(135deg, #eff6ff, #dbeafe);
+          border: 1.5px solid var(--blue-200);
+          border-left: 5px solid var(--blue-600);
+          border-radius: 12px;
+          font-family: var(--font-body);
+          font-size: 12.5px;
+          color: var(--blue-900);
+          font-weight: 600;
+          margin-bottom: 20px;
+          box-shadow: 0 2px 8px rgba(11, 47, 107, 0.06);
+          box-sizing: border-box;
+        }
+        .smart-banner .check {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+          color: #fff;
+          display: grid;
+          place-items: center;
+          font-size: 13px;
+          font-weight: 800;
+          flex-shrink: 0;
+        }
+        .smart-banner .change-btn {
+          margin-left: auto;
+          background: linear-gradient(135deg, #1d4ed8, #2563eb);
+          color: #fff;
+          border: 0;
+          padding: 8px 15px;
+          border-radius: 8px;
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+          font-family: inherit;
+          transition: 0.15s;
+          white-space: nowrap;
+        }
+        .smart-banner .change-btn:hover {
+          background: linear-gradient(135deg, #1749a8, #1d4ed8);
+        }
+
+        @media (max-width: 700px) {
+          #formArea {
+            padding: 0 12px 30px;
+          }
+          .form-head {
+            padding: 18px 18px;
+            border-radius: 14px 14px 0 0;
+          }
+          .form-head h3 {
+            font-size: 16px;
+          }
+          .form-card {
+            padding: 18px 16px 20px;
+            border-radius: 0 0 14px 14px;
+          }
+          #formArea2 {
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+          .form-actions {
+            flex-direction: column-reverse;
+          }
+          .btn {
+            width: 100%;
+          }
+          #formArea2 h4 {
+            text-align: center;
+          }
+          .smart-banner {
+            flex-wrap: wrap;
+          }
+          .smart-banner .change-btn {
+            margin-left: 0;
+            width: 100%;
+          }
+        }
+
+        .setup-overlay,
+        .picker-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(6, 26, 61, 0.6);
+          backdrop-filter: blur(4px);
+          z-index: 9999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+          font-family: var(--font-body);
+          animation: fadeIn 0.22s ease;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .setup-card,
+        .picker-card {
+          background: #fff;
+          border-radius: 18px;
+          width: 100%;
+          box-shadow: 0 30px 70px -18px rgba(6, 26, 61, 0.6);
+          overflow: hidden;
+          animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .setup-card {
+          max-width: 580px;
+        }
+        .picker-card {
+          max-width: 740px;
+          max-height: 88vh;
+          display: flex;
+          flex-direction: column;
+        }
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+
+        .setup-head,
+        .picker-head {
+          background: linear-gradient(
+            135deg,
+            #0b2f6b 0%,
+            #1749a8 50%,
+            #2563eb 100%
+          );
+          color: #fff;
+          padding: 22px 26px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .setup-head .icon,
+        .picker-head .icon {
+          width: 46px;
+          height: 46px;
+          border-radius: 13px;
+          background: rgba(255, 255, 255, 0.16);
+          border: 1.5px solid rgba(255, 255, 255, 0.3);
+          display: grid;
+          place-items: center;
+          flex-shrink: 0;
+        }
+        .setup-head h2,
+        .picker-head h2 {
+          font-size: 18px;
+          font-weight: 700;
+          font-family: var(--font-head);
+          letter-spacing: -0.2px;
+          margin: 0;
+          text-align: left;
+          color: #fff;
+        }
+        .setup-head p,
+        .picker-head p {
+          font-size: 12.5px;
+          color: #dbeafe;
+          margin: 4px 0 0 0;
+          font-family: var(--font-body);
+        }
+        .picker-head .close-x {
+          margin-left: auto;
+          background: rgba(255, 255, 255, 0.2);
+          color: #fff;
+          border: 0;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 15px;
+          display: grid;
+          place-items: center;
+          padding: 0;
+          transition: 0.15s;
+        }
+        .picker-head .close-x:hover {
+          background: rgba(255, 255, 255, 0.38);
+        }
+
+        .setup-body {
+          padding: 24px 26px 26px;
+          font-family: var(--font-body);
+        }
+
+        .data-status {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: var(--blue-50);
+          border: 1px solid var(--blue-200);
+          border-left: 4px solid var(--blue-600);
+          padding: 12px 14px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          font-size: 13px;
+          color: var(--blue-900);
+          font-weight: 600;
+          line-height: 1.5;
+        }
+        .data-status.warn {
+          background: #fffbeb;
+          border-color: #fde68a;
+          border-left-color: #d97706;
+          color: #78350f;
+        }
+        .data-status .badge {
+          background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+          color: #fff;
+          padding: 3px 10px;
+          border-radius: 100px;
+          font-size: 12px;
+          font-weight: 700;
+          flex-shrink: 0;
+        }
+        .data-status.warn .badge {
+          background: #d97706;
+        }
+
+        .option-title {
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--muted);
+          text-transform: uppercase;
+          letter-spacing: 0.6px;
+          margin-bottom: 10px;
+        }
+        .option-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .option-card {
+          border: 2px solid var(--blue-100);
+          border-radius: 14px;
+          padding: 16px 16px 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+          text-align: left;
+          font-family: inherit;
+        }
+        .option-card:hover {
+          border-color: var(--blue-500);
+          background: var(--blue-50);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 24px -16px rgba(37, 99, 235, 0.9);
+        }
+        .option-card.disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+        .option-card .opt-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 11px;
+          display: grid;
+          place-items: center;
+          color: #fff;
+        }
+        .option-card.list .opt-icon {
+          background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        }
+        .option-card.manual .opt-icon {
+          background: linear-gradient(135deg, #1749a8, #3b82f6);
+        }
+        .option-card .opt-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--ink);
+          text-transform: none;
+          letter-spacing: 0;
+          margin: 0;
+        }
+        .option-card .opt-desc {
+          font-size: 12px;
+          color: var(--muted);
+          line-height: 1.55;
+        }
+
+        .picker-search {
+          padding: 14px 22px;
+          border-bottom: 1px solid var(--blue-100);
+          position: relative;
+          display: flex;
+          align-items: center;
+          background: var(--blue-50);
+          flex-shrink: 0;
+        }
+        .picker-search svg {
+          position: absolute;
+          left: 34px;
+          color: var(--blue-400);
+          pointer-events: none;
+        }
+        .picker-search input {
+          width: 100%;
+          padding: 11px 14px 11px 38px;
+          border: 1.5px solid var(--blue-200);
+          border-radius: 10px;
+          font-size: 13.5px;
+          font-family: var(--font-body);
+          background: #fff;
+          margin: 0;
+          outline: none;
+          transition: 0.15s;
+          box-sizing: border-box;
+        }
+        .picker-search input:focus {
+          border-color: var(--blue-500);
+          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13);
+        }
+        .picker-list {
+          flex: 1;
+          overflow-y: auto;
+          padding: 12px 16px 18px;
+          min-height: 0;
+          font-family: var(--font-body);
+        }
+        .picker-list::-webkit-scrollbar {
+          width: 8px;
+        }
+        .picker-list::-webkit-scrollbar-track {
+          background: var(--blue-50);
+        }
+        .picker-list::-webkit-scrollbar-thumb {
+          background: var(--blue-300);
+          border-radius: 4px;
+        }
+
+        .student-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 11px 14px;
+          border: 1.5px solid var(--blue-100);
+          border-radius: 12px;
+          margin-bottom: 8px;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          background: #fff;
+        }
+        .student-item:hover {
+          border-color: var(--blue-500);
+          background: var(--blue-50);
+          transform: translateX(3px);
+        }
+        .student-item .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          font-weight: 800;
+          font-size: 15px;
+          color: #fff;
+          flex-shrink: 0;
+        }
+        .student-item .avatar.male {
+          background: linear-gradient(135deg, #123f8c, #1d4ed8);
+        }
+        .student-item .avatar.female {
+          background: linear-gradient(135deg, #3b82f6, #93c5fd);
+        }
+        .student-item .info {
+          flex: 1;
+          min-width: 0;
+        }
+        .student-item .name {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--ink);
+          margin-bottom: 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .student-item .meta {
+          font-size: 11.5px;
+          color: var(--muted);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .student-item .badges {
+          display: flex;
+          gap: 5px;
+          flex-shrink: 0;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .student-item .badge {
+          font-size: 10.5px;
+          font-weight: 700;
+          padding: 3px 9px;
+          border-radius: 100px;
+          background: var(--blue-50);
+          color: var(--blue-800);
+          border: 1px solid var(--blue-200);
+          white-space: nowrap;
+          font-family: var(--font-num);
+        }
+        .student-item .badge.roll {
+          background: var(--blue-600);
+          color: #fff;
+          border-color: var(--blue-600);
+        }
+        .picker-empty {
+          text-align: center;
+          padding: 44px 20px;
+          color: var(--muted);
+          font-family: var(--font-body);
+          font-size: 13.5px;
+        }
+        .picker-footer {
+          padding: 12px 22px;
+          border-top: 1px solid var(--blue-100);
+          background: var(--blue-50);
+          text-align: right;
+          flex-shrink: 0;
+        }
+        .picker-footer .btn-cancel {
+          padding: 9px 22px;
+          border-radius: 9px;
+          background: #fff;
+          color: var(--blue-800);
+          font-size: 13px;
+          font-weight: 700;
+          border: 1.5px solid var(--blue-200);
+          cursor: pointer;
+          font-family: inherit;
+          margin: 0;
+          transition: 0.15s;
+        }
+        .picker-footer .btn-cancel:hover {
+          border-color: var(--blue-500);
+          background: var(--blue-50);
+        }
+
+        @media (max-width: 640px) {
+          .option-grid {
+            grid-template-columns: 1fr;
+          }
+          .setup-card,
+          .picker-card {
+            max-height: 92vh;
+          }
+          .setup-head,
+          .picker-head {
+            padding: 18px 18px;
+          }
+          .setup-body {
+            padding: 20px 18px 22px;
+          }
+        }
+      }
+
+      /* ===== Screen optimization (safe-area / touch / a11y) ===== */
+      :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+        outline: 3px solid rgba(29, 78, 216, 0.38);
+        outline-offset: 2px;
+      }
+      .unified-backup-bar {
+        position: fixed;
+        top: max(12px, env(safe-area-inset-top, 0px));
+        right: max(12px, env(safe-area-inset-right, 0px));
+        z-index: 9998;
+        display: flex;
+        gap: 6px;
+      }
+      .unified-backup-bar button {
+        padding: 7px 13px;
+        border-radius: 8px;
+        border: 1px solid rgba(29, 78, 216, 0.25);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--blue-700);
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        box-shadow: 0 2px 8px rgba(29, 78, 216, 0.12);
+        transition: all 0.15s ease;
+      }
+      .unified-backup-bar button:hover {
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
+        transform: translateY(-1px);
+      }
+      @supports (padding: env(safe-area-inset-top)) {
+        .setup-overlay,
+        .picker-overlay {
+          padding-top: max(20px, env(safe-area-inset-top, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+          padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+        }
+        .form-head {
+          padding-top: max(22px, env(safe-area-inset-top, 0px));
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .option-card,
+        .picker-footer .btn-cancel {
+          min-height: 42px;
+        }
+        .unified-backup-bar button {
+          min-height: 40px;
+          padding: 8px 14px;
+          font-size: 13px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+      @media print {
+        .unified-backup-bar {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ============================================================
+         SETUP MODAL
+    ============================================================ -->
+    <div class="setup-overlay" id="setupOverlay">
+      <div class="setup-card">
+        <div class="setup-head">
+          <div class="icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <path d="M9 15l2 2 4-4"></path>
+            </svg>
+          </div>
+          <div>
+            <h2>প্রত্যয়নপত্র তৈরি করুন</h2>
+            <p>শুরু করার পদ্ধতি নির্বাচন করুন</p>
+          </div>
+        </div>
+        <div class="setup-body">
+          <div class="data-status" id="dataStatus">
+            <span class="badge" id="dataStatusBadge">✓</span>
+            <span id="dataStatusText"></span>
+          </div>
+          <div class="option-title">কীভাবে তথ্য দিতে চান?</div>
+          <div class="option-grid">
+            <button
+              class="option-card list"
+              id="optList"
+              onclick="openPicker()"
+            >
+              <div class="opt-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                </svg>
+              </div>
+              <div class="opt-title">তালিকা থেকে নির্বাচন</div>
+              <div class="opt-desc" id="optListDesc">
+                সংরক্ষিত শিক্ষার্থীদের তালিকা থেকে একজনকে বেছে নিন
+              </div>
+            </button>
+            <button class="option-card manual" onclick="startManual()">
+              <div class="opt-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 20h9"></path>
+                  <path
+                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="opt-title">নতুন তথ্য দিয়ে তৈরি</div>
+              <div class="opt-desc">
+                ফর্মে সরাসরি শিক্ষার্থীর তথ্য লিখে প্রত্যয়নপত্র তৈরি করুন
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         STUDENT PICKER
+    ============================================================ -->
+    <div class="picker-overlay" id="pickerOverlay" style="display: none">
+      <div class="picker-card">
+        <div class="picker-head">
+          <div class="icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <div>
+            <h2>শিক্ষার্থী নির্বাচন করুন</h2>
+            <p id="pickerCount">মোট ০ জন শিক্ষার্থী</p>
+          </div>
+          <button class="close-x" onclick="closePicker()" title="বন্ধ">
+            ✕
+          </button>
+        </div>
+        <div class="picker-search">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="pickerSearch"
+            placeholder="নাম, রোল, শ্রেণি, গ্রাম বা পিতার নাম দিয়ে খুঁজুন..."
+            oninput="filterPicker()"
+            autocomplete="off"
+          />
+        </div>
+        <div class="picker-list" id="pickerList"></div>
+        <div class="picker-footer">
+          <button type="button" class="btn-cancel" onclick="closePicker()">
+            বাতিল
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         FORM
+    ============================================================ -->
+    <div id="formArea">
+      <div class="form-shell">
+        <div class="form-head">
+          <div class="fh-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 20h9"></path>
+              <path
+                d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3>শিক্ষার্থীর ব্যক্তিগত ও একাডেমিক তথ্য পূরণ করুন</h3>
+            <p>তথ্য স্বয়ংক্রিয়ভাবে প্রত্যয়নপত্রে যুক্ত হবে</p>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="smart-banner" id="smartBanner" style="display: none">
+            <span class="check">✓</span>
+            <span id="smartBannerText"
+              >শিক্ষার্থী তালিকা থেকে তথ্য স্বয়ংক্রিয়ভাবে পূরণ করা
+              হয়েছে</span
+            >
+            <button class="change-btn" onclick="openPicker()">
+              ↻ পরিবর্তন করুন
+            </button>
+          </div>
+
+          <div id="formArea2">
+            <div class="field">
+              <label for="nameBn">পূর্ণ নাম (বাংলা)</label>
+              <input type="text" id="nameBn" placeholder="নাম" />
+            </div>
+            <div class="field field-en">
+              <label for="nameEn"
+                >FULL NAME (ENGLISH) <span class="tag-en">EN</span></label
+              >
+              <input
+                type="text"
+                id="nameEn"
+                placeholder="NAME"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="characters"
+              />
+            </div>
+            <div class="field">
+              <label for="father">পিতার পূর্ণনাম</label
+              ><input type="text" id="father" placeholder="পিতার নাম" />
+            </div>
+            <div class="field">
+              <label for="mother">মাতার পূর্ণনাম</label
+              ><input type="text" id="mother" placeholder="মাতার নাম" />
+            </div>
+            <div class="field">
+              <label for="village">গ্রাম</label
+              ><input type="text" id="village" placeholder="গ্রাম" />
+            </div>
+            <div class="field">
+              <label for="post">ডাকঘর</label
+              ><input type="text" id="post" placeholder="ডাকঘর" />
+            </div>
+            <div class="field">
+              <label for="upazila">উপজেলা/থানা</label
+              ><input type="text" id="upazila" placeholder="উপজেলা/থানা" />
+            </div>
+            <div class="field">
+              <label for="district">জেলা</label
+              ><input type="text" id="district" placeholder="জেলা" />
+            </div>
+            <div class="field">
+              <label for="class">শ্রেণি</label
+              ><input type="text" id="class" placeholder="শ্রেণি" />
+            </div>
+            <div class="field">
+              <label for="roll">রোল নং</label
+              ><input type="text" id="roll" placeholder="রোল নং" />
+            </div>
+            <div class="field">
+              <label for="session">শিক্ষাবর্ষ</label
+              ><input type="text" id="session" placeholder="শিক্ষাবর্ষ" />
+            </div>
+            <div class="field">
+              <label for="type">শিক্ষার্থীর ধরন</label>
+              <select id="type">
+                <option value="ছাত্র">ছাত্র</option>
+                <option value="ছাত্রী">ছাত্রী</option>
+              </select>
+            </div>
+            <div class="field field-date">
+              <label for="dobNum">জন্ম তারিখ (DD/MM/YYYY)</label>
+              <input
+                type="text"
+                id="dobNum"
+                placeholder="১৫/০৩/২০১৪"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="dobWord">জন্ম তারিখ (কথায়)</label>
+              <input
+                type="text"
+                id="dobWord"
+                placeholder="পনেরোই মার্চ দুই হাজার চৌদ্দ"
+              />
+            </div>
+            <div class="field">
+              <label for="serial">সিরিয়াল নং</label
+              ><input type="text" id="serial" placeholder="সিরিয়াল নং" />
+            </div>
+            <div class="field field-date">
+              <label for="certDate">প্রত্যয়নপত্র প্রদানের তারিখ</label>
+              <input
+                type="text"
+                id="certDate"
+                placeholder="দিন/মাস/বছর"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="window.print()">
+                Print | PDF
+              </button>
+            </div>
+
+            <h4>Version: 1.2.0 <br />By: Naimul Hassan | +8801703360336</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         CERTIFICATE
+    ============================================================ -->
+    <div class="cert-paper">
+      <div class="cert-page">
+        <div id="container">
+          <table class="cert-header">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <tr>
+              <td class="ch-left">
+                <div class="serial-block">
+                  <h4>
+                    সিরিয়াল নং:
+                    <span class="nikFont" id="outSerial">………………</span>
+                  </h4>
+                  <div id="qrContainer" class="qr-wrap">
+                    <div class="qr-fallback">QR</div>
+                  </div>
+                </div>
+              </td>
+              <td class="ch-center">
+                <img id="sclPic" src="img/bg-cer.png" alt="School Logo" />
+              </td>
+              <td class="ch-right">
+                <h4>
+                  তারিখ: <span id="outDate" class="nikFont">………………</span> খ্রি.
+                </h4>
+                <div class="student-photo-slot"></div>
+              </td>
+            </tr>
+          </table>
+
+          <div id="title">
+            <h1>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</h1>
+            <h3>হেমনগর, গোপালপুর, টাঙ্গাইল</h3>
+            <h4>বিদ‌্যালয় কোড: ১২৭৭৯৫</h4>
+            <img id="cerLogo" src="img/cer_logo.png" alt="Certificate Logo" />
+          </div>
+
+          <p class="mainText">
+            এই মর্মে প্রত্যয়ন করা যাচ্ছে যে,
+            <span class="field" id="outNameBn">………………</span>
+            [<span id="outNameEn">………………</span>], পিতা:
+            <span class="field" id="outFather">………………</span>, মাতা:
+            <span class="field" id="outMother">………………</span>, গ্রাম:
+            <span class="field" id="outVillage">………………</span>, ডাকঘর:
+            <span class="field" id="outPost">………………</span>, উপজেলা/থানা:
+            <span class="field" id="outUpazila">………………</span>, জেলা:
+            <span class="field" id="outDistrict">………………</span>, শ্রেণি:
+            <span class="field nikFont" id="outClass">…………</span>, রোল নং:
+            <span class="field nikFont" id="outRoll">…………</span>, অত্র
+            বিদ্যালয়ের
+            <span class="field nikFont" id="outSession">…………</span> শিক্ষাবর্ষের
+            একজন নিয়মিত <span class="field" id="outType">…………</span>। বিদ্যালয়ের
+            ভর্তি রেকর্ড অনুযায়ী তার জন্ম তারিখ:
+            <span class="field nikFont" id="outDobNum">…………</span>
+            খ্রি., কথায়:
+            <span class="field" id="outDobWord">………………………………</span>। তার স্বভাব
+            চরিত্র ভালো। <br /><br />
+            আমরা তার সর্বাঙ্গীন মঙ্গল ও সাফল্য কামনা করি।
+          </p>
+          <img
+            id="backgroundImg"
+            src="img/SCHOOL-LOGO-background.png"
+            alt="Background Image"
+          />
+
+          <div class="doubleText">
+            <h4><span class="uppLine">শ্রেণি শিক্ষকের স্বাক্ষর</span></h4>
+            <h4>সিল</h4>
+            <h4><span class="uppLine">প্রধান শিক্ষকের স্বাক্ষর</span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         UNIFIED BACKUP BAR + hidden restore input
+    ============================================================ -->
+    <input
+      type="file"
+      id="restoreFileInput"
+      accept=".json,application/json"
+      style="display: none"
+    />
+    <div class="unified-backup-bar">
+      <button
+        type="button"
+        onclick="UnifiedBackup.backup()"
+        title="school + teachers + students — সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+      >
+        সব ডেটা ব্যাকআপ
+      </button>
+      <button
+        type="button"
+        onclick="document.getElementById('restoreFileInput').click()"
+        title="সব ডেটা (school + teachers + students) রিস্টোর"
+      >
+        সব ডেটা রিস্টোর
+      </button>
+    </div>
+
+    <!-- ============================================================
+         UNIFIED BACKUP v1.1.1-pro — identical block in every page
+    ============================================================ -->
+    <script>
+      (function () {
+        "use strict";
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_VERSION = "1.1.1-pro";
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {};
+          var any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appVersion: APP_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+        var modal = null,
+          pending = null;
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled /><div><div class="ub-title">' +
+                esc(s.label) +
+                '</div><div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option><option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '"><input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked /><div><div class="ub-title">' +
+              esc(s.label) +
+              '</div><div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (m.appVersion
+              ? " &nbsp;•&nbsp; সংস্করণ: " + esc(m.appVersion)
+              : "") +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>' +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button><button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+        window.UnifiedBackup = {
+          VERSION: APP_VERSION,
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <!-- ============================================================
+         Certificate page logic
+    ============================================================ -->
+    <script>
+      "use strict";
+
+      /* QR generator — byte mode, EC-M, auto version 1-9 */
+      const QRCodeGen = (function () {
+        const EC = [
+          0,
+          [10, 1, 16, 0, 0],
+          [16, 1, 28, 0, 0],
+          [26, 1, 44, 0, 0],
+          [18, 2, 32, 0, 0],
+          [24, 2, 43, 0, 0],
+          [16, 4, 27, 0, 0],
+          [18, 4, 31, 0, 0],
+          [22, 2, 38, 2, 39],
+          [22, 3, 36, 2, 37],
+        ];
+        const EXP = [],
+          LOG = [];
+        for (
+          let i = 0, x = 1;
+          i < 255;
+          i++, x = (x << 1) ^ (x & 128 ? 285 : 0)
+        ) {
+          EXP[i] = x;
+          LOG[x] = i;
+        }
+        const mul = (a, b) => (a && b ? EXP[(LOG[a] + LOG[b]) % 255] : 0);
+        function rs(data, n) {
+          let g = [1];
+          for (let i = 0; i < n; i++) {
+            const h = g.concat(0);
+            g.forEach((c, j) => (h[j + 1] ^= mul(c, EXP[i])));
+            g = h;
+          }
+          const r = new Array(n).fill(0);
+          data.forEach((d) => {
+            const f = d ^ r.shift();
+            r.push(0);
+            g.slice(1).forEach((c, j) => (r[j] ^= mul(c, f)));
+          });
+          return r;
+        }
+        const MASKS = [
+          (x, y) => (x + y) % 2 == 0,
+          (x, y) => y % 2 == 0,
+          (x, y) => x % 3 == 0,
+          (x, y) => (x + y) % 3 == 0,
+          (x, y) => (((x / 3) | 0) + ((y / 2) | 0)) % 2 == 0,
+          (x, y) => ((x * y) % 2) + ((x * y) % 3) == 0,
+          (x, y) => (((x * y) % 2) + ((x * y) % 3)) % 2 == 0,
+          (x, y) => (((x + y) % 2) + ((x * y) % 3)) % 2 == 0,
+        ];
+        function penalty(m) {
+          const n = m.length,
+            P = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0],
+            Q = P.slice().reverse();
+          let s = 0,
+            dark = 0;
+          for (let a = 0; a < n; a++)
+            for (let t = 0; t < 2; t++) {
+              const g = (i) => (t ? m[i][a] : m[a][i]);
+              let run = 1;
+              for (let i = 0; i < n; i++) {
+                if (g(i)) dark++;
+                if (i && g(i) == g(i - 1)) {
+                  run++;
+                  if (run == 5) s += 3;
+                  else if (run > 5) s++;
+                } else run = 1;
+                if (i + 11 <= n) {
+                  let p = 1,
+                    q = 1;
+                  for (let k = 0; k < 11; k++) {
+                    const v = +g(i + k);
+                    if (v != P[k]) p = 0;
+                    if (v != Q[k]) q = 0;
+                  }
+                  s += 40 * (p + q);
+                }
+              }
+            }
+          for (let y = 0; y < n - 1; y++)
+            for (let x = 0; x < n - 1; x++)
+              if (
+                m[y][x] == m[y][x + 1] &&
+                m[y][x] == m[y + 1][x] &&
+                m[y][x] == m[y + 1][x + 1]
+              )
+                s += 3;
+          return (
+            s + (Math.ceil(Math.abs(dark * 20 - n * n * 10) / (n * n)) - 1) * 10
+          );
+        }
+        function generate(text) {
+          const bytes = Array.from(new TextEncoder().encode(text));
+          let v = 1;
+          const cap = (k) => EC[k][1] * EC[k][2] + EC[k][3] * EC[k][4];
+          while (v <= 9 && cap(v) < bytes.length + 2) v++;
+          if (v > 9) return null;
+          const [ecn, n1, d1, n2, d2] = EC[v],
+            total = cap(v);
+          const bits = [];
+          const put = (val, len) => {
+            for (let i = len - 1; i >= 0; i--) bits.push((val >>> i) & 1);
+          };
+          put(4, 4);
+          put(bytes.length, 8);
+          bytes.forEach((b) => put(b, 8));
+          put(0, Math.min(4, total * 8 - bits.length));
+          while (bits.length % 8) bits.push(0);
+          const cw = [];
+          for (let i = 0; i < bits.length; i += 8)
+            cw.push(parseInt(bits.slice(i, i + 8).join(""), 2));
+          for (let p = 0xec; cw.length < total; p ^= 0xec ^ 0x11) cw.push(p);
+          const blocks = [];
+          for (let i = 0, o = 0; i < n1 + n2; i++) {
+            const d = cw.slice(o, (o += i < n1 ? d1 : d2));
+            blocks.push({ d, e: rs(d, ecn) });
+          }
+          const out = [];
+          for (let i = 0; i < d2 + (n2 ? 0 : d1); i++)
+            blocks.forEach((b) => i < b.d.length && out.push(b.d[i]));
+          for (let i = 0; i < ecn; i++) blocks.forEach((b) => out.push(b.e[i]));
+          const data = out.flatMap((c) =>
+            Array.from({ length: 8 }, (_, i) => (c >> (7 - i)) & 1),
+          );
+          const n = 17 + 4 * v;
+          const m = Array.from({ length: n }, () => new Array(n).fill(false));
+          const fn = Array.from({ length: n }, () => new Array(n).fill(false));
+          const set = (x, y, d) => {
+            if (x >= 0 && y >= 0 && x < n && y < n) {
+              m[y][x] = !!d;
+              fn[y][x] = true;
+            }
+          };
+          for (let i = 0; i < n; i++) {
+            set(6, i, i % 2 == 0);
+            set(i, 6, i % 2 == 0);
+          }
+          [
+            [3, 3],
+            [n - 4, 3],
+            [3, n - 4],
+          ].forEach(([cx, cy]) => {
+            for (let dy = -4; dy <= 4; dy++)
+              for (let dx = -4; dx <= 4; dx++) {
+                const d = Math.max(Math.abs(dx), Math.abs(dy));
+                set(cx + dx, cy + dy, d != 4 && d != 2);
+              }
+          });
+          if (v > 1) {
+            const k = ((v / 7) | 0) + 2,
+              step = v == 32 ? 26 : Math.ceil((v * 4 + 4) / (k * 2 - 2)) * 2;
+            const pos = [6];
+            for (let p = n - 7; pos.length < k; p -= step) pos.splice(1, 0, p);
+            pos.forEach((cy, i) =>
+              pos.forEach((cx, j) => {
+                if (
+                  (i == 0 && j == 0) ||
+                  (i == 0 && j == k - 1) ||
+                  (i == k - 1 && j == 0)
+                )
+                  return;
+                for (let dy = -2; dy <= 2; dy++)
+                  for (let dx = -2; dx <= 2; dx++)
+                    set(
+                      cx + dx,
+                      cy + dy,
+                      Math.max(Math.abs(dx), Math.abs(dy)) != 1,
+                    );
+              }),
+            );
+          }
+          const fmt = (mask) => {
+            let r = mask;
+            for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+            const b = ((mask << 10) | r) ^ 0x5412,
+              g = (i) => (b >>> i) & 1;
+            for (let i = 0; i < 6; i++) set(8, i, g(i));
+            set(8, 7, g(6));
+            set(8, 8, g(7));
+            set(7, 8, g(8));
+            for (let i = 9; i < 15; i++) set(14 - i, 8, g(i));
+            for (let i = 0; i < 8; i++) set(n - 1 - i, 8, g(i));
+            for (let i = 8; i < 15; i++) set(8, n - 15 + i, g(i));
+            set(8, n - 8, true);
+          };
+          fmt(0);
+          if (v >= 7) {
+            let r = v;
+            for (let i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1f25);
+            const b = (v << 12) | r;
+            for (let i = 0; i < 18; i++) {
+              const a = n - 11 + (i % 3),
+                c = (i / 3) | 0;
+              set(a, c, (b >>> i) & 1);
+              set(c, a, (b >>> i) & 1);
+            }
+          }
+          for (let i = 0, right = n - 1; right >= 1; right -= 2) {
+            if (right == 6) right = 5;
+            for (let vert = 0; vert < n; vert++)
+              for (let j = 0; j < 2; j++) {
+                const x = right - j,
+                  y = ((right + 1) & 2) == 0 ? n - 1 - vert : vert;
+                if (!fn[y][x] && i < data.length) m[y][x] = !!data[i++];
+              }
+          }
+          const flip = (k) => {
+            for (let y = 0; y < n; y++)
+              for (let x = 0; x < n; x++)
+                if (!fn[y][x] && MASKS[k](x, y)) m[y][x] = !m[y][x];
+          };
+          let best = 0,
+            bestScore = Infinity;
+          for (let k = 0; k < 8; k++) {
+            flip(k);
+            fmt(k);
+            const s = penalty(m);
+            if (s < bestScore) {
+              bestScore = s;
+              best = k;
+            }
+            flip(k);
+          }
+          flip(best);
+          fmt(best);
+          return m;
+        }
+        /* School logo centered inside the QR (25 percent of width, black & white) */
+        const QR_LOGO = "img/SCHOOL-LOGO-round_bw.svg";
+        function logoMark(n, t) {
+          const size = n * 0.25,
+            pad = size * 0.08,
+            c = t / 2,
+            r = size / 2 + pad;
+          return (
+            '<defs><filter id="qrBw"><feColorMatrix type="saturate" values="0"/></filter></defs>' +
+            '<circle cx="' +
+            c +
+            '" cy="' +
+            c +
+            '" r="' +
+            r +
+            '" fill="#fff"/>' +
+            '<image href="' +
+            QR_LOGO +
+            '" x="' +
+            (c - size / 2) +
+            '" y="' +
+            (c - size / 2) +
+            '" width="' +
+            size +
+            '" height="' +
+            size +
+            '" filter="url(#qrBw)" shape-rendering="auto"/>'
+          );
+        }
+        function toSVG(text, px) {
+          const m = generate(text);
+          if (!m) return null;
+          const q = 4,
+            t = m.length + q * 2;
+          let d = "";
+          m.forEach((row, y) =>
+            row.forEach((on, x) => {
+              if (on) d += "M" + (x + q) + "," + (y + q) + "h1v1h-1z";
+            }),
+          );
+          return (
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+            t +
+            " " +
+            t +
+            '" width="' +
+            px +
+            '" height="' +
+            px +
+            '" shape-rendering="crispEdges"><rect width="' +
+            t +
+            '" height="' +
+            t +
+            '" fill="#fff"/><path d="' +
+            d +
+            '" fill="#000"/>' +
+            logoMark(m.length, t) +
+            "</svg>"
+          );
+        }
+        return { generate, toSVG };
+      })();
+
+      /* Constants */
+      const CERT_IMPORT_KEY = "hemnagar_students_cert_import";
+      const STUDENT_KEYS = [
+        "hemnagar_students_v20",
+        CERT_IMPORT_KEY,
+        "hemnagar_students_v19",
+        "hemnagar_students_v18",
+        "hemnagar_students_v17",
+        "hemnagar_students_v16",
+        "hemnagar_students_v15",
+        "hemnagar_students_v14",
+      ];
+      const CLASS_ORDER = {
+        "প্রাক প্রাথমিক ৪+": 0,
+        "প্রাক প্রাথমিক ৫+": 1,
+        "১ম (প্রথম)": 2,
+        "২য় (দ্বিতীয়)": 3,
+        "৩য় (তৃতীয়)": 4,
+        "৪র্থ (চতুর্থ)": 5,
+        "৫ম (পঞ্চম)": 6,
+        "পাঠচক্রের সমাপ্তি": 99,
+      };
+      const SCHOOL_DEFAULTS = { upazila: "গোপালপুর", district: "টাঙ্গাইল" };
+
+      const FIELD_MAP = {
+        nameBn: ["nameBn", "studentNameBn", "name", "name_bn"],
+        nameEn: [
+          "nameEn",
+          "studentNameEn",
+          "nameEnglish",
+          "englishName",
+          "name_en",
+        ],
+        father: [
+          "fatherNameBn",
+          "fathersNameBn",
+          "fatherName",
+          "father",
+          "fathersName",
+          "father_name",
+        ],
+        mother: [
+          "motherNameBn",
+          "mothersNameBn",
+          "motherName",
+          "mother",
+          "mothersName",
+          "mother_name",
+        ],
+        village: [
+          "currentVillage",
+          "village",
+          "presentVillage",
+          "permanentVillage",
+          "villageName",
+          "gram",
+        ],
+        post: [
+          "currentPostOffice",
+          "postOffice",
+          "presentPostOffice",
+          "permanentPostOffice",
+          "post",
+          "postOfficeName",
+        ],
+        upazila: [
+          "currentUpazila",
+          "upazila",
+          "presentUpazila",
+          "permanentUpazila",
+          "thana",
+          "currentThana",
+          "upazilla",
+        ],
+        district: [
+          "currentDistrict",
+          "district",
+          "presentDistrict",
+          "permanentDistrict",
+          "zila",
+          "jela",
+        ],
+        address: ["address", "fullAddress", "currentAddress", "presentAddress"],
+        class: ["class", "className", "grade", "classBn"],
+        roll: ["roll", "rollNo", "rollNumber", "roll_no"],
+        session: ["academicYear", "session", "year", "academicSession"],
+        gender: ["gender", "sex", "type", "studentType"],
+        dob: ["dob", "dateOfBirth", "dobNum", "birthDate", "birthday"],
+        dobWords: [
+          "dobBnWords",
+          "dobWords",
+          "dateOfBirthBnWords",
+          "dobInWords",
+        ],
+        serial: ["serial", "serialNo", "certSerial", "certificateSerial"],
+      };
+
+      const BN_ORDINALS = {
+        1: "পহেলা",
+        2: "দুইই",
+        3: "তেসরা",
+        4: "চৌঠা",
+        5: "পাঁচই",
+        6: "ছয়ই",
+        7: "সাতই",
+        8: "আটই",
+        9: "নয়ই",
+        10: "দশই",
+        11: "এগারোই",
+        12: "বারোই",
+        13: "তেরোই",
+        14: "চৌদ্দই",
+        15: "পনেরোই",
+        16: "ষোলোই",
+        17: "সতেরোই",
+        18: "আঠারোই",
+        19: "উনিশে",
+        20: "বিশে",
+        21: "একুশে",
+        22: "বাইশে",
+        23: "তেইশে",
+        24: "চব্বিশে",
+        25: "পঁচিশে",
+        26: "ছাব্বিশে",
+        27: "সাতাশে",
+        28: "আটাশে",
+        29: "ঊনত্রিশে",
+        30: "ত্রিশে",
+        31: "একত্রিশে",
+      };
+      const BN_MONTHS = {
+        1: "জানুয়ারি",
+        2: "ফেব্রুয়ারি",
+        3: "মার্চ",
+        4: "এপ্রিল",
+        5: "মে",
+        6: "জুন",
+        7: "জুলাই",
+        8: "আগস্ট",
+        9: "সেপ্টেম্বর",
+        10: "অক্টোবর",
+        11: "নভেম্বর",
+        12: "ডিসেম্বর",
+      };
+      const BN_WORDS_1_99 = [
+        "",
+        "এক",
+        "দুই",
+        "তিন",
+        "চার",
+        "পাঁচ",
+        "ছয়",
+        "সাত",
+        "আট",
+        "নয়",
+        "দশ",
+        "এগারো",
+        "বারো",
+        "তেরো",
+        "চৌদ্দ",
+        "পনেরো",
+        "ষোলো",
+        "সতেরো",
+        "আঠারো",
+        "উনিশ",
+        "বিশ",
+        "একুশ",
+        "বাইশ",
+        "তেইশ",
+        "চব্বিশ",
+        "পঁচিশ",
+        "ছাব্বিশ",
+        "সাতাশ",
+        "আটাশ",
+        "ঊনত্রিশ",
+        "ত্রিশ",
+        "একত্রিশ",
+        "বত্রিশ",
+        "তেত্রিশ",
+        "চৌত্রিশ",
+        "পঁয়ত্রিশ",
+        "ছত্রিশ",
+        "সাঁইত্রিশ",
+        "আটত্রিশ",
+        "ঊনচল্লিশ",
+        "চল্লিশ",
+        "একচল্লিশ",
+        "বিয়াল্লিশ",
+        "তেতাল্লিশ",
+        "চুয়াল্লিশ",
+        "পঁয়তাল্লিশ",
+        "ছেচল্লিশ",
+        "সাতচল্লিশ",
+        "আটচল্লিশ",
+        "ঊনপঞ্চাশ",
+        "পঞ্চাশ",
+        "একান্ন",
+        "বায়ান্ন",
+        "তিপ্পান্ন",
+        "চুয়ান্ন",
+        "পঞ্চান্ন",
+        "ছাপ্পান্ন",
+        "সাতান্ন",
+        "আটান্ন",
+        "ঊনষাট",
+        "ষাট",
+        "একষট্টি",
+        "বাষট্টি",
+        "তেষট্টি",
+        "চৌষট্টি",
+        "পঁয়ষট্টি",
+        "ছেষট্টি",
+        "সাতষট্টি",
+        "আটষট্টি",
+        "ঊনসত্তর",
+        "সত্তর",
+        "একাত্তর",
+        "বাহাত্তর",
+        "তিয়াত্তর",
+        "চুয়াত্তর",
+        "পঁচাত্তর",
+        "ছিয়াত্তর",
+        "সাতাত্তর",
+        "আটাত্তর",
+        "ঊনআশি",
+        "আশি",
+        "একাশি",
+        "বিরাশি",
+        "তিরাশি",
+        "চুরাশি",
+        "পঁচাশি",
+        "ছিয়াশি",
+        "সাতাশি",
+        "আটাশি",
+        "ঊননব্বই",
+        "নব্বই",
+        "একানব্বই",
+        "বিরানব্বই",
+        "তিরানব্বই",
+        "চুরানব্বই",
+        "পঁচানব্বই",
+        "ছিয়ানব্বই",
+        "সাতানব্বই",
+        "আটানব্বই",
+        "নিরানব্বই",
+      ];
+
+      let allStudents = [];
+      let filteredStudents = [];
+      let qrCacheKey = "";
+      const $ = (id) => document.getElementById(id);
+
+      function toEn(str) {
+        if (!str) return "";
+        const bn = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        return String(str).replace(/[০-৯]/g, (m) => bn.indexOf(m));
+      }
+      function toBn(str) {
+        if (str === null || str === undefined || str === "") return "";
+        const bn = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        return String(str).replace(/\d/g, (d) => bn[+d]);
+      }
+      function escapeHtml(t) {
+        return String(t == null ? "" : t)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function pad2(n) {
+        return String(n).padStart(2, "0");
+      }
+      function pick(obj, keys) {
+        if (!obj) return "";
+        for (let i = 0; i < keys.length; i++) {
+          const v = obj[keys[i]];
+          if (v !== undefined && v !== null && String(v).trim() !== "")
+            return String(v).trim();
+        }
+        return "";
+      }
+      function normaliseGender(v) {
+        const s = String(v || "")
+          .trim()
+          .toLowerCase();
+        if (!s) return "ছাত্র";
+        if (
+          s.indexOf("ছাত্রী") !== -1 ||
+          s.indexOf("female") !== -1 ||
+          s.indexOf("মহিলা") !== -1 ||
+          s === "f" ||
+          s === "মেয়ে"
+        )
+          return "ছাত্রী";
+        return "ছাত্র";
+      }
+      function sanitiseEnglishName(value) {
+        let v = toEn(String(value == null ? "" : value));
+        v = v.replace(/[^A-Za-z\s.'\-]/g, "");
+        v = v.replace(/\s{2,}/g, " ");
+        v = v.replace(/^[\s.'\-]+/, "");
+        return v.toUpperCase();
+      }
+      function parseAddressString(str) {
+        const out = { village: "", post: "", upazila: "", district: "" };
+        if (!str) return out;
+        const t = String(str);
+        const grab = function (labels) {
+          for (let i = 0; i < labels.length; i++) {
+            const lb = labels[i];
+            let re;
+            try {
+              re = new RegExp(lb + "\\s*[:：\\-]?\\s*([^,;\\n]+)");
+            } catch (e) {
+              continue;
+            }
+            const m = t.match(re);
+            if (m && m[1]) return m[1].trim();
+          }
+          return "";
+        };
+        out.village = grab(["গ্রামের নাম", "গ্রাম", "Village"]);
+        out.post = grab(["ডাকঘর", "পোস্ট অফিস", "Post Office", "ডাক"]);
+        out.upazila = grab([
+          "উপজেলা/থানা",
+          "উপজেলা",
+          "থানা",
+          "Upazila",
+          "Thana",
+        ]);
+        out.district = grab(["জেলা", "District", "জিলা"]);
+        return out;
+      }
+      function anyDateToCompact(value) {
+        if (!value) return "";
+        const eng = toEn(String(value)).trim();
+        if (!eng) return "";
+        let m = eng.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
+        if (m) return pad2(m[3]) + pad2(m[2]) + m[1];
+        m = eng.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/);
+        if (m) return pad2(m[1]) + pad2(m[2]) + m[3];
+        const digits = eng.replace(/\D/g, "");
+        if (digits.length === 8) {
+          const dd = parseInt(digits.slice(0, 2), 10),
+            mm = parseInt(digits.slice(2, 4), 10),
+            yyyy = parseInt(digits.slice(4), 10);
+          if (
+            dd >= 1 &&
+            dd <= 31 &&
+            mm >= 1 &&
+            mm <= 12 &&
+            yyyy >= 1900 &&
+            yyyy <= 2099
+          )
+            return digits;
+          const y2 = parseInt(digits.slice(0, 4), 10),
+            m2 = parseInt(digits.slice(4, 6), 10),
+            d2 = parseInt(digits.slice(6), 10);
+          if (
+            y2 >= 1900 &&
+            y2 <= 2099 &&
+            m2 >= 1 &&
+            m2 <= 12 &&
+            d2 >= 1 &&
+            d2 <= 31
+          )
+            return digits.slice(6, 8) + digits.slice(4, 6) + digits.slice(0, 4);
+          return digits;
+        }
+        return "";
+      }
+      function compactToSlash(compact) {
+        const d = toEn(compact).replace(/\D/g, "");
+        if (d.length !== 8) return "";
+        return d.slice(0, 2) + "/" + d.slice(2, 4) + "/" + d.slice(4);
+      }
+      function yearToBengaliWords(year) {
+        year = parseInt(year, 10);
+        if (!year || year < 1) return "";
+        const century = Math.floor(year / 100),
+          lastTwo = year % 100;
+        let prefix;
+        switch (century) {
+          case 17:
+            prefix = "সতেরো শত";
+            break;
+          case 18:
+            prefix = "আঠারো শত";
+            break;
+          case 19:
+            prefix = "উনিশ শত";
+            break;
+          case 20:
+            prefix = "দুই হাজার";
+            break;
+          case 21:
+            prefix = "একুশ শত";
+            break;
+          default:
+            prefix = toBn(century) + " শত";
+        }
+        if (lastTwo === 0) return prefix;
+        return prefix + " " + (BN_WORDS_1_99[lastTwo] || toBn(lastTwo));
+      }
+      function dateToBengaliWordsDDMMYYYY(ddmmyyyy) {
+        if (!ddmmyyyy) return "";
+        const eng = toEn(String(ddmmyyyy)).replace(/[^0-9]/g, "");
+        let d, m, y;
+        if (eng.length === 8) {
+          d = parseInt(eng.slice(0, 2), 10);
+          m = parseInt(eng.slice(2, 4), 10);
+          y = parseInt(eng.slice(4), 10);
+        } else {
+          const p = String(ddmmyyyy).split("/");
+          if (p.length === 3) {
+            d = parseInt(toEn(p[0]), 10);
+            m = parseInt(toEn(p[1]), 10);
+            y = parseInt(toEn(p[2]), 10);
+          }
+        }
+        if (!d || !m || !y || m < 1 || m > 12 || d < 1 || d > 31) return "";
+        return (
+          (BN_ORDINALS[d] || toBn(d)) +
+          " " +
+          (BN_MONTHS[m] || toBn(m)) +
+          " " +
+          yearToBengaliWords(y)
+        );
+      }
+      function applyDateMask(el) {
+        const raw = String(el.value == null ? "" : el.value);
+        const caret =
+          el.selectionStart == null ? raw.length : el.selectionStart;
+        const digitsBefore = toEn(raw.slice(0, caret)).replace(
+          /\D/g,
+          "",
+        ).length;
+        const digits = toEn(raw).replace(/\D/g, "").slice(0, 8);
+        let out = digits.slice(0, 2);
+        if (digits.length > 2) out += "/" + digits.slice(2, 4);
+        if (digits.length > 4) out += "/" + digits.slice(4, 8);
+        out = toBn(out);
+        if (el.value !== out) el.value = out;
+        const target = Math.min(digitsBefore, digits.length);
+        let pos = out.length;
+        if (target === 0) pos = 0;
+        else {
+          let seen = 0;
+          for (let i = 0; i < out.length; i++) {
+            if (/[0-9০-৯]/.test(out[i])) {
+              seen++;
+              if (seen === target) {
+                pos = i + 1;
+                break;
+              }
+            }
+          }
+        }
+        try {
+          el.setSelectionRange(pos, pos);
+        } catch (e) {}
+      }
+
+      function loadStudents() {
+        for (const key of STUDENT_KEYS) {
+          try {
+            const raw = localStorage.getItem(key);
+            if (!raw) continue;
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr) && arr.length > 0) return arr;
+          } catch (e) {}
+        }
+        return [];
+      }
+      function sortStudentsForPicker(arr) {
+        return [...arr].sort((a, b) => {
+          const ca = CLASS_ORDER[pick(a, FIELD_MAP.class)] ?? 50,
+            cb = CLASS_ORDER[pick(b, FIELD_MAP.class)] ?? 50;
+          if (ca !== cb) return ca - cb;
+          const ra = parseInt(toEn(pick(a, FIELD_MAP.roll)), 10) || 0,
+            rb = parseInt(toEn(pick(b, FIELD_MAP.roll)), 10) || 0;
+          if (ra !== rb) return ra - rb;
+          return String(pick(a, FIELD_MAP.nameBn) || "").localeCompare(
+            String(pick(b, FIELD_MAP.nameBn) || ""),
+            "bn",
+          );
+        });
+      }
+
+      function showSetup() {
+        allStudents = loadStudents();
+        const status = $("dataStatus"),
+          badge = $("dataStatusBadge"),
+          text = $("dataStatusText");
+        const optList = $("optList"),
+          optListDesc = $("optListDesc");
+        let hasImport = false;
+        try {
+          const raw = localStorage.getItem(CERT_IMPORT_KEY);
+          if (raw) {
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr) && arr.length > 0) hasImport = true;
+          }
+        } catch (e) {}
+        if (allStudents.length > 0) {
+          status.classList.remove("warn");
+          badge.textContent = "✓";
+          text.innerHTML =
+            "শিক্ষার্থী তালিকায় <strong>" +
+            toBn(allStudents.length) +
+            " জন</strong> শিক্ষার্থীর তথ্য সংরক্ষিত আছে।" +
+            (hasImport
+              ? ' <span style="color:#1d4ed8">(JSON ইমপোর্ট থেকে লোড করা)</span>'
+              : "");
+          optList.classList.remove("disabled");
+          optListDesc.textContent =
+            toBn(allStudents.length) +
+            " জনের তালিকা থেকে একজনকে বেছে নিন — সব তথ্য স্বয়ংক্রিয়ভাবে পূরণ হবে";
+        } else {
+          status.classList.add("warn");
+          badge.textContent = "!";
+          text.innerHTML =
+            "কোনো সংরক্ষিত তথ্য পাওয়া যায়নি। অনুগ্রহ করে ম্যানুয়ালি পূরণ করুন, অথবা <strong>সব ডেটা রিস্টোর</strong> ব্যবহার করে ব্যাকআপ ফিরিয়ে আনুন।";
+          optList.classList.add("disabled");
+          optListDesc.textContent =
+            "তালিকা খালি — সব ডেটা রিস্টোর করুন অথবা ম্যানুয়ালি পূরণ করুন";
+        }
+      }
+      function startManual() {
+        hideSetup();
+        $("smartBanner").style.display = "none";
+        if (!$("upazila").value) $("upazila").value = SCHOOL_DEFAULTS.upazila;
+        if (!$("district").value)
+          $("district").value = SCHOOL_DEFAULTS.district;
+        setDefaultDate();
+        generatePreview();
+      }
+      function hideSetup() {
+        $("setupOverlay").style.display = "none";
+      }
+
+      function openPicker() {
+        if (allStudents.length === 0) {
+          alert(
+            "শিক্ষার্থী তালিকা খালি। ম্যানুয়ালি তথ্য পূরণ করুন অথবা সব ডেটা রিস্টোর করুন।",
+          );
+          return;
+        }
+        $("setupOverlay").style.display = "none";
+        $("pickerOverlay").style.display = "flex";
+        $("pickerSearch").value = "";
+        $("pickerCount").textContent =
+          "মোট " + toBn(allStudents.length) + " জন শিক্ষার্থী";
+        filteredStudents = sortStudentsForPicker(allStudents);
+        renderPickerList();
+        setTimeout(() => $("pickerSearch").focus(), 80);
+      }
+      function closePicker() {
+        $("pickerOverlay").style.display = "none";
+      }
+      function filterPicker() {
+        const qRaw = toEn($("pickerSearch").value).toLowerCase().trim();
+        if (!qRaw) filteredStudents = sortStudentsForPicker(allStudents);
+        else {
+          const terms = qRaw.split(/\s+/).filter(Boolean);
+          const matched = allStudents.filter((s) => {
+            const hay = [
+              pick(s, FIELD_MAP.nameBn),
+              pick(s, FIELD_MAP.nameEn),
+              pick(s, FIELD_MAP.roll),
+              pick(s, FIELD_MAP.class),
+              pick(s, FIELD_MAP.father),
+              pick(s, FIELD_MAP.mother),
+              pick(s, FIELD_MAP.session),
+              pick(s, FIELD_MAP.village),
+              pick(s, FIELD_MAP.post),
+              pick(s, FIELD_MAP.upazila),
+              pick(s, FIELD_MAP.district),
+              pick(s, FIELD_MAP.address),
+            ]
+              .filter(Boolean)
+              .map((v) => toEn(String(v)).toLowerCase())
+              .join(" ");
+            return terms.every((t) => hay.indexOf(t) !== -1);
+          });
+          filteredStudents = sortStudentsForPicker(matched);
+        }
+        renderPickerList();
+      }
+      function renderPickerList() {
+        const list = $("pickerList");
+        if (filteredStudents.length === 0) {
+          list.innerHTML =
+            '<div class="picker-empty">কোনো শিক্ষার্থী পাওয়া যায়নি।</div>';
+          return;
+        }
+        list.innerHTML = filteredStudents
+          .map((s) => {
+            const nameBn = pick(s, FIELD_MAP.nameBn);
+            const isFemale =
+              normaliseGender(pick(s, FIELD_MAP.gender)) === "ছাত্রী";
+            const initial = (nameBn || "?").trim().charAt(0);
+            const fatherVal = pick(s, FIELD_MAP.father),
+              villageVal = pick(s, FIELD_MAP.village);
+            const upazilaVal = pick(s, FIELD_MAP.upazila),
+              districtVal = pick(s, FIELD_MAP.district);
+            const metaLine = [
+              fatherVal ? "পিতা: " + escapeHtml(fatherVal) : "",
+              villageVal ? "গ্রাম: " + escapeHtml(villageVal) : "",
+              upazilaVal || districtVal
+                ? escapeHtml(
+                    [upazilaVal, districtVal].filter(Boolean).join(", "),
+                  )
+                : "",
+            ]
+              .filter(Boolean)
+              .join("  •  ");
+            const classVal = pick(s, FIELD_MAP.class),
+              rollVal = pick(s, FIELD_MAP.roll),
+              yearVal = pick(s, FIELD_MAP.session);
+            const classBadge = classVal
+              ? '<span class="badge">' + escapeHtml(classVal) + "</span>"
+              : "";
+            const rollBadge = rollVal
+              ? '<span class="badge roll">রোল ' +
+                escapeHtml(toBn(toEn(rollVal))) +
+                "</span>"
+              : "";
+            const yearBadge = yearVal
+              ? '<span class="badge">' +
+                escapeHtml(toBn(toEn(yearVal))) +
+                "</span>"
+              : "";
+            return (
+              '<div class="student-item" onclick="selectStudent(' +
+              allStudents.indexOf(s) +
+              ')"><div class="avatar ' +
+              (isFemale ? "female" : "male") +
+              '">' +
+              escapeHtml(initial) +
+              "</div>" +
+              '<div class="info"><div class="name">' +
+              escapeHtml(nameBn || "") +
+              "</div>" +
+              (metaLine ? '<div class="meta">' + metaLine + "</div>" : "") +
+              "</div>" +
+              '<div class="badges">' +
+              classBadge +
+              rollBadge +
+              yearBadge +
+              "</div></div>"
+            );
+          })
+          .join("");
+      }
+      function selectStudent(idx) {
+        const s = allStudents[idx];
+        if (!s) return;
+        let village = pick(s, FIELD_MAP.village),
+          post = pick(s, FIELD_MAP.post);
+        let upazila = pick(s, FIELD_MAP.upazila),
+          district = pick(s, FIELD_MAP.district);
+        if (!village || !post || !upazila || !district) {
+          const parsed = parseAddressString(pick(s, FIELD_MAP.address));
+          village = village || parsed.village;
+          post = post || parsed.post;
+          upazila = upazila || parsed.upazila;
+          district = district || parsed.district;
+        }
+        upazila = upazila || SCHOOL_DEFAULTS.upazila;
+        district = district || SCHOOL_DEFAULTS.district;
+        $("nameBn").value = pick(s, FIELD_MAP.nameBn);
+        $("nameEn").value = sanitiseEnglishName(pick(s, FIELD_MAP.nameEn));
+        $("father").value = pick(s, FIELD_MAP.father);
+        $("mother").value = pick(s, FIELD_MAP.mother);
+        $("village").value = village;
+        $("post").value = post;
+        $("upazila").value = upazila;
+        $("district").value = district;
+        $("class").value = pick(s, FIELD_MAP.class);
+        $("roll").value = toBn(toEn(pick(s, FIELD_MAP.roll)));
+        $("session").value = toBn(toEn(pick(s, FIELD_MAP.session)));
+        $("serial").value = toBn(toEn(pick(s, FIELD_MAP.serial)));
+        $("type").value = normaliseGender(pick(s, FIELD_MAP.gender));
+        const compact = anyDateToCompact(pick(s, FIELD_MAP.dob));
+        $("dobNum").value = compact ? toBn(compactToSlash(compact)) : "";
+        $("dobWord").value = compact
+          ? dateToBengaliWordsDDMMYYYY(compact)
+          : pick(s, FIELD_MAP.dobWords);
+        setDefaultDate();
+        closePicker();
+        $("smartBanner").style.display = "flex";
+        $("smartBannerText").textContent =
+          "✓ " +
+          ($("nameBn").value || "শিক্ষার্থী") +
+          " — " +
+          $("class").value +
+          " • সব তথ্য স্বয়ংক্রিয়ভাবে পূরণ করা হয়েছে";
+        generatePreview();
+        $("formArea").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      function setDefaultDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, "0"),
+          month = String(today.getMonth() + 1).padStart(2, "0"),
+          year = today.getFullYear();
+        $("certDate").value = toBn(day + "/" + month + "/" + year);
+      }
+      function generatePreview() {
+        const fields = [
+          ["nameBn", "outNameBn", false],
+          ["nameEn", "outNameEn", false],
+          ["father", "outFather", false],
+          ["mother", "outMother", false],
+          ["village", "outVillage", false],
+          ["post", "outPost", false],
+          ["upazila", "outUpazila", false],
+          ["district", "outDistrict", false],
+          ["class", "outClass", true],
+          ["roll", "outRoll", true],
+          ["session", "outSession", true],
+          ["type", "outType", false],
+          ["dobWord", "outDobWord", false],
+          ["serial", "outSerial", true],
+        ];
+        fields.forEach(function (f) {
+          const input = $(f[0]),
+            output = $(f[1]);
+          if (!input || !output) return;
+          let value = input.value.trim();
+          if (f[2]) value = toBn(value);
+          output.textContent = value || "………………";
+        });
+        const dobInput = $("dobNum"),
+          dobOutput = $("outDobNum");
+        if (dobInput && dobOutput) {
+          const val = toEn(dobInput.value.trim()).replace(/[^0-9]/g, "");
+          if (val.length === 8)
+            dobOutput.textContent = toBn(
+              val.slice(0, 2) + "/" + val.slice(2, 4) + "/" + val.slice(4),
+            );
+          else dobOutput.textContent = "…………";
+        }
+        const dateInput = $("certDate"),
+          dateOutput = $("outDate");
+        if (dateInput && dateOutput) {
+          const dv = dateInput.value.trim();
+          dateOutput.textContent = dv ? toBn(dv) : "………………";
+        }
+        updateQR();
+      }
+      const QR_SCHOOL = "Hemnagar Government Primary School";
+      function buildQRPayload() {
+        const v = (id) => toEn($(id).value || "").trim();
+        const c = v("class"),
+          pre = c.match(/(\d)\+/),
+          n = c.match(/\d/);
+        const cls = pre
+          ? "Pre" + pre[1] + "+"
+          : n
+            ? ["", "One", "Two", "Three", "Four", "Five"][n[0]] || c
+            : c;
+        return [
+          "School: " + QR_SCHOOL,
+          "Name: " + v("nameEn"),
+          "Class: " + cls,
+          "Roll: " + v("roll"),
+          "DoB: " + v("dobNum"),
+          "Issued: " + v("certDate"),
+        ].join("\n");
+      }
+      function updateQR() {
+        const box = $("qrContainer");
+        if (!box) return;
+        const payload = buildQRPayload();
+        if (payload === qrCacheKey && box.dataset.ready === "1") return;
+        qrCacheKey = payload;
+        const svg =
+          ($("nameEn").value.trim() || $("roll").value.trim()) &&
+          QRCodeGen.toSVG(payload, 160);
+        box.innerHTML = svg
+          ? svg + '<span class="qr-label">যাচাইকরণ</span>'
+          : '<div class="qr-fallback">QR</div>';
+        box.dataset.ready = svg ? "1" : "0";
+      }
+      function attachEnglishOnlyInput() {
+        const el = $("nameEn");
+        if (!el) return;
+        el.addEventListener("input", function () {
+          const before = this.value,
+            caret = this.selectionStart,
+            after = sanitiseEnglishName(before);
+          if (after !== before) {
+            this.value = after;
+            const removed = before.length - after.length;
+            const pos = Math.max(0, Math.min(after.length, caret - removed));
+            try {
+              this.setSelectionRange(pos, pos);
+            } catch (e) {}
+          }
+        });
+        el.addEventListener("keydown", function (e) {
+          if (e.ctrlKey || e.metaKey || e.altKey) return;
+          if (e.key.length !== 1) return;
+          if (!/[A-Za-z\s.'\-]/.test(e.key)) e.preventDefault();
+        });
+        el.addEventListener("blur", function () {
+          this.value = sanitiseEnglishName(this.value);
+        });
+      }
+      function attachDobAutoFill() {
+        const dobInput = $("dobNum");
+        if (!dobInput) return;
+        dobInput.addEventListener("input", function () {
+          applyDateMask(this);
+          const digits = toEn(this.value).replace(/\D/g, "");
+          if (digits.length === 8) {
+            const words = dateToBengaliWordsDDMMYYYY(digits);
+            if (words) $("dobWord").value = words;
+          }
+        });
+      }
+      function attachCertDateInput() {
+        const el = $("certDate");
+        if (!el) return;
+        el.addEventListener("input", function () {
+          applyDateMask(this);
+        });
+      }
+      function attachBanglaDigitInputs() {
+        ["roll", "session", "serial"].forEach(function (id) {
+          const el = $(id);
+          if (!el) return;
+          el.addEventListener("input", function () {
+            const converted = toBn(this.value);
+            if (converted !== this.value) this.value = converted;
+          });
+        });
+      }
+      function attachLivePreview() {
+        const ids = [
+          "nameBn",
+          "nameEn",
+          "father",
+          "mother",
+          "village",
+          "post",
+          "upazila",
+          "district",
+          "class",
+          "roll",
+          "session",
+          "type",
+          "dobNum",
+          "dobWord",
+          "serial",
+          "certDate",
+        ];
+        let pending = 0;
+        function schedule() {
+          if (pending) return;
+          pending = requestAnimationFrame(function () {
+            pending = 0;
+            generatePreview();
+          });
+        }
+        ids.forEach(function (id) {
+          const el = $(id);
+          if (!el) return;
+          const evt = el.tagName === "SELECT" ? "change" : "input";
+          el.addEventListener(evt, schedule);
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        attachEnglishOnlyInput();
+        attachDobAutoFill();
+        attachCertDateInput();
+        attachBanglaDigitInputs();
+        attachLivePreview();
+        showSetup();
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && $("pickerOverlay").style.display === "flex")
+            closePicker();
+        });
+        $("setupOverlay").addEventListener("click", function (e) {
+          if (e.target === $("setupOverlay")) {
+            hideSetup();
+            if (!$("upazila").value)
+              $("upazila").value = SCHOOL_DEFAULTS.upazila;
+            if (!$("district").value)
+              $("district").value = SCHOOL_DEFAULTS.district;
+            setDefaultDate();
+            generatePreview();
+          }
+        });
+        window.addEventListener("storage", function (e) {
+          const isRelevant =
+            e.key &&
+            (e.key === CERT_IMPORT_KEY || STUDENT_KEYS.indexOf(e.key) !== -1);
+          if (isRelevant) allStudents = loadStudents();
+        });
+        updateQR();
+
+        /* Unified restore handler */
+        document
+          .getElementById("restoreFileInput")
+          .addEventListener("change", function (e) {
+            UnifiedBackup.handleFile(e, "students");
+          });
+      });
+    </script>
+  </body>
+</html>

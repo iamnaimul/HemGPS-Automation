@@ -1,0 +1,3451 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <meta name="version" content="1.2.2" />
+    <link rel="icon" type="image/png" href="img/SCHOOL-LOGO-round.png" />
+    <title>MR Teachers | হেমনগর সরকারি প্রাথমিক বিদ্যালয়</title>
+    <style>
+      :root {
+        --page-bg: #eef1f5;
+        --card-bg: #ffffff;
+        --ink-900: #1f2937;
+        --ink-700: #374151;
+        --ink-500: #6b7280;
+        --ink-300: #9ca3af;
+        --ink-200: #d1d5db;
+        --brand-600: #1e40af;
+        --brand-700: #1d4ed8;
+        --accent-amber: #d97706;
+        --accent-amber-bg: #fffbeb;
+        --accent-amber-bd: #fcd34d;
+        --accent-rose: #b91c1c;
+        --accent-rose-bg: #fef2f2;
+        --accent-rose-bd: #fecaca;
+        --accent-emerald: #047857;
+        --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+        --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1);
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --radius-pill: 999px;
+        --pad-page: clamp(10px, 1.4vw, 20px);
+        --gap-sm: 10px;
+        --gap-md: 14px;
+        --font-body: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+        --font-head:
+          "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif;
+
+        --card: var(--card-bg);
+        --surface: #f5f6f8;
+        --text: var(--ink-900);
+        --text-soft: var(--ink-700);
+        --muted: var(--ink-500);
+        --border: var(--ink-200);
+        --border-strong: var(--ink-300);
+        --primary: #1e40af;
+        --primary-hover: #1d4ed8;
+        --primary-soft: #eff6ff;
+        --primary-soft-2: #dbeafe;
+        --gold-soft: #fffbeb;
+        --ring: 0 0 0 4px rgba(30, 64, 175, 0.16);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--page-bg);
+        color: var(--ink-900);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font-family: inherit;
+        font-size: inherit;
+        outline: none;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        background: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-head);
+        font-weight: 900;
+        letter-spacing: 0.15px;
+      }
+      :where(a, button, input, select, [tabindex]):focus-visible {
+        outline: 3px solid rgba(30, 64, 175, 0.38);
+        outline-offset: 2px;
+      }
+
+      /* ===== Top Bar ===== */
+      .top-bar {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        padding: 16px 26px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--gap-md);
+        flex-wrap: wrap;
+        box-shadow: var(--shadow-md);
+      }
+      .top-bar .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+      }
+      .top-bar .brand-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        display: grid;
+        place-items: center;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        flex-shrink: 0;
+      }
+      .top-bar h1 {
+        font-size: clamp(15px, 1.4vw, 18px);
+        font-weight: 900;
+        line-height: 1.25;
+      }
+      .top-bar p {
+        font-size: clamp(11.5px, 1vw, 12.5px);
+        opacity: 0.9;
+      }
+      .top-bar-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      /* ===== Buttons ===== */
+      .btn {
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.18s ease;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: var(--brand-600);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.28);
+      }
+      .btn-primary:hover {
+        background: var(--brand-700);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30, 64, 175, 0.36);
+      }
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .btn-ghost:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--ink-700);
+        border: 1px solid var(--ink-200);
+      }
+      .btn-outline:hover {
+        border-color: var(--brand-600);
+        color: var(--brand-600);
+      }
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 11.5px;
+        border-radius: 7px;
+      }
+      .btn-icon {
+        background: #fee2e2;
+        color: var(--accent-rose);
+        border: 0;
+        padding: 5px 9px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .btn-icon:hover {
+        background: #fecaca;
+      }
+
+      /* ===== Toolbar ===== */
+      .mr-toolbar {
+        background: var(--card-bg);
+        padding: var(--gap-sm) var(--pad-page);
+        display: flex;
+        gap: var(--gap-sm);
+        flex-wrap: wrap;
+        align-items: center;
+        border-bottom: 1px solid var(--ink-200);
+        position: sticky;
+        top: 0;
+        z-index: 15;
+      }
+      .mr-toolbar label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-700);
+      }
+      .mr-toolbar .filter-select,
+      .mr-toolbar .year-input {
+        padding: 7px 10px;
+        border: 1px solid var(--ink-200);
+        border-radius: 8px;
+        background: #fff;
+        font-size: 12.5px;
+        cursor: pointer;
+        min-width: 130px;
+        font-weight: 600;
+        color: var(--ink-900);
+      }
+      .mr-toolbar .year-input {
+        width: 86px;
+        min-width: 86px;
+        text-align: center;
+      }
+      .mr-toolbar .filter-select:focus,
+      .mr-toolbar .year-input:focus {
+        border-color: var(--brand-600);
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+      }
+      .mr-toolbar .filter-select:disabled {
+        background: #f8fafc;
+        cursor: not-allowed;
+        color: var(--ink-500);
+      }
+      .mr-toolbar .meta-info {
+        margin-left: auto;
+        font-size: 12.5px;
+        color: var(--ink-500);
+        font-weight: 600;
+      }
+      .mr-toolbar .meta-info strong {
+        color: var(--brand-600);
+        font-weight: 800;
+      }
+
+      /* ===== Holiday Panel ===== */
+      .holiday-panel {
+        background: var(--accent-amber-bg);
+        border-bottom: 1px solid var(--accent-amber-bd);
+        padding: var(--gap-sm) var(--pad-page);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+      }
+      .hp-section {
+        background: #fff;
+        border: 1px solid var(--accent-amber-bd);
+        border-radius: var(--radius-md);
+        padding: 10px 14px;
+      }
+      .hp-section.personal {
+        background: var(--accent-rose-bg);
+        border-color: var(--accent-rose-bd);
+      }
+      .hp-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed var(--accent-amber-bd);
+      }
+      .hp-section.personal .hp-head {
+        border-bottom-color: var(--accent-rose-bd);
+      }
+      .hp-head .title {
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 900;
+        color: #78350f;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hp-section.personal .hp-head .title {
+        color: #991b1b;
+      }
+      .hp-head .hint {
+        font-size: 11.5px;
+        color: #92400e;
+        font-weight: 500;
+      }
+      .hp-section.personal .hp-head .hint {
+        color: #b91c1c;
+      }
+      .hp-head .spacer {
+        flex: 1;
+      }
+      .sat-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #78350f;
+        background: #fef3c7;
+        padding: 5px 11px;
+        border-radius: var(--radius-pill);
+        border: 1px solid var(--accent-amber-bd);
+        cursor: pointer;
+      }
+      .sat-toggle input {
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+        accent-color: var(--accent-amber);
+      }
+      .list-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 220px;
+        overflow-y: auto;
+        padding-right: 4px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ink-300) var(--ink-200);
+      }
+      .list-wrap::-webkit-scrollbar {
+        width: 8px;
+      }
+      .list-wrap::-webkit-scrollbar-track {
+        background: var(--ink-200);
+        border-radius: 4px;
+      }
+      .list-wrap::-webkit-scrollbar-thumb {
+        background: var(--ink-300);
+        border-radius: 4px;
+      }
+      .list-wrap .empty-hint {
+        font-size: 12px;
+        font-style: italic;
+        padding: 8px 4px;
+        text-align: center;
+        color: #92400e;
+      }
+      .hp-section.personal .empty-hint {
+        color: #b91c1c;
+      }
+      .row-item {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        background: #fff;
+        padding: 7px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--accent-amber-bd);
+        flex-shrink: 0;
+      }
+      .hp-section.personal .row-item {
+        border-color: var(--accent-rose-bd);
+      }
+      .row-item select,
+      .row-item input {
+        padding: 6px 8px;
+        border: 1px solid var(--accent-amber-bd);
+        border-radius: 6px;
+        font-size: 12.5px;
+        background: #fff;
+        font-weight: 600;
+        color: var(--ink-900);
+      }
+      .hp-section.personal .row-item select,
+      .hp-section.personal .row-item input {
+        border-color: var(--accent-rose-bd);
+      }
+      .row-item select {
+        cursor: pointer;
+      }
+      .row-item input[type="text"] {
+        font-weight: 500;
+      }
+      .row-item .grow {
+        flex: 1;
+        min-width: 140px;
+      }
+      .row-item select:focus,
+      .row-item input:focus {
+        border-color: var(--accent-amber);
+        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+      }
+      .hp-section.personal .row-item select:focus,
+      .hp-section.personal .row-item input:focus {
+        border-color: var(--accent-rose);
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      }
+      .row-item .range-sep {
+        font-size: 11px;
+        color: var(--ink-500);
+        font-weight: 700;
+        padding: 0 2px;
+        flex-shrink: 0;
+      }
+      .row-item .date-range {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 6px;
+        background: var(--accent-amber-bg);
+        border-radius: 7px;
+        border: 1px dashed var(--accent-amber-bd);
+        flex-shrink: 0;
+      }
+      .hp-section.personal .row-item .date-range {
+        background: var(--accent-rose-bg);
+        border-color: var(--accent-rose-bd);
+      }
+      .row-item .day-count {
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--accent-amber);
+        background: #fef3c7;
+        padding: 2px 8px;
+        border-radius: var(--radius-pill);
+        flex-shrink: 0;
+      }
+      .hp-section.personal .row-item .day-count {
+        color: var(--accent-rose);
+        background: #fee2e2;
+      }
+
+      /* ===== Content ===== */
+      .mr-content {
+        padding: var(--gap-md);
+      }
+
+      .mr-table-wrap {
+        background: #fff;
+        border: 1px solid var(--ink-200);
+        border-radius: var(--radius-lg);
+        overflow-x: auto;
+        box-shadow: var(--shadow-md);
+        -webkit-overflow-scrolling: touch;
+        padding: 8px;
+      }
+
+      table.mr-table {
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        min-width: 1500px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        line-height: 1.25;
+        color: #000;
+        background: #fff;
+      }
+      table.mr-table th,
+      table.mr-table td {
+        border: 1px solid #000;
+        padding: 3px;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      table.mr-table thead th {
+        background: #f8fafc;
+        font-weight: 800;
+        font-size: 11px;
+        padding: 4px 3px;
+      }
+      table.mr-table .title {
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 900;
+        padding: 7px 4px;
+        letter-spacing: 0.3px;
+      }
+      table.mr-table .month {
+        text-align: left;
+        padding-left: 6px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      table.mr-table .day {
+        font-size: 10px;
+        height: 34px;
+        padding: 6px 1px;
+        font-weight: 700;
+      }
+      table.mr-table .c {
+        text-align: center;
+        font-weight: 700;
+      }
+
+      table.mr-table .name-cell {
+        text-align: left;
+        vertical-align: middle;
+        padding: 4px 6px;
+        line-height: 1.3;
+        font-size: 10.5px;
+        white-space: nowrap;
+      }
+      table.mr-table .name-cell .namelabel {
+        font-weight: 700;
+        display: block;
+      }
+      table.mr-table .name-cell .moblabel {
+        font-size: 10px;
+        display: block;
+        color: #334155;
+      }
+      table.mr-table .desig-cell {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px;
+        white-space: normal;
+        line-height: 1.25;
+      }
+      table.mr-table .edu-cell {
+        font-weight: 700;
+        font-size: 10px;
+        text-align: left;
+        padding: 3px 6px !important;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.15;
+      }
+      table.mr-table .dash {
+        color: #334155;
+      }
+
+      table.mr-table td.t {
+        padding: 0 !important;
+        white-space: nowrap;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+      }
+      table.mr-table td.t input {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        color: #000;
+        padding: 4px 0;
+        font-size: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        letter-spacing: 0;
+        text-align: center;
+        min-height: 40px;
+        display: block;
+      }
+      table.mr-table td.t input:focus {
+        outline: 2px solid var(--brand-600);
+        outline-offset: -2px;
+        background: #eff6ff;
+      }
+      table.mr-table td.t-result {
+        padding: 0 !important;
+        white-space: nowrap;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+      }
+      table.mr-table td.t-result input {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: transparent;
+        font-family: inherit;
+        color: #000;
+        padding: 4px 2px;
+        font-size: 10px;
+        font-weight: 700;
+        text-align: center;
+        display: block;
+        min-height: 30px;
+        letter-spacing: 0;
+      }
+      table.mr-table td.t-result input:focus {
+        outline: 2px solid var(--brand-600);
+        outline-offset: -2px;
+        background: #eff6ff;
+      }
+      table.mr-table td.row-label {
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 1.15;
+        padding: 3px 2px;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      table.mr-table td.sig {
+        vertical-align: middle;
+        background: #fff;
+      }
+      table.mr-table td.holiday-v,
+      table.mr-table td.leave-v,
+      table.mr-table td.vacancy-v {
+        padding: 0 !important;
+        white-space: nowrap;
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+      }
+      table.mr-table td.holiday-v {
+        background: #f1f5f9;
+      }
+      table.mr-table td.leave-v {
+        background: #fef2f2;
+      }
+      table.mr-table td.vacancy-v {
+        background: #fef2f2;
+      }
+      table.mr-table td.holiday-v .vtext,
+      table.mr-table td.leave-v .vtext,
+      table.mr-table td.vacancy-v .vtext {
+        display: inline-block;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        padding: 4px 2px;
+        font-weight: 800;
+        font-size: 9px;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+      }
+      table.mr-table td.holiday-v .vtext {
+        color: #475569;
+      }
+      table.mr-table td.leave-v .vtext,
+      table.mr-table td.vacancy-v .vtext {
+        color: #991b1b;
+      }
+      table.mr-table td.side-cell {
+        font-size: 9.5px;
+        line-height: 1.3;
+        padding: 3px;
+        text-align: center;
+        white-space: normal;
+        vertical-align: middle;
+        background: #fff;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      table.mr-table td.side-cell.dash {
+        color: #334155;
+      }
+      table.mr-table tr.r-first td {
+        height: 48px;
+      }
+      table.mr-table tr.r-last td {
+        height: 44px;
+      }
+      table.mr-table tr:not(.r-first):not(.r-last) td {
+        height: 34px;
+      }
+
+      .empty-wrap {
+        max-width: 520px;
+        margin: 40px auto;
+        padding: 0 18px;
+      }
+      .empty-card {
+        background: #fff;
+        padding: 42px 30px;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--ink-200);
+      }
+      .empty-card svg {
+        color: var(--ink-300);
+        margin-bottom: 14px;
+      }
+      .empty-card h3 {
+        font-size: 17px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .empty-card p {
+        font-size: 13px;
+        color: var(--ink-500);
+        line-height: 1.7;
+      }
+      .empty-card p strong {
+        color: var(--ink-700);
+        font-weight: 800;
+      }
+      .empty-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        z-index: 2000;
+        max-width: 340px;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        display: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        border-left: 4px solid #1e40af;
+      }
+      .toast.show {
+        display: block;
+        animation: toastIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .toast.err {
+        border-left-color: var(--accent-rose);
+      }
+      .toast.ok {
+        border-left-color: var(--accent-emerald);
+      }
+      @keyframes toastIn {
+        from {
+          transform: translateY(16px);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      @media print {
+        .top-bar,
+        .mr-toolbar,
+        .holiday-panel,
+        .toast,
+        .empty-wrap {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        .mr-content {
+          padding: 0 !important;
+        }
+        .mr-table-wrap {
+          border: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .mr-toolbar {
+          position: static;
+        }
+        .mr-toolbar .meta-info {
+          margin-left: 0;
+          width: 100%;
+          text-align: center;
+          padding-top: 4px;
+        }
+        .mr-content {
+          padding: 10px;
+        }
+      }
+      @media (max-width: 640px) {
+        .mr-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .mr-toolbar .filter-select,
+        .mr-toolbar .year-input {
+          min-width: 0;
+          width: 100%;
+        }
+        .top-bar-actions .btn {
+          flex: 1;
+          justify-content: center;
+        }
+        .row-item {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .row-item select,
+        .row-item input,
+        .row-item .date-range {
+          width: 100%;
+        }
+      }
+
+      /* ===== Screen optimization ===== */
+      @supports (padding: env(safe-area-inset-top)) {
+        .top-bar {
+          padding-top: max(
+            var(--pad-page, 16px),
+            env(safe-area-inset-top, 0px)
+          );
+          padding-left: max(
+            var(--pad-page, 20px),
+            env(safe-area-inset-left, 0px)
+          );
+          padding-right: max(
+            var(--pad-page, 20px),
+            env(safe-area-inset-right, 0px)
+          );
+        }
+        .mr-toolbar {
+          top: env(safe-area-inset-top, 0px);
+        }
+        .mr-content {
+          padding-bottom: calc(
+            var(--gap-md, 14px) + env(safe-area-inset-bottom, 0px)
+          );
+        }
+        .toast {
+          bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        }
+      }
+      @media (pointer: coarse) {
+        .btn,
+        .btn-icon,
+        .sat-toggle {
+          min-height: 40px;
+        }
+        .top-bar-actions .btn {
+          min-height: 44px;
+          padding: 10px 16px;
+        }
+      }
+      @supports (-webkit-touch-callout: none) {
+        input:not([type="checkbox"]):not([type="radio"]),
+        select,
+        textarea {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <line x1="9" y1="14" x2="9" y2="18"></line>
+            <line x1="13" y1="14" x2="13" y2="18"></line>
+            <line x1="17" y1="14" x2="17" y2="18"></line>
+          </svg>
+        </div>
+        <div>
+          <h1>শিক্ষকগণের মাসিক হাজিরা বিবরণী</h1>
+          <p>হেমনগর সরকারি প্রাথমিক বিদ্যালয়</p>
+        </div>
+      </div>
+      <div class="top-bar-actions">
+        <input
+          type="file"
+          id="restoreFileInput"
+          accept=".json,application/json"
+          style="display: none"
+        />
+        <button
+          class="btn btn-ghost"
+          onclick="UnifiedBackup.backup()"
+          title="বিদ্যালয় + শিক্ষক + শিক্ষার্থী — সব ডেটার সম্পূর্ণ JSON ব্যাকআপ"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          সব ডেটা ব্যাকআপ
+        </button>
+        <button
+          class="btn btn-ghost"
+          onclick="document.getElementById('restoreFileInput').click()"
+          title="সব ডেটা (school + teachers + students) রিস্টোর"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          সব ডেটা রিস্টোর
+        </button>
+      </div>
+    </div>
+
+    <div class="mr-toolbar">
+      <label for="month1Select">শুরু মাস:</label>
+      <select
+        id="month1Select"
+        class="filter-select"
+        onchange="onMonthChange()"
+      ></select>
+
+      <label for="yearInput">সাল:</label>
+      <input
+        id="yearInput"
+        class="year-input"
+        type="text"
+        maxlength="4"
+        inputmode="numeric"
+        oninput="onYearInput(this)"
+        onchange="onYearChange()"
+      />
+
+      <label for="month2Select">পরবর্তী মাস:</label>
+      <select id="month2Select" class="filter-select" disabled></select>
+
+      <select id="filterDesignation" class="filter-select">
+        <option value="">সব পদবি</option>
+      </select>
+      <select id="filterGender" class="filter-select">
+        <option value="">সব লিঙ্গ</option>
+      </select>
+      <button class="btn btn-outline" onclick="reloadFromStorage()">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        রিফ্রেশ
+      </button>
+      <button class="btn btn-primary" onclick="openPrintView()">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path
+            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          ></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        প্রিন্ট (Ctrl+P)
+      </button>
+      <div class="meta-info">
+        মোট শিক্ষক: <strong id="totalCount">০</strong> জন
+      </div>
+    </div>
+
+    <div class="holiday-panel">
+      <div class="hp-section">
+        <div class="hp-head">
+          <span class="title">📅 সাধারণ ছুটি</span>
+          <span class="hint">(শুক্রবার সবসময় সাপ্তাহিক বন্ধ)</span>
+          <span class="spacer"></span>
+          <label class="sat-toggle" title="আনচেক করলে শনিবার কার্যদিবস হবে">
+            <input
+              type="checkbox"
+              id="satHolidayToggle"
+              onchange="onSatToggle()"
+              checked
+            />
+            শনিবার সাপ্তাহিক বন্ধ
+          </label>
+          <button class="btn btn-outline btn-sm" onclick="addHolidayRow()">
+            + নতুন ছুটি
+          </button>
+        </div>
+        <div class="list-wrap" id="holidayList"></div>
+      </div>
+
+      <div class="hp-section personal">
+        <div class="hp-head">
+          <span class="title">👤 ব্যক্তিগত ছুটি</span>
+          <span class="hint"
+            >(শুধু কার্যদিবস নির্বাচনযোগ্য — ছুটির দিন অটো-বাদ)</span
+          >
+          <span class="spacer"></span>
+          <button
+            class="btn btn-outline btn-sm"
+            onclick="addPersonalLeaveRow()"
+          >
+            + ব্যক্তিগত ছুটি
+          </button>
+        </div>
+        <div class="list-wrap" id="personalList"></div>
+      </div>
+    </div>
+
+    <div class="mr-content" id="mrContent">
+      <div class="empty-wrap" id="emptyWrap" style="display: none">
+        <div class="empty-card">
+          <svg
+            width="60"
+            height="60"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <h3>শিক্ষকদের তথ্য পাওয়া যায়নি</h3>
+          <p>
+            এই ব্রাউজারে শিক্ষকদের ডেটা নেই। <strong>সব ডেটা রিস্টোর</strong>
+            ব্যবহার করে ব্যাকআপ ফিরিয়ে আনুন, অথবা teachers.html খুলে ডেটা যোগ
+            করুন।
+          </p>
+          <div class="empty-actions">
+            <button
+              class="btn btn-primary"
+              onclick="document.getElementById('restoreFileInput').click()"
+            >
+              সব ডেটা রিস্টোর
+            </button>
+            <button class="btn btn-outline" onclick="reloadFromStorage()">
+              আবার চেষ্টা করুন
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mr-table-wrap" id="mrTableWrap" style="display: none">
+        <div id="mrTableContainer"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- ============================================================
+         UNIFIED BACKUP v1.1.1-pro — identical block in every page
+    ============================================================ -->
+    <script>
+      (function () {
+        "use strict";
+
+        var FORMAT = "hemnagar-unified-backup";
+        var FORMAT_VERSION = 1;
+        var APP_VERSION = "1.1.1-pro";
+        var APP_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+        var PRE_KEY = "hemnagar_unified_prerestore";
+        var LAST_KEY = "hemnagar_unified_last_backup";
+        var RESTORE_KEY = "hemnagar_unified_last_restore";
+
+        var SECTIONS = [
+          {
+            id: "school",
+            label: "বিদ্যালয় তথ্য",
+            kind: "object",
+            keys: ["hemnagar_school_v1"],
+            legacyFormat: "school-data-backup",
+            legacyProp: "data",
+            lastKeys: [],
+            legacyPreKey: null,
+          },
+          {
+            id: "teachers",
+            label: "শিক্ষক তথ্য",
+            kind: "array",
+            keys: ["hemnagar_teachers_v1", "hemnagar_teachers_v1__bak"],
+            valid: function (t) {
+              return !!(t.nameBn || t.ipemisPin);
+            },
+            legacyFormat: "teacher-data-backup",
+            legacyProp: "teachers",
+            lastKeys: ["hemnagar_teachers_last_backup"],
+            legacyPreKey: "hemnagar_teachers_v1__prerestore",
+          },
+          {
+            id: "students",
+            label: "শিক্ষার্থী তথ্য",
+            kind: "array",
+            keys: ["hemnagar_students_v20"],
+            valid: function (t) {
+              return !!(t.nameBn || t.roll);
+            },
+            legacyFormat: "student-data-backup",
+            legacyProp: "students",
+            lastKeys: ["hemnagar_last_backup"],
+            legacyPreKey: "hemnagar_auto_backup_before_restore",
+          },
+        ];
+
+        var BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+        function toBn(n) {
+          return String(n).replace(/\d/g, function (d) {
+            return BN[+d];
+          });
+        }
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+        function isObj(x) {
+          return x !== null && typeof x === "object" && !Array.isArray(x);
+        }
+        function lsGet(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch (e) {
+            return null;
+          }
+        }
+        function lsSet(k, v) {
+          try {
+            localStorage.setItem(k, v);
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        function lsDel(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch (e) {}
+        }
+        function parse(raw) {
+          if (raw == null) return null;
+          try {
+            return JSON.parse(raw);
+          } catch (e) {
+            return null;
+          }
+        }
+        function byId(id) {
+          for (var i = 0; i < SECTIONS.length; i++)
+            if (SECTIONS[i].id === id) return SECTIONS[i];
+          return null;
+        }
+
+        function shape(sec, v) {
+          if (sec.kind === "array") {
+            if (Array.isArray(v)) v = v;
+            else if (isObj(v) && Array.isArray(v[sec.id])) v = v[sec.id];
+            else return null;
+            v = v.filter(function (x) {
+              return isObj(x) && (!sec.valid || sec.valid(x));
+            });
+            return v.length ? v : null;
+          }
+          if (isObj(v) && isObj(v.data) && !v.classes) v = v.data;
+          return isObj(v) && Object.keys(v).length ? v : null;
+        }
+        function countOf(sec, v) {
+          if (!v) return 0;
+          if (sec.kind === "array") return v.length;
+          var n = 0;
+          Object.keys(v).forEach(function (k) {
+            var x = v[k];
+            if (Array.isArray(x)) n += x.length ? 1 : 0;
+            else if (isObj(x)) n += Object.keys(x).length ? 1 : 0;
+            else if (x !== "" && x != null) n += 1;
+          });
+          return n;
+        }
+        function countLabel(sec, v) {
+          var n = countOf(sec, v);
+          if (!n) return "নেই";
+          return sec.kind === "array" ? toBn(n) + " টি রেকর্ড" : "তথ্য আছে";
+        }
+
+        function readCurrent(sec) {
+          for (var i = 0; i < sec.keys.length; i++) {
+            var v = shape(sec, parse(lsGet(sec.keys[i])));
+            if (v) return v;
+          }
+          return null;
+        }
+        function snapshotAll() {
+          var data = {};
+          var any = false;
+          SECTIONS.forEach(function (s) {
+            var v = readCurrent(s);
+            if (v) {
+              data[s.id] = v;
+              any = true;
+            }
+          });
+          return any ? data : null;
+        }
+        function buildPayload(data) {
+          var counts = {};
+          Object.keys(data).forEach(function (id) {
+            counts[id] = countOf(byId(id), data[id]);
+          });
+          return {
+            format: FORMAT,
+            formatVersion: FORMAT_VERSION,
+            appVersion: APP_VERSION,
+            appName: APP_NAME,
+            exportDate: new Date().toISOString(),
+            counts: counts,
+            data: data,
+          };
+        }
+
+        var toastEl = null,
+          toastT = null;
+        function toast(msg, type) {
+          var pt = document.getElementById("toast");
+          if (pt && pt.classList.contains("toast")) {
+            pt.textContent = msg;
+            pt.className = "toast show " + (type || "");
+            clearTimeout(pt._ubTm);
+            pt._ubTm = setTimeout(function () {
+              pt.className = "toast";
+            }, 3200);
+            return;
+          }
+          if (!toastEl) {
+            toastEl = document.createElement("div");
+            toastEl.setAttribute("role", "status");
+            toastEl.style.cssText =
+              "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100000;" +
+              "padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;line-height:1.4;font-family:inherit;" +
+              "color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;" +
+              "transition:opacity .2s;opacity:0;pointer-events:none";
+            document.body.appendChild(toastEl);
+          }
+          toastEl.textContent = msg;
+          toastEl.style.background =
+            type === "err" ? "var(--danger,#ef4444)" : "var(--success,#10b981)";
+          toastEl.style.opacity = "1";
+          clearTimeout(toastT);
+          toastT = setTimeout(function () {
+            toastEl.style.opacity = "0";
+          }, 3000);
+        }
+
+        function backup() {
+          var data = snapshotAll();
+          if (!data) {
+            toast("ব্যাকআপ করার জন্য কোনো ডেটা নেই", "err");
+            return false;
+          }
+          var payload = buildPayload(data);
+          var blob = new Blob([JSON.stringify(payload, null, 2)], {
+            type: "application/json;charset=utf-8;",
+          });
+          var n = new Date();
+          var name =
+            "hemnagar_full_backup_" +
+            pad(n.getDate()) +
+            "-" +
+            pad(n.getMonth() + 1) +
+            "-" +
+            n.getFullYear() +
+            "_" +
+            pad(n.getHours()) +
+            "-" +
+            pad(n.getMinutes()) +
+            ".json";
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          var iso = new Date().toISOString();
+          lsSet(LAST_KEY, iso);
+          SECTIONS.forEach(function (s) {
+            s.lastKeys.forEach(function (k) {
+              lsSet(k, iso);
+            });
+          });
+          var parts = SECTIONS.filter(function (s) {
+            return data[s.id];
+          }).map(function (s) {
+            return s.label;
+          });
+          toast(
+            "সম্পূর্ণ ব্যাকআপ ডাউনলোড হয়েছে (" + parts.join(" + ") + ")",
+            "ok",
+          );
+          return true;
+        }
+
+        function detect(parsed, host) {
+          var found = {};
+          if (isObj(parsed) && parsed.format === FORMAT && isObj(parsed.data)) {
+            SECTIONS.forEach(function (s) {
+              var v = shape(s, parsed.data[s.id]);
+              if (v) found[s.id] = v;
+            });
+            if (!Object.keys(found).length) return null;
+            return { found: found, meta: parsed, kind: "unified" };
+          }
+          SECTIONS.forEach(function (s) {
+            if (isObj(parsed) && parsed.format === s.legacyFormat) {
+              var raw = s.id === "school" ? parsed.data : parsed[s.legacyProp];
+              var v = shape(s, raw);
+              if (v) found[s.id] = v;
+            }
+          });
+          if (Object.keys(found).length)
+            return { found: found, meta: parsed, kind: "legacy" };
+          var hs = byId(host);
+          if (hs) {
+            var v2 = shape(hs, parsed);
+            if (!v2 && isObj(parsed)) v2 = shape(hs, parsed[hs.legacyProp]);
+            if (v2) {
+              found[hs.id] = v2;
+              return {
+                found: found,
+                meta: isObj(parsed) ? parsed : {},
+                kind: "legacy",
+              };
+            }
+          }
+          return null;
+        }
+
+        var CSS = [
+          "#ubModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;",
+          "background:rgba(8,30,24,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);",
+          "padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));",
+          "font-family:var(--font-body,inherit)}",
+          "#ubModal.open{display:flex}",
+          "#ubModal .ub-box{background:var(--card,#fff);color:var(--text,#11201b);border-radius:24px;width:100%;max-width:540px;",
+          "max-height:92vh;max-height:92dvh;overflow:auto;padding:24px;box-shadow:var(--shadow-lg,0 30px 80px rgba(8,30,24,.35));",
+          "border:1px solid var(--border,#e3e9e6);overscroll-behavior:contain}",
+          "#ubModal h3{margin:0 0 4px;font-family:var(--font-head,inherit);font-weight:900;font-size:19px;color:var(--text,#11201b)}",
+          "#ubModal .ub-sub{margin:0 0 16px;font-size:13px;line-height:1.5;color:var(--muted,#7b8a84)}",
+          "#ubModal .ub-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--primary-soft-2,#cde7dd);",
+          "border-radius:16px;margin-bottom:10px;background:var(--primary-soft,#e6f3ee);cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}",
+          "#ubModal .ub-row.off{background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.65}",
+          "#ubModal .ub-row.na{cursor:default;background:var(--surface,#f7f9f8);border-color:var(--border,#e3e9e6);opacity:.55}",
+          "#ubModal .ub-row input[type=checkbox]{width:19px;height:19px;margin-top:2px;flex-shrink:0;accent-color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-title{font-family:var(--font-head,inherit);font-weight:900;font-size:14.5px}",
+          "#ubModal .ub-meta{font-size:12.5px;line-height:1.55;color:var(--text-soft,#43544d);margin-top:2px}",
+          "#ubModal .ub-meta b{color:var(--text,#11201b)}",
+          "#ubModal select{margin-top:9px;width:100%;font:inherit;font-size:13px;padding:8px 10px;border-radius:10px;",
+          "border:1.5px solid var(--border-strong,#cfd9d4);background:var(--card,#fff);color:inherit}",
+          "#ubModal .ub-warn{font-size:12.5px;line-height:1.6;background:var(--gold-soft,#fdf3da);color:#7a5200;",
+          "border:1px solid rgba(224,165,38,.55);border-radius:14px;padding:11px 13px;margin:6px 0 16px}",
+          "#ubModal .ub-act{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}",
+          "#ubModal button{font-family:inherit;font-weight:700;font-size:13.5px;line-height:1.2;padding:10px 22px;min-height:42px;",
+          "border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}",
+          "#ubModal .ub-cancel{background:#fff;color:var(--text-soft,#43544d);border-color:var(--border,#e3e9e6)}",
+          "#ubModal .ub-cancel:hover{background:var(--primary-soft,#e6f3ee);border-color:#9cc9ba;color:var(--primary,#0b6b57)}",
+          "#ubModal .ub-ok{background:var(--primary,#0b6b57);color:#fff;border-color:var(--primary,#0b6b57);box-shadow:0 5px 14px rgba(11,107,87,.28)}",
+          "#ubModal .ub-ok:hover{background:var(--primary-hover,#085646);border-color:var(--primary-hover,#085646)}",
+          "#ubModal .ub-ok:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}",
+          "#ubModal button:focus-visible,#ubModal select:focus-visible{outline:none;box-shadow:var(--ring,0 0 0 4px rgba(11,107,87,.16))}",
+          "@media (max-width:560px){",
+          "#ubModal{align-items:flex-end;padding:0}",
+          "#ubModal .ub-box{max-width:none;border-radius:24px 24px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:94vh;max-height:94dvh}",
+          "#ubModal .ub-act{flex-direction:column-reverse}",
+          "#ubModal .ub-act button{width:100%;min-height:46px}}",
+          "@media (prefers-reduced-motion:reduce){#ubModal *{transition:none!important}}",
+        ].join("");
+
+        var modal = null;
+        var pending = null;
+
+        function ensureModal() {
+          if (modal) return modal;
+          var st = document.createElement("style");
+          st.textContent = CSS;
+          document.head.appendChild(st);
+          modal = document.createElement("div");
+          modal.id = "ubModal";
+          modal.setAttribute("role", "dialog");
+          modal.setAttribute("aria-modal", "true");
+          modal.setAttribute("aria-labelledby", "ubTitle");
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modal.classList.contains("open"))
+              cancel();
+          });
+          modal.innerHTML = '<div class="ub-box"></div>';
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) cancel();
+          });
+          document.body.appendChild(modal);
+          return modal;
+        }
+
+        function fmtDate(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "অজানা";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+
+        function openModal(info, title) {
+          pending = info;
+          var box = ensureModal().querySelector(".ub-box");
+          var rows = SECTIONS.map(function (s) {
+            var inFile = info.found[s.id];
+            var cur = readCurrent(s);
+            var meta =
+              "ব্যাকআপে: <b>" +
+              countLabel(s, inFile) +
+              "</b> &nbsp;•&nbsp; বর্তমানে: <b>" +
+              countLabel(s, cur) +
+              "</b>";
+            if (!inFile)
+              return (
+                '<div class="ub-row na"><input type="checkbox" disabled />' +
+                '<div><div class="ub-title">' +
+                esc(s.label) +
+                "</div>" +
+                '<div class="ub-meta">এই ফাইলে নেই — বর্তমান ডেটা অপরিবর্তিত থাকবে</div></div></div>'
+              );
+            var mode =
+              s.id === "students"
+                ? '<select data-ub-mode="students"><option value="replace">সম্পূর্ণ প্রতিস্থাপন (বর্তমান মুছে যাবে)</option>' +
+                  '<option value="merge">মার্জ (একই শিক্ষার্থী স্কিপ, নতুন যোগ)</option></select>'
+                : "";
+            return (
+              '<label class="ub-row" data-ub-row="' +
+              s.id +
+              '">' +
+              '<input type="checkbox" data-ub-sec="' +
+              s.id +
+              '" checked />' +
+              '<div><div class="ub-title">' +
+              esc(s.label) +
+              "</div>" +
+              '<div class="ub-meta">' +
+              meta +
+              "</div>" +
+              mode +
+              "</div></label>"
+            );
+          }).join("");
+
+          var m = info.meta || {};
+          box.innerHTML =
+            '<h3 id="ubTitle">' +
+            esc(title) +
+            "</h3>" +
+            '<p class="ub-sub">ব্যাকআপের তারিখ: ' +
+            fmtDate(m.exportDate || m.timestamp) +
+            (m.appVersion
+              ? " &nbsp;•&nbsp; সংস্করণ: " + esc(m.appVersion)
+              : "") +
+            (info.kind === "legacy"
+              ? " &nbsp;•&nbsp; পুরোনো (আলাদা) ফরম্যাটের ফাইল"
+              : "") +
+            "</p>" +
+            rows +
+            '<div class="ub-warn">⚠️ টিক দেওয়া অংশের বর্তমান ডেটা প্রতিস্থাপিত হবে। রিস্টোরের আগে বর্তমান সব ডেটার ' +
+            "একটি Recovery Backup স্বয়ংক্রিয়ভাবে রাখা হবে।<br>" +
+            "অন্য ট্যাবে school / teachers / students পেজ খোলা থাকলে সেগুলো বন্ধ করে নিন।</div>" +
+            '<div class="ub-act"><button type="button" class="ub-cancel">বাতিল</button>' +
+            '<button type="button" class="ub-ok">রিস্টোর করুন</button></div>';
+
+          var okBtn = box.querySelector(".ub-ok");
+          function sync() {
+            var any = false;
+            box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+              var row = box.querySelector(
+                '[data-ub-row="' + cb.getAttribute("data-ub-sec") + '"]',
+              );
+              if (row) row.classList.toggle("off", !cb.checked);
+              if (cb.checked) any = true;
+            });
+            okBtn.disabled = !any;
+          }
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            cb.addEventListener("change", sync);
+          });
+          box.querySelectorAll("select").forEach(function (sel) {
+            sel.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          });
+          box.querySelector(".ub-cancel").addEventListener("click", cancel);
+          okBtn.addEventListener("click", confirmRestore);
+          sync();
+          modal.classList.add("open");
+          okBtn.focus();
+        }
+
+        function cancel() {
+          pending = null;
+          if (modal) modal.classList.remove("open");
+          var inp = document.getElementById("restoreFileInput");
+          if (inp) inp.value = "";
+        }
+
+        function keyOfStudent(s) {
+          return [s.academicYear, s.class, s.section, s.roll, s.nameBn]
+            .map(function (x) {
+              return String(x == null ? "" : x).trim();
+            })
+            .join("|");
+        }
+
+        function confirmRestore() {
+          if (!pending) return;
+          var box = modal.querySelector(".ub-box");
+          var chosen = [];
+          box.querySelectorAll("[data-ub-sec]").forEach(function (cb) {
+            if (cb.checked) chosen.push(cb.getAttribute("data-ub-sec"));
+          });
+          if (!chosen.length) return;
+          var modeSel = box.querySelector('[data-ub-mode="students"]');
+          var studentMode = modeSel ? modeSel.value : "replace";
+
+          var cur = snapshotAll();
+          if (cur) {
+            if (!lsSet(PRE_KEY, JSON.stringify(buildPayload(cur)))) {
+              if (
+                !confirm(
+                  "Recovery Backup সংরক্ষণ করা যায়নি (স্টোরেজ পূর্ণ হতে পারে)।\n\nতবুও চালিয়ে যাবেন?",
+                )
+              )
+                return;
+            }
+          }
+
+          var writes = [],
+            info = [],
+            found = pending.found;
+          for (var i = 0; i < chosen.length; i++) {
+            var sec = byId(chosen[i]);
+            var incoming = found[sec.id];
+            var finalVal = incoming;
+            if (sec.id === "students" && studentMode === "merge") {
+              var existing = readCurrent(sec) || [];
+              var seen = {};
+              existing.forEach(function (s) {
+                seen[keyOfStudent(s)] = 1;
+              });
+              var added = 0,
+                skipped = 0;
+              finalVal = existing.slice();
+              incoming.forEach(function (s) {
+                var k = keyOfStudent(s);
+                if (seen[k]) skipped++;
+                else {
+                  seen[k] = 1;
+                  finalVal.push(s);
+                  added++;
+                }
+              });
+              info.push(
+                "শিক্ষার্থী মার্জ: যোগ " +
+                  toBn(added) +
+                  ", স্কিপ " +
+                  toBn(skipped),
+              );
+            }
+            var json = JSON.stringify(finalVal);
+            sec.keys.forEach(function (k) {
+              writes.push({ key: k, value: json });
+            });
+          }
+
+          var undo = [],
+            ok = true;
+          for (var j = 0; j < writes.length; j++) {
+            var old = lsGet(writes[j].key);
+            if (!lsSet(writes[j].key, writes[j].value)) {
+              ok = false;
+              break;
+            }
+            undo.push({ key: writes[j].key, old: old });
+          }
+          if (!ok) {
+            undo.reverse().forEach(function (u) {
+              if (u.old === null) lsDel(u.key);
+              else lsSet(u.key, u.old);
+            });
+            toast(
+              "রিস্টোর ব্যর্থ — ব্রাউজার স্টোরেজ পূর্ণ। আগের ডেটা অক্ষত আছে।",
+              "err",
+            );
+            return;
+          }
+          lsSet(RESTORE_KEY, new Date().toISOString());
+          pending = null;
+          modal.classList.remove("open");
+          toast(
+            "ডেটা সফলভাবে রিস্টোর হয়েছে" +
+              (info.length ? " — " + info.join("; ") : "") +
+              "। পেজ রিলোড হচ্ছে…",
+            "ok",
+          );
+          setTimeout(function () {
+            location.reload();
+          }, 1100);
+        }
+
+        function handleFile(event, host) {
+          var input = event.target;
+          var file = input.files && input.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onerror = function () {
+            toast("ফাইল পড়া যায়নি", "err");
+            input.value = "";
+          };
+          reader.onload = function (e) {
+            var parsed = parse(e.target.result);
+            if (parsed == null) {
+              toast("ফাইলটি বৈধ JSON নয়", "err");
+              input.value = "";
+              return;
+            }
+            var info = detect(parsed, host);
+            if (!info) {
+              toast("ফাইলে কোনো বৈধ ডেটা পাওয়া যায়নি", "err");
+              input.value = "";
+              return;
+            }
+            openModal(info, "ব্যাকআপ থেকে রিস্টোর করুন");
+          };
+          reader.readAsText(file, "UTF-8");
+        }
+
+        function recover(host) {
+          var raw = parse(lsGet(PRE_KEY));
+          var info = raw ? detect(raw, host) : null;
+          if (!info) {
+            var hs = byId(host);
+            if (hs && hs.legacyPreKey) {
+              var old = parse(lsGet(hs.legacyPreKey));
+              var v = shape(hs, old) || (old && shape(hs, old[hs.legacyProp]));
+              if (v) {
+                var f = {};
+                f[hs.id] = v;
+                info = {
+                  found: f,
+                  meta: isObj(old) ? old : {},
+                  kind: "legacy",
+                };
+              }
+            }
+          }
+          if (!info) {
+            toast("কোনো Recovery Backup পাওয়া যায়নি", "err");
+            return;
+          }
+          openModal(info, "Recovery Backup থেকে ফিরিয়ে আনুন");
+        }
+
+        function stamp(iso) {
+          var d = iso ? new Date(iso) : null;
+          if (!d || isNaN(d)) return "";
+          return toBn(
+            pad(d.getDate()) +
+              "/" +
+              pad(d.getMonth() + 1) +
+              "/" +
+              d.getFullYear() +
+              " " +
+              pad(d.getHours()) +
+              ":" +
+              pad(d.getMinutes()),
+          );
+        }
+        function metaText(host, count, unit) {
+          var hs = byId(host);
+          var b =
+            lsGet(LAST_KEY) ||
+            (hs && hs.lastKeys[0] ? lsGet(hs.lastKeys[0]) : null);
+          var t =
+            "সর্বশেষ ব্যাকআপ: " +
+            (stamp(b) || "এখনো নেওয়া হয়নি") +
+            " • সর্বশেষ রিস্টোর: " +
+            (stamp(lsGet(RESTORE_KEY)) || "এখনো করা হয়নি");
+          if (count != null)
+            t += " • মোট: " + toBn(count) + (unit ? " " + unit : "");
+          return t;
+        }
+
+        window.UnifiedBackup = {
+          VERSION: APP_VERSION,
+          metaText: metaText,
+          backup: backup,
+          handleFile: handleFile,
+          recover: recover,
+          lastInfo: function () {
+            return { backup: lsGet(LAST_KEY), restore: lsGet(RESTORE_KEY) };
+          },
+          FORMAT: FORMAT,
+        };
+      })();
+    </script>
+
+    <!-- ============================================================
+         MR Teachers — page logic (offline, no external dependencies)
+    ============================================================ -->
+    <script>
+      "use strict";
+
+      const APP_VERSION = "1.2.2";
+      const TEACHERS_STORAGE_KEY = "hemnagar_teachers_v1";
+      const MR_SETTINGS_KEY = "hemnagar_mr_settings";
+      const MR_HOLIDAYS_KEY = "hemnagar_mr_holidays_v12";
+      const MR_PERSONAL_KEY = "hemnagar_mr_personal_v12";
+      const MR_TIMES_KEY = "hemnagar_mr_times_v1";
+      const MR_RESULTS_KEY = "hemnagar_mr_results_v1";
+
+      const BN_DIGITS = "০১২৩৪৫৬৭৮৯";
+      const BN_MONTHS = [
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর",
+      ];
+
+      const START_DAY_M1 = 11;
+      const END_DAY_M2 = 10;
+      const TEACHERS_PER_PRINT_PAGE = 4;
+
+      const PERSONAL_LEAVE_PRESETS = ["নৈমিত্তিক ছুটি", "অন্যান্য"];
+      const DEFAULT_PERSONAL_REASON = "নৈমিত্তিক ছুটি";
+      const VACANT_LABEL = "পদ শূন্য";
+      const SCHOOL_NAME = "হেমনগর সরকারি প্রাথমিক বিদ্যালয়";
+      const DEFAULT_IN = "৯:০০";
+      const DEFAULT_OUT = "৪:০০";
+
+      const EDU_SLOTS = [
+        {
+          label: "এসএসসি",
+          keys: ["এস.এস.সি", "এস এস সি", "এসএসসি", "দাখিল", "ssc", "dakhil"],
+        },
+        {
+          label: "এইচএসসি",
+          keys: ["এইচ.এস.সি", "এইচ এস সি", "এইচএসসি", "আলিম", "hsc", "alim"],
+        },
+        {
+          label: "ডিগ্রী/স্নাতক (পাস)",
+          keys: [
+            "ডিগ্রী",
+            "ডিগ্রি",
+            "স্নাতক (পাস)",
+            "স্নাতক(পাস)",
+            "পাস কোর্স",
+            "স্নাতক",
+            "degree",
+            "pass course",
+          ],
+          exclude: ["সম্মান", "অনার্স", "honors", "honours", "বিবিএ", "bba"],
+        },
+        {
+          label: "বিবিএ/স্নাতক (সম্মান)",
+          keys: [
+            "বিবিএ",
+            "স্নাতক (সম্মান)",
+            "স্নাতক(সম্মান)",
+            "অনার্স",
+            "সম্মান",
+            "স্নাতক",
+            "bba",
+            "honors",
+            "honours",
+          ],
+          exclude: ["পাস", "ডিগ্রী", "ডিগ্রি", "pass"],
+        },
+        {
+          label: "এমবিএ/মাস্টার্স",
+          keys: ["এমবিএ", "মাস্টার্স", "মাস্টার", "mba", "master", "masters"],
+        },
+        {
+          label: "সিইনএড/ডিপিএড",
+          keys: [
+            "সি-ইন-এড",
+            "সিইনএড",
+            "সিনএড",
+            "সিনএইচএড",
+            "ডি.পি.এড",
+            "ডিপিএড",
+            "ডিপিএড (৫ম)",
+            "c-in-ed",
+            "cin ed",
+            "dped",
+            "d.p.ed",
+            "dpe",
+          ],
+        },
+        {
+          label: "বিএড/এমএড",
+          keys: [
+            "বি.এড",
+            "এম.এড",
+            "বিএড",
+            "এমএড",
+            "bed",
+            "med",
+            "b.ed",
+            "m.ed",
+          ],
+        },
+      ];
+
+      const DESIGNATIONS = [
+        "প্রধান শিক্ষক",
+        "ভারপ্রাপ্ত প্রধান শিক্ষক",
+        "সহকারি শিক্ষক",
+      ];
+      const DESIGNATION_RANK = {
+        "প্রধান শিক্ষক": 0,
+        "ভারপ্রাপ্ত প্রধান শিক্ষক": 1,
+        "সহকারি শিক্ষক": 2,
+      };
+      const GENDERS = ["পুরুষ", "মহিলা"];
+
+      const COL_W = {
+        seq: 1.5,
+        name: 8.5,
+        desig: 4.5,
+        exam: 7.5,
+        division: 3.5,
+        rowLabel: 2,
+        sideLeft: 5,
+        sideRight: 5,
+      };
+      const DATE_TOTAL_PCT =
+        100 -
+        (COL_W.seq +
+          COL_W.name +
+          COL_W.desig +
+          COL_W.exam +
+          COL_W.division +
+          COL_W.rowLabel +
+          COL_W.sideLeft +
+          COL_W.sideRight);
+
+      let teachers = [];
+      let month1 = 5;
+      let year = 2026;
+      let month2 = 6;
+      let saturdayHoliday = true;
+      let generalHolidayRanges = [];
+      let personalLeaveRanges = [];
+      let timeOverrides = {};
+      let resultOverrides = {};
+
+      const $ = (id) => document.getElementById(id);
+
+      function toEn(s) {
+        if (s === null || s === undefined) return "";
+        return String(s).replace(/[০-৯]/g, (m) => BN_DIGITS.indexOf(m));
+      }
+      function toBn(s) {
+        if (s === null || s === undefined || s === "") return "";
+        return String(s).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
+      }
+      function bn(s) {
+        return s === null || s === undefined || s === ""
+          ? "-"
+          : toBn(String(s));
+      }
+      function esc(t) {
+        return String(t == null ? "" : t)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function toast(msg, type) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.className = "toast show " + (type || "");
+        clearTimeout(t._tm);
+        t._tm = setTimeout(() => (t.className = "toast"), 2800);
+      }
+      function pad2(n) {
+        return String(n).padStart(2, "0");
+      }
+      function daysInMonth(mIdx, y) {
+        return new Date(y, mIdx + 1, 0).getDate();
+      }
+      function formatDateKey(dateObj) {
+        return (
+          dateObj.getFullYear() +
+          "-" +
+          pad2(dateObj.getMonth() + 1) +
+          "-" +
+          pad2(dateObj.getDate())
+        );
+      }
+      function formatTakaBn(value) {
+        if (value === null || value === undefined || value === "") return "";
+        const en = toEn(String(value)).replace(/[^\d]/g, "");
+        if (!en) return "";
+        let s = en;
+        if (s.length > 3) {
+          const last3 = s.slice(-3);
+          let rest = s.slice(0, -3);
+          rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+          s = rest + "," + last3;
+        }
+        return toBn(s);
+      }
+      function parseDateForSort(d) {
+        if (!d) return Number.POSITIVE_INFINITY;
+        const en = toEn(String(d));
+        const p = en.split("/");
+        if (p.length !== 3) return Number.POSITIVE_INFINITY;
+        const day = parseInt(p[0], 10);
+        const month = parseInt(p[1], 10);
+        const yr = parseInt(p[2], 10);
+        if (!day || !month || !yr) return Number.POSITIVE_INFINITY;
+        return yr * 10000 + month * 100 + day;
+      }
+      function getDesignationRank(t) {
+        return DESIGNATION_RANK[t.designation] ?? 99;
+      }
+      function getYear2() {
+        return month1 === 11 ? year + 1 : year;
+      }
+      function getDaysM1() {
+        const end = daysInMonth(month1, year);
+        const arr = [];
+        for (let d = START_DAY_M1; d <= end; d++) arr.push(d);
+        return arr;
+      }
+      function getDaysM2() {
+        const arr = [];
+        for (let d = 1; d <= END_DAY_M2; d++) arr.push(d);
+        return arr;
+      }
+      function getTeacherId(t) {
+        return String(t.ipemisPin || t.nameBn || "").trim();
+      }
+      function keyToWhichDay(key) {
+        if (!key) return { which: 0, day: 0 };
+        const parts = key.split("-").map((x) => parseInt(x, 10));
+        if (parts.length !== 3) return { which: 0, day: 0 };
+        const m = parts[1] - 1;
+        if (m === month1) return { which: 1, day: parts[2] };
+        if (m === month2) return { which: 2, day: parts[2] };
+        return { which: 0, day: parts[2] };
+      }
+      function whichDayToKey(which, day) {
+        const m = which === 1 ? month1 : month2;
+        const y = which === 1 ? year : month1 === 11 ? year + 1 : year;
+        return y + "-" + pad2(m + 1) + "-" + pad2(day);
+      }
+      function expandRange(startKey, endKey) {
+        const dates = [];
+        if (!startKey || !endKey) return dates;
+        const parseDateKey = (key) => {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(String(key))) return null;
+          const [y, m, d] = String(key).split("-").map(Number);
+          const date = new Date(y, m - 1, d);
+          if (
+            !Number.isFinite(date.getTime()) ||
+            date.getFullYear() !== y ||
+            date.getMonth() !== m - 1 ||
+            date.getDate() !== d
+          )
+            return null;
+          return date;
+        };
+        const cur = parseDateKey(startKey);
+        const end = parseDateKey(endKey);
+        if (!cur || !end || cur > end) return dates;
+        let safety = 0;
+        while (cur <= end && safety < 500) {
+          dates.push(
+            cur.getFullYear() +
+              "-" +
+              pad2(cur.getMonth() + 1) +
+              "-" +
+              pad2(cur.getDate()),
+          );
+          cur.setDate(cur.getDate() + 1);
+          safety++;
+        }
+        return dates;
+      }
+      function daysForWhich(which) {
+        return which === 1 ? getDaysM1() : getDaysM2();
+      }
+      function clampDayForWhich(which, day) {
+        const arr = daysForWhich(which);
+        if (arr.length === 0) return 1;
+        if (arr.indexOf(day) !== -1) return day;
+        return arr[0];
+      }
+      function dateObjFromKey(key) {
+        const [y, m, d] = key.split("-").map(Number);
+        return new Date(y, m - 1, d);
+      }
+      function isKeyInCurrentWindow(key) {
+        const parts = key.split("-").map(Number);
+        if (parts.length !== 3) return false;
+        const m = parts[1] - 1;
+        const d = parts[2];
+        const y = parts[0];
+        if (
+          m === month1 &&
+          y === year &&
+          d >= START_DAY_M1 &&
+          d <= daysInMonth(month1, year)
+        )
+          return true;
+        const y2 = getYear2();
+        if (m === month2 && y === y2 && d >= 1 && d <= END_DAY_M2) return true;
+        return false;
+      }
+      function loadTeachersFromStorage() {
+        try {
+          const raw = localStorage.getItem(TEACHERS_STORAGE_KEY);
+          if (!raw) return null;
+          const arr = JSON.parse(raw);
+          if (Array.isArray(arr) && arr.length) return arr;
+        } catch (e) {
+          console.warn(e);
+        }
+        return null;
+      }
+      function loadHolidayData() {
+        try {
+          const raw = localStorage.getItem(MR_HOLIDAYS_KEY);
+          if (!raw) return;
+          const obj = JSON.parse(raw);
+          if (obj && typeof obj === "object") {
+            if (Array.isArray(obj.ranges)) generalHolidayRanges = obj.ranges;
+            if (typeof obj.saturday === "boolean")
+              saturdayHoliday = obj.saturday;
+          }
+        } catch (e) {}
+      }
+      function saveHolidayData() {
+        try {
+          localStorage.setItem(
+            MR_HOLIDAYS_KEY,
+            JSON.stringify({
+              ranges: generalHolidayRanges,
+              saturday: saturdayHoliday,
+            }),
+          );
+        } catch (e) {}
+      }
+      function loadPersonalLeaves() {
+        try {
+          const raw = localStorage.getItem(MR_PERSONAL_KEY);
+          if (!raw) return;
+          const arr = JSON.parse(raw);
+          if (Array.isArray(arr)) personalLeaveRanges = arr;
+        } catch (e) {}
+      }
+      function savePersonalLeaves() {
+        try {
+          localStorage.setItem(
+            MR_PERSONAL_KEY,
+            JSON.stringify(personalLeaveRanges),
+          );
+        } catch (e) {}
+      }
+      function loadTimes() {
+        try {
+          const o = JSON.parse(localStorage.getItem(MR_TIMES_KEY) || "{}");
+          if (o && typeof o === "object") timeOverrides = o;
+        } catch (e) {}
+      }
+      function loadResults() {
+        try {
+          const o = JSON.parse(localStorage.getItem(MR_RESULTS_KEY) || "{}");
+          if (o && typeof o === "object") resultOverrides = o;
+        } catch (e) {}
+      }
+      function saveResults() {
+        try {
+          localStorage.setItem(MR_RESULTS_KEY, JSON.stringify(resultOverrides));
+        } catch (e) {}
+      }
+      function getResult(teacherId, slotIndex, fallback) {
+        if (!teacherId) return fallback || "";
+        const key = teacherId + "|" + slotIndex;
+        if (resultOverrides[key] !== undefined) return resultOverrides[key];
+        return fallback || "";
+      }
+      function setResult(teacherId, slotIndex, val) {
+        if (!teacherId) return;
+        const key = teacherId + "|" + slotIndex;
+        resultOverrides[key] = String(val == null ? "" : val).trim();
+        saveResults();
+      }
+      function getTime(id, dateKey, kind) {
+        const v = timeOverrides[id + "|" + dateKey + "|" + kind];
+        return v === undefined ? (kind === "in" ? DEFAULT_IN : DEFAULT_OUT) : v;
+      }
+      function setTime(id, dateKey, kind, val) {
+        const k = id + "|" + dateKey + "|" + kind;
+        const def = kind === "in" ? DEFAULT_IN : DEFAULT_OUT;
+        if (val === def) delete timeOverrides[k];
+        else timeOverrides[k] = val;
+        try {
+          localStorage.setItem(MR_TIMES_KEY, JSON.stringify(timeOverrides));
+        } catch (e) {}
+      }
+      function timeCell(id, dateKey, kind) {
+        return (
+          '<td class="t"><input type="text" maxlength="6" value="' +
+          esc(getTime(id, dateKey, kind)) +
+          '" data-id="' +
+          esc(id) +
+          '" data-k="' +
+          dateKey +
+          '" data-kind="' +
+          kind +
+          '" aria-label="' +
+          (kind === "in" ? "আগমন" : "প্রস্থান") +
+          '"></td>'
+        );
+      }
+      function resultCell(teacherId, slotIndex, fallback) {
+        const val = getResult(teacherId, slotIndex, fallback);
+        return (
+          '<td class="t-result"><input type="text" maxlength="24" value="' +
+          esc(val) +
+          '" data-id="' +
+          esc(teacherId) +
+          '" data-si="' +
+          slotIndex +
+          '" aria-label="বিভাগ/জিপিএ" placeholder="-"></td>'
+        );
+      }
+      function visibleRanges(arr) {
+        return arr
+          .map((range, idx) => ({ range, idx }))
+          .filter((x) =>
+            expandRange(x.range.startKey, x.range.endKey).some(
+              isKeyInCurrentWindow,
+            ),
+          );
+      }
+      function compareSeniority(a, b) {
+        const ra = getDesignationRank(a);
+        const rb = getDesignationRank(b);
+        if (ra !== rb) return ra - rb;
+        const ja = parseDateForSort(a.firstJoiningDate);
+        const jb = parseDateForSort(b.firstJoiningDate);
+        if (ja !== jb) return ja - jb;
+        const da = parseDateForSort(a.dob);
+        const db = parseDateForSort(b.dob);
+        if (da !== db) return da - db;
+        return String(a.nameBn || "").localeCompare(
+          String(b.nameBn || ""),
+          "bn",
+        );
+      }
+      function normalizeEduName(s) {
+        return toEn(String(s == null ? "" : s))
+          .toLowerCase()
+          .replace(/[\s.\-_/\\()\[\]{},।|:;'"’]+/g, "");
+      }
+      function eduSlotKeys(slot, field) {
+        const cacheField = field === "exclude" ? "_exNorm" : "_norm";
+        if (!slot[cacheField])
+          slot[cacheField] = (slot[field] || [])
+            .map(normalizeEduName)
+            .filter(Boolean);
+        return slot[cacheField];
+      }
+      const CERT_NAME_FIELDS = [
+        "certName",
+        "certificate",
+        "certificateName",
+        "trainingName",
+        "training",
+        "trainingTitle",
+        "examName",
+        "exam",
+        "title",
+        "degree",
+        "subject",
+        "name",
+      ];
+      const RESULT_FIELDS = [
+        "result",
+        "gpa",
+        "grade",
+        "gradePoint",
+        "resultGpa",
+        "division",
+        "class",
+        "marks",
+        "score",
+        "obtained",
+      ];
+      const RESULT_LABEL_FIELDS = ["resultLabel", "gpaLabel", "gradeLabel"];
+      function pickField(entry, fields) {
+        if (!entry || typeof entry !== "object") return "";
+        for (let i = 0; i < fields.length; i++) {
+          const v = entry[fields[i]];
+          if (v === undefined || v === null) continue;
+          const s = String(v).trim();
+          if (s) return s;
+        }
+        return "";
+      }
+      function extractCertName(entry) {
+        return pickField(entry, CERT_NAME_FIELDS);
+      }
+      function extractResult(entry) {
+        const lbl = pickField(entry, RESULT_LABEL_FIELDS);
+        if (lbl) return lbl;
+        const raw = pickField(entry, RESULT_FIELDS);
+        if (!raw) return "";
+        return /[0-9]/.test(raw) ? toBn(raw) : raw;
+      }
+      function getEduCandidates(teacher) {
+        const out = [];
+        const edu = Array.isArray(teacher.education) ? teacher.education : [];
+        edu.forEach((e) => e && out.push(e));
+        const tr = Array.isArray(teacher.trainings) ? teacher.trainings : [];
+        tr.forEach((t) => t && out.push(t));
+        return out;
+      }
+      function findEducationForSlot(teacher, slotIndex) {
+        const slot = EDU_SLOTS[slotIndex];
+        if (!slot) return null;
+        const keys = eduSlotKeys(slot, "keys");
+        const excludes = eduSlotKeys(slot, "exclude");
+        const candidates = getEduCandidates(teacher);
+        let firstMatch = null;
+        for (let i = 0; i < candidates.length; i++) {
+          const c = candidates[i];
+          const certRaw = extractCertName(c);
+          if (!certRaw) continue;
+          const name = normalizeEduName(certRaw);
+          if (!name) continue;
+          if (excludes.length && excludes.some((x) => name.indexOf(x) !== -1))
+            continue;
+          if (!keys.some((k) => name.indexOf(k) !== -1)) continue;
+          if (!firstMatch) firstMatch = c;
+          const result = extractResult(c);
+          if (result) return { certName: certRaw, result: result };
+        }
+        if (firstMatch)
+          return {
+            certName: extractCertName(firstMatch),
+            result: extractResult(firstMatch),
+          };
+        return null;
+      }
+      function getFilteredTeachers() {
+        let filtered = teachers.slice();
+        const fd = $("filterDesignation").value;
+        const fg = $("filterGender").value;
+        if (fd) filtered = filtered.filter((t) => t.designation === fd);
+        if (fg) filtered = filtered.filter((t) => t.gender === fg);
+        filtered.sort(compareSeniority);
+        return filtered;
+      }
+      function getOrderedTeachers() {
+        const hasPrincipal = teachers.some(
+          (t) => t.designation === "প্রধান শিক্ষক",
+        );
+        const fd = $("filterDesignation").value;
+        const fg = $("filterGender").value;
+        const result = [];
+        if (
+          teachers.length &&
+          !hasPrincipal &&
+          !fg &&
+          (!fd || fd === "প্রধান শিক্ষক")
+        )
+          result.push({ teacher: null, isVacant: true });
+        getFilteredTeachers().forEach((t) =>
+          result.push({ teacher: t, isVacant: false }),
+        );
+        return result;
+      }
+      function populateFilters() {
+        const dSel = $("filterDesignation");
+        const gSel = $("filterGender");
+        dSel.innerHTML = '<option value="">সব পদবি</option>';
+        gSel.innerHTML = '<option value="">সব লিঙ্গ</option>';
+        DESIGNATIONS.forEach((d) => {
+          const o = document.createElement("option");
+          o.value = d;
+          o.textContent = d;
+          dSel.appendChild(o);
+        });
+        GENDERS.forEach((g) => {
+          const o = document.createElement("option");
+          o.value = g;
+          o.textContent = g;
+          gSel.appendChild(o);
+        });
+      }
+      function populateMonthSelects() {
+        const m1 = $("month1Select");
+        const m2 = $("month2Select");
+        m1.innerHTML = "";
+        m2.innerHTML = "";
+        BN_MONTHS.forEach((name, i) => {
+          const o1 = document.createElement("option");
+          o1.value = i;
+          o1.textContent = name;
+          m1.appendChild(o1);
+          const o2 = document.createElement("option");
+          o2.value = i;
+          o2.textContent = name;
+          m2.appendChild(o2);
+        });
+        {
+          const now = new Date();
+          const early = now.getDate() < START_DAY_M1;
+          month1 = early ? (now.getMonth() + 11) % 12 : now.getMonth();
+          year =
+            early && now.getMonth() === 0
+              ? now.getFullYear() - 1
+              : now.getFullYear();
+        }
+        try {
+          const saved = JSON.parse(
+            localStorage.getItem(MR_SETTINGS_KEY) || "{}",
+          );
+          if (
+            typeof saved.month1 === "number" &&
+            saved.month1 >= 0 &&
+            saved.month1 < 12
+          )
+            month1 = saved.month1;
+          if (
+            typeof saved.year === "number" &&
+            saved.year > 1900 &&
+            saved.year < 2200
+          )
+            year = saved.year;
+        } catch (e) {}
+        month2 = (month1 + 1) % 12;
+        m1.value = month1;
+        m2.value = month2;
+        $("yearInput").value = toBn(year);
+      }
+      function saveMrSettings() {
+        try {
+          localStorage.setItem(
+            MR_SETTINGS_KEY,
+            JSON.stringify({ month1, year }),
+          );
+        } catch (e) {}
+      }
+      function onMonthChange() {
+        month1 = parseInt($("month1Select").value) || 0;
+        month2 = (month1 + 1) % 12;
+        $("month2Select").value = month2;
+        saveMrSettings();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onYearInput(input) {
+        const v = input.value.replace(/[^0-9০-৯]/g, "");
+        const conv = toBn(v);
+        if (conv !== input.value) input.value = conv;
+      }
+      function onYearChange() {
+        const en = toEn($("yearInput").value).replace(/[^0-9]/g, "");
+        const n = parseInt(en, 10);
+        if (n && n > 1900 && n < 2200) {
+          year = n;
+          $("yearInput").value = toBn(year);
+        } else {
+          $("yearInput").value = toBn(year);
+          return;
+        }
+        saveMrSettings();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onSatToggle() {
+        saturdayHoliday = $("satHolidayToggle").checked;
+        saveHolidayData();
+        renderPersonalList();
+        buildTable();
+        toast(saturdayHoliday ? "শনিবার ছুটি চালু" : "শনিবার কার্যদিবস", "ok");
+      }
+      function buildHolidayLookup() {
+        const map = {};
+        generalHolidayRanges.forEach((r) => {
+          const keys = expandRange(r.startKey, r.endKey);
+          keys.forEach((k) => {
+            if (r.reason || map[k] === undefined) map[k] = r.reason || "";
+          });
+        });
+        return map;
+      }
+      function isWeeklyHoliday(dateObj) {
+        const dow = dateObj.getDay();
+        if (dow === 5) return true;
+        if (dow === 6 && saturdayHoliday) return true;
+        return false;
+      }
+      function isHolidayKey(key, holidayLookup) {
+        const dt = dateObjFromKey(key);
+        if (isWeeklyHoliday(dt)) return true;
+        if (holidayLookup[key] && String(holidayLookup[key]).trim() !== "")
+          return true;
+        return false;
+      }
+      function buildDayStatus(dateObj, holidayLookup) {
+        if (isWeeklyHoliday(dateObj))
+          return { type: "holiday", reason: "সাপ্তাহিক বন্ধ" };
+        const key = formatDateKey(dateObj);
+        if (holidayLookup[key] && String(holidayLookup[key]).trim() !== "")
+          return { type: "holiday", reason: holidayLookup[key] };
+        return { type: "working" };
+      }
+      function workingDaysForWhich(which, holidayLookup) {
+        const arr = daysForWhich(which);
+        const out = [];
+        arr.forEach((d) => {
+          const key = whichDayToKey(which, d);
+          if (isHolidayKey(key, holidayLookup)) return;
+          out.push(d);
+        });
+        return out;
+      }
+      function whichOptions(selectedWhich) {
+        return (
+          '<option value="1"' +
+          (selectedWhich === 1 ? " selected" : "") +
+          ">" +
+          BN_MONTHS[month1] +
+          "</option>" +
+          '<option value="2"' +
+          (selectedWhich === 2 ? " selected" : "") +
+          ">" +
+          BN_MONTHS[month2] +
+          "</option>"
+        );
+      }
+      function dayOptionsAny(which, selectedDay) {
+        const arr = daysForWhich(which);
+        return arr
+          .map(
+            (d) =>
+              '<option value="' +
+              d +
+              '"' +
+              (d === selectedDay ? " selected" : "") +
+              ">" +
+              toBn(d) +
+              "</option>",
+          )
+          .join("");
+      }
+      function dayOptionsWorking(which, selectedDay, holidayLookup) {
+        const arr = workingDaysForWhich(which, holidayLookup);
+        if (
+          selectedDay &&
+          arr.indexOf(selectedDay) === -1 &&
+          daysForWhich(which).indexOf(selectedDay) !== -1
+        ) {
+          arr.push(selectedDay);
+          arr.sort((a, b) => a - b);
+        }
+        if (arr.length === 0)
+          return '<option value="">— কার্যদিবস নেই —</option>';
+        return arr
+          .map(
+            (d) =>
+              '<option value="' +
+              d +
+              '"' +
+              (d === selectedDay ? " selected" : "") +
+              ">" +
+              toBn(d) +
+              "</option>",
+          )
+          .join("");
+      }
+      function teacherOptions(selectedId) {
+        const arr = teachers.slice().sort(compareSeniority);
+        const known = arr.some((t) => getTeacherId(t) === selectedId);
+        const orphan =
+          selectedId && !known
+            ? '<option value="' +
+              esc(selectedId) +
+              '" selected>⚠ তালিকায় নেই (' +
+              esc(selectedId) +
+              ")</option>"
+            : "";
+        return (
+          orphan +
+          arr
+            .map((t) => {
+              const id = getTeacherId(t);
+              const label =
+                (t.nameBn || "") + (t.designation ? " — " + t.designation : "");
+              return (
+                '<option value="' +
+                esc(id) +
+                '"' +
+                (id === selectedId ? " selected" : "") +
+                ">" +
+                esc(label) +
+                "</option>"
+              );
+            })
+            .join("")
+        );
+      }
+      function personalReasonOptions(selectedPreset) {
+        return PERSONAL_LEAVE_PRESETS.map(
+          (r) =>
+            '<option value="' +
+            esc(r) +
+            '"' +
+            (r === selectedPreset ? " selected" : "") +
+            ">" +
+            esc(r) +
+            "</option>",
+        ).join("");
+      }
+      function renderHolidayList() {
+        const list = $("holidayList");
+        $("satHolidayToggle").checked = saturdayHoliday;
+        const items = visibleRanges(generalHolidayRanges);
+        if (items.length === 0) {
+          list.innerHTML =
+            '<div class="empty-hint">কোনো অতিরিক্ত ছুটি যোগ করা হয়নি।</div>';
+          return;
+        }
+        const frag = document.createDocumentFragment();
+        items.forEach(({ range, idx }) => {
+          const sw = keyToWhichDay(range.startKey);
+          const ew = keyToWhichDay(range.endKey);
+          const startWhich = sw.which || 1;
+          const endWhich = ew.which || startWhich;
+          const startDay = clampDayForWhich(startWhich, sw.day || START_DAY_M1);
+          const endDay = clampDayForWhich(endWhich, ew.day || startDay);
+          const totalDays = expandRange(range.startKey, range.endKey).length;
+          const row = document.createElement("div");
+          row.className = "row-item";
+          row.dataset.idx = idx;
+          row.innerHTML =
+            '<span class="date-range">' +
+            '<select class="h-start-which" onchange="onHolStartWhich(this)">' +
+            whichOptions(startWhich) +
+            "</select>" +
+            '<select class="h-start-day" onchange="onHolStartDay(this)">' +
+            dayOptionsAny(startWhich, startDay) +
+            "</select>" +
+            '<span class="range-sep">থেকে</span>' +
+            '<select class="h-end-which" onchange="onHolEndWhich(this)">' +
+            whichOptions(endWhich) +
+            "</select>" +
+            '<select class="h-end-day" onchange="onHolEndDay(this)">' +
+            dayOptionsAny(endWhich, endDay) +
+            "</select>" +
+            "</span>" +
+            '<span class="day-count">' +
+            toBn(totalDays) +
+            " দিন</span>" +
+            '<input type="text" class="h-reason grow" placeholder="ছুটির কারণ" value="' +
+            esc(range.reason || "") +
+            '" oninput="onHolReason(this)">' +
+            '<button type="button" class="btn-icon" onclick="removeHolidayRow(' +
+            idx +
+            ')" title="মুছুন">✕</button>';
+          frag.appendChild(row);
+        });
+        list.innerHTML = "";
+        list.appendChild(frag);
+      }
+      function addHolidayRow() {
+        let chosen = null;
+        outer: for (const d of getDaysM1()) {
+          const k = year + "-" + pad2(month1 + 1) + "-" + pad2(d);
+          for (const r of generalHolidayRanges) {
+            if (expandRange(r.startKey, r.endKey).indexOf(k) !== -1)
+              continue outer;
+          }
+          chosen = k;
+          break;
+        }
+        if (!chosen) {
+          const y2 = getYear2();
+          outer2: for (const d of getDaysM2()) {
+            const k = y2 + "-" + pad2(month2 + 1) + "-" + pad2(d);
+            for (const r of generalHolidayRanges) {
+              if (expandRange(r.startKey, r.endKey).indexOf(k) !== -1)
+                continue outer2;
+            }
+            chosen = k;
+            break;
+          }
+        }
+        if (!chosen) {
+          const firstDay = getDaysM1()[0] || START_DAY_M1;
+          chosen = year + "-" + pad2(month1 + 1) + "-" + pad2(firstDay);
+        }
+        generalHolidayRanges.push({
+          startKey: chosen,
+          endKey: chosen,
+          reason: "",
+        });
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function removeHolidayRow(idx) {
+        generalHolidayRanges.splice(idx, 1);
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onHolStartWhich(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = generalHolidayRanges[idx];
+        if (!r) return;
+        const newWhich = parseInt(sel.value, 10);
+        const sw = keyToWhichDay(r.startKey);
+        const newDay = clampDayForWhich(newWhich, sw.day);
+        r.startKey = whichDayToKey(newWhich, newDay);
+        if (r.endKey < r.startKey) r.endKey = r.startKey;
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onHolStartDay(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = generalHolidayRanges[idx];
+        if (!r) return;
+        const newWhich = keyToWhichDay(r.startKey).which || 1;
+        r.startKey = whichDayToKey(newWhich, parseInt(sel.value, 10));
+        if (r.endKey < r.startKey) r.endKey = r.startKey;
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onHolEndWhich(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = generalHolidayRanges[idx];
+        if (!r) return;
+        const newWhich = parseInt(sel.value, 10);
+        const ew = keyToWhichDay(r.endKey);
+        const newDay = clampDayForWhich(newWhich, ew.day);
+        r.endKey = whichDayToKey(newWhich, newDay);
+        if (r.endKey < r.startKey) r.startKey = r.endKey;
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onHolEndDay(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = generalHolidayRanges[idx];
+        if (!r) return;
+        const newWhich =
+          keyToWhichDay(r.endKey).which || keyToWhichDay(r.startKey).which || 1;
+        r.endKey = whichDayToKey(newWhich, parseInt(sel.value, 10));
+        if (r.endKey < r.startKey) r.startKey = r.endKey;
+        saveHolidayData();
+        renderHolidayList();
+        renderPersonalList();
+        buildTable();
+      }
+      function onHolReason(input) {
+        const idx = parseInt(input.closest(".row-item").dataset.idx, 10);
+        const r = generalHolidayRanges[idx];
+        if (!r) return;
+        r.reason = input.value;
+        saveHolidayData();
+        buildTable();
+      }
+      function renderPersonalList() {
+        const list = $("personalList");
+        const items = visibleRanges(personalLeaveRanges);
+        if (items.length === 0) {
+          list.innerHTML =
+            '<div class="empty-hint">কোনো ব্যক্তিগত ছুটি যোগ করা হয়নি।</div>';
+          return;
+        }
+        const holidayLookup = buildHolidayLookup();
+        const frag = document.createDocumentFragment();
+        items.forEach(({ range, idx }) => {
+          const sw = keyToWhichDay(range.startKey);
+          const ew = keyToWhichDay(range.endKey);
+          const startWhich = sw.which || 1;
+          const endWhich = ew.which || startWhich;
+          const startDay = clampDayForWhich(startWhich, sw.day || START_DAY_M1);
+          const endDay = clampDayForWhich(endWhich, ew.day || startDay);
+          const days = expandRange(range.startKey, range.endKey);
+          const workingCount = days.filter(
+            (k) => !isHolidayKey(k, holidayLookup),
+          ).length;
+          const preset = range.reasonPreset || DEFAULT_PERSONAL_REASON;
+          const isOther = preset === "অন্যান্য";
+          const customVal = isOther ? range.customReason || "" : "";
+          const row = document.createElement("div");
+          row.className = "row-item";
+          row.dataset.idx = idx;
+          row.innerHTML =
+            '<span class="date-range">' +
+            '<select class="p-start-which" onchange="onPerStartWhich(this)">' +
+            whichOptions(startWhich) +
+            "</select>" +
+            '<select class="p-start-day" onchange="onPerStartDay(this)">' +
+            dayOptionsWorking(startWhich, startDay, holidayLookup) +
+            "</select>" +
+            '<span class="range-sep">থেকে</span>' +
+            '<select class="p-end-which" onchange="onPerEndWhich(this)">' +
+            whichOptions(endWhich) +
+            "</select>" +
+            '<select class="p-end-day" onchange="onPerEndDay(this)">' +
+            dayOptionsWorking(endWhich, endDay, holidayLookup) +
+            "</select>" +
+            "</span>" +
+            '<span class="day-count">' +
+            toBn(workingCount) +
+            " দিন</span>" +
+            '<select class="p-teacher grow" onchange="onPerTeacher(this)">' +
+            '<option value="">-- শিক্ষক নির্বাচন --</option>' +
+            teacherOptions(range.teacherId) +
+            "</select>" +
+            '<select class="p-reason" onchange="onPerReasonPreset(this)">' +
+            personalReasonOptions(preset) +
+            "</select>" +
+            '<input type="text" class="p-custom grow" placeholder="ছুটির কারণ লিখুন" value="' +
+            esc(customVal) +
+            '" style="display:' +
+            (isOther ? "inline-block" : "none") +
+            '" oninput="onPerReasonCustom(this)">' +
+            '<button type="button" class="btn-icon" onclick="removePersonalRow(' +
+            idx +
+            ')" title="মুছুন">✕</button>';
+          frag.appendChild(row);
+        });
+        list.innerHTML = "";
+        list.appendChild(frag);
+      }
+      function addPersonalLeaveRow() {
+        if (teachers.length === 0) {
+          toast("শিক্ষকদের ডেটা লোড করুন", "err");
+          return;
+        }
+        const holidayLookup = buildHolidayLookup();
+        const workingDays = workingDaysForWhich(1, holidayLookup);
+        if (workingDays.length === 0) {
+          toast("এই মাসে কোনো কার্যদিবস নেই", "err");
+          return;
+        }
+        const day = workingDays[0];
+        const key = whichDayToKey(1, day);
+        const teacher = getFilteredTeachers()[0] || teachers[0];
+        personalLeaveRanges.push({
+          teacherId: getTeacherId(teacher),
+          startKey: key,
+          endKey: key,
+          reasonPreset: DEFAULT_PERSONAL_REASON,
+          customReason: "",
+        });
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function removePersonalRow(idx) {
+        personalLeaveRanges.splice(idx, 1);
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerStartWhich(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        const newWhich = parseInt(sel.value, 10);
+        const holidayLookup = buildHolidayLookup();
+        const workingDays = workingDaysForWhich(newWhich, holidayLookup);
+        if (workingDays.length === 0) {
+          toast("এই মাসে কোনো কার্যদিবস নেই", "err");
+          return;
+        }
+        const sw = keyToWhichDay(r.startKey);
+        let newDay = sw.day;
+        if (workingDays.indexOf(newDay) === -1) newDay = workingDays[0];
+        r.startKey = whichDayToKey(newWhich, newDay);
+        if (r.endKey < r.startKey) r.endKey = r.startKey;
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerStartDay(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        const newWhich = keyToWhichDay(r.startKey).which || 1;
+        r.startKey = whichDayToKey(newWhich, parseInt(sel.value, 10));
+        if (r.endKey < r.startKey) r.endKey = r.startKey;
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerEndWhich(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        const newWhich = parseInt(sel.value, 10);
+        const holidayLookup = buildHolidayLookup();
+        const workingDays = workingDaysForWhich(newWhich, holidayLookup);
+        if (workingDays.length === 0) {
+          toast("এই মাসে কোনো কার্যদিবস নেই", "err");
+          return;
+        }
+        const ew = keyToWhichDay(r.endKey);
+        let newDay = ew.day;
+        if (workingDays.indexOf(newDay) === -1)
+          newDay = workingDays[workingDays.length - 1];
+        r.endKey = whichDayToKey(newWhich, newDay);
+        if (r.endKey < r.startKey) r.startKey = r.endKey;
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerEndDay(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        const newWhich =
+          keyToWhichDay(r.endKey).which || keyToWhichDay(r.startKey).which || 1;
+        r.endKey = whichDayToKey(newWhich, parseInt(sel.value, 10));
+        if (r.endKey < r.startKey) r.startKey = r.endKey;
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerTeacher(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        r.teacherId = sel.value;
+        savePersonalLeaves();
+        buildTable();
+      }
+      function onPerReasonPreset(sel) {
+        const idx = parseInt(sel.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        r.reasonPreset = sel.value;
+        if (sel.value !== "অন্যান্য") r.customReason = "";
+        savePersonalLeaves();
+        renderPersonalList();
+        buildTable();
+      }
+      function onPerReasonCustom(input) {
+        const idx = parseInt(input.closest(".row-item").dataset.idx, 10);
+        const r = personalLeaveRanges[idx];
+        if (!r) return;
+        r.customReason = input.value;
+        savePersonalLeaves();
+        buildTable();
+      }
+      function buildPersonalLookup() {
+        const map = {};
+        personalLeaveRanges.forEach((r) => {
+          if (!r.teacherId) return;
+          const reason =
+            r.reasonPreset === "অন্যান্য"
+              ? r.customReason || ""
+              : r.reasonPreset || DEFAULT_PERSONAL_REASON;
+          if (!reason.trim()) return;
+          const keys = expandRange(r.startKey, r.endKey);
+          keys.forEach((k) => {
+            map[r.teacherId + "|" + k] = reason;
+          });
+        });
+        return map;
+      }
+      function buildTable() {
+        const ordered = getOrderedTeachers();
+        const realCount = ordered.filter((o) => !o.isVacant).length;
+        $("totalCount").textContent = toBn(realCount);
+        if (ordered.length === 0) {
+          $("mrTableWrap").style.display = "none";
+          $("emptyWrap").style.display = "block";
+          return;
+        }
+        $("emptyWrap").style.display = "none";
+        $("mrTableWrap").style.display = "block";
+        const daysM1 = getDaysM1();
+        const daysM2 = getDaysM2();
+        const m1Count = daysM1.length;
+        const m2Count = daysM2.length;
+        const totalDays = m1Count + m2Count;
+        const year2 = getYear2();
+        const eduRows = EDU_SLOTS.length;
+        const dateObjs = [
+          ...daysM1.map((d) => new Date(year, month1, d)),
+          ...daysM2.map((d) => new Date(year2, month2, d)),
+        ];
+        const dayKeys = dateObjs.map((dt) => formatDateKey(dt));
+        const holidayLookup = buildHolidayLookup();
+        const personalLookup = buildPersonalLookup();
+        const dayStatus = dateObjs.map((dt) =>
+          buildDayStatus(dt, holidayLookup),
+        );
+        const dateColPct = (DATE_TOTAL_PCT / totalDays).toFixed(4);
+        const colgroup =
+          "<colgroup>" +
+          '<col style="width:' +
+          COL_W.seq +
+          '%">' +
+          '<col style="width:' +
+          COL_W.name +
+          '%">' +
+          '<col style="width:' +
+          COL_W.desig +
+          '%">' +
+          '<col style="width:' +
+          COL_W.exam +
+          '%">' +
+          '<col style="width:' +
+          COL_W.division +
+          '%">' +
+          '<col style="width:' +
+          COL_W.rowLabel +
+          '%">' +
+          Array(totalDays)
+            .fill('<col style="width:' + dateColPct + '%">')
+            .join("") +
+          '<col style="width:' +
+          COL_W.sideLeft +
+          '%">' +
+          '<col style="width:' +
+          COL_W.sideRight +
+          '%">' +
+          "</colgroup>";
+        const titleSpan = 1 + totalDays + 2;
+        const m1Span = 1 + m1Count;
+        const m2Span = m2Count + 2;
+        let thead = "<thead>";
+        thead += "<tr>";
+        thead += '<th rowspan="3" class="c">ক্র:<br>নং</th>';
+        thead += '<th rowspan="3" class="c">নাম ও মোবাইল নম্বর</th>';
+        thead += '<th rowspan="3" class="c">পদবী</th>';
+        thead += '<th colspan="2" rowspan="2">শিক্ষাগত যোগ্যতা</th>';
+        thead +=
+          '<th colspan="' +
+          titleSpan +
+          '" class="title">শিক্ষকগণের মাসিক হাজিরা বিবরণী</th>';
+        thead += "</tr>";
+        thead += "<tr>";
+        thead +=
+          '<th colspan="' +
+          m1Span +
+          '" class="month">মাসের নাম: ' +
+          BN_MONTHS[month1] +
+          ", " +
+          toBn(year) +
+          " খ্রি.</th>";
+        thead +=
+          '<th colspan="' +
+          m2Span +
+          '" class="month">মাসের নাম: ' +
+          BN_MONTHS[month2] +
+          ", " +
+          toBn(year2) +
+          " খ্রি.</th>";
+        thead += "</tr>";
+        thead += "<tr>";
+        thead += "<th>পরীক্ষা</th>";
+        thead += "<th>বিভাগ/জিপিএ</th>";
+        thead += "<th></th>";
+        daysM1.forEach((d) => {
+          thead += '<th class="day">' + toBn(d) + "</th>";
+        });
+        daysM2.forEach((d) => {
+          thead += '<th class="day">' + toBn(d) + "</th>";
+        });
+        thead += "<th></th><th></th>";
+        thead += "</tr>";
+        thead += "</thead>";
+        let tbody = "<tbody>";
+        ordered.forEach((item, ti) => {
+          const t = item.teacher;
+          const isVacant = item.isVacant;
+          const teacherId = isVacant ? "" : getTeacherId(t);
+          const nameHtml = isVacant
+            ? '<span class="namelabel">&nbsp;</span><span class="moblabel">&nbsp;</span>'
+            : '<span class="namelabel">নাম: ' +
+              esc(t.nameBn || "") +
+              "</span>" +
+              '<span class="moblabel">মোবা: ' +
+              esc(toBn(t.mobile || "")) +
+              "</span>";
+          const desigText = isVacant ? VACANT_LABEL : t.designation || "";
+          EDU_SLOTS.forEach((slot, si) => {
+            const isFirst = si === 0;
+            const isLast = si === eduRows - 1;
+            const isSigStart = si === 1;
+            let rowCls = (isFirst ? "r-first " : "") + (isLast ? "r-last" : "");
+            tbody += '<tr class="' + rowCls.trim() + '">';
+            if (isFirst) {
+              tbody +=
+                '<td rowspan="' +
+                eduRows +
+                '" class="c">' +
+                toBn(ti + 1) +
+                "</td>";
+              tbody +=
+                '<td rowspan="' +
+                eduRows +
+                '" class="name-cell">' +
+                nameHtml +
+                "</td>";
+              tbody +=
+                '<td rowspan="' +
+                eduRows +
+                '" class="desig-cell">' +
+                esc(desigText) +
+                "</td>";
+            }
+            const edu = isVacant ? null : findEducationForSlot(t, si);
+            const baseResult = edu ? String(edu.result || "") : "";
+            tbody += '<td class="edu-cell">' + esc(slot.label) + "</td>";
+            if (isVacant) tbody += '<td class="c dash">-</td>';
+            else tbody += resultCell(teacherId, si, baseResult);
+            if (isFirst) {
+              tbody += '<td class="row-label">আগমন</td>';
+              dayStatus.forEach((st, di) => {
+                if (st.type === "holiday") {
+                  tbody +=
+                    '<td rowspan="' +
+                    eduRows +
+                    '" class="holiday-v"><span class="vtext">' +
+                    esc(st.reason) +
+                    "</span></td>";
+                } else if (isVacant) {
+                  tbody +=
+                    '<td rowspan="' +
+                    eduRows +
+                    '" class="vacancy-v"><span class="vtext">' +
+                    VACANT_LABEL +
+                    "</span></td>";
+                } else {
+                  const leave = personalLookup[teacherId + "|" + dayKeys[di]];
+                  if (leave)
+                    tbody +=
+                      '<td rowspan="' +
+                      eduRows +
+                      '" class="leave-v"><span class="vtext">' +
+                      esc(leave) +
+                      "</span></td>";
+                  else tbody += timeCell(teacherId, dayKeys[di], "in");
+                }
+              });
+              tbody += '<td class="side-cell">মূল বেতন</td>';
+              tbody += '<td class="side-cell">১ম যোগদান</td>';
+            } else if (isSigStart) {
+              tbody += '<td rowspan="5" class="row-label">স্বাক্ষর</td>';
+              dayStatus.forEach((st, di) => {
+                if (st.type !== "working") return;
+                if (isVacant) return;
+                const leave = personalLookup[teacherId + "|" + dayKeys[di]];
+                if (leave) return;
+                tbody += '<td rowspan="5" class="sig"></td>';
+              });
+              const salary = isVacant
+                ? "-"
+                : t.currentSalary
+                  ? formatTakaBn(t.currentSalary) + "/="
+                  : "-";
+              const firstJoin = isVacant ? "-" : bn(t.firstJoiningDate);
+              tbody +=
+                '<td rowspan="2" class="side-cell dash salary">' +
+                esc(salary) +
+                "</td>";
+              tbody +=
+                '<td rowspan="2" class="side-cell dash">' +
+                esc(firstJoin) +
+                "</td>";
+            } else if (si === 3) {
+              tbody +=
+                '<td rowspan="2" class="side-cell">এ বিদ্যালয়ে যোগদান</td>';
+              tbody += '<td rowspan="2" class="side-cell">জন্ম তারিখ</td>';
+            } else if (si === 5) {
+              const schoolJoin = isVacant
+                ? "-"
+                : bn(t.currentSchoolJoiningDate);
+              const dob = isVacant ? "-" : bn(t.dob);
+              tbody +=
+                '<td rowspan="2" class="side-cell dash">' +
+                esc(schoolJoin) +
+                "</td>";
+              tbody +=
+                '<td rowspan="2" class="side-cell dash">' + esc(dob) + "</td>";
+            } else if (isLast) {
+              tbody += '<td class="row-label">প্রস্থান</td>';
+              dayStatus.forEach((st, di) => {
+                if (st.type !== "working") return;
+                if (isVacant) return;
+                const leave = personalLookup[teacherId + "|" + dayKeys[di]];
+                if (leave) return;
+                tbody += timeCell(teacherId, dayKeys[di], "out");
+              });
+            }
+            tbody += "</tr>";
+          });
+        });
+        tbody += "</tbody>";
+        $("mrTableContainer").innerHTML =
+          '<table class="mr-table">' + colgroup + thead + tbody + "</table>";
+        attachInputHandlers();
+      }
+      function attachInputHandlers() {
+        document
+          .querySelectorAll("#mrTableContainer td.t input")
+          .forEach((inp) => {
+            inp.addEventListener("focus", function () {
+              this.select();
+            });
+            inp.addEventListener("input", function () {
+              const orig = this.value;
+              const cleaned = orig.replace(/[^0-9০-৯:.\-]/g, "");
+              const converted = toBn(cleaned);
+              if (converted !== orig) this.value = converted;
+              setTime(
+                this.dataset.id,
+                this.dataset.k,
+                this.dataset.kind,
+                this.value,
+              );
+            });
+          });
+        document
+          .querySelectorAll("#mrTableContainer td.t-result input")
+          .forEach((inp) => {
+            inp.addEventListener("focus", function () {
+              this.select();
+            });
+            inp.addEventListener("input", function () {
+              setResult(
+                this.dataset.id,
+                parseInt(this.dataset.si, 10),
+                this.value,
+              );
+            });
+            inp.addEventListener("blur", function () {
+              setResult(
+                this.dataset.id,
+                parseInt(this.dataset.si, 10),
+                this.value,
+              );
+            });
+          });
+      }
+      function reloadFromStorage() {
+        const arr = loadTeachersFromStorage();
+        if (!arr || arr.length === 0) {
+          teachers = [];
+          buildTable();
+          toast(
+            "কোনো শিক্ষকের তথ্য পাওয়া যায়নি — সব ডেটা রিস্টোর করুন",
+            "err",
+          );
+          return;
+        }
+        teachers = arr;
+        renderPersonalList();
+        buildTable();
+        toast("রিফ্রেশ হয়েছে — " + toBn(arr.length) + " জন", "ok");
+      }
+      const PRINT_VIEW_STYLES = `
+        @page { size: 14in 8.5in; size: legal landscape; margin: 0.22in 0.08in 0.06in 0.08in; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { background: #fff; color: #000; font-family: "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 10pt; line-height: 1.25; }
+        .print-view { padding: 0; }
+        .print-page { position: relative; width: 100%; min-height: 8.05in; padding: 0 0 0.30in 0; page-break-after: always; break-after: page; overflow: hidden; }
+        .print-page:last-child { page-break-after: auto; break-after: auto; }
+        .print-head { text-align: center; padding: 0; margin: 0 0 3px 0; }
+        .print-head .school { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 14pt; font-weight: 900; line-height: 1.15; }
+        .print-head .subtitle { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 10.5pt; font-weight: 800; line-height: 1.2; margin-top: 1px; }
+        table.mr-table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 0; color: #000; background: #fff; }
+        table.mr-table th, table.mr-table td { border: 1px solid #000; padding: 1px; text-align: center; vertical-align: middle; line-height: 1.15; overflow: hidden; font-size: 8pt; }
+        table.mr-table thead { display: table-header-group; }
+        table.mr-table thead th { background: #ededed; font-weight: 800; font-size: 7.5pt; padding: 1px; }
+        table.mr-table .title { font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 10.5pt; font-weight: 900; padding: 2px; }
+        table.mr-table .month { text-align: left; padding-left: 4px; font-size: 8.5pt; font-weight: 800; }
+        table.mr-table .day { font-size: 7.5pt; font-weight: 700; padding: 1px 0; }
+        table.mr-table .c { text-align: center; font-weight: 700; }
+        table.mr-table .name-cell { text-align: left; padding: 2px 4px; font-size: 8pt; line-height: 1.2; white-space: normal; word-break: break-word; }
+        table.mr-table .name-cell .namelabel { font-weight: 800; display: block; }
+        table.mr-table .name-cell .moblabel { font-size: 7.5pt; font-weight: 600; display: block; }
+        table.mr-table .desig-cell { font-size: 7.5pt; font-weight: 700; padding: 1px; white-space: normal; line-height: 1.15; word-break: break-word; }
+        table.mr-table .edu-cell { font-weight: 800; font-size: 7.5pt; text-align: left; padding: 1px 3px !important; white-space: normal; line-height: 1.15; word-break: break-word; }
+        table.mr-table .dash { color: #222; }
+        table.mr-table td.t-result { padding: 0 !important; text-align: center; vertical-align: middle; overflow: hidden; font-size: 7.5pt; font-weight: 700; }
+        table.mr-table td.t-result .vtext-simple { display: block; padding: 2px 1px; font-size: 7.5pt; font-weight: 700; text-align: center; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        table.mr-table td.row-label { font-size: 7.5pt; font-weight: 700; padding: 1px; line-height: 1.1; background: #fff; white-space: normal; }
+        table.mr-table td.t, table.mr-table td.holiday-v, table.mr-table td.leave-v, table.mr-table td.vacancy-v { padding: 0 !important; text-align: center; vertical-align: middle; background: #fff; overflow: hidden; }
+        table.mr-table td.t .vtext, table.mr-table td.holiday-v .vtext, table.mr-table td.leave-v .vtext, table.mr-table td.vacancy-v .vtext { display: inline-block; writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); -webkit-transform: rotate(180deg); padding: 0; margin: 0; font-weight: 800; font-size: 7pt; line-height: 1; letter-spacing: 0; white-space: nowrap; color: #000; }
+        table.mr-table td.sig { background: #fff; }
+        table.mr-table td.side-cell { font-size: 7.5pt; padding: 1px 2px; text-align: center; white-space: normal; word-break: break-word; line-height: 1.15; }
+        table.mr-table tbody tr { height: 23px; }
+        .page-footer { position: absolute; left: 0; right: 0; bottom: 0.04in; padding-top: 0.02in; text-align: center; font-family: "BCC Purno Black", "BCC Purno", Nikosh, NikoshBAN, Arial, sans-serif; font-size: 9.5pt; font-weight: 900; color: #000; }
+        @media screen { html, body { background: #e8edf4; } body { padding: 16px; } .print-view { width: 100%; overflow-x: auto; } .print-page { width: 14in; min-height: 8.5in; padding: 0.22in 0.08in 0.38in 0.08in; margin: 0 auto 20px; background: #fff; border-radius: 6px; box-shadow: 0 6px 22px rgba(15, 23, 42, 0.14); overflow: visible; } .page-footer { bottom: 0.10in; } }
+        .action-bar { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 8px; }
+        .action-bar button { font-family: inherit; font-size: 13px; font-weight: 700; padding: 11px 18px; border: 0; border-radius: 9px; cursor: pointer; background: #1e40af; color: #fff; box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35); }
+        .action-bar button.secondary { background: #fff; color: #334155; border: 1px solid #e2e8f0; }
+        @media print { .action-bar { display: none !important; } html, body { background: #fff !important; padding: 0 !important; } .print-view { padding: 0 !important; margin: 0 !important; width: auto !important; } .print-page { width: auto !important; min-height: 8.05in !important; padding: 0 0 0.30in 0 !important; margin: 0 !important; background: #fff !important; box-shadow: none !important; border-radius: 0 !important; overflow: hidden !important; } .page-footer { bottom: 0.04in !important; } }
+      `;
+      function openPrintView() {
+        const container = document.getElementById("mrTableContainer");
+        const tableEl = container
+          ? container.querySelector("table.mr-table")
+          : null;
+        if (!tableEl) {
+          toast("প্রথমে ডেটা লোড করুন", "err");
+          return;
+        }
+        const tableClone = tableEl.cloneNode(true);
+        tableClone.querySelectorAll("td.t").forEach(function (td) {
+          const inp = td.querySelector("input");
+          const val = inp ? (inp.value || "").trim() : "";
+          td.innerHTML = "";
+          const span = document.createElement("span");
+          span.className = "vtext";
+          span.textContent = val;
+          td.appendChild(span);
+        });
+        tableClone.querySelectorAll("td.t-result").forEach(function (td) {
+          const inp = td.querySelector("input");
+          const val = inp ? (inp.value || "").trim() : "";
+          td.innerHTML = "";
+          const span = document.createElement("span");
+          span.className = "vtext-simple";
+          span.textContent = val || "-";
+          td.appendChild(span);
+        });
+        const thead = tableClone.querySelector("thead");
+        const colgroup = tableClone.querySelector("colgroup");
+        const allRows = Array.from(tableClone.querySelectorAll("tbody > tr"));
+        const rowsPerTeacher = EDU_SLOTS.length;
+        const rowsPerPage = TEACHERS_PER_PRINT_PAGE * rowsPerTeacher;
+        const chunks = [];
+        for (let i = 0; i < allRows.length; i += rowsPerPage)
+          chunks.push(allRows.slice(i, i + rowsPerPage));
+        if (chunks.length === 0) chunks.push([]);
+        const headHtml =
+          '<div class="print-head"><div class="school">' +
+          esc(SCHOOL_NAME) +
+          '</div><div class="subtitle">শিক্ষকগণের মাসিক হাজিরা বিবরণী</div></div>';
+        let pagesHtml = "";
+        chunks.forEach(function (chunkRows, pageIdx) {
+          const newTable = document.createElement("table");
+          newTable.className = "mr-table";
+          if (colgroup) newTable.appendChild(colgroup.cloneNode(true));
+          if (thead) newTable.appendChild(thead.cloneNode(true));
+          const newTbody = document.createElement("tbody");
+          chunkRows.forEach(function (r) {
+            newTbody.appendChild(r);
+          });
+          newTable.appendChild(newTbody);
+          pagesHtml +=
+            '<div class="print-page">' +
+            headHtml +
+            newTable.outerHTML +
+            '<div class="page-footer">পৃষ্ঠা নং ' +
+            toBn(pageIdx + 1) +
+            " (" +
+            toBn(chunks.length) +
+            ")</div></div>";
+        });
+        const actions =
+          '<div class="action-bar"><button type="button" class="secondary" onclick="window.close()">✕ বন্ধ করুন</button><button type="button" onclick="window.print()">🖨️ প্রিন্ট / PDF</button></div>';
+        const doc =
+          '<!doctype html><html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Print — শিক্ষকগণের মাসিক হাজিরা বিবরণী</title><style>' +
+          PRINT_VIEW_STYLES +
+          '</style></head><body><div class="print-view">' +
+          pagesHtml +
+          "</div>" +
+          actions +
+          "</body></html>";
+        const blob = new Blob([doc], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const win = window.open(url, "_blank");
+        if (!win) {
+          toast("পপআপ ব্লক হয়েছে — অনুমতি দিন", "err");
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1000);
+          return;
+        }
+        setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 60000);
+        toast(
+          "প্রিন্ট ডায়ালগে Legal + Landscape + Margins: Default নির্বাচন করুন",
+          "ok",
+        );
+      }
+      function init() {
+        populateFilters();
+        populateMonthSelects();
+        $("restoreFileInput").addEventListener("change", function (e) {
+          UnifiedBackup.handleFile(e, "teachers");
+        });
+        ["filterDesignation", "filterGender"].forEach((id) => {
+          $(id).addEventListener("change", buildTable);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (
+            (e.ctrlKey || e.metaKey) &&
+            !e.shiftKey &&
+            !e.altKey &&
+            (e.key === "p" || e.key === "P")
+          ) {
+            e.preventDefault();
+            openPrintView();
+          }
+        });
+        teachers = loadTeachersFromStorage() || [];
+        loadHolidayData();
+        loadPersonalLeaves();
+        loadTimes();
+        loadResults();
+        requestAnimationFrame(() => {
+          renderHolidayList();
+          renderPersonalList();
+          buildTable();
+        });
+        window.addEventListener("storage", function (e) {
+          if (e.key === TEACHERS_STORAGE_KEY) {
+            const fresh = loadTeachersFromStorage() || [];
+            teachers = fresh;
+            renderPersonalList();
+            buildTable();
+            toast("শিক্ষকদের ডেটা আপডেট হয়েছে", "ok");
+          }
+        });
+        window.addEventListener("focus", function () {
+          const fresh = loadTeachersFromStorage() || [];
+          if (fresh.length !== teachers.length) {
+            teachers = fresh;
+            renderPersonalList();
+            buildTable();
+          }
+        });
+      }
+      init();
+    </script>
+  </body>
+  <!-- Author: Naimul Hassan · iam.naimul@gmail.com · NH-2026-10-20 -->
+</html>

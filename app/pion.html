@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>দৈনিক হাজিরা বিবরণী ও বিল ফরম</title>
+    <style>
+      :root {
+        --ink: #000;
+        --line: #000;
+        --bg: #e5e5e5;
+        --card: #fff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* ---------- A4 page: inches only, 0.3in top margin ---------- */
+      @page {
+        size: A4;
+        margin: 0.3in 0.4in 0.4in 0.4in;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px 12px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "BCC Purno", "Noto Sans Bengali", sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .black,
+      h1,
+      th {
+        font-family:
+          "BCC Purno Black", "BCC Purno", "Noto Sans Bengali", sans-serif;
+        font-weight: 700;
+      }
+
+      /* ---------- A4 sheet (8.27in × 11.69in) ---------- */
+      .sheet {
+        width: 8.27in;
+        height: 11.69in;
+        margin: 0 auto;
+        padding: 0.35in 0.43in;
+        background: var(--card);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        flex-shrink: 0;
+        text-align: center;
+        padding: 0 0 8px;
+      }
+      header .gov {
+        font-size: 16px;
+      }
+      header .sch {
+        font-size: 16px;
+        margin: 2px 0;
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: 19px;
+        line-height: 1.4;
+        display: inline-block;
+        padding: 3px 14px;
+      }
+
+      /* ---------- body ---------- */
+      .body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      /* ---------- month row ---------- */
+      .month {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        line-height: 2.5;
+      }
+
+      .month .sel {
+        font-family: inherit;
+        font-size: 15px;
+        height: 30px;
+        padding: 0 6px;
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        background: #fff;
+        color: var(--ink);
+        line-height: 1.6;
+        min-width: 120px;
+        cursor: pointer;
+      }
+      .month .sel.year-sel {
+        min-width: 0;
+      }
+      .month .sel:focus {
+        outline: 2px solid #000;
+        outline-offset: 1px;
+      }
+
+      /* ---------- attendance table (plain) ---------- */
+      .wrap {
+        margin-top: 0;
+        overflow-x: auto;
+      }
+
+      .att-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 14px;
+      }
+
+      .att-table th,
+      .att-table td {
+        border: 1px solid var(--line);
+        padding: 6px 5px;
+        text-align: center;
+        vertical-align: middle;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .att-table th {
+        font-size: 14px;
+        line-height: 1.4;
+        background: #fff;
+      }
+
+      .att-table td.info {
+        text-align: left;
+        vertical-align: middle;
+        padding: 10px 12px;
+      }
+      .att-table td.info div {
+        padding: 3px 0;
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .att-table td.info div.static {
+        display: block;
+      }
+      .att-table td.info span {
+        white-space: nowrap;
+      }
+      .att-table td.info input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: 14px;
+        padding: 0 3px;
+        color: #000;
+      }
+      .att-table td.info input:focus {
+        outline: none;
+        background: #efefef;
+      }
+
+      .att-table td.d {
+        font-family: "BCC Purno Black", "BCC Purno", sans-serif;
+        font-size: 15px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .att-table td.d.empty {
+        cursor: default;
+      }
+      .att-table td.d[data-day]:hover {
+        background: #e6e6e6;
+      }
+      .att-table td.d.off {
+        color: #777;
+        text-decoration: line-through;
+      }
+
+      /* signature cell: holds either a real signature (blank) or a status label */
+      .att-table td.sig {
+        height: 34px;
+        font-size: 12px;
+        line-height: 1.35;
+        color: #111;
+      }
+      .att-table td.sig.na {
+        color: #555;
+        font-style: italic;
+      }
+      .att-table td.sig.absent {
+        color: #111;
+        font-family: "BCC Purno Black", "BCC Purno", sans-serif;
+        font-weight: 700;
+      }
+
+      /* ---------- declaration ---------- */
+      .decl {
+        flex-shrink: 0;
+        margin: 12px 0 0;
+        padding-bottom: 35px;
+        text-align: justify;
+        font-size: 15px;
+        line-height: 1.85;
+      }
+      .decl .fill {
+        font-family: "BCC Purno Black", "BCC Purno", sans-serif;
+        font-weight: 700;
+        padding: 0 3px;
+      }
+
+      /* ---------- signature: two-column table ---------- */
+      .sign-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        flex-shrink: 0;
+      }
+      .sign-table td {
+        border: none;
+        width: 50%;
+        text-align: center;
+        vertical-align: top;
+        padding: 8px 4px 0;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .sign-table b {
+        display: block;
+        font-family: "BCC Purno Black", "BCC Purno", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        margin-bottom: 3px;
+      }
+
+      /* ---------- toolbar ---------- */
+      .btns {
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        z-index: 50;
+        display: flex;
+        gap: 8px;
+      }
+      .print-btn,
+      .blank-btn,
+      .reset-btn {
+        padding: 10px 20px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        background: #111;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
+      }
+      .blank-btn,
+      .reset-btn {
+        background: #fff;
+        color: #111;
+        border: 2px solid #111;
+      }
+      .reset-btn {
+        background: #f2f2f2;
+      }
+      .print-btn:hover {
+        background: #333;
+      }
+      .blank-btn:hover,
+      .reset-btn:hover {
+        background: #efefef;
+      }
+      .print-btn:active,
+      .blank-btn:active,
+      .reset-btn:active {
+        transform: translateY(1px);
+      }
+
+      /* =========================================================
+     PRINT — original sizes, no shrink
+     ========================================================= */
+      @media print {
+        html,
+        body {
+          background: #fff !important;
+          color: #000 !important;
+          margin: 0;
+          padding: 0;
+          width: auto;
+          height: auto;
+          overflow: visible;
+        }
+
+        .sheet {
+          width: auto;
+          height: auto;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+          background: #fff;
+          display: block;
+        }
+        .body {
+          display: block;
+          flex: none;
+        }
+
+        .btns {
+          display: none !important;
+        }
+
+        * {
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+        .att-table td.d[data-day]:hover {
+          background: transparent !important;
+        }
+        .att-table td.info input:hover,
+        .att-table td.info input:focus {
+          background: transparent !important;
+        }
+
+        .month {
+          line-height: 1.6;
+          margin: 0;
+          padding: 0;
+          gap: 4px;
+        }
+        .month .sel {
+          border: none;
+          border-radius: 0;
+          background: transparent;
+          padding: 0;
+          font: inherit;
+          color: inherit;
+          height: auto;
+          min-width: 0;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+
+        .wrap {
+          margin-top: 2px;
+          overflow: visible;
+        }
+        .att-table td.info input {
+          border: none;
+          background: transparent;
+        }
+
+        .att-table,
+        .decl,
+        .sign-table {
+          page-break-inside: avoid;
+        }
+      }
+
+      /* ---------- mobile ---------- */
+      @media (max-width: 780px) {
+        body {
+          padding: 12px 6px;
+        }
+        .sheet {
+          width: 100%;
+          height: auto;
+          padding: 14px;
+        }
+        .att-table {
+          min-width: 660px;
+        }
+        .decl {
+          padding-bottom: 24px;
+        }
+        .btns {
+          top: 8px;
+          right: 8px;
+          gap: 6px;
+        }
+        .print-btn,
+        .blank-btn,
+        .reset-btn {
+          padding: 8px 12px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="btns">
+      <button class="print-btn" onclick="window.print()">Print</button>
+      <button
+        class="blank-btn"
+        onclick="window.location.href = 'pion-blank.html'"
+      >
+        Blank
+      </button>
+      <button class="reset-btn" onclick="resetForm()">Reset</button>
+    </div>
+
+    <div class="sheet">
+      <header>
+        <div class="gov black">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+        <div class="sch">হেমনগর সরকারি প্রাথমিক বিদ্যালয়</div>
+        <div class="sch">গোপালপুর, টাঙ্গাইল।</div>
+        <h1>দপ্তরী কাম নৈশ প্রহরী এর দৈনিক হাজিরা বিবরণী ও বিল ফরম</h1>
+      </header>
+
+      <div class="body">
+        <div class="month">
+          <span class="black">মাসের নাম :</span>
+          <select id="month" class="sel"></select>
+          <span>/</span>
+          <select id="year" class="sel year-sel"></select>
+          <span>খ্রি.</span>
+        </div>
+
+        <div class="wrap">
+          <table class="att-table" id="t"></table>
+        </div>
+
+        <p class="decl">
+          এই মর্মে প্রত্যয়ন করা যাচ্ছে যে, বর্ণিত কর্মচারী
+          <span id="declMonth" class="fill"></span> মাসের
+          <span id="declStart" class="fill"></span> তারিখ হতে
+          <span id="declEnd" class="fill"></span> তারিখ পর্যন্ত মোট
+          <span id="declDays" class="fill"></span> দিন দায়িত্ব পালন করেছেন। তার
+          আচরণ, কার্যকলাপ ও দায়িত্ব সচেতনতাবোধ সন্তোষজনক। সরকারি নির্ধারিত হারে
+          তাকে উক্ত সময়ের সেবামূল্য পরিশোধ করা যায়।
+        </p>
+
+        <table class="sign-table">
+          <tr>
+            <td>
+              <b>সভাপতি</b>
+              বিদ্যালয় ব্যবস্থাপনা কমিটি<br />
+              হেমনগর সরকারি প্রাথমিক বিদ্যালয়<br />
+              গোপালপুর, টাঙ্গাইল।
+            </td>
+            <td>
+              <b>প্রধান শিক্ষক</b>
+              হেমনগর সরকারি প্রাথমিক বিদ্যালয়<br />
+              গোপালপুর, টাঙ্গাইল।
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const bnDigits = "০১২৩৪৫৬৭৮৯";
+      const enDigits = "0123456789";
+      const toBn = (s) => String(s).replace(/[0-9]/g, (d) => bnDigits[+d]);
+      const toEn = (s) =>
+        String(s).replace(/[০-৯]/g, (d) => enDigits[bnDigits.indexOf(d)]);
+      const bn = (n) => toBn(n);
+
+      const MONTHS = [
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর",
+      ];
+      const YEARS = [2024, 2025, 2026, 2027, 2028, 2029, 2030];
+      const ROWS = 16;
+
+      /* ---------- defaults ---------- */
+      const DEFAULTS = {
+        "নাম :": "দপ্তরীর নাম",
+        "পিতার নাম :": "পিতার নাম",
+        "গ্রাম :": "শিমলাপাড়া",
+        "ডাকঘর :": "হেমনগর (১৯৯২)",
+        "উপজেলা :": "গোপালপুর",
+        "জেলা :": "টাঙ্গাইল",
+        "প্রথম যোগদানের তারিখ :": "০১/০১/২০১৪ খ্রি.",
+        "সেবামূল্য :": "৳ ৮০০ /=",
+      };
+
+      const INFO = [
+        { label: "নাম :", input: true },
+        { label: "পিতার নাম :", input: true },
+        { label: "গ্রাম :", input: true },
+        { label: "ডাকঘর :", input: true },
+        { label: "উপজেলা :", input: true },
+        { label: "জেলা :", input: true },
+        { label: "প্রথম যোগদানের তারিখ :", input: true },
+        { label: "নিয়োগের ধরন : আউটসোর্সিং এর মাধ্যমে", input: false },
+        { label: "সেবামূল্য :", input: true },
+      ];
+
+      let infoValues = { ...DEFAULTS };
+      let skipCapture = false;
+
+      const table = document.getElementById("t");
+
+      function escapeAttr(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function buildInfoHtml() {
+        return INFO.map((item) => {
+          if (!item.input) return `<div class="static">${item.label}</div>`;
+          const val = infoValues[item.label] ?? DEFAULTS[item.label] ?? "";
+          const money =
+            item.label === "সেবামূল্য :" ? ' data-money="true"' : "";
+          return `<div><span>${item.label}</span><input type="text" value="${escapeAttr(val)}"${money}></div>`;
+        }).join("");
+      }
+
+      /* ---------- Bangla-only input filtering ---------- */
+      const ALLOWED_NORMAL = /[^\u0980-\u09FF\s.,:;()\[\]\-\/]/g;
+      const ALLOWED_MONEY = /[^\u09E6-\u09EF]/g; /* Bangla digits only */
+
+      function filterBanglaInput(input) {
+        const isMoney = input.dataset.money === "true";
+        let v = input.value;
+        /* English digits → Bangla digits */
+        v = v.replace(/[0-9]/g, (d) => bnDigits[+d]);
+        v = v.replace(isMoney ? ALLOWED_MONEY : ALLOWED_NORMAL, "");
+        if (v !== input.value) input.value = v;
+      }
+
+      /* ---------- Taka formatting (integer, no decimals) ---------- */
+      function stripMoneyFormat(input) {
+        let v = input.value;
+        v = v
+          .replace(/৳/g, "")
+          .replace(/\/=/g, "")
+          .replace(/[,\s]/g, "")
+          .replace(/[^০-৯]/g, "");
+        input.value = v;
+      }
+
+      function formatMoney(input) {
+        let v = input.value.trim();
+        if (!v) return;
+
+        let numStr = toEn(v).replace(/[^0-9]/g, "");
+        if (!numStr) {
+          input.value = "";
+          return;
+        }
+
+        const num = parseInt(numStr, 10);
+        if (!isFinite(num)) {
+          input.value = "";
+          return;
+        }
+
+        let intPart = String(num);
+
+        /* Bangladeshi / Indian grouping: last 3 digits, then groups of 2 */
+        if (intPart.length > 3) {
+          const last3 = intPart.slice(-3);
+          let rest = intPart.slice(0, -3);
+          rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+          intPart = rest + "," + last3;
+        }
+
+        input.value = `৳ ${toBn(intPart)} /=`;
+      }
+
+      /* ---------- capture / restore info values ---------- */
+      function captureInfoValues() {
+        table.querySelectorAll("td.info div").forEach((div) => {
+          const span = div.querySelector("span");
+          const input = div.querySelector("input");
+          if (!span || !input) return;
+          if (input.dataset.money === "true" && input.value.trim()) {
+            formatMoney(input);
+          }
+          infoValues[span.textContent.trim()] = input.value;
+        });
+      }
+
+      /* ---------- month select ---------- */
+      const sel = document.getElementById("month");
+      MONTHS.forEach((name, i) => {
+        const o = document.createElement("option");
+        o.value = i + 1;
+        o.textContent = name;
+        sel.appendChild(o);
+      });
+      sel.value = String(new Date().getMonth() + 1);
+
+      /* ---------- year select ---------- */
+      const yearSel = document.getElementById("year");
+      YEARS.forEach((y) => {
+        const o = document.createElement("option");
+        o.value = String(y);
+        o.textContent = bn(y);
+        yearSel.appendChild(o);
+      });
+      const nowYear = new Date().getFullYear();
+      yearSel.value = String(YEARS.includes(nowYear) ? nowYear : 2026);
+
+      /* ---------- table cells ---------- */
+      function dayCell(day) {
+        if (!day) return '<td class="d empty"></td>';
+        return `<td class="d on" data-day="${day}" title="উপস্থিতি পরিবর্তন করতে ক্লিক করুন">${bn(day)}</td>`;
+      }
+
+      function sigCell(hasDate) {
+        return hasDate
+          ? '<td class="sig"></td>'
+          : '<td class="sig na">প্রযোজ্য নয়</td>';
+      }
+
+      function updateDeclaration() {
+        const month = +sel.value;
+        const present = [...table.querySelectorAll("td.d[data-day]")]
+          .filter((c) => c.classList.contains("on"))
+          .map((c) => +c.dataset.day)
+          .sort((a, b) => a - b);
+
+        document.getElementById("declMonth").textContent = MONTHS[month - 1];
+        document.getElementById("declStart").textContent = present.length
+          ? bn(present[0])
+          : "—";
+        document.getElementById("declEnd").textContent = present.length
+          ? bn(present[present.length - 1])
+          : "—";
+        document.getElementById("declDays").textContent = bn(present.length);
+      }
+
+      function render() {
+        if (!skipCapture) captureInfoValues();
+
+        const month = +sel.value;
+        const year = +yearSel.value;
+        const days = new Date(year, month, 0).getDate();
+
+        let h = `<colgroup>
+      <col style="width:36%"><col style="width:9%"><col style="width:23%"><col style="width:9%"><col style="width:23%">
+    </colgroup>
+    <thead><tr>
+      <th>দপ্তরী কাম নৈশ প্রহরী এর তথ্য</th>
+      <th>তারিখ</th>
+      <th>হাজিরা স্বাক্ষর</th>
+      <th>তারিখ</th>
+      <th>হাজিরা স্বাক্ষর</th>
+    </tr></thead><tbody>`;
+
+        for (let i = 1; i <= ROWS; i++) {
+          const leftDay = i <= days ? i : null;
+          const rightDay = i + ROWS <= days ? i + ROWS : null;
+
+          h += "<tr>";
+          if (i === 1)
+            h += `<td class="info" rowspan="${ROWS}">${buildInfoHtml()}</td>`;
+          h += dayCell(leftDay);
+          h += sigCell(leftDay !== null);
+          h += dayCell(rightDay);
+          h += sigCell(rightDay !== null);
+          h += "</tr>";
+        }
+
+        table.innerHTML = h + "</tbody>";
+        updateDeclaration();
+      }
+
+      /* ---------- toggle presence + signature label ---------- */
+      table.addEventListener("click", (e) => {
+        const td = e.target.closest("td.d[data-day]");
+        if (!td) return;
+
+        td.classList.toggle("on");
+        td.classList.toggle("off");
+
+        const sig = td.nextElementSibling;
+        if (sig && sig.classList.contains("sig")) {
+          if (td.classList.contains("off")) {
+            sig.textContent = "অনুপস্থিত / ছুটি";
+            sig.classList.add("absent");
+            sig.classList.remove("na");
+          } else {
+            sig.textContent = "";
+            sig.classList.remove("absent");
+          }
+        }
+
+        updateDeclaration();
+      });
+
+      /* ---------- Bangla-only typing ---------- */
+      table.addEventListener("input", (e) => {
+        const input = e.target.closest("td.info input");
+        if (!input) return;
+        filterBanglaInput(input);
+      });
+
+      table.addEventListener("focusin", (e) => {
+        const input = e.target.closest('td.info input[data-money="true"]');
+        if (input) stripMoneyFormat(input);
+      });
+
+      table.addEventListener("focusout", (e) => {
+        const input = e.target.closest('td.info input[data-money="true"]');
+        if (input) formatMoney(input);
+      });
+
+      sel.addEventListener("change", render);
+      yearSel.addEventListener("change", render);
+
+      /* ---------- reset to defaults ---------- */
+      function resetForm() {
+        infoValues = { ...DEFAULTS };
+        skipCapture = true;
+
+        const now = new Date();
+        sel.value = String(now.getMonth() + 1);
+        const y = now.getFullYear();
+        yearSel.value = String(YEARS.includes(y) ? y : 2026);
+
+        render();
+        skipCapture = false;
+      }
+
+      render();
+    </script>
+  </body>
+  <!-- ============================================================
+     Author    : Naimul Hassan
+     Email     : iam.naimul@gmail.com
+     Date      : 20 October, 2026
+     Signature : NH-2026-10-20
+     ============================================================ -->
+</html>
