@@ -1,0 +1,504 @@
+{
+  "appName": "হেমনগর সরকারি প্রাথমিক বিদ্যালয় — শিক্ষক তথ্য",
+  "appVersion": "1.0.1",
+  "format": "teacher-data-backup",
+  "exportDate": "2026-10-12T06:53:06.797Z",
+  "totalRecords": 7,
+  "teachers": [
+    {
+      "ipemisPin": "1277950002",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "05/03/2025",
+      "currentSchoolJoiningDate": "07/04/2025",
+      "currentSalary": "11550",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "",
+      "nameBn": "নাজমুন্নাহার",
+      "nid": "6850594315",
+      "dob": "01/09/1994",
+      "dobBnWords": "পহেলা সেপ্টেম্বর উনিশ শত চুরানব্বই",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "B Positive",
+      "gender": "মহিলা",
+      "mobile": "01645368383",
+      "secondMobile": "",
+      "email": "no_email@email.com",
+      "presentVillage": "শিমলাপাড়া",
+      "presentPostOffice": "হেমনগর",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "শিমলাপাড়া",
+      "permanentPostOffice": "হেমনগর",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "বিজ্ঞান",
+          "board": "ঢাকা",
+          "passYear": "2010",
+          "result": "৪.৬৩"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "বিজ্ঞান",
+          "board": "ঢাকা",
+          "passYear": "2012",
+          "result": "৩.৮০"
+        },
+        {
+          "certName": "স্নাতক (সম্মান)",
+          "group": "রাষ্ট্রবিজ্ঞান",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2016",
+          "result": "৩.১৩"
+        },
+        {
+          "certName": "মাস্টার্স",
+          "group": "রাষ্ট্রবিজ্ঞান",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2017",
+          "result": "২.৯১"
+        }
+      ],
+      "trainings": []
+    },
+    {
+      "ipemisPin": "1277950001",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "05/03/2025",
+      "currentSchoolJoiningDate": "07/04/2025",
+      "currentSalary": "11550",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "",
+      "nameBn": "মোঃ নাঈমুল হাসান",
+      "nid": "19939313865000035",
+      "dob": "01/10/1993",
+      "dobBnWords": "পহেলা অক্টোবর উনিশ শত তিরানব্বই",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "B Positive",
+      "gender": "পুরুষ",
+      "mobile": "01703360336",
+      "secondMobile": "",
+      "email": "iam.naimul@gmail.com",
+      "presentVillage": "হেমনগর",
+      "presentPostOffice": "হেমনগর",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "হেমনগর",
+      "permanentPostOffice": "হেমনগর",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "2009",
+          "result": "৪.৬৩"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "2011",
+          "result": "৫.০০"
+        },
+        {
+          "certName": "বিবিএ",
+          "group": "হিসাববিজ্ঞান",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2015",
+          "result": "৩.০০"
+        },
+        {
+          "certName": "এমবিএ",
+          "group": "হিসাববিজ্ঞান",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2016",
+          "result": "৩.০৩"
+        }
+      ],
+      "trainings": []
+    },
+    {
+      "ipemisPin": "9130603050805",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "04/12/2014",
+      "currentSchoolJoiningDate": "04/12/2014",
+      "currentSalary": "17960",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "",
+      "nameBn": "ফাতিমা আক্তার সুমি",
+      "nid": "19899313821671172",
+      "dob": "04/09/1989",
+      "dobBnWords": "চৌঠা সেপ্টেম্বর উনিশ শত ঊননব্বই",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "O Positive",
+      "gender": "মহিলা",
+      "mobile": "01686519388",
+      "secondMobile": "",
+      "email": "fatimaaktereco@gmail.com",
+      "presentVillage": "ভোলারপাড়া",
+      "presentPostOffice": "বেলুয়া বাজার",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "ভোলারপাড়া",
+      "permanentPostOffice": "বেলুয়া বাজার",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "",
+          "board": "ঢাকা",
+          "passYear": "2006",
+          "result": "৪.০৬"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "বিজ্ঞান",
+          "board": "ঢাকা",
+          "passYear": "2008",
+          "result": "৪.৯০"
+        },
+        {
+          "certName": "স্নাতক (সম্মান)",
+          "group": "বিএসএস",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2012",
+          "result": "প্রথম বিভাগ"
+        },
+        {
+          "certName": "মাস্টার্স",
+          "group": "বিএসএস",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2013",
+          "result": "প্রথম বিভাগ"
+        }
+      ],
+      "trainings": [
+        {
+          "name": "ডি.পি.এড.",
+          "institution": "",
+          "startDate": "01/01/2020",
+          "endDate": "30/06/2021",
+          "result": "৩.৩৫"
+        }
+      ]
+    },
+    {
+      "ipemisPin": "9130603070607",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "01/12/2013",
+      "currentSchoolJoiningDate": "02/12/2013",
+      "currentSalary": "18860",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "20/06/2049",
+      "nameBn": "আকলিমা",
+      "nid": "19909313873000065",
+      "dob": "20/06/1990",
+      "dobBnWords": "বিশে জুন উনিশ শত নব্বই",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "B Positive",
+      "gender": "মহিলা",
+      "mobile": "01747746846",
+      "secondMobile": "",
+      "email": "aklimakhanam02@gmail.com",
+      "presentVillage": "শাখারিয়া",
+      "presentPostOffice": "হেমনগর",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "শাখারিয়া",
+      "permanentPostOffice": "হেমনগর",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "মানবিক",
+          "board": "ঢাকা",
+          "passYear": "2006",
+          "result": "২.৭৫"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "মানবিক",
+          "board": "ঢাকা",
+          "passYear": "2008",
+          "result": "২.৬০"
+        }
+      ],
+      "trainings": [
+        {
+          "name": "ডি.পি.এড.",
+          "institution": "",
+          "startDate": "01/01/2019",
+          "endDate": "30/06/2020",
+          "result": "৩.৩৪"
+        }
+      ]
+    },
+    {
+      "ipemisPin": "9130603070608",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "22/09/2010",
+      "currentSchoolJoiningDate": "30/03/2013",
+      "currentSalary": "19810",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "28/12/2049",
+      "nameBn": "হোসনে আরা",
+      "nid": "19909313865000259",
+      "dob": "28/12/1990",
+      "dobBnWords": "আটাশে ডিসেম্বর উনিশ শত নব্বই",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "A Positive",
+      "gender": "মহিলা",
+      "mobile": "01675861336",
+      "secondMobile": "",
+      "email": "hosnaaragip@gmail.com",
+      "presentVillage": "ভোলারপাড়া",
+      "presentPostOffice": "বেলুয়া বাজার",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "শিমলাপাড়া",
+      "permanentPostOffice": "হেমনগর",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "2006",
+          "result": "এ"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "2008",
+          "result": "এ"
+        },
+        {
+          "certName": "স্নাতক (সম্মান)",
+          "group": "হিসাববিজ্ঞান",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2012",
+          "result": "দ্বিতীয় বিভাগ"
+        }
+      ],
+      "trainings": [
+        {
+          "name": "ডি.পি.এড.",
+          "institution": "",
+          "startDate": "03/05/2014",
+          "endDate": "08/05/2014",
+          "result": "৩.৪৪"
+        }
+      ]
+    },
+    {
+      "ipemisPin": "9130603070204",
+      "designation": "সহকারি শিক্ষক",
+      "firstJoiningDate": "19/04/2006",
+      "currentSchoolJoiningDate": "01/07/2018",
+      "currentSalary": "24760",
+      "currentGrade": "১২তম গ্রেড",
+      "prlDate": "05/04/2040",
+      "nameBn": "মাসুমা খাতুন",
+      "nid": "9313865570522",
+      "dob": "05/04/1981",
+      "dobBnWords": "পাঁচই এপ্রিল উনিশ শত একাশি",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "O Positive",
+      "gender": "মহিলা",
+      "mobile": "01746097434",
+      "secondMobile": "",
+      "email": "no_email@email.com",
+      "presentVillage": "দক্ষিন গোপালপুর",
+      "presentPostOffice": "গোপালপুর",
+      "presentUnion": "গোপালপুর পৌরসভা ওয়ার্ড-২",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "মাদারজানী",
+      "permanentPostOffice": "বেলুয়া বাজার",
+      "permanentUnion": "আলমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "মানবিক",
+          "board": "ঢাকা",
+          "passYear": "1997",
+          "result": "দ্বিতীয় বিভাগ"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "মানবিক",
+          "board": "ঢাকা",
+          "passYear": "1999",
+          "result": "প্রথম বিভাগ"
+        },
+        {
+          "certName": "স্নাতক (পাস)",
+          "group": "মানবিক",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2001",
+          "result": "দ্বিতীয় বিভাগ"
+        }
+      ],
+      "trainings": [
+        {
+          "name": "বি.এড.",
+          "institution": "",
+          "startDate": "01/07/2003",
+          "endDate": "30/04/2004",
+          "result": "দ্বিতীয় শ্রেণি"
+        },
+        {
+          "name": "বিষয় ভিত্তিক (ইংরেজি)",
+          "institution": "",
+          "startDate": "04/11/2016",
+          "endDate": "09/11/2016",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "ipemisPin": "9130603070606",
+      "designation": "ভারপ্রাপ্ত প্রধান শিক্ষক",
+      "firstJoiningDate": "19/09/2010",
+      "currentSchoolJoiningDate": "01/04/2015",
+      "currentSalary": "19810",
+      "currentGrade": "১৩তম গ্রেড",
+      "prlDate": "31/12/2040",
+      "nameBn": "সাদিকুল ইসলাম",
+      "nid": "9313865568846",
+      "dob": "31/12/1981",
+      "dobBnWords": "একত্রিশে ডিসেম্বর উনিশ শত একাশি",
+      "maritalStatus": "বিবাহিত",
+      "religion": "ইসলাম",
+      "bloodGroup": "O Positive",
+      "gender": "পুরুষ",
+      "mobile": "01712594555",
+      "secondMobile": "",
+      "email": "Sadiqripon1981@gmail.com",
+      "presentVillage": "উদ্যমপুর",
+      "presentPostOffice": "হেমনগর",
+      "presentUnion": "হেমনগর",
+      "presentUpazila": "গোপালপুর",
+      "presentDistrict": "টাঙ্গাইল",
+      "permanentVillage": "উদ্যমপুর",
+      "permanentPostOffice": "হেমনগর",
+      "permanentUnion": "হেমনগর",
+      "permanentUpazila": "গোপালপুর",
+      "permanentDistrict": "টাঙ্গাইল",
+      "emergencyName": "",
+      "emergencyRelation": "",
+      "emergencyMobile": "",
+      "specialNote": "",
+      "education": [
+        {
+          "certName": "এস.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "1997",
+          "result": "প্রথম বিভাগ"
+        },
+        {
+          "certName": "এইচ.এস.সি",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "ঢাকা",
+          "passYear": "1998",
+          "result": "দ্বিতীয় বিভাগ"
+        },
+        {
+          "certName": "স্নাতক (পাস)",
+          "group": "ব্যবসায় শিক্ষা",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2001",
+          "result": "দ্বিতীয় বিভাগ"
+        },
+        {
+          "certName": "মাস্টার্স",
+          "group": "ব্যবস্থাপনা",
+          "board": "জাতীয় বিশ্ববিদ্যালয়",
+          "passYear": "2006",
+          "result": "দ্বিতীয় বিভাগ"
+        }
+      ],
+      "trainings": [
+        {
+          "name": "সি-ইন-এড",
+          "institution": "",
+          "startDate": "01/07/2012",
+          "endDate": "30/06/2013",
+          "result": "প্রথম শ্রেণি"
+        },
+        {
+          "name": "বিষয় ভিত্তিক (ইংরেজি)",
+          "institution": "",
+          "startDate": "04/11/2016",
+          "endDate": "09/11/2016",
+          "result": ""
+        },
+        {
+          "name": "বিষয় ভিত্তিক (গণিত)",
+          "institution": "",
+          "startDate": "21/03/2022",
+          "endDate": "27/03/2022",
+          "result": ""
+        },
+        {
+          "name": "কারিকুলাম ডিসেমিনেশন",
+          "institution": "ইউ আর সি, গোপালপুর",
+          "startDate": "25/10/2023",
+          "endDate": "27/10/2023",
+          "result": ""
+        }
+      ]
+    }
+  ]
+}
